@@ -10,8 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/borde_linear_layout">
+        android:layout_marginRight="8dp">
 
         <CheckBox
             android:id="@+id/respuestaaaa"
