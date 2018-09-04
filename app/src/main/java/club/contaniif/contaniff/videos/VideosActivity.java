@@ -1,4 +1,4 @@
-package club.contaniif.contaniff.principal.videos;
+package club.contaniif.contaniff.videos;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,9 +16,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.juandiego.contaniif.R;
-import com.example.juandiego.contaniif.adapter.YoutubeVideoAdapter;
-import com.example.juandiego.contaniif.entidades.VideoVo;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
@@ -28,6 +25,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.adapter.YoutubeVideoAdapter;
+import club.contaniif.contaniff.entidades.VideoVo;
 
 public class VideosActivity extends AppCompatActivity implements Response.Listener<JSONObject>,Response.ErrorListener{
 

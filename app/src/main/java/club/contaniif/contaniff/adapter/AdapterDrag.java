@@ -15,9 +15,6 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
-import com.example.juandiego.contaniif.R;
-import com.example.juandiego.contaniif.entidades.PreguntasDragVo;
-import com.example.juandiego.contaniif.entidades.VolleySingleton;
 
 import java.util.ArrayList;
 
@@ -84,25 +81,25 @@ public class AdapterDrag extends RecyclerView.Adapter<AdapterDrag.AdapterHolder>
 
 
     public void setOnDragListener(View.OnDragListener onDragListener) {
-        this.onDragListener=onDragListener;
+        this.onDragListener = onDragListener;
     }
 
 
     @Override
     public boolean onDrag(View view, DragEvent dragEvent) {
-        if (onDragListener!=null){
-            onDragListener.onDrag(view,dragEvent);
+        if (onDragListener != null) {
+            onDragListener.onDrag(view, dragEvent);
         }
         return true;
     }
 
-    public void setOnClickListener(View.OnClickListener listener){
-        this.listener=listener;
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
     public void onClick(View view) {
-        if (listener!=null){
+        if (listener != null) {
             listener.onClick(view);
         }
     }

@@ -1,4 +1,4 @@
-package club.contaniif.contaniff.principal.videos;
+package club.contaniif.contaniff.videos;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

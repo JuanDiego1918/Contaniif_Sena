@@ -12,11 +12,12 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
-import com.example.juandiego.contaniif.R;
-import com.example.juandiego.contaniif.entidades.PreguntasDragVo;
-import com.example.juandiego.contaniif.entidades.VolleySingleton;
 
 import java.util.ArrayList;
+
+import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.entidades.PreguntasDragVo;
+import club.contaniif.contaniff.entidades.VolleySingleton;
 
 public class PreguntasImagenesAdapterDrag extends RecyclerView.Adapter<PreguntasImagenesAdapterDrag.ImagenesHolder> implements View.OnLongClickListener,View.OnClickListener {
 

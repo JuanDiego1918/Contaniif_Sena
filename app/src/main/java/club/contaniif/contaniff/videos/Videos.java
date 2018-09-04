@@ -1,13 +1,14 @@
-package club.contaniif.contaniff.principal.videos;
+package club.contaniif.contaniff.videos;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.example.juandiego.contaniif.R;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+
+import club.contaniif.contaniff.R;
 
 public class Videos extends AppCompatActivity {
 

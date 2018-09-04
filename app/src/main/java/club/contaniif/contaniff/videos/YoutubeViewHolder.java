@@ -1,12 +1,13 @@
-package club.contaniif.contaniff.principal.videos;
+package club.contaniif.contaniff.videos;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.juandiego.contaniif.R;
 import com.google.android.youtube.player.YouTubeThumbnailView;
+
+import club.contaniif.contaniff.R;
 
 /**
  * Created by sonu on 10/11/17.

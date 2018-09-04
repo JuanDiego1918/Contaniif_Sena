@@ -8,15 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.juandiego.contaniif.R;
-import com.example.juandiego.contaniif.entidades.VideoVo;
-import com.example.juandiego.contaniif.videos.Constants;
-import com.example.juandiego.contaniif.videos.YoutubeViewHolder;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import java.util.ArrayList;
+
+import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.entidades.VideoVo;
+import club.contaniif.contaniff.videos.Constants;
+import club.contaniif.contaniff.videos.YoutubeViewHolder;
 
 /**
  * Created by sonu on 10/11/17.

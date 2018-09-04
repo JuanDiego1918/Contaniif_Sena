@@ -1,4 +1,4 @@
-package club.contaniif.contaniff.principal.videos;
+package club.contaniif.contaniff.videos;
 
 /**
  * Created by sonu on 10/11/17.

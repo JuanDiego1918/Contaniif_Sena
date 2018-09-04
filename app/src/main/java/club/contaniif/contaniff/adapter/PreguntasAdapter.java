@@ -8,10 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.juandiego.contaniif.R;
-import com.example.juandiego.contaniif.entidades.PreguntasVo;
 
 import java.util.ArrayList;
+
+import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.entidades.PreguntasVo;
 
 public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.UsuariosHolder> implements  View.OnClickListener,View.OnFocusChangeListener{
 

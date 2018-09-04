@@ -9,10 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.juandiego.contaniif.R;
-import com.example.juandiego.contaniif.entidades.NumeroVo;
 
 import java.util.ArrayList;
+
+import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.entidades.NumeroVo;
 
 public class PaginacionNumeroAdapter extends RecyclerView.Adapter<PaginacionNumeroAdapter.NumeroHolder> implements View.OnClickListener,View.OnTouchListener{
 
