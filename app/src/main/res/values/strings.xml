@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Contaniif</string>
+    <string name="ip">www.trepadoresquindio.com/contabilidad/movil/</string>
+    <string name="ip2">10.71.128.47</string>
 </resources>
