@@ -21,6 +21,10 @@ import com.example.juandiego.contaniif.entidades.VolleySingleton;
 
 import java.util.ArrayList;
 
+import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.entidades.PreguntasDragVo;
+import club.contaniif.contaniff.entidades.VolleySingleton;
+
 public class AdapterDrag extends RecyclerView.Adapter<AdapterDrag.AdapterHolder> implements View.OnClickListener, View.OnDragListener {
 
     ArrayList<PreguntasDragVo> lista;
