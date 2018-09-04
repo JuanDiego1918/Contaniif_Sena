@@ -3,4 +3,20 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="miRendimientoOscuro">#009AC0</color>
+    <color name="miRendimientoClaro">#00BFEC</color>
+    <color name="EmpezarOscuro">#007776</color>
+    <color name="EmpezarClaro">#4B9392</color>
+    <color name="VideosOscuro">#FFEB0001</color>
+    <color name="VideosClaro">#D43A2E</color>
+    <color name="EventosOscuro">#DD9B19</color>
+    <color name="EventosClaro">#FFC039</color>
+    <color name="SabiasOscuro">#443D7A</color>
+    <color name="SabiasClaro">#554F95</color>
+    <color name="ConfiguracionOscuro">#00887F</color>
+    <color name="ConfiguracionClaro">#00A99D</color>
+    <color name="AcercaOscuro">#00CD4A</color>
+    <color name="AcercaClaro">#59FF6B</color>
+    <color name="letraBlanca">#FFFFFF</color>
+    <color name="letraGris">#FFCBCBCB</color>
 </resources>
