@@ -8,7 +8,7 @@
     android:background="@drawable/fondo"
     android:orientation="vertical"
     android:padding="5dp"
-    tools:context=".principal.MainActivity">
+    tools:context=".actividades.MainActivity">
 
     <ScrollView
         android:layout_width="match_parent"
