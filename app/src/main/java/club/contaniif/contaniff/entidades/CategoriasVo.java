@@ -2,18 +2,11 @@ package club.contaniif.contaniff.entidades;
 
 public class CategoriasVo {
 
-    private String letraMa;
     private String nombre;
     private String id;
 
 
     public CategoriasVo() {
-    }
-
-    public CategoriasVo(String letraMa, String nombre, String id) {
-        this.letraMa=letraMa;
-        this.nombre = nombre;
-        this.id = id;
     }
 
     public String getNombre() {
@@ -32,11 +25,4 @@ public class CategoriasVo {
         this.id = id;
     }
 
-    public String getLetraMa() {
-        return letraMa;
-    }
-
-    public void setLetraMa(String letraMa) {
-        this.letraMa = letraMa;
-    }
 }

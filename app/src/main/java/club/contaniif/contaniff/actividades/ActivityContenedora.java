@@ -1,19 +1,25 @@
 package club.contaniif.contaniff.actividades;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.interfaces.AllFragments;
+import club.contaniif.contaniff.interfaces.Puente;
 import club.contaniif.contaniff.videos.CategoriasVideosFragment;
+import club.contaniif.contaniff.videos.VideosActivity;
 
-public class ActivityContenedora extends AppCompatActivity implements AllFragments {
+public class ActivityContenedora extends AppCompatActivity implements AllFragments ,Puente{
 
     int pantalla;
     boolean seleccionado = false;
+    Fragment miFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +32,6 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
     }
 
     private void pantalla() {
-        Fragment miFragment = null;
         switch (pantalla) {
             case 1:
                 seleccionado = true;
@@ -61,5 +66,26 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void numero(String tipo) {
+        Bundle miBundle = new Bundle();
+        miBundle.putString("id", tipo);
+        Intent miIntent = new Intent(getApplicationContext(), VideosActivity.class);
+        miIntent.putExtras(miBundle);
+        startActivity(miIntent);
+    }
+
+    @Override
+    public void reinciar(int numeroPregunta, int tipo, ArrayList<String> lista) {
+        Bundle datos = new Bundle();
+        Bundle miBundle=new Bundle();
+        datos.putInt("numeroPregunta", numeroPregunta);
+        datos.putStringArrayList("color",lista);
+        miBundle.putBundle("Todo",datos);
+        //miFragment = new Pantalla_empezar();
+        //miFragment.setArguments(miBundle);
+        //getSupportFragmentManager().beginTransaction().replace(R.id.activityContenedora, miFragment).commit();
     }
 }

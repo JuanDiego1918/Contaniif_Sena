@@ -40,7 +40,7 @@ import club.contaniif.contaniff.interfaces.Puente;
  * Use the {@link CategoriasVideosFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CategoriasVideosFragment extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener{
+public class CategoriasVideosFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -82,6 +82,7 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
     RecyclerView recyclerView;
     ArrayList<CategoriasVo> listasCategorias;
     JsonObjectRequest jsonObjectRequest;
@@ -94,11 +95,11 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_categorias_videos, container, false);
+        View view = inflater.inflate(R.layout.fragment_categorias_videos, container, false);
 
 
-        recyclerView=view.findViewById(R.id.recycler_categoria);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        recyclerView = view.findViewById(R.id.recycler_categoria);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         request = Volley.newRequestQueue(getContext());
         cargarWebservices();
@@ -107,7 +108,7 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
     }
 
     private void cargarWebservices() {
-        String url = "http://"+getContext().getString(R.string.ip)+"VideosCategorias.php";
+        String url = "http://" + getContext().getString(R.string.ip) + "VideosCategorias.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
@@ -123,9 +124,9 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if(context instanceof Activity){
-            this.activity= (Activity) context;
-            //puente=(Puente) this.activity;
+        if (context instanceof Activity) {
+            this.activity = (Activity) context;
+            puente = (Puente) this.activity;
         }
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
@@ -143,27 +144,24 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getContext(),"NO se pudo Consultar:"+error.toString(), Toast.LENGTH_LONG).show();
-        Log.i("Error",error.toString());
+        Toast.makeText(getContext(), "NO se pudo Consultar:" + error.toString(), Toast.LENGTH_LONG).show();
+        Log.i("Error", error.toString());
     }
 
     @Override
     public void onResponse(JSONObject response) {
-        listasCategorias=new ArrayList<>();
-        JSONArray json=response.optJSONArray("categorias");
+        listasCategorias = new ArrayList<>();
+        JSONArray json = response.optJSONArray("categorias");
         try {
-            JSONObject jsonObject=null;
-            for (int i=0;i<10;i++){
-                CategoriasVo categoriasVo=new CategoriasVo();
-                jsonObject=json.getJSONObject(i);
-                categoriasVo.setId(i+"");
-                categoriasVo.setNombre("nombre "+i);
+            JSONObject jsonObject = null;
+            for (int i = 0; i < json.length(); i++) {
+                jsonObject = json.getJSONObject(i);
+                CategoriasVo categoriasVo = new CategoriasVo();
                 categoriasVo.setId(jsonObject.optString("id"));
                 categoriasVo.setNombre(jsonObject.optString("nombre"));
                 listasCategorias.add(categoriasVo);
-                //Toast.makeText(getApplicationContext(),"Desc "+jsonObject.optString("id"),Toast.LENGTH_SHORT).show();
             }
-            CategoriasAdapter miCategoriasAdapter=new CategoriasAdapter(listasCategorias);
+            CategoriasAdapter miCategoriasAdapter = new CategoriasAdapter(listasCategorias);
             recyclerView.setAdapter(miCategoriasAdapter);
             miCategoriasAdapter.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -175,7 +173,7 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" +
-                    " "+response, Toast.LENGTH_LONG).show();
+                    " " + response, Toast.LENGTH_LONG).show();
         }
 
     }

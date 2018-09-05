@@ -186,8 +186,6 @@ public class VideosActivity extends AppCompatActivity implements Response.Listen
                 videoVo.setDescripcion(jsonObject.optString("descripcion"));
                 videoVo.setEnlace(jsonObject.getString("video"));
                 youtubeVideoArrayList.add(videoVo);
-
-                Toast.makeText(getApplicationContext(),"Desc "+jsonObject.optString("video")+miBundle.getString("id"), Toast.LENGTH_SHORT).show();
             }
             initializeYoutubePlayer();
             setUpRecyclerView();

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".videos.VideosActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
 
     <!--  Youtube Player Fragment  -->
@@ -20,8 +21,6 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:paddingEnd="10dp"
-        android:paddingRight="10dp" />
+        android:layout_alignParentBottom="true" />
 
 </LinearLayout>

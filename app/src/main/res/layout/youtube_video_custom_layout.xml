@@ -3,34 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:id="@+id/youtube_row_card_view"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="#554F95"
         android:orientation="vertical"
-        android:background="#037474"
-        android:paddingBottom="10dp">
+        android:padding="10dp">
+
         <com.google.android.youtube.player.YouTubeThumbnailView
             android:id="@+id/video_thumbnail_image_view"
             android:layout_width="match_parent"
             android:layout_height="170dp"
-            android:background="@android:color/darker_gray"
             android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/tituloVideo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
             android:text="Hola"
             android:textAlignment="center"
             android:textColor="#fff"
-            android:textSize="18sp"
-            android:paddingTop="5dp"/>
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/descVideo"
