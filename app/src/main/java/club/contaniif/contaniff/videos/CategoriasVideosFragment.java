@@ -124,7 +124,7 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
 
         if(context instanceof Activity){
             this.activity= (Activity) context;
-            puente=(Puente) this.activity;
+            //puente=(Puente) this.activity;
         }
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;

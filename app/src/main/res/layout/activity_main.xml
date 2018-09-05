@@ -20,10 +20,12 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/btnMiRendimiento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:background="@color/miRendimientoClaro"
+                android:onClick="onClick"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -95,11 +97,13 @@
                 <TableRow>
 
                     <LinearLayout
+                        android:id="@+id/btnEmpezar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="2"
                         android:background="@color/EmpezarOscuro"
+                        android:onClick="onClick"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -148,11 +152,13 @@
 
 
                     <LinearLayout
+                        android:id="@+id/btnVideos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="2"
                         android:background="@color/VideosClaro"
+                        android:onClick="onClick"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -212,11 +218,13 @@
                 <TableRow>
 
                     <LinearLayout
+                        android:id="@+id/btnEventos"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="2"
                         android:background="@color/EventosOscuro"
+                        android:onClick="onClick"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -265,11 +273,13 @@
 
 
                     <LinearLayout
+                        android:id="@+id/btnSabias"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="2"
                         android:background="@color/SabiasOscuro"
+                        android:onClick="onClick"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -329,11 +339,13 @@
                 <TableRow>
 
                     <LinearLayout
+                        android:id="@+id/btnConfiguracion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="2"
                         android:background="@color/ConfiguracionOscuro"
+                        android:onClick="onClick"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -382,11 +394,13 @@
 
 
                     <LinearLayout
+                        android:id="@+id/btnAcerca"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="2"
                         android:background="@color/AcercaOscuro"
+                        android:onClick="onClick"
                         android:orientation="vertical">
 
                         <LinearLayout
