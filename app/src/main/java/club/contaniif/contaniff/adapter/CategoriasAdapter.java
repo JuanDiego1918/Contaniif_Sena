@@ -32,7 +32,6 @@ public class CategoriasAdapter extends RecyclerView.Adapter<CategoriasAdapter.Ca
 
     @Override
     public void onBindViewHolder(CategoriaHolder holder, int position) {
-        holder.letraM.setText(listaCategorias.get(position).getLetraMa());
         holder.palabra.setText(listaCategorias.get(position).getNombre());
     }
 
@@ -52,11 +51,9 @@ public class CategoriasAdapter extends RecyclerView.Adapter<CategoriasAdapter.Ca
     }
 
     public class CategoriaHolder extends RecyclerView.ViewHolder {
-        TextView letraM;
         TextView palabra;
         public CategoriaHolder(View itemView) {
             super(itemView);
-            letraM=itemView.findViewById(R.id.letraMayuscula);
             palabra=itemView.findViewById(R.id.palabra);
         }
     }

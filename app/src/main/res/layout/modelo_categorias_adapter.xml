@@ -1,54 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="20dp"
-    android:paddingRight="22dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:padding="10dp">
+
     <LinearLayout
         android:id="@+id/botonCategoria"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:paddingLeft="70dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical"
-        android:paddingRight="10dp">
+        android:layout_height="wrap_content"
+        android:background="#00ACD4"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/logo_activos" />
+
         <TextView
             android:id="@+id/palabra"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/letraContabilidad"
-            android:layout_alignTop="@+id/letraContabilidad"
-            android:gravity="bottom"
-            android:paddingLeft="10dp"
-            android:text="ontaduria"
+            android:background="#00BFEC"
+            android:text="Contaduria"
             android:textAlignment="center"
             android:textColor="#fff"
-            android:textSize="35dp"
-            android:paddingBottom="5dp"/>
+            android:textSize="35dp" />
     </LinearLayout>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/letraContabilidad"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="15dp"
-        android:src="#037474"></de.hdodenhof.circleimageview.CircleImageView>
-
-    <TextView
-        android:id="@+id/letraMayuscula"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/letraContabilidad"
-        android:gravity="bottom"
-        android:text="C"
-        android:textAlignment="center"
-        android:textColor="#fff"
-        android:textSize="65dp" />
-
-</RelativeLayout>
+</GridLayout>

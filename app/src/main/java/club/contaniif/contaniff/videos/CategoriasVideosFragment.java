@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -97,7 +98,7 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
 
 
         recyclerView=view.findViewById(R.id.recycler_categoria);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
         request = Volley.newRequestQueue(getContext());
         cargarWebservices();
@@ -152,15 +153,13 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
         JSONArray json=response.optJSONArray("categorias");
         try {
             JSONObject jsonObject=null;
-            for (int i=0;i<json.length();i++){
+            for (int i=0;i<10;i++){
                 CategoriasVo categoriasVo=new CategoriasVo();
                 jsonObject=json.getJSONObject(i);
+                categoriasVo.setId(i+"");
+                categoriasVo.setNombre("nombre "+i);
                 categoriasVo.setId(jsonObject.optString("id"));
-                String nombre,mayuscula;
-                nombre=jsonObject.optString("nombre");
-                mayuscula=jsonObject.optString("nombre");
-                categoriasVo.setLetraMa(mayuscula.substring(0,1));
-                categoriasVo.setNombre(nombre.substring(1,nombre.length()));
+                categoriasVo.setNombre(jsonObject.optString("nombre"));
                 listasCategorias.add(categoriasVo);
                 //Toast.makeText(getApplicationContext(),"Desc "+jsonObject.optString("id"),Toast.LENGTH_SHORT).show();
             }
