@@ -46,7 +46,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void onFinish() {
                 Intent miIntent = null;
-                if (internet == true && registrado == true) {
+                if (internet == true ) {
                     miIntent=new Intent(SplashScreen.this,MainActivity.class);
                 } /*else if (registrado == false && internet == true){
                     miIntent =new Intent(SplashScreen.this,Registro.class);
@@ -72,4 +72,6 @@ public class SplashScreen extends AppCompatActivity {
 
         }
     }*/
+
+
 }
