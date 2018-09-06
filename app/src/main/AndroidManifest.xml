@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="club.contaniif.contaniff">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" /> <!-- - para usar la camara desde la App -->
@@ -14,18 +15,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".actividades.MainActivity">
+        <activity android:name=".actividades.SplashScreen"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".actividades.MainActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".actividades.ActivityContenedora"></activity>
         <activity android:name=".videos.VideosActivity"></activity>
-        <activity android:name=".videos.Videos"
+        <activity
+            android:name=".videos.Videos"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".eventos.EventosActivity"
+            android:label="contaniif"
+            android:parentActivityName=".actividades.MainActivity"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

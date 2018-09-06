@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.eventos.EventosActivity;
 import club.contaniif.contaniff.interfaces.AllFragments;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 seleccionado = true;
                 break;
             case R.id.btnEventos:
-                //miIntent=new Intent(MainActivity.this,ActivityContenedora.class);
+                miIntent=new Intent(MainActivity.this,EventosActivity.class);
                 seleccionado = false;
                 break;
             case R.id.btnSabias:
