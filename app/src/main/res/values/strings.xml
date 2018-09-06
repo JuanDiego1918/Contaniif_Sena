@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" >Contaniif</string>
+    <string name="app_name">Contaniif</string>
     <string name="ip">www.contaniif.club/movil/</string>
     <string name="ipImg">www.contaniif.club/img/eventos/</string>
     <string name="ip2">10.71.128.47</string>

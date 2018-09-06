@@ -16,6 +16,8 @@ import club.contaniif.contaniff.R;
 public class SplashScreen extends AppCompatActivity {
 
     CountDownTimer tiempo;
+    boolean internet = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,12 +27,13 @@ public class SplashScreen extends AppCompatActivity {
 
 
         if (networkInfo != null && networkInfo.isConnected()) {
-
+            internet = true;
         } else {
-
+            internet = false;
         }
 
-        tiempo=new CountDownTimer(2000,1000) {
+
+        tiempo = new CountDownTimer(2000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -38,8 +41,12 @@ public class SplashScreen extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-
-                Intent miIntent=new Intent(SplashScreen.this,MainActivity.class);
+                Intent miIntent = null;
+                if (internet == true) {
+                    miIntent=new Intent(SplashScreen.this,MainActivity.class);
+                } else {
+                    miIntent=new Intent(SplashScreen.this,Conexion.class);
+                }
                 startActivity(miIntent);
                 finish();
             }
