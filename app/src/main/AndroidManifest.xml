@@ -40,7 +40,8 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".actividades.Conexion"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".registro.Registro"></activity>
     </application>
 
 </manifest>

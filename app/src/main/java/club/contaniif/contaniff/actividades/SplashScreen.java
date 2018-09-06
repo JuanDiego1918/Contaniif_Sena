@@ -2,6 +2,7 @@ package club.contaniif.contaniff.actividades;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -11,12 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 
 
 import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.registro.Registro;
 
 
 public class SplashScreen extends AppCompatActivity {
 
     CountDownTimer tiempo;
     boolean internet = false;
+    boolean registrado = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,7 @@ public class SplashScreen extends AppCompatActivity {
 
         if (networkInfo != null && networkInfo.isConnected()) {
             internet = true;
+            cargarCredenciales();
         } else {
             internet = false;
         }
@@ -42,9 +46,11 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void onFinish() {
                 Intent miIntent = null;
-                if (internet == true) {
+                if (internet == true && registrado == true) {
                     miIntent=new Intent(SplashScreen.this,MainActivity.class);
-                } else {
+                } else if (registrado == false && internet == true){
+                    miIntent =new Intent(SplashScreen.this,Registro.class);
+                }else{
                     miIntent=new Intent(SplashScreen.this,Conexion.class);
                 }
                 startActivity(miIntent);
@@ -52,5 +58,18 @@ public class SplashScreen extends AppCompatActivity {
             }
         };
         tiempo.start();
+    }
+
+    private void cargarCredenciales() {
+        SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
+        String credenciales = preferences.getString("correo", "No existe el valor");
+        if (credenciales == "No existe el valor" && internet == true) {
+            Intent intent =new Intent(SplashScreen.this,Registro.class);
+            startActivity(intent);
+            registrado = false;
+        } else {
+            registrado = true;
+
+        }
     }
 }
