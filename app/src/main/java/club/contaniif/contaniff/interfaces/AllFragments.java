@@ -1,13 +1,14 @@
 package club.contaniif.contaniff.interfaces;
 
 
+import club.contaniif.contaniff.acercaDe.AcercaDeFragment;
 import club.contaniif.contaniff.principal.Pantalla_empezar;
 import club.contaniif.contaniff.videos.CategoriasVideosFragment;
 
 public interface AllFragments
         extends Pantalla_empezar.OnFragmentInteractionListener,
         //,Pantalla_teoria.OnFragmentInteractionListener
-        //,Pantalla_acercade.OnFragmentInteractionListener,
+        AcercaDeFragment.OnFragmentInteractionListener,
         //PantallaPrincipal.OnFragmentInteractionListener,
         //MisionVision.OnFragmentInteractionListener,
         //AcercaDeNosotros.OnFragmentInteractionListener,
