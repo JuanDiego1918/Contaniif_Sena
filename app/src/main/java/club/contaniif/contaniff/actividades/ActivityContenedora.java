@@ -86,8 +86,8 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
         datos.putInt("numeroPregunta", numeroPregunta);
         datos.putStringArrayList("color",lista);
         miBundle.putBundle("Todo",datos);
-        //miFragment = new Pantalla_empezar();
-        //miFragment.setArguments(miBundle);
-        //getSupportFragmentManager().beginTransaction().replace(R.id.activityContenedora, miFragment).commit();
+        miFragment = new Pantalla_empezar();
+        miFragment.setArguments(miBundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, miFragment).commit();
     }
 }
