@@ -31,7 +31,7 @@ public class SplashScreen extends AppCompatActivity {
 
         if (networkInfo != null && networkInfo.isConnected()) {
             internet = true;
-            cargarCredenciales();
+            //cargarCredenciales();
         } else {
             internet = false;
         }
@@ -48,9 +48,9 @@ public class SplashScreen extends AppCompatActivity {
                 Intent miIntent = null;
                 if (internet == true && registrado == true) {
                     miIntent=new Intent(SplashScreen.this,MainActivity.class);
-                } else if (registrado == false && internet == true){
+                } /*else if (registrado == false && internet == true){
                     miIntent =new Intent(SplashScreen.this,Registro.class);
-                }else{
+                }*/else{
                     miIntent=new Intent(SplashScreen.this,Conexion.class);
                 }
                 startActivity(miIntent);
@@ -60,7 +60,7 @@ public class SplashScreen extends AppCompatActivity {
         tiempo.start();
     }
 
-    private void cargarCredenciales() {
+  /*  private void cargarCredenciales() {
         SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         String credenciales = preferences.getString("correo", "No existe el valor");
         if (credenciales == "No existe el valor" && internet == true) {
@@ -71,5 +71,5 @@ public class SplashScreen extends AppCompatActivity {
             registrado = true;
 
         }
-    }
+    }*/
 }
