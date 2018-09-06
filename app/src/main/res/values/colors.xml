@@ -19,4 +19,7 @@
     <color name="AcercaClaro">#59FF6B</color>
     <color name="letraBlanca">#FFFFFF</color>
     <color name="letraGris">#FFCBCBCB</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>

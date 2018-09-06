@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.interfaces.AllFragments;
 import club.contaniif.contaniff.interfaces.Puente;
+import club.contaniif.contaniff.principal.Pantalla_empezar;
 import club.contaniif.contaniff.videos.CategoriasVideosFragment;
 import club.contaniif.contaniff.videos.VideosActivity;
 
@@ -39,7 +40,8 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
                 break;
             case 2:
                 seleccionado = true;
-                Toast.makeText(getApplicationContext(), 2 + "pantalla " + pantalla, Toast.LENGTH_SHORT).show();
+                miFragment = new Pantalla_empezar();
+                //Toast.makeText(getApplicationContext(), 2 + "pantalla " + pantalla, Toast.LENGTH_SHORT).show();
                 break;
             case 3:
                 seleccionado = true;
