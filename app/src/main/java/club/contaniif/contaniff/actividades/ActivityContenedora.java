@@ -13,6 +13,7 @@ import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.acercaDe.AcercaDeFragment;
 import club.contaniif.contaniff.interfaces.AllFragments;
 import club.contaniif.contaniff.interfaces.Puente;
+import club.contaniif.contaniff.miRendimiento.RendimiendoFragment;
 import club.contaniif.contaniff.principal.Pantalla_empezar;
 import club.contaniif.contaniff.videos.CategoriasVideosFragment;
 import club.contaniif.contaniff.videos.VideosActivity;
@@ -37,7 +38,7 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
         switch (pantalla) {
             case 1:
                 seleccionado = true;
-                Toast.makeText(getApplicationContext(), 1 + "pantalla " + pantalla, Toast.LENGTH_SHORT).show();
+                miFragment = new RendimiendoFragment();
                 break;
             case 2:
                 seleccionado = true;

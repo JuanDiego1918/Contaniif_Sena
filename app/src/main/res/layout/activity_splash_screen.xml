@@ -8,9 +8,10 @@
     android:layout_height="match_parent"
     tools:context=".actividades.SplashScreen">
 
-    <ImageView
+    <WebView
+        android:id="@+id/splash"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:src="@drawable/logo_contaniif" />
+        android:background="@drawable/splash"/>
 </LinearLayout>
