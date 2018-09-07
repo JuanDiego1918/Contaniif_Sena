@@ -10,6 +10,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.acercaDe.AcercaDeFragment;
 import club.contaniif.contaniff.interfaces.AllFragments;
 import club.contaniif.contaniff.interfaces.Puente;
 import club.contaniif.contaniff.principal.Pantalla_empezar;
@@ -41,7 +42,6 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
             case 2:
                 seleccionado = true;
                 miFragment = new Pantalla_empezar();
-                //Toast.makeText(getApplicationContext(), 2 + "pantalla " + pantalla, Toast.LENGTH_SHORT).show();
                 break;
             case 3:
                 seleccionado = true;
@@ -57,7 +57,7 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
                 break;
             case 6:
                 seleccionado = true;
-                Toast.makeText(getApplicationContext(), 6 + "pantalla " + pantalla, Toast.LENGTH_SHORT).show();
+                miFragment=new AcercaDeFragment();
                 break;
         }
         if (seleccionado == true) {
