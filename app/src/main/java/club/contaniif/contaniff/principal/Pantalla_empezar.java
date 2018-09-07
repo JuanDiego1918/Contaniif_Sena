@@ -305,7 +305,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             todo=miBundle.getBundle("Todo");
             numeroPregunta=todo.getInt("numeroPregunta");
             listaColores=todo.getStringArrayList("color");
-            Toast.makeText(getContext(), "j " + numeroPregunta, Toast.LENGTH_SHORT).show();
         } else {
             numeroPregunta = 0;
         }
@@ -417,7 +416,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 @Override
                 public void onClick(View v) {
                     MyDialogFinal.dismiss();
-                    puente.reinciar(numeroPregunta,1,listaColores);
+                    puente.finaliza();
                 }
             });
 

@@ -90,4 +90,9 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
         miFragment.setArguments(miBundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, miFragment).commit();
     }
+
+    @Override
+    public void finaliza() {
+        finish();
+    }
 }

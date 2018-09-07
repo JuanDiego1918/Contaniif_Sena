@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@color/VideosOscuro"
+                android:background="#d61818"
                 android:orientation="vertical">
 
                 <ImageView
@@ -80,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:padding="10dp"
-                    android:src="@drawable/misionvision" />
+                    android:src="@drawable/misionyvison" />
 
                 <TextView
                     android:layout_width="match_parent"
