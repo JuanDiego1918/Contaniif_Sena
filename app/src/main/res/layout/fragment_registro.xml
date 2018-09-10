@@ -64,7 +64,7 @@
 
             <Spinner
                 android:layout_width="match_parent"
-                android:layout_height="22dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/spinnerGeneroRegistro"
                 android:layout_below="@+id/campoApellidosRegistro"
                 android:layout_marginTop="10dp">
@@ -124,14 +124,14 @@
 
             <Spinner
                 android:layout_width="match_parent"
-                android:layout_height="22dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/spinnerDepartamentoRegistro"
                 android:layout_below="@+id/campoFechaRegistro"
                 android:layout_marginTop="10dp">
             </Spinner>
             <Spinner
                 android:layout_width="match_parent"
-                android:layout_height="22dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/spinnerCuidadRegistro"
                 android:layout_below="@+id/spinnerDepartamentoRegistro"
                 android:layout_marginTop="10dp">

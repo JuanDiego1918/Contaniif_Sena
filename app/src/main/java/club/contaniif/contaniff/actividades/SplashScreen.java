@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import com.felipecsl.gifimageview.library.GifImageView;
@@ -34,7 +35,7 @@ public class SplashScreen extends AppCompatActivity {
 
         if (networkInfo != null && networkInfo.isConnected()) {
             internet = true;
-            //cargarCredenciales();
+            cargarCredenciales();
         } else {
             internet = false;
         }
@@ -49,11 +50,11 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void onFinish() {
                 Intent miIntent = null;
-                if (internet == true /*&& registrado == true*/) {
+                if (internet == true && registrado == true) {
                     miIntent = new Intent(SplashScreen.this, MainActivity.class);
-                } /*else if (registrado == false && internet == true){
+                } else if (registrado == false && internet == true){
                     miIntent =new Intent(SplashScreen.this,Registro.class);
-                }*/ else {
+                }else {
                     miIntent = new Intent(SplashScreen.this, Conexion.class);
                 }
                 startActivity(miIntent);
@@ -63,16 +64,21 @@ public class SplashScreen extends AppCompatActivity {
         tiempo.start();
     }
 
-  /*  private void cargarCredenciales() {
+    private void cargarCredenciales() {
         SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         String credenciales = preferences.getString("correo", "No existe el valor");
-        if (credenciales == "No existe el valor" && internet == true) {
-            Intent intent =new Intent(SplashScreen.this,Registro.class);
-            startActivity(intent);
-            registrado = false;
-        } else {
+        if (credenciales !="No existe el valor") {
+            //Toast.makeText(getApplicationContext(),"credenciales" + credenciales,Toast.LENGTH_SHORT).show();
+            //Intent intent =new Intent(SplashScreen.this,Registro.class);
+            //startActivity(intent);
             registrado = true;
-
+        } else {
+            //Toast.makeText(getApplicationContext(),"credenciales" + credenciales,Toast.LENGTH_SHORT).show();
+            //Intent intent =new Intent(SplashScreen.this,MainActivity.class);
+            //startActivity(intent);
+            registrado = false;
         }
-    }*/
+
+
+    }
 }
