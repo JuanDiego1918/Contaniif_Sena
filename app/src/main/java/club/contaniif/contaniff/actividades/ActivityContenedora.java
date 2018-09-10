@@ -15,6 +15,7 @@ import club.contaniif.contaniff.interfaces.AllFragments;
 import club.contaniif.contaniff.interfaces.Puente;
 import club.contaniif.contaniff.miRendimiento.RendimiendoFragment;
 import club.contaniif.contaniff.principal.Pantalla_empezar;
+import club.contaniif.contaniff.sabiasQue.CategoriasSabias;
 import club.contaniif.contaniff.videos.CategoriasVideosFragment;
 import club.contaniif.contaniff.videos.VideosActivity;
 
@@ -50,11 +51,11 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
                 break;
             case 4:
                 seleccionado = true;
-                Toast.makeText(getApplicationContext(), 4 + "pantalla " + pantalla, Toast.LENGTH_SHORT).show();
+                miFragment=new CategoriasSabias();
                 break;
             case 5:
-                seleccionado = true;
-                Toast.makeText(getApplicationContext(), 5 + "pantalla " + pantalla, Toast.LENGTH_SHORT).show();
+                //seleccionado = true;
+                //Toast.makeText(getApplicationContext(), 5 + "pantalla " + pantalla, Toast.LENGTH_SHORT).show();
                 break;
             case 6:
                 seleccionado = true;

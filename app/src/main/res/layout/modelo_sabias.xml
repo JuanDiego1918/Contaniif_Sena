@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="#554F95"
+        android:orientation="vertical">
+
+        <TextView
+            android:padding="8dp"
+            android:id="@+id/descripcionSabias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="Hola"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+        <TextView
+            android:padding="8dp"
+            android:id="@+id/vermas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/SabiasOscuro"
+            android:text="Saber mas"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

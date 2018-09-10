@@ -10,7 +10,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_contaniif"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -41,7 +41,8 @@
         <activity
             android:name=".actividades.Conexion"
             android:screenOrientation="portrait" />
-        <activity android:name=".registro.Registro"></activity>
+        <activity android:name=".registro.Registro" />
+        <activity android:name=".sabiasQue.SabiasActivity"></activity>
     </application>
 
 </manifest>

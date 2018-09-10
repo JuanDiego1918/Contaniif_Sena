@@ -1,5 +1,6 @@
 package club.contaniif.contaniff.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -64,6 +65,7 @@ public class PaginacionNumeroAdapter extends RecyclerView.Adapter<PaginacionNume
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (touchListener!=null){

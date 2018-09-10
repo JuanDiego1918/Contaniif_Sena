@@ -264,7 +264,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         miRecyclerNumero = vista.findViewById(R.id.recyclerNumeros);
         miRecyclerNumero.setLayoutManager(new LinearLayoutManager(getContext()));
         miRecyclerNumero.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
-        mProgressBar = (ProgressBar) vista.findViewById(R.id.progressbar);
+        mProgressBar = vista.findViewById(R.id.progressbar);
         mProgressBar.setProgress(i);
 
         btnContinuar.setOnClickListener(new View.OnClickListener() {
@@ -350,7 +350,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     private void updateCountDownText() {
         Log.v("Log_tag", "Tick of Progress" + i + mInitialTime);
         i++;
-        mProgressBar.setProgress((int) ((int) i * 100 / (mInitialTime / 1000)));
+        mProgressBar.setProgress((int) ( i * 100 / (mInitialTime / 1000)));
     }
 
     private void cargarWebservices() {
@@ -554,8 +554,8 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         preguntas = null;
         JSONArray json = response.optJSONArray("pregunta");
         JSONObject jsonObject = null;
-        listaPreguntas = new ArrayList<PreguntasVo>();
-        listaImagenes = new ArrayList<String>();
+        listaPreguntas = new ArrayList<>();
+        listaImagenes = new ArrayList<>();
 
         try {
 

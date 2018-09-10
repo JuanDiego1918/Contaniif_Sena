@@ -44,7 +44,7 @@ public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.Usua
     public void onBindViewHolder(UsuariosHolder holder, int position) {
 
         //holder.preguntaa.setText(listaUsuarios.get(position).getPregunta().toString());
-        holder.respuesta.setText(listaUsuarios.get(position).getOpciones().toString());
+        holder.respuesta.setText(listaUsuarios.get(position).getOpciones());
 
         if (selectedPosition == position) {
             holder.respuesta.setBackgroundColor(Color.parseColor("#C4CDDA"));

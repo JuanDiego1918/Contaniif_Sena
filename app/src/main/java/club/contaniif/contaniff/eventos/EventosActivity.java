@@ -69,7 +69,7 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
         listaEventos=new ArrayList<>();
         listaNumero=new ArrayList<>();
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         recyclerViewNumero=findViewById(R.id.numeroPaginacion);
 
         cargarWebService();

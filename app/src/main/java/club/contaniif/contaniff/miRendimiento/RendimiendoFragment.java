@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import club.contaniif.contaniff.R;
@@ -92,7 +93,17 @@ public class RendimiendoFragment extends Fragment {
     }
 
     private void ventanaComen() {
+        Button cancelar,enviar;
         ventanaComentarios.setContentView(R.layout.popup_comentarios);
+
+        cancelar=ventanaComentarios.findViewById(R.id.btnCancelarComentario);
+
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ventanaComentarios.dismiss();
+            }
+        });
         ventanaComentarios.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         ventanaComentarios.show();
     }

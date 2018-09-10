@@ -41,7 +41,7 @@ public class PreguntasSeleccionMultiple extends RecyclerView.Adapter<PreguntasSe
     public void onBindViewHolder(final UsuariosHolder holder, int position) {
 
         //holder.preguntaa.setText(listaUsuarios.get(position).getPregunta().toString());
-        holder.respuesta.setText(listaUsuarios.get(position).getOpciones().toString());
+        holder.respuesta.setText(listaUsuarios.get(position).getOpciones());
         holder.respuesta.setOnCheckedChangeListener(null);
         holder.respuesta.setChecked(listaUsuarios.get(position).isCheck());
         holder.respuesta.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
