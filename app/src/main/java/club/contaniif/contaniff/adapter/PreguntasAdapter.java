@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import club.contaniif.contaniff.R;
@@ -19,6 +20,7 @@ public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.Usua
     private int selectedPosition = -1;
 
     ArrayList<PreguntasVo> listaUsuarios;
+    String listadoLetras []={"A. ","B. ","C. ","D. ","E. ","F. ","G. ","H. "};
     private View.OnClickListener listener;
     public PreguntasAdapter(ArrayList<PreguntasVo> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
@@ -44,7 +46,7 @@ public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.Usua
     public void onBindViewHolder(UsuariosHolder holder, int position) {
 
         //holder.preguntaa.setText(listaUsuarios.get(position).getPregunta().toString());
-        holder.respuesta.setText(listaUsuarios.get(position).getOpciones());
+        holder.respuesta.setText(listadoLetras[position]+listaUsuarios.get(position).getOpciones());
 
         if (selectedPosition == position) {
             holder.respuesta.setBackgroundColor(Color.parseColor("#C4CDDA"));
