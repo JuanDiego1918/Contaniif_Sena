@@ -31,7 +31,7 @@ public class AdapterSabias extends RecyclerView.Adapter<AdapterSabias.SabiasHold
 
     @Override
     public void onBindViewHolder(@NonNull SabiasHolderView holder, int position) {
-        holder.descripcionCorta.setText(listaSabias.get(position).getDescripcionCorta());
+        holder.descripcionCorta.setText(listaSabias.get(position).getTeoria());
     }
 
     @Override

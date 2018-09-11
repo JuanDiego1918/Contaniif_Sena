@@ -165,7 +165,7 @@ public class CategoriasSabias extends Fragment implements Response.Listener<JSON
             miCategoriasAdapter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    puente.numero(listasCategorias.get(recyclerView.getChildAdapterPosition(v)).getId());
+                    puente.sabias(listasCategorias.get(recyclerView.getChildAdapterPosition(v)).getId());
                 }
             });
 

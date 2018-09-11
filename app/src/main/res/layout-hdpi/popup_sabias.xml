@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingBottom="30dp"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    android:paddingTop="30dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/borde_boton_redondo"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imagenPopupInforma"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:elevation="100dp"
+            android:src="@drawable/mascota_pensando" />
+
+
+        <TextView
+            android:id="@+id/tituloSabiaspopup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/imagenPopupInforma"
+            android:text="Información de ContaNIIF"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="23dp" />
+
+        <ScrollView
+            android:id="@+id/scrollInformacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tituloSabiaspopup"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/teoriaSabias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ContaNIIF, es una estrategia didáctica activa de aprendizaje, que incentivará al aprendiz, al instructor y al Empresario a estar actualizados en la normatividad contable, financiera y tributaria vigente que regula a nuestro país. "
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

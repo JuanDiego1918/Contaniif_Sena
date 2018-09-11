@@ -16,6 +16,7 @@ import club.contaniif.contaniff.interfaces.Puente;
 import club.contaniif.contaniff.miRendimiento.RendimiendoFragment;
 import club.contaniif.contaniff.principal.Pantalla_empezar;
 import club.contaniif.contaniff.sabiasQue.CategoriasSabias;
+import club.contaniif.contaniff.sabiasQue.SabiasActivity;
 import club.contaniif.contaniff.videos.CategoriasVideosFragment;
 import club.contaniif.contaniff.videos.VideosActivity;
 
@@ -77,6 +78,15 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
         Bundle miBundle = new Bundle();
         miBundle.putString("id", tipo);
         Intent miIntent = new Intent(getApplicationContext(), VideosActivity.class);
+        miIntent.putExtras(miBundle);
+        startActivity(miIntent);
+    }
+
+    @Override
+    public void sabias(String tipo) {
+        Bundle miBundle = new Bundle();
+        miBundle.putString("id", tipo);
+        Intent miIntent = new Intent(getApplicationContext(), SabiasActivity.class);
         miIntent.putExtras(miBundle);
         startActivity(miIntent);
     }

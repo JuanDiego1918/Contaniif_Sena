@@ -7,27 +7,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:background="#554F95"
+        android:background="#66628f"
         android:orientation="vertical">
 
-        <TextView
-            android:padding="8dp"
+        <me.biubiubiu.justifytext.library.JustifyTextView
             android:id="@+id/descripcionSabias"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:text="Hola"
-            android:textAlignment="center"
+            android:text="Hola
+"
+            android:layout_marginLeft="15dp"
+            android:maxHeight="150dp"
             android:textColor="#fff"
             android:textSize="18sp" />
 
         <TextView
+            android:elevation="10dp"
             android:padding="8dp"
             android:id="@+id/vermas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/SabiasOscuro"
-            android:text="Saber mas"
+            android:background="#39307c"
+            android:text="Ver más"
+            android:textStyle=""
             android:textAlignment="center"
             android:textColor="#fff"
             android:textSize="20sp" />

@@ -2,25 +2,36 @@ package club.contaniif.contaniff.entidades;
 
 public class SabiasVo {
 
-    private String descripcionCorta;
-    private String descripcionLarga;
+    private String titulo;
+    private String teoria;
+    private int id;
+
 
     public SabiasVo() {
     }
 
-    public String getDescripcionCorta() {
-        return descripcionCorta;
+
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setDescripcionCorta(String descripcionCorta) {
-        this.descripcionCorta = descripcionCorta;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public String getDescripcionLarga() {
-        return descripcionLarga;
+    public String getTeoria() {
+        return teoria;
     }
 
-    public void setDescripcionLarga(String descripcionLarga) {
-        this.descripcionLarga = descripcionLarga;
+    public void setTeoria(String teoria) {
+        this.teoria = teoria;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
