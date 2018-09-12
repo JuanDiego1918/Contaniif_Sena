@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.entidades.Datos;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -100,6 +101,7 @@ public class RendimiendoFragment extends Fragment {
         // Inflate the layout for this fragment
         cargarCredenciales();
         request = Volley.newRequestQueue(getContext());
+        Datos.actualizarPuntos=true;
         view = inflater.inflate(R.layout.fragment_rendimiendo, container, false);
         comentarios = view.findViewById(R.id.btnComentarios);
         ventanaComentarios = new Dialog(getContext());

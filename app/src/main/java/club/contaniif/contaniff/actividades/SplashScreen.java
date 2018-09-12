@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.felipecsl.gifimageview.library.GifImageView;
 
 import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.entidades.Datos;
 import club.contaniif.contaniff.registro.Registro;
 
 
@@ -52,6 +53,7 @@ public class SplashScreen extends AppCompatActivity {
                 Intent miIntent = null;
                 if (internet == true && registrado == true) {
                     miIntent = new Intent(SplashScreen.this, MainActivity.class);
+                    Datos.actualizarPuntos=true;
                 } else if (registrado == false && internet == true){
                     miIntent =new Intent(SplashScreen.this,Registro.class);
                 }else {

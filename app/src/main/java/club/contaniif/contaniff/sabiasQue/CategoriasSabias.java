@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.adapter.CategoriasAdapter;
 import club.contaniif.contaniff.entidades.CategoriasVo;
+import club.contaniif.contaniff.entidades.Datos;
 import club.contaniif.contaniff.interfaces.Puente;
 
 /**
@@ -102,7 +103,6 @@ public class CategoriasSabias extends Fragment implements Response.Listener<JSON
 
         request = Volley.newRequestQueue(getContext());
         cargarWebservices();
-
         return view;
     }
 

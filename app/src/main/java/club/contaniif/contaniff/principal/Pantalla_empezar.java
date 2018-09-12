@@ -47,6 +47,7 @@ import club.contaniif.contaniff.adapter.PaginacionNumeroAdapter;
 import club.contaniif.contaniff.adapter.PreguntasAdapter;
 import club.contaniif.contaniff.adapter.PreguntasImagenesAdapter;
 import club.contaniif.contaniff.adapter.PreguntasSeleccionMultiple;
+import club.contaniif.contaniff.entidades.Datos;
 import club.contaniif.contaniff.entidades.GestionPreguntas;
 import club.contaniif.contaniff.entidades.NumeroVo;
 import club.contaniif.contaniff.entidades.PreguntasVo;
@@ -416,6 +417,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 @Override
                 public void onClick(View v) {
                     MyDialogFinal.dismiss();
+                    Datos.actualizarPuntos=true;
                     puente.finaliza();
                 }
             });
