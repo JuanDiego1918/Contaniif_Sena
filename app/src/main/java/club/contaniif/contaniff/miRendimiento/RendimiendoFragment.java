@@ -3,6 +3,7 @@ package club.contaniif.contaniff.miRendimiento;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -12,7 +13,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import club.contaniif.contaniff.R;
 
@@ -35,6 +51,12 @@ public class RendimiendoFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    String credenciales;
+    String cojeComentario;
+    String fecha;
+    LinearLayout comentario;
+    RequestQueue request;
+    StringRequest stringRequest;
 
     public RendimiendoFragment() {
         // Required empty public constructor
@@ -76,12 +98,11 @@ public class RendimiendoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        cargarCredenciales();
+        request = Volley.newRequestQueue(getContext());
         view = inflater.inflate(R.layout.fragment_rendimiendo, container, false);
-
         comentarios = view.findViewById(R.id.btnComentarios);
-
         ventanaComentarios = new Dialog(getContext());
-
         comentarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,18 +115,86 @@ public class RendimiendoFragment extends Fragment {
 
     private void ventanaComen() {
         Button cancelar,enviar;
+        final EditText campoComentario;
+
         ventanaComentarios.setContentView(R.layout.popup_comentarios);
-
         cancelar=ventanaComentarios.findViewById(R.id.btnCancelarComentario);
-
+        enviar = ventanaComentarios.findViewById(R.id.enviar);
+        campoComentario = ventanaComentarios.findViewById(R.id.campoComentario);
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ventanaComentarios.dismiss();
             }
         });
+
+        enviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cojeComentario = (campoComentario.getText().toString());
+                enviarDatosComentarios();
+                obtenerFecha();
+                ventanaComentarios.dismiss();
+
+            }
+        });
+
         ventanaComentarios.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         ventanaComentarios.show();
+    }
+
+    private void obtenerFecha() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
+        Date date = new Date();
+        fecha = dateFormat.format(date);
+    }
+
+
+    private void cargarCredenciales() {
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("Credenciales",Context.MODE_PRIVATE);
+        String credenciales = preferences.getString("correo","No existe el valor");
+        this.credenciales = credenciales;
+
+    }
+
+    private void enviarDatosComentarios() {
+
+        String url;
+        url = "http://"+getContext().getString(R.string.ipComentario);
+        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //progreso.hide();
+                if (response.trim().equalsIgnoreCase("registra")) {
+                    Toast.makeText(getContext(), "Comentario enviado " + response, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(),"Crede " + credenciales, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(),"Comentario no registrado " + response, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(),"Crede " + credenciales, Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "No se pudo registrar el comentario" + error.toString(), Toast.LENGTH_LONG).show();
+            }
+
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                String idusuario = credenciales;
+                String comentario = cojeComentario;
+
+                Map<String, String> parametros = new HashMap<>();
+                parametros.put("idusuario", idusuario);
+                parametros.put("comentario",comentario);
+                parametros.put("fecha",fecha);
+                return parametros;
+            }
+        };
+
+        request.add(stringRequest);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

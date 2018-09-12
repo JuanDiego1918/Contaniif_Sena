@@ -5,6 +5,8 @@
     <string name="ipTraerMunicipio">http://www.contaniif.club/movil/traerMunicipio.php?pas=</string>
     <string name="ipRegistro1">http://www.contaniif.club/movil/registro.php</string>
     <string name="ipRegistro2">http://www.contaniif.club/movil/registro.php?</string>
+    <string name="ipComentario">192.168.0.7/pruebas/registroComentario.php</string>
+    <!--<string name="ipComentario">www.contaniif.club/movil/registroComentario.php</string>-->
     <string name="ip2">10.71.128.47</string>
 
     <!-- TODO: Remove or change this placeholder text -->

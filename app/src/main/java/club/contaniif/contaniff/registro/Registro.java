@@ -106,6 +106,8 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             imagenCamara.setEnabled(false);
         }*/
 
+
+
         request = Volley.newRequestQueue(getApplicationContext());
         ArrayGenero = new ArrayList<>();
         ArrayGenero.add("Seleccioar genero");
@@ -227,7 +229,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             //imagenCamara.setEnabled(false);
         }
 
-
+         campoCorreo.setText("victorsmanuels@outlook.es");
     }
 
     private void consultarCredenciales() {
@@ -390,7 +392,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             }
             bitmap=redimensionarImagen(bitmap,400,600);
         }catch (Exception e){
-            imagenUsuario.setBackgroundResource(R.drawable.usuario);
+            //imagenUsuario.setBackgroundResource(R.drawable.usuario);
             Toast.makeText(getApplicationContext(),"No se ha elegido ninguna imagen",Toast.LENGTH_SHORT).show();
         }
     }
@@ -552,12 +554,12 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 String nombres = "ausuario";
                 String apellidos = "ausuario";
                 String genero = "ausuario";
-                String correo = "ausuario";
+                String correo = "victorsmanuels@outlook.es";
                 String fechaNacimiento = "2000-10-10";
                 String departamento = "ausuario";
                 String municipio = "ausuario";
-                String rutaImagen = "imagen";
-                //String rutaImagen = convertirImgString(bitmap);
+                //String rutaImagen = "imagen";
+                String rutaImagen = convertirImgString(bitmap);
 
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("nombres", nombres);

@@ -34,7 +34,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/comentariotxt"
+            android:id="@+id/campoComentario"
             android:layout_width="200dp"
             android:layout_height="150dp"
             android:hint="Escriba su comentario" />

@@ -380,7 +380,7 @@
                                 android:text="Configuración          "
                                 android:textAlignment="textStart"
                                 android:textColor="@color/letraBlanca"
-                                android:textSize="16sp"
+                                android:textSize="15sp"
                                 android:textStyle="bold" />
 
                             <ImageView
