@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -66,6 +67,7 @@ public class RendimiendoFragment extends Fragment {
     View view;
     Activity activity;
     LinearLayout puntos, canjes, activos, comentarios;
+    TextView txtPuntos,txtCambiados,txtDisponibles,txtPuntosCanjes,txtAccionDia,txtActivo;
     Dialog ventanaComentarios;
 
     /**
@@ -105,6 +107,16 @@ public class RendimiendoFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_rendimiendo, container, false);
         comentarios = view.findViewById(R.id.btnComentarios);
         ventanaComentarios = new Dialog(getContext());
+        txtPuntos=view.findViewById(R.id.puntosObtenidos);
+        txtCambiados=view.findViewById(R.id.puntosCambiados);
+        txtDisponibles=view.findViewById(R.id.puntosDisponibles);
+        txtPuntosCanjes=view.findViewById(R.id.puntosObtenidosCanjes);
+        txtAccionDia=view.findViewById(R.id.accion);
+        txtActivo=view.findViewById(R.id.activos);
+
+        cargarDatos();
+
+
         comentarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,6 +125,22 @@ public class RendimiendoFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void cargarDatos() {
+        String url;
+        url = "https://"+getContext().getString(R.string.ip);
+        stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
     }
 
     private void ventanaComen() {
@@ -162,7 +190,7 @@ public class RendimiendoFragment extends Fragment {
     private void enviarDatosComentarios() {
 
         String url;
-        url = "http://"+getContext().getString(R.string.ipComentario);
+        url = "https://"+getContext().getString(R.string.ipComentario);
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
