@@ -107,7 +107,7 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
         recyclerViewNumero.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerViewNumero.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL,false));
         request= Volley.newRequestQueue(getApplication());
-        String url="http://"+getApplicationContext().getString(R.string.ip)+"eventos.php";
+        String url="https://"+getApplicationContext().getString(R.string.ip)+"eventos.php";
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
     }
@@ -208,7 +208,7 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
         private void mostrarImg(String rutaImagen) {
             String ip=getContext().getString(R.string.ipImg);
 
-            final String urlImagen="http://"+ip+rutaImagen+".jpg";
+            final String urlImagen="https://"+ip+rutaImagen+".jpg";
             ImageRequest imageRequest=new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
                 @Override
                 public void onResponse(Bitmap response) {

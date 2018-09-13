@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
     private void cargarWebService() {
         request = Volley.newRequestQueue(getApplication());
-        String url = "http://" + getApplicationContext().getString(R.string.ip) + "puntaje.php?idusuario=" + correo;
+        String url = "https://" + getApplicationContext().getString(R.string.ip) + "puntaje.php?idusuario="+correo;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
                 puntosUsuario.setText("" + jsonObject.optString("puntos"));
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Toast.makeText(getApplication(), "No :" + e.toString(), Toast.LENGTH_LONG).show();
         }
 
     }

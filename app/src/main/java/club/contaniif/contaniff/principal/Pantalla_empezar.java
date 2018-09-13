@@ -1,4 +1,5 @@
 package club.contaniif.contaniff.principal;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -206,7 +207,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     JsonObjectRequest jsonObjectRequest;
     RequestQueue request;
     Dialog myDialogBuena;
-    Dialog myDialogMala,MyDialogFinal;
+    Dialog myDialogMala, MyDialogFinal;
     ArrayList<String> listaSeleccionada;
     int correctoSeleccionMultiple = 0;
     PreguntasVo preguntas;
@@ -255,7 +256,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
         myDialogBuena = new Dialog(getContext());
         myDialogMala = new Dialog(getContext());
-        MyDialogFinal=new Dialog(getContext());
+        MyDialogFinal = new Dialog(getContext());
 
         btnContinuar2 = vista.findViewById(R.id.btnContinuar2);
         btnContinuar = vista.findViewById(R.id.btnContinuar);
@@ -299,13 +300,13 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         // miFragment = new FragmentPregunta1();
         // getFragmentManager().beginTransaction().replace(R.id.fragmentPregunta1,miFragment).commit();
 
-        listaColores=new ArrayList<>();
+        listaColores = new ArrayList<>();
         Bundle todo;
         Bundle miBundle = getArguments();
         if (miBundle != null) {
-            todo=miBundle.getBundle("Todo");
-            numeroPregunta=todo.getInt("numeroPregunta");
-            listaColores=todo.getStringArrayList("color");
+            todo = miBundle.getBundle("Todo");
+            numeroPregunta = todo.getInt("numeroPregunta");
+            listaColores = todo.getStringArrayList("color");
         } else {
             numeroPregunta = 0;
         }
@@ -316,7 +317,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             listanumero.add(miNumeroVo);
         }
 
-        for (int i=0;i<listaColores.size();i++){
+        for (int i = 0; i < listaColores.size(); i++) {
             listanumero.get(i).setColor(listaColores.get(i));
         }
         PaginacionNumeroAdapter miNumeroAdapter = new PaginacionNumeroAdapter(listanumero, getContext());
@@ -351,7 +352,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     private void updateCountDownText() {
         Log.v("Log_tag", "Tick of Progress" + i + mInitialTime);
         i++;
-        mProgressBar.setProgress((int) ( i * 100 / (mInitialTime / 1000)));
+        mProgressBar.setProgress((int) (i * 100 / (mInitialTime / 1000)));
     }
 
     private void cargarWebservices() {
@@ -362,7 +363,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         String ip = getContext().getString(R.string.ip);
         //String url = "http://" + ip + "wsPreguntasTipo1.php";
         //String url = "http://" + ip + "/apolunios/wsConsultaPreguntaPrueba1.php";
-        String url = "http://" + ip + "/wsConsultaPreguntaPrueba1.php";
+        String url = "https://" + ip + "/wsConsultaPreguntaPrueba1.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
 //        request.add(jsonObjectRequest);
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
@@ -394,17 +395,17 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
     private void revisar(boolean revisar) {
         if (revisar == true) {
-          int puntos = puntage;
-            if (tiempoCapturado >preguntas.getTiempoDemora()) {
-                puntos = (puntage*75)/100;
+            int puntos = puntage;
+            if (tiempoCapturado > preguntas.getTiempoDemora()) {
+                puntos = (puntage * 75) / 100;
             }
             //enviarDatosPuntaje(puntos);
             listaColores.add("#45cc28");
-        }else{
+        } else {
             listaColores.add("#ed2024");
         }
         if (numeroPregunta < 10) {
-            puente.reinciar(numeroPregunta,1,listaColores);
+            puente.reinciar(numeroPregunta, 1, listaColores);
         } else {
             Button finalizar;
 
@@ -417,7 +418,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 @Override
                 public void onClick(View v) {
                     MyDialogFinal.dismiss();
-                    Datos.actualizarPuntos=true;
+                    Datos.actualizarPuntos = true;
                     puente.finaliza();
                 }
             });
@@ -430,14 +431,12 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     }
 
 
-
-
     ///////////////////////////////VICTOR/////////////////////////////////
 
 
     private void cargarCredenciales() {
         SharedPreferences preferences = this.getActivity().getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
-        String credenciales = preferences.getString("correo","No existe el valor");
+        String credenciales = preferences.getString("correo", "No existe el valor");
         setCredenciales(credenciales);
 
     }
@@ -446,7 +445,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
         setPuntos(puntos);
         String url;
-        url = "http://"+getContext().getString(R.string.ip2)+"/apolunios/registroEstadisticas.php?";
+        url = "http://" + getContext().getString(R.string.ip2) + "/apolunios/registroEstadisticas.php?";
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -454,7 +453,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 if (response.trim().equalsIgnoreCase("registra")) {
 //                    Toast.makeText(getContext(), "Registro de puntaje exitoso", Toast.LENGTH_SHORT).show();
                 } else {
-  //                  Toast.makeText(getContext(),"Puntaje no registrado", Toast.LENGTH_SHORT).show();
+                    //                  Toast.makeText(getContext(),"Puntaje no registrado", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -540,7 +539,11 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     @Override
     public void onDetach() {
         super.onDetach();
-        CountDownTimer.cancel();
+        try {
+            CountDownTimer.cancel();
+        }catch (Exception e){
+
+        }
         mListener = null;
     }
 
