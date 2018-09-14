@@ -24,25 +24,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".actividades.MainActivity" />
+        <activity
+            android:name=".actividades.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".actividades.ActivityContenedora"
             android:screenOrientation="portrait" />
-        <activity android:name=".videos.VideosActivity" />
+        <activity
+            android:name=".videos.VideosActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".videos.Videos"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".eventos.EventosActivity"
-            android:label="contaniif"
-            android:parentActivityName=".actividades.MainActivity"
-            android:theme="@style/AppTheme" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".actividades.Conexion"
             android:screenOrientation="portrait" />
-        <activity android:name=".registro.Registro" />
-        <activity android:name=".sabiasQue.SabiasActivity"></activity>
+        <activity
+            android:name=".registro.Registro"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sabiasQue.SabiasActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

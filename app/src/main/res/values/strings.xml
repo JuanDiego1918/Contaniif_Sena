@@ -2,6 +2,8 @@
     <string name="app_name">Contaniif</string>
     <string name="ip">www.contaniif.club/movil/</string>
     <string name="ipImg">www.contaniif.club/img/eventos/</string>
+    <string name="imgRendimiento">www.contaniif.club/img/</string>
+    <string name="imgFotos">www.contaniif.club/img/usuarios/</string>
     <string name="ipTraerMunicipio">http://www.contaniif.club/movil/traerMunicipio.php?pas=</string>
     <string name="ipRegistro1">http://www.contaniif.club/movil/registro.php</string>
     <string name="ipRegistro2">http://www.contaniif.club/movil/registro.php?</string>

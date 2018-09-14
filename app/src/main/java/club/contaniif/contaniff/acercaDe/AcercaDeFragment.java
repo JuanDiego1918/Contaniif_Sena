@@ -3,6 +3,7 @@ package club.contaniif.contaniff.acercaDe;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -15,6 +16,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
 
 import club.contaniif.contaniff.R;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -47,6 +55,9 @@ public class AcercaDeFragment extends Fragment {
     View view;
     Activity activity;
     Dialog ventanaInformacion, ventanaInstru;
+    CircleImageView foto;
+    CircleImageView usuario1, usuario2, usuario3;
+    RequestQueue request;
 
     /**
      * Use this factory method to create a new instance of
@@ -85,6 +96,7 @@ public class AcercaDeFragment extends Fragment {
         mision = view.findViewById(R.id.btnMision);
         historia = view.findViewById(R.id.btnHistoria);
 
+        request = Volley.newRequestQueue(getContext());
         ventanaInformacion = new Dialog(getContext());
         ventanaInstru = new Dialog(getContext());
 
@@ -116,6 +128,7 @@ public class AcercaDeFragment extends Fragment {
             }
         });
 
+
         return view;
     }
 
@@ -126,13 +139,15 @@ public class AcercaDeFragment extends Fragment {
     }
 
     private void ventanaDesa() {
-        CircleImageView usuario1, usuario2, usuario3;
         ventanaInformacion.setContentView(R.layout.popup_desarrollo);
         ventanaInformacion.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         usuario1 = ventanaInformacion.findViewById(R.id.imagenUsuario);
         usuario2 = ventanaInformacion.findViewById(R.id.imagenUsuario2);
         usuario3 = ventanaInformacion.findViewById(R.id.imagenUsuario3);
 
+        cargarImgGeneral(1);
+        cargarImgGeneral(2);
+        cargarImgGeneral(3);
         usuario1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,9 +170,61 @@ public class AcercaDeFragment extends Fragment {
         ventanaInformacion.show();
     }
 
+    private void cargarImgGeneral(int i) {
+        String ip = getContext().getString(R.string.imgFotos);
+        final String urlImagen;
+        switch (i) {
+            case 1:
+                urlImagen = "https://" + ip + "3.jpg";
+                ImageRequest imageRequest = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        usuario1.setImageBitmap(response);
+                    }
+                }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Error al cargar la imagen" + urlImagen, Toast.LENGTH_LONG).show();
+                    }
+                });
+                request.add(imageRequest);
+                break;
+            case 2:
+                urlImagen = "https://" + ip + "1.jpg";
+                ImageRequest imageRequest2 = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        usuario2.setImageBitmap(response);
+                    }
+                }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Error al cargar la imagen" + urlImagen, Toast.LENGTH_LONG).show();
+                    }
+                });
+                request.add(imageRequest2);
+                break;
+            case 3:
+                urlImagen = "https://" + ip + "2.jpg";
+                ImageRequest imageRequest3 = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        usuario3.setImageBitmap(response);
+                    }
+                }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Error al cargar la imagen" + urlImagen, Toast.LENGTH_LONG).show();
+                    }
+                });
+                request.add(imageRequest3);
+                break;
+        }
+    }
+
     private void ventanaInstructoras(int numero) {
         TextView titulo, descripcion;
-        CircleImageView foto;
+
         ventanaInstru.setContentView(R.layout.popup_detalles);
         ventanaInstru.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -166,29 +233,48 @@ public class AcercaDeFragment extends Fragment {
         descripcion = ventanaInstru.findViewById(R.id.informacionInstu);
         switch (numero) {
             case 1:
-                foto.setImageDrawable(getResources().getDrawable(R.drawable.medalla_gold));
+                cargarImg(3);
                 titulo.setText("Sonia Cenelia León Forero");
-                descripcion.setText("Contadora Pública\n" +
+                descripcion.setText(" Contadora Pública \n" +
                         "Magister en Educación, Diplomado en Normas Internacionales de información Financiera y Diplomado en Normas Internacionales de Auditoria. Instructora en el área de contabilidad y finanzas, con 18 años de experiencia en el sector público y privado asesorando en la ejecución de los procesos contables y la auditoria de los mismos. En el área académica cuento con experiencia en docencia universitaria y técnica tanto en las modalidades presenciales como a distancia. Actualmente me encuentro direccionada a la investigación a través del semillero de investigación APOLUNIOS, buscando con ello, alternativas innovadoras para fortalecer el programa de contabilidad y finanzas y otros programas de formación afines a las finanzas.\n" +
                         "\n" +
-                        "Contador Público, Magister en Educación, Instructora Investigadora del Centro Comercio y Turismos Regional Quindío SENA, sleon@sena.edu.co");
+                        "Contador Público, Magister en Educación, Instructora Investigadora del Centro Comercio y Turismos Regional Quindío SENA, sleon@sena.edu.co \n");
                 break;
             case 2:
-                foto.setImageDrawable(getResources().getDrawable(R.drawable.medalla_silver));
+                cargarImg(1);
                 titulo.setText("Angela Rosa Amaya Ortiz");
                 descripcion.setText("Contadora Publica, Especialista en Revisoría Fiscal y auditoria; Me he desempeñado como Instructora del área contable en el Servicio Nacional de aprendizaje Sena desde el año 2010, en las modalidades de Complementaria virtual y titulada. Profesional con cultura investigativa, liderazgo y capacidad de trabajo en equipo, capaz de interactuar con profesionales de otras disciplinas y poner a su disposición los conocimientos de su formación para propiciar un mejoramiento social y cultural. Alto grado de cumplimiento y responsabilidad ante los compromisos adquiridos.\n" +
                         "\n" +
-                        "Contador Público, Especialista en Revisaría y Auditoria, Instructora Investigadora del Centro Comercio y Turismos Regional Quindío SENA, aamayao@sena.edu.co");
+                        "Contador Público, Especialista en Revisaría y Auditoria, Instructora Investigadora del Centro Comercio y Turismos Regional Quindío SENA, aamayao@sena.edu.co \n");
                 break;
             case 3:
-                foto.setImageDrawable(getResources().getDrawable(R.drawable.medalla_bronze));
+                cargarImg(2);
                 titulo.setText("Angelica María Medina");
-                descripcion.setText("Contadora Pública, egresada de la Universidad Libre de Pereira, con experiencia en asesoría y capacitación en Proyectos Productivos y trabajo social, y diplomado en el manejo administrativo y contable de Entidades sin Ánimo de Lucro en la universidad Cooperativa.\n" +
-                        "Profesional con cultura investigativa, liderazgo y capacidad de trabajo en equipo capaz de interactuar con profesionales de otras disciplinas y poner a su disposición los conocimientos de su formación para propiciar un mejoramiento social y cultural. Alto grado de cumplimiento y responsabilidad ante los compromisos adquiridos.\n" +
-                        "Contador Público, Instructora Investigadora del Centro Comercio y Turismos Regional Quindío SENA, amedinac@sena.edu.co");
+                descripcion.setText("Contadora Pública, egresada de la Universidad Libre de Pereira, con experiencia en asesoría y capacitación en Proyectos Productivos y trabajo social, y diplomado en el manejo administrativo y contable de Entidades sin Ánimo de Lucro en la universidad Cooperativa. \n" +
+                        "Profesional con cultura investigativa, liderazgo y capacidad de trabajo en equipo capaz de interactuar con profesionales de otras disciplinas y poner a su disposición los conocimientos de su formación para propiciar un mejoramiento social y cultural. Alto grado de cumplimiento y responsabilidad ante los compromisos adquiridos. \n" +
+                        "\n" +
+                        "Contador Público, Instructora Investigadora del Centro Comercio y Turismos Regional Quindío SENA, amedinac@sena.edu.co \n");
                 break;
         }
         ventanaInstru.show();
+    }
+
+    private void cargarImg(int i) {
+        String ip = getContext().getString(R.string.imgFotos);
+
+        final String urlImagen = "https://" + ip + i + ".jpg";
+        ImageRequest imageRequest = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                foto.setImageBitmap(response);
+            }
+        }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Error al cargar la imagen" + urlImagen, Toast.LENGTH_LONG).show();
+            }
+        });
+        request.add(imageRequest);
     }
 
     private void ventanaHist() {
