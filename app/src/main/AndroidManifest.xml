@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".actividades.SplashScreen"
+            android:name=".registro.Registro"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +41,7 @@
         <activity
             android:name=".actividades.Conexion"
             android:screenOrientation="portrait" />
-        <activity android:name=".registro.Registro" />
+        <activity android:name=".actividades.SplashScreen" />
         <activity android:name=".sabiasQue.SabiasActivity"></activity>
     </application>
 
