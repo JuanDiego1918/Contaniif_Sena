@@ -86,7 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/SabiasOscuro"
-                    android:text="Misión, Visión y Objetivo"
+                    android:text="Misión y Visión"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="20sp"

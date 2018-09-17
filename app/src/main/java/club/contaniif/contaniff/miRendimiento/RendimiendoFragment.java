@@ -23,15 +23,23 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.adapter.CategoriasAdapter;
+import club.contaniif.contaniff.entidades.CategoriasVo;
 import club.contaniif.contaniff.entidades.Datos;
 
 /**
@@ -42,7 +50,7 @@ import club.contaniif.contaniff.entidades.Datos;
  * Use the {@link RendimiendoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RendimiendoFragment extends Fragment {
+public class RendimiendoFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONObject> {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -56,6 +64,7 @@ public class RendimiendoFragment extends Fragment {
     String credenciales;
     String cojeComentario;
     String fecha;
+    String correo;
     LinearLayout comentario;
     RequestQueue request;
     StringRequest stringRequest;
@@ -67,8 +76,9 @@ public class RendimiendoFragment extends Fragment {
     View view;
     Activity activity;
     LinearLayout puntos, canjes, activos, comentarios;
-    TextView txtPuntos,txtCambiados,txtDisponibles,txtPuntosCanjes,txtAccionDia,txtActivo;
+    TextView txtPuntos, txtCambiados, txtDisponibles, txtPuntosCanjes, txtAccionDia, txtActivo, txtDescontados;
     Dialog ventanaComentarios;
+    JsonObjectRequest JsonObjectRequest;
 
     /**
      * Use this factory method to create a new instance of
@@ -103,19 +113,20 @@ public class RendimiendoFragment extends Fragment {
         // Inflate the layout for this fragment
         cargarCredenciales();
         request = Volley.newRequestQueue(getContext());
-        Datos.actualizarPuntos=true;
+        Datos.actualizarPuntos = true;
         view = inflater.inflate(R.layout.fragment_rendimiendo, container, false);
         comentarios = view.findViewById(R.id.btnComentarios);
         ventanaComentarios = new Dialog(getContext());
-        txtPuntos=view.findViewById(R.id.puntosObtenidos);
-        txtCambiados=view.findViewById(R.id.puntosCambiados);
-        txtDisponibles=view.findViewById(R.id.puntosDisponibles);
-        txtPuntosCanjes=view.findViewById(R.id.puntosObtenidosCanjes);
-        txtAccionDia=view.findViewById(R.id.accion);
-        txtActivo=view.findViewById(R.id.activos);
+        txtPuntos = view.findViewById(R.id.puntosObtenidos);
+        txtCambiados = view.findViewById(R.id.puntosCambiados);
+        txtDisponibles = view.findViewById(R.id.puntosDisponibles);
+        txtPuntosCanjes = view.findViewById(R.id.puntosObtenidosCanjes);
+        txtAccionDia = view.findViewById(R.id.accion);
+        txtActivo = view.findViewById(R.id.activos);
+        txtDescontados = view.findViewById(R.id.puntosDescontados);
 
         cargarDatos();
-
+        ensayo();
 
         comentarios.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,28 +138,17 @@ public class RendimiendoFragment extends Fragment {
         return view;
     }
 
-    private void cargarDatos() {
-        String url;
-        url = "https://"+getContext().getString(R.string.ip);
-        stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
+    private void ensayo() {
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
     }
 
+
     private void ventanaComen() {
-        Button cancelar,enviar;
+        Button cancelar, enviar;
         final EditText campoComentario;
 
         ventanaComentarios.setContentView(R.layout.popup_comentarios);
-        cancelar=ventanaComentarios.findViewById(R.id.btnCancelarComentario);
+        cancelar = ventanaComentarios.findViewById(R.id.btnCancelarComentario);
         enviar = ventanaComentarios.findViewById(R.id.enviar);
         campoComentario = ventanaComentarios.findViewById(R.id.campoComentario);
         cancelar.setOnClickListener(new View.OnClickListener() {
@@ -181,16 +181,16 @@ public class RendimiendoFragment extends Fragment {
 
 
     private void cargarCredenciales() {
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("Credenciales",Context.MODE_PRIVATE);
-        String credenciales = preferences.getString("correo","No existe el valor");
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
+        String credenciales = preferences.getString("correo", "No existe el valor");
         this.credenciales = credenciales;
-
+        correo = credenciales;
     }
 
     private void enviarDatosComentarios() {
 
         String url;
-        url = "https://"+getContext().getString(R.string.ipComentario);
+        url = "https://" + getContext().getString(R.string.ipComentario);
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -199,7 +199,7 @@ public class RendimiendoFragment extends Fragment {
                     Toast.makeText(getContext(), "Comentario enviado " + response, Toast.LENGTH_LONG).show();
                     //Toast.makeText(getContext(),"Crede " + credenciales, Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getContext(),"Comentario no registrado " + response, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Comentario no registrado " + response, Toast.LENGTH_LONG).show();
                     //Toast.makeText(getContext(),"Crede " + credenciales, Toast.LENGTH_LONG).show();
                 }
             }
@@ -218,8 +218,8 @@ public class RendimiendoFragment extends Fragment {
 
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("idusuario", idusuario);
-                parametros.put("comentario",comentario);
-                parametros.put("fecha",fecha);
+                parametros.put("comentario", comentario);
+                parametros.put("fecha", fecha);
                 return parametros;
             }
         };
@@ -253,6 +253,35 @@ public class RendimiendoFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    private void cargarDatos() {
+        String url;
+        url = "https://" + getContext().getString(R.string.ip) + "puntajes.php?correo=" + correo;
+        JsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        request.add(JsonObjectRequest);
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+        JSONArray json = response.optJSONArray("puntos");
+        try {
+            JSONObject jsonObject = null;
+
+            txtPuntos.setText("Puntos Obtenidos: " + json.getJSONObject(0).optString("obtenidos"));
+            txtCambiados.setText("Puntos Cambiados: " + json.getJSONObject(1).optString("canjeados"));
+            txtDescontados.setText("Puntos Descontados: " + json.getJSONObject(2).optString("descontados"));
+            txtDisponibles.setText("Puntos Disponibles: " + json.getJSONObject(3).optString("quedan"));
+            txtAccionDia.setText("Accion del día: " + json.getJSONObject(4).optString("accion"));
+            txtPuntosCanjes.setText("Puntos Disponibles: " + json.getJSONObject(3).optString("quedan"));
+        } catch (JSONException e) {
+            Toast.makeText(getContext(), "" + e.toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

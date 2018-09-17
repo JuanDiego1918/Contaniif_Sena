@@ -49,10 +49,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
+                <me.biubiubiu.justifytext.library.JustifyTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ContaNIIF, es una estrategia didáctica activa de aprendizaje, que incentivará al aprendiz, al instructor y al Empresario a estar actualizados en la normatividad contable, financiera y tributaria vigente que regula a nuestro país. "
+                    android:text="ContaNIIF, es una estrategia didáctica activa de aprendizaje, que incentivará al aprendiz, al instructor y al Empresario a estar actualizados en la normatividad contable, financiera y tributaria vigente que regula a nuestro país.
+"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
                     android:textSize="18dp" />

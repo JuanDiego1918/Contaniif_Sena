@@ -64,26 +64,40 @@
                     android:padding="10dp">
 
                     <ImageView
-                        android:layout_width="200dp"
+                        android:id="@+id/tipodemedalla"
+                        android:layout_width="match_parent"
                         android:layout_height="120dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/medalla_gold" />
+                        android:layout_weight="4"
+                        />
 
-                    <TextView
-                        android:id="@+id/puntosUsuario"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="0"
-                        android:textAlignment="center"
-                        android:textColor="@color/letraBlanca"
-                        android:textSize="20sp" />
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_weight="2">
+                        <TextView
+                            android:id="@+id/puntosUsuario"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textStyle="bold"
+                            android:textColor="@color/letraBlanca"
+                            android:textSize="30sp" />
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pts"
+                            android:textColor="@color/letraBlanca"
+                            android:textSize="20sp" />
+                    </LinearLayout>
 
                     <ImageView
-                        android:layout_width="120dp"
+                        android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_gravity="bottom"
-                        android:layout_weight="1"
+                        android:layout_weight="5"
                         android:src="@drawable/logo_ayuda" />
                 </LinearLayout>
             </LinearLayout>

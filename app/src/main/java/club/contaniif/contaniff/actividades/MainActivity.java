@@ -3,12 +3,12 @@ package club.contaniif.contaniff.actividades;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -24,12 +25,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import club.contaniif.contaniff.R;
-import club.contaniif.contaniff.adapter.PaginacionNumeroAdapter;
 import club.contaniif.contaniff.entidades.Datos;
-import club.contaniif.contaniff.entidades.EventoVo;
-import club.contaniif.contaniff.entidades.NumeroVo;
 import club.contaniif.contaniff.eventos.EventosActivity;
-import club.contaniif.contaniff.interfaces.AllFragments;
 
 public class MainActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
@@ -38,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     JsonObjectRequest jsonObjectRequest;
     TextView puntosUsuario;
     String correo;
+    String puntajeUrl, imagenUrl;
+    ImageView medalla;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         setContentView(R.layout.activity_main);
 
         puntosUsuario = findViewById(R.id.puntosUsuario);
+        medalla=findViewById(R.id.tipodemedalla);
         cargarCredenciales();
 
     }
@@ -123,16 +123,37 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     @Override
     public void onResponse(JSONObject response) {
         JSONArray json = response.optJSONArray("puntaje");
-        JSONObject jsonObject = null;
 
         try {
-            for (int i = 0; i < json.length(); i++) {
-                jsonObject = json.getJSONObject(i);
-                puntosUsuario.setText("" + jsonObject.optString("puntos"));
-            }
+            puntajeUrl =json.getJSONObject(0).optString("puntos");
+            imagenUrl = json.getJSONObject(1).optString("medalla");
         } catch (JSONException e) {
-            Toast.makeText(getApplication(), "No :" + e.toString(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
+        mostrarImg(imagenUrl);
+        puntosUsuario.setText(puntajeUrl);
+
+
+
+    }
+
+    private void mostrarImg(String imagenUrl) {
+        String ip=getApplicationContext().getString(R.string.imgRendimiento);
+
+        final String urlImagen="https://"+ip+imagenUrl+".png";
+        ImageRequest imageRequest=new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                medalla.setImageBitmap(response);
+            }
+        }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),"Error al cargar la imagen" + urlImagen, Toast.LENGTH_LONG).show();
+            }
+        });
+        request.add(imageRequest);
+
 
     }
 }

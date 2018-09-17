@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Misión, Visión y Objetivo"
+            android:text="Misión y Visión"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="23dp" />
@@ -50,11 +50,13 @@
                     android:textColor="@color/black"
                     android:textSize="19dp" />
 
-                <TextView
+                <me.biubiubiu.justifytext.library.JustifyTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Afianzar el conocimiento contable, financiero y tributario a los aprendices de la Tecnologías relacionadas con el área contable del SENA, a través de un juego interactivo y didáctico en sus celulares."
+                    android:text="Afianzar el conocimiento contable, financiero y tributario a los aprendices de la Tecnologías relacionadas con el área contable del SENA, a través de un juego interactivo y didáctico en sus celulares.
+
+"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
                     android:textSize="18dp" />
@@ -68,11 +70,13 @@
                     android:textColor="@color/black"
                     android:textSize="19dp" />
 
-                <TextView
+                <me.biubiubiu.justifytext.library.JustifyTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Contribuir a nivel Nacional en la calidad de la formación para los aprendices de las tecnologías relacionadas con el área contable en el SENA, mejorando el rendimiento académico y contribuyendo a disminuir la deserción de los aprendices."
+                    android:text="Contribuir a nivel Nacional en la calidad de la formación para los aprendices de las tecnologías relacionadas con el área contable en el SENA, mejorando el rendimiento académico y contribuyendo a disminuir la deserción de los aprendices.
+
+"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
                     android:textSize="18dp" />

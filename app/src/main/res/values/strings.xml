@@ -2,10 +2,9 @@
     <string name="app_name">Contaniif</string>
     <string name="ip">www.contaniif.club/movil/</string>
     <string name="ipImg">www.contaniif.club/img/eventos/</string>
-    <string name="ipTraerMunicipio">https://www.contaniif.club/movil/traerMunicipio.php?pas=</string>
-    <!--<string name="ipRegistro1">https://www.contaniif.club/movil/registro.php</string>-->
-    <string name="ipRegistro1">http://www.cursosena.xyz/registro.php</string>
-    <string name="ipRegistro2">https://www.contaniif.club/movil/registro.php?</string>
+    <string name="ipTraerMunicipio">http://www.contaniif.club/movil/traerMunicipio.php?pas=</string>
+    <string name="ipRegistro1">http://www.contaniif.club/movil/registro.php</string>
+    <string name="ipRegistro2">http://www.contaniif.club/movil/registro.php?</string>
     <string name="ipComentario">192.168.0.7/pruebas/registroComentario.php</string>
     <!--<string name="ipComentario">www.contaniif.club/movil/registroComentario.php</string>-->
     <string name="ip2">10.71.128.47</string>

@@ -76,7 +76,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="3dp"
-                            android:text="Puntos Obtenidos: 5000"
+                            android:text="Puntos Obtenidos: 0"
                             android:textAlignment="textStart"
                             android:textColor="@color/letraBlanca"
                             android:textSize="20sp" />
@@ -86,7 +86,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="3dp"
-                            android:text="Puntos Cambiados: 3000"
+                            android:text="Puntos Cambiados: 0"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/letraBlanca"
+                            android:textSize="20sp" />
+                        <TextView
+                            android:id="@+id/puntosDescontados"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:text="Puntos Descontados: 0"
                             android:textAlignment="textStart"
                             android:textColor="@color/letraBlanca"
                             android:textSize="20sp" />
@@ -96,7 +105,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="3dp"
-                            android:text="Puntos Disponibles: 2000"
+                            android:text="Puntos Disponibles: 0"
                             android:textAlignment="textStart"
                             android:textColor="@color/letraBlanca"
                             android:textSize="20sp" />
