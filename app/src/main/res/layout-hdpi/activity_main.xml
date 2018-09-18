@@ -98,6 +98,7 @@
                         android:layout_height="40dp"
                         android:layout_gravity="bottom"
                         android:layout_weight="5"
+                        android:id="@+id/btnAyuda"
                         android:src="@drawable/logo_ayuda" />
                 </LinearLayout>
             </LinearLayout>
@@ -330,7 +331,7 @@
                                 android:text="¿Sabias que?"
                                 android:textAlignment="textStart"
                                 android:textColor="@color/letraBlanca"
-                                android:textSize="16sp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
 
                             <ImageView
@@ -395,7 +396,7 @@
                                 android:text="Configuración          "
                                 android:textAlignment="textStart"
                                 android:textColor="@color/letraBlanca"
-                                android:textSize="15sp"
+                                android:textSize="13sp"
                                 android:textStyle="bold" />
 
                             <ImageView

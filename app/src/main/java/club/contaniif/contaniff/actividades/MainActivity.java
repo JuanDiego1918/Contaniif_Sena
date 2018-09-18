@@ -1,13 +1,19 @@
 package club.contaniif.contaniff.actividades;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,12 +35,16 @@ import club.contaniif.contaniff.entidades.Datos;
 import club.contaniif.contaniff.eventos.EventosActivity;
 
 public class MainActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
-
+    Dialog dialogoAyuda;
     boolean seleccionado = false;
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     TextView puntosUsuario;
     String correo;
+    Button salir;
+    FloatingActionButton adelante;
+    int imagen = 1;
+    ImageView ayuda,fondoAyuda;
     String puntajeUrl, imagenUrl;
     ImageView medalla;
 
@@ -42,11 +52,70 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        dialogoAyuda = new Dialog(this);
         puntosUsuario = findViewById(R.id.puntosUsuario);
         medalla=findViewById(R.id.tipodemedalla);
         cargarCredenciales();
+        ayuda = findViewById(R.id.btnAyuda);
+        ayuda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogo();
+            }
+        });
 
+    }
+
+    private void cargarAyuda() {
+        SharedPreferences preferences = getSharedPreferences("Ayuda", Context.MODE_PRIVATE);
+        String ayuda = preferences.getString("ayuda", "no");
+        if (ayuda.equalsIgnoreCase("no")) {
+            showDialogo();
+        }else {
+            Toast.makeText(getApplicationContext(),"Ya se mostro la ventana de ayuda",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void showDialogo() {
+
+        dialogoAyuda.setContentView(R.layout.popup_ayuda);
+/*        fondoAyuda = dialogoAyuda.findViewById(R.id.imgAyuda);
+        adelante = dialogoAyuda.findViewById(R.id.fabAdelante);
+        adelante.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imagen++;
+                if (imagen > 3){
+                    imagen = 3;
+                }
+
+                switch (imagen){
+                    case 1:
+                        fondoAyuda.setImageDrawable(getDrawable(R.drawable.num1));
+                        break;
+                    case 2:
+                        fondoAyuda.setImageDrawable(getDrawable(R.drawable.num2));
+                        break;
+                    case 3:
+                        fondoAyuda.setImageDrawable(getDrawable(R.drawable.num3));
+                        break;
+
+                }
+
+                Toast.makeText(getApplicationContext(),"Valos numaro " + imagen,Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
+        dialogoAyuda.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoAyuda.show();
+        guardarAyuda();
+    }
+
+    private void guardarAyuda() {
+        SharedPreferences preferences = getSharedPreferences("Ayuda", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("ayuda","visto");
+        editor.commit();
     }
 
     private void cargarCredenciales() {
@@ -54,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         String credenciales = preferences.getString("correo", "No existe el valor");
         if (credenciales != "No existe el valor") {
             correo = credenciales;
+            cargarAyuda();
         }
     }
 
@@ -130,14 +200,14 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         } catch (JSONException e) {
             e.printStackTrace();
         }
-      /*  mostrarImg(imagenUrl);
+        mostrarImg(imagenUrl);
         puntosUsuario.setText(puntajeUrl);
-*/
+
 
 
     }
 
-/*    private void mostrarImg(String imagenUrl) {
+  private void mostrarImg(String imagenUrl) {
         String ip=getApplicationContext().getString(R.string.imgRendimiento);
 
         final String urlImagen="https://"+ip+imagenUrl+".png";
@@ -155,5 +225,5 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         request.add(imageRequest);
 
 
-    }*/
+    }
 }
