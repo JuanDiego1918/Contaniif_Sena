@@ -505,9 +505,9 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
 
     private void registrarUsuarios() {
-        //progreso = new ProgressDialog(Registro.this);
-        //progreso.setMessage("Cargando...");
-        //progreso.show();
+        progreso = new ProgressDialog(this);
+        progreso.setMessage("Cargando...");
+        progreso.show();
 
         String url;
         java.lang.System.setProperty("https.protocols", "TLSv1");
@@ -515,15 +515,16 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //progreso.hide();
+                progreso.hide();
                 if (response.trim().equalsIgnoreCase("registra")) {
                     Toast.makeText(getApplicationContext(), "Respuesta server =  " + response, Toast.LENGTH_LONG).show();
+                    Log.i("RESULTADO", "Respuesta server" + response);
                     //Intent intent = new Intent(Registro.this, MainActivity.class);
                     //startActivity(intent);
 
                 } else {
                     Toast.makeText(getApplicationContext(),"Entra al Onresponse 1 " + response, Toast.LENGTH_LONG).show();
-//                    progreso.hide();
+                    progreso.hide();
                     /*txtDocumento.setText("");
                     txtNombre.setText("");
                     txtApellido.setText("");
@@ -538,7 +539,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                progreso.hide();
+                progreso.hide();
                 Toast.makeText(getApplicationContext(), "No se pudo Registrar" + error.toString(), Toast.LENGTH_LONG).show();
                 Toast.makeText(getApplicationContext(), "NO SE REGISTRA" + error, Toast.LENGTH_LONG).show();
                 Log.i("RESULTADO", "NO SE REGISTRA desde onError " + error);
@@ -562,8 +563,8 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 String fechaNacimiento = "20001010";
                 String departamento = "quindio";
                 String municipio = "armenia";
-                //String rutaImagen = "imagen";
-                String rutaImagen = convertirImgString(bitmap);
+                String rutaImagen = "imagen";
+                //String rutaImagen = convertirImgString(bitmap);
 
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("nombres", nombres);
@@ -574,7 +575,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 parametros.put("departamento", departamento);
                 parametros.put("municipio", municipio);
                 parametros.put("rutaImagen", rutaImagen);
-                Log.i("Parametros " , parametros.toString());
+                Log.i("--------PARAMETROS " , parametros.toString());
                 return parametros;
 
             }
@@ -637,7 +638,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     @Override
     public void onResponse(JSONObject response) {
         if ( accion == 1){
-//            progreso.hide();
+            //progreso.hide();
             JSONArray json = response.optJSONArray("usuario");
             JSONObject jsonObject = null;
             ArrayMunicipios = new ArrayList<String>();
@@ -673,7 +674,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
             }
         }else if (accion == 2){
-           // progreso.hide();
+            //progreso.hide();
             Toast.makeText(getApplicationContext(), "Entra al Onresponse 2 ", Toast.LENGTH_LONG).show();
         }
     }

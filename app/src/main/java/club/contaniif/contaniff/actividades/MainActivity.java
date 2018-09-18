@@ -130,14 +130,14 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        mostrarImg(imagenUrl);
+      /*  mostrarImg(imagenUrl);
         puntosUsuario.setText(puntajeUrl);
-
+*/
 
 
     }
 
-    private void mostrarImg(String imagenUrl) {
+/*    private void mostrarImg(String imagenUrl) {
         String ip=getApplicationContext().getString(R.string.imgRendimiento);
 
         final String urlImagen="https://"+ip+imagenUrl+".png";
@@ -155,5 +155,5 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         request.add(imageRequest);
 
 
-    }
+    }*/
 }

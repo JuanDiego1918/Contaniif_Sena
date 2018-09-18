@@ -7,10 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".actividades.SplashScreen">
 
-    <ImageView
+   <!-- <ImageView
         android:id="@+id/splash"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:background="@drawable/logo_contaniif"/>
+        android:background="@drawable/logo_contaniif"/>-->
+
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="22dp"
+        android:src="@drawable/gif1" />
+
+
 </LinearLayout>
