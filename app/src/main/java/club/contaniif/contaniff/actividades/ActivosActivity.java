@@ -117,8 +117,8 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
             adapterDisponible.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    cargarVentana(listaDisponible.get(obtenidos.getChildAdapterPosition(view)));
-                    Toast.makeText(getApplicationContext(),""+listActivos.get(obtenidos.getChildAdapterPosition(view)).getNombre(),Toast.LENGTH_SHORT).show();
+                    cargarVentana(listaDisponible.get(disponible.getChildAdapterPosition(view)));
+                    Toast.makeText(getApplicationContext(),""+listaDisponible.get(disponible.getChildAdapterPosition(view)).getNombre(),Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (JSONException e) {
