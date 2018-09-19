@@ -115,6 +115,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
                 @Override
                 public void onClick(View view) {
                     cargarVentana(listActivos.get(obtenidos.getChildAdapterPosition(view)));
+                    Toast.makeText(getApplicationContext(),""+listActivos.get(obtenidos.getChildAdapterPosition(view)).getNombre(),Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -135,6 +136,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         titulo=dialog.findViewById(R.id.tituloPopupActivo);
         descrip=dialog.findViewById(R.id.descripActivoPopup);
         valor=dialog.findViewById(R.id.precioActivoPopup);
+        Imgactivo=dialog.findViewById(R.id.imagenPopupActivo);
 
         titulo.setText(activosVo.getNombre());
         descrip.setText(activosVo.getDescripcion());
