@@ -21,8 +21,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.adapter.AdapterActivos;
 import club.contaniif.contaniff.adapter.AdapterSabias;
+import club.contaniif.contaniff.entidades.ActivosVo;
 import club.contaniif.contaniff.entidades.SabiasVo;
 
 public class ActivosActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
@@ -30,8 +34,11 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
 
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
-    RecyclerView recyclerView;
-    String credenciales,correo;
+    RecyclerView obtenidos, disponible;
+    String credenciales, correo;
+    ArrayList<ActivosVo> listActivos,listaDisponible;
+    ActivosVo activosVo;
+    AdapterActivos adapterActivos,adapterDisponible;
 
 
     @Override
@@ -40,15 +47,17 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         setContentView(R.layout.activity_activos);
 
 
+        obtenidos = findViewById(R.id.activosObtenidos);
+        disponible = findViewById(R.id.activosDisponibles);
+        listActivos = new ArrayList<>();
+        listaDisponible=new ArrayList<>();
         cargarWebService();
     }
 
     private void cargarWebService() {
         cargarCredenciales();
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        //      recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
         request = Volley.newRequestQueue(getApplication());
-        String url = "https://" + getApplicationContext().getString(R.string.ip) + "activos.php?idusuario="+correo;
+        String url = "https://" + getApplicationContext().getString(R.string.ip) + "activos.php?idusuario=" + correo;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
@@ -72,18 +81,25 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
             JSONObject jsonObject = null;
             for (int i = 0; i < json.length(); i++) {
                 jsonObject = json.getJSONObject(i);
-                Toast.makeText(getApplication(), "" + jsonObject.optString("estado"), Toast.LENGTH_LONG).show();
-
+                activosVo=new ActivosVo();
+                activosVo.setId(jsonObject.optString("id"));
+                activosVo.setNombre(jsonObject.optString("nombre"));
+                activosVo.setDescripcion(jsonObject.optString("descripcion"));
+                activosVo.setValor(jsonObject.optString("valor"));
+                activosVo.setDescuento(jsonObject.optString("descuento"));
+                activosVo.setDescuento(jsonObject.optString("estado"));
+                if (jsonObject.optString("estado").equals("Tiene")){
+                    listActivos.add(activosVo);
+                }else {
+                    listaDisponible.add(activosVo);
+                }
             }
-            // Set up the ViewPager with the sections adapter
-//            adapterSabias = new AdapterSabias(listaSabias);
-//            recyclerView.setAdapter(adapterSabias);
-//            adapterSabias.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    ventana(view);
-//                }
-//            });
+
+            adapterActivos=new AdapterActivos(listActivos,getApplicationContext());
+            obtenidos.setAdapter(adapterActivos);
+
+            adapterDisponible=new AdapterActivos(listaDisponible,getApplicationContext());
+            disponible.setAdapter(adapterDisponible);
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "No se ha podido establecer conexión con el servidor" +
