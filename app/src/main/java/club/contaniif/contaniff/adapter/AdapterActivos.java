@@ -109,6 +109,7 @@ public class AdapterActivos extends RecyclerView.Adapter<AdapterActivos.ActivosH
             imagen = itemView.findViewById(R.id.imagenActivos);
             contenido=itemView.findViewById(R.id.contenido);
             descrip=itemView.findViewById(R.id.descripActivo);
+
         }
     }
 }
