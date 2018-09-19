@@ -61,7 +61,7 @@ public class AdapterActivos extends RecyclerView.Adapter<AdapterActivos.ActivosH
 
     private void cargarImagenWebService(String rutaImagen, final ActivosHolderView holder) {
         String ip = context.getString(R.string.imgRendimiento);
-        String urlImagen = "http://" + ip + "activos/" + rutaImagen;
+        String urlImagen = "http://" + ip + "activos/" + rutaImagen+".png";
         ImageRequest imageRequest = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
