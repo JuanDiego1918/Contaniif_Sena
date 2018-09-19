@@ -87,7 +87,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
                 activosVo.setDescripcion(jsonObject.optString("descripcion"));
                 activosVo.setValor(jsonObject.optString("valor"));
                 activosVo.setDescuento(jsonObject.optString("descuento"));
-                activosVo.setDescuento(jsonObject.optString("estado"));
+                activosVo.setEstado(jsonObject.optString("estado"));
                 if (jsonObject.optString("estado").equals("Tiene")){
                     listActivos.add(activosVo);
                 }else {
