@@ -582,6 +582,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         };
 
         guardarCredenciales();
+        guardarNombre();
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(stringRequest);
         request.add(stringRequest);
@@ -622,9 +623,20 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     private void guardarCredenciales() {
         SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("correo",campoCorreo.getText().toString());
+        //editor.putString("correo",campoCorreo.getText().toString());
+        editor.putString("correo","victor@gmail.com");
         editor.commit();
     }
+
+
+    private void guardarNombre() {
+        SharedPreferences preferences = getSharedPreferences("Nombre", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        //editor.putString("correo",campoCorreo.getText().toString());
+        editor.putString("nombre","victor manuel");
+        editor.commit();
+    }
+
 
     @Override
     public void onErrorResponse(VolleyError error) {

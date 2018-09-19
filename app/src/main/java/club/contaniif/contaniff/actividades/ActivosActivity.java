@@ -118,7 +118,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
                 @Override
                 public void onClick(View view) {
                     cargarVentana(listaDisponible.get(disponible.getChildAdapterPosition(view)));
-                    Toast.makeText(getApplicationContext(),""+listaDisponible.get(disponible.getChildAdapterPosition(view)).getNombre(),Toast.LENGTH_SHORT).show();
+
                 }
             });
         } catch (JSONException e) {
@@ -128,9 +128,11 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         }
     }
 
-    private void cargarVentana(ActivosVo activosVo) {
+    private void cargarVentana(ActivosVo activos) {
+        ActivosVo vo=activos;
+        Toast.makeText(getApplicationContext(), ""+vo.getNombre(), Toast.LENGTH_LONG).show();
         TextView titulo,descrip,valor;
-        dialog.setContentView(R.layout.popup_desarrollo);
+        dialog.setContentView(R.layout.popup_activos);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         comprar = dialog.findViewById(R.id.btnComprar);
         titulo=dialog.findViewById(R.id.tituloPopupActivo);
@@ -138,11 +140,11 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         valor=dialog.findViewById(R.id.precioActivoPopup);
         Imgactivo=dialog.findViewById(R.id.imagenPopupActivo);
 
-        titulo.setText(activosVo.getNombre());
-        descrip.setText(activosVo.getDescripcion());
-        valor.setText(activosVo.getValor());
+        titulo.setText(""+vo.getNombre());
+        descrip.setText(""+vo.getDescripcion());
+        valor.setText(""+vo.getValor());
 
-        cargarImgGeneral(activosVo.getId());
+        cargarImgGeneral(vo.getId());
         comprar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

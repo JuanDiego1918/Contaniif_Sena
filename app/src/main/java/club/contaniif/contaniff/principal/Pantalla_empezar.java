@@ -187,6 +187,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     PreguntasImagenesAdapter adapter2;
     PreguntasSeleccionMultiple adapter3;
     ScrollView miScroll;
+    String nombre;
     ImageView img;
     Activity activity;
     GestionPreguntas gestionPreguntas;
@@ -286,7 +287,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             btnContinuar.setVisibility(View.VISIBLE);
             btnContinuar2.setVisibility(View.INVISIBLE);
         }
-
+        cargarNombre();
         cargarCredenciales();
         cargarWebservices();
 
@@ -378,7 +379,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         puntajeRespuestaBuena = myDialogBuena.findViewById(R.id.campoPuntajeCorrecto);
         puntajeRespuestaBuena.setText("+" + String.valueOf(getPuntage()));
         txtRetroBuena = myDialogBuena.findViewById(R.id.campoRetroBuena);
-        txtRetroBuena.setText(retorno);
+        txtRetroBuena.setText(nombre +" \n "+ retorno);
 
         retroBuena = myDialogBuena.findViewById(R.id.btnRetroBuena);
         retroBuena.setOnClickListener(new View.OnClickListener() {
@@ -440,6 +441,15 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         setCredenciales(credenciales);
 
     }
+
+    private void cargarNombre() {
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("Nombre", Context.MODE_PRIVATE);
+        String nombre = preferences.getString("nombre", "No existe el valor");
+        if (nombre != "No existe el valor") {
+            this.nombre = nombre;
+        }
+    }
+
 
     private void enviarDatosPuntaje(int puntos) {
 
