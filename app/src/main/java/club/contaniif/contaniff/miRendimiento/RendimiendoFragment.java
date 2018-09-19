@@ -3,6 +3,7 @@ package club.contaniif.contaniff.miRendimiento;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -41,6 +42,7 @@ import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.adapter.CategoriasAdapter;
 import club.contaniif.contaniff.entidades.CategoriasVo;
 import club.contaniif.contaniff.entidades.Datos;
+import club.contaniif.contaniff.interfaces.Puente;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,6 +83,8 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
     Dialog dialogCanjes;
     Dialog ventanaComentarios;
     JsonObjectRequest JsonObjectRequest;
+    Puente puente;
+
 
     /**
      * Use this factory method to create a new instance of
@@ -127,6 +131,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         txtActivo = view.findViewById(R.id.activos);
         txtDescontados = view.findViewById(R.id.puntosDescontados);
         canjes=view.findViewById(R.id.btnCanjes);
+        activos=view.findViewById(R.id.btnActivos);
         dialogCanjes=new Dialog(getContext());
 
         cargarDatos();
@@ -145,6 +150,12 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
             }
         });
 
+        activos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                puente.activos();
+            }
+        });
         return view;
     }
 
@@ -343,6 +354,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
 
         if (context instanceof Activity) {
             this.activity = (Activity) context;
+            puente = (Puente) this.activity;
         }
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;

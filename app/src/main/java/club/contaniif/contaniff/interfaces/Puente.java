@@ -7,6 +7,7 @@ public interface Puente {
     //public void acercade(int numero);
     public void numero(String tipo);
     public void sabias(String tipo);
+    public void activos();
     public void finaliza();
     public void reinciar(int numeroPregunta, int tipo, ArrayList<String> lista);
 }

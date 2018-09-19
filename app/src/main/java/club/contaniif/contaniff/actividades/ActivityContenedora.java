@@ -92,6 +92,15 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
     }
 
     @Override
+    public void activos() {
+        //Bundle miBundle = new Bundle();
+        //miBundle.putString("id", tipo);
+        Intent miIntent = new Intent(getApplicationContext(), ActivosActivity.class);
+        //miIntent.putExtras(miBundle);
+        startActivity(miIntent);
+    }
+
+    @Override
     public void reinciar(int numeroPregunta, int tipo, ArrayList<String> lista) {
         Bundle datos = new Bundle();
         Bundle miBundle=new Bundle();

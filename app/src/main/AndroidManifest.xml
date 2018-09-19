@@ -48,7 +48,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".sabiasQue.SabiasActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".actividades.ActivosActivity"></activity>
     </application>
 
 </manifest>
