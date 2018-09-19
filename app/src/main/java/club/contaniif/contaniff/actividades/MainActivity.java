@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     private void mostrarImg(String imagenUrl) {
         String ip=getApplicationContext().getString(R.string.imgRendimiento);
 
-        final String urlImagen="https://"+ip+imagenUrl+".png";
+        final String urlImagen="https://"+ip+"medallas/"+imagenUrl+".png";
         ImageRequest imageRequest=new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {

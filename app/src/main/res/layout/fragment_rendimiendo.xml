@@ -174,7 +174,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="3dp"
-                            android:text="Puntos Obtenidos: 5000"
+                            android:text="Puntos Obtenidos: 0"
                             android:textAlignment="textStart"
                             android:textColor="@color/letraBlanca"
                             android:textSize="20sp" />
@@ -184,12 +184,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="3dp"
-                            android:text="Acción del día: Exito"
+                            android:text="Acción del día: "
                             android:textAlignment="textStart"
                             android:textColor="@color/letraBlanca"
                             android:textSize="20sp" />
 
                     </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -254,7 +255,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="3dp"
-                            android:text="Activos Adquiridos: 50"
+                            android:text="Activos Adquiridos: 0"
                             android:textAlignment="textStart"
                             android:textColor="@color/letraBlanca"
                             android:textSize="20sp" />
