@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
         try {
             puntajeUrl =json.getJSONObject(0).optString("puntos");
-            imagenUrl = json.getJSONObject(1).optString("medalla");
+            imagenUrl = response.optJSONArray("medalla").getJSONObject(0).optString("medalla");
         } catch (JSONException e) {
             e.printStackTrace();
         }
