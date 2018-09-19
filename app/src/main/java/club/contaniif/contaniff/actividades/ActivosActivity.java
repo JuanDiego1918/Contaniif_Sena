@@ -111,16 +111,16 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
             adapterActivos = new AdapterActivos(listActivos, getApplicationContext());
             obtenidos.setAdapter(adapterActivos);
 
-            adapterActivos.setOnClickListener(new View.OnClickListener() {
+            adapterDisponible = new AdapterActivos(listaDisponible, getApplicationContext());
+            disponible.setAdapter(adapterDisponible);
+
+            adapterDisponible.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    cargarVentana(listActivos.get(obtenidos.getChildAdapterPosition(view)));
+                    cargarVentana(listaDisponible.get(obtenidos.getChildAdapterPosition(view)));
                     Toast.makeText(getApplicationContext(),""+listActivos.get(obtenidos.getChildAdapterPosition(view)).getNombre(),Toast.LENGTH_SHORT).show();
                 }
             });
-
-            adapterDisponible = new AdapterActivos(listaDisponible, getApplicationContext());
-            disponible.setAdapter(adapterDisponible);
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "No se ha podido establecer conexión con el servidor" +
