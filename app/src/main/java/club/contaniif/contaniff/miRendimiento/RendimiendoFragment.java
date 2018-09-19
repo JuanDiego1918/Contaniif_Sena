@@ -180,7 +180,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
                 float numeroValor=cambiarVarible(puntosDisponibles);
                 cambioCanjes = Integer.parseInt((campoCanjes.getText().toString()));
                 if (cambioCanjes<=numeroValor){
-                    realizarCanje(cambioCanjes);
+                    realizarCanje1(cambioCanjes);
                     dialogCanjes.dismiss();
                 }else {
                     Toast.makeText(getContext(),"Te Pasas Wey",Toast.LENGTH_SHORT).show();
@@ -218,7 +218,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
 
     private void realizarCanje1(final float numero) {
         String url;
-        url = "https://" + getContext().getString(R.string.ip)+"guardamonedas.php?";
+        url = "https://" + getContext().getString(R.string.ip)+"guardamonedas.php";
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

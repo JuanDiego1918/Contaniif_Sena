@@ -54,8 +54,11 @@ public class AdapterActivos extends RecyclerView.Adapter<AdapterActivos.ActivosH
         holder.precio.setText(listaActivos.get(position).getValor());
         if (listaActivos.get(position).getEstado().equals("Tiene")){
             holder.contenido.setBackgroundColor(Color.parseColor("#fff9c342"));
+            holder.descrip.setText(listaActivos.get(position).getDescripcion());
+            holder.descrip.setVisibility(View.VISIBLE);
         }else{
             holder.contenido.setBackgroundColor(Color.parseColor("#ff00cc86"));
+            holder.descrip.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -95,7 +98,7 @@ public class AdapterActivos extends RecyclerView.Adapter<AdapterActivos.ActivosH
     }
 
     public class ActivosHolderView extends RecyclerView.ViewHolder {
-        TextView nombre, precio;
+        TextView nombre, precio,descrip;
         ImageView imagen;
         LinearLayout contenido;
 
