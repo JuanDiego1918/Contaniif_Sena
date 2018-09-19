@@ -56,13 +56,13 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         puntosUsuario = findViewById(R.id.puntosUsuario);
         medalla=findViewById(R.id.tipodemedalla);
         cargarCredenciales();
-        ayuda = findViewById(R.id.btnAyuda);
-        ayuda.setOnClickListener(new View.OnClickListener() {
+        //ayuda = findViewById(R.id.btnAyuda);
+/*        ayuda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialogo();
             }
-        });
+        });*/
 
     }
 
