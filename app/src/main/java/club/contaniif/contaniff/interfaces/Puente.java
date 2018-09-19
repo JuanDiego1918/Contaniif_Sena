@@ -9,5 +9,6 @@ public interface Puente {
     public void sabias(String tipo);
     public void activos();
     public void finaliza();
+    public void reinciarRendimiento();
     public void reinciar(int numeroPregunta, int tipo, ArrayList<String> lista);
 }

@@ -229,7 +229,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             //imagenCamara.setEnabled(false);
         }
 
-         campoCorreo.setText("victorsmanuels@outlook.es");
+         campoCorreo.setText("victor@gmail.com");
     }
 
     private void consultarCredenciales() {
@@ -559,7 +559,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 String nombres = "manuel";
                 String apellidos = "hurtado";
                 String genero = "masculino";
-                String correo = "victorsmanuelsoutlookes";
+                String correo = "victor@gmail.com";
                 String fechaNacimiento = "20001010";
                 String departamento = "quindio";
                 String municipio = "armenia";

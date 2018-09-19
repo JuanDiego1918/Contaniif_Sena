@@ -194,20 +194,21 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
 
     private void realizarCanje(final float numero) {
         String url;
-        url = "https://" + getContext().getString(R.string.ip)+"guardamonedas.php?idusuario="+correo+"&&nose="+String.valueOf(numero);
-        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        url = "https://" + getContext().getString(R.string.ip)+"guardamonedas.php?idusuario="+correo+"&&puntos="+String.valueOf(numero);
+        stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (response.equalsIgnoreCase("registra")) {
+                String resultado=response;
+                if (resultado.equals("registra")) {
                     Toast.makeText(getContext(), "Realiza Cambios" + response, Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getContext(), "no registrado " + response, Toast.LENGTH_LONG).show();
+                    puente.reinciarRendimiento();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "No se pudo registrar el comentario" + error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Verifique Conexion A Internet" + error.toString(), Toast.LENGTH_LONG).show();
             }
 
         });
@@ -242,7 +243,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
 
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("idusuario", idusuario);
-                parametros.put("nose", String.valueOf(numero));
+                parametros.put("puntos", String.valueOf(numero));
                 return parametros;
             }
         };

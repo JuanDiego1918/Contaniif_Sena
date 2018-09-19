@@ -116,4 +116,10 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
     public void finaliza() {
         finish();
     }
+
+    @Override
+    public void reinciarRendimiento() {
+        miFragment = new RendimiendoFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, miFragment).commit();
+    }
 }
