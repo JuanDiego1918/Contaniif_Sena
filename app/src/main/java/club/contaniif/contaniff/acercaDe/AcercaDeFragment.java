@@ -144,7 +144,7 @@ public class AcercaDeFragment extends Fragment {
         usuario1 = ventanaInformacion.findViewById(R.id.imagenUsuario);
         usuario2 = ventanaInformacion.findViewById(R.id.imagenUsuario2);
         usuario3 = ventanaInformacion.findViewById(R.id.imagenUsuario3);
-
+/*
         cargarImgGeneral(1);
         cargarImgGeneral(2);
         cargarImgGeneral(3);
@@ -165,12 +165,12 @@ public class AcercaDeFragment extends Fragment {
             public void onClick(View view) {
                 ventanaInstructoras(3);
             }
-        });
+        });*/
 
         ventanaInformacion.show();
     }
 
-    private void cargarImgGeneral(int i) {
+    /*private void cargarImgGeneral(int i) {
         String ip = getContext().getString(R.string.imgFotos);
         final String urlImagen;
         switch (i) {
@@ -221,8 +221,8 @@ public class AcercaDeFragment extends Fragment {
                 break;
         }
     }
-
-    private void ventanaInstructoras(int numero) {
+*/
+   /* private void ventanaInstructoras(int numero) {
         TextView titulo, descripcion;
 
         ventanaInstru.setContentView(R.layout.popup_detalles);
@@ -258,8 +258,8 @@ public class AcercaDeFragment extends Fragment {
         }
         ventanaInstru.show();
     }
-
-    private void cargarImg(int i) {
+*/
+ /*   private void cargarImg(int i) {
         String ip = getContext().getString(R.string.imgFotos);
 
         final String urlImagen = "https://" + ip + i + ".jpg";
@@ -275,7 +275,7 @@ public class AcercaDeFragment extends Fragment {
             }
         });
         request.add(imageRequest);
-    }
+    }*/
 
     private void ventanaHist() {
         ventanaInformacion.setContentView(R.layout.popup_historia);

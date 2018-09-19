@@ -14,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-import com.felipecsl.gifimageview.library.GifImageView;
-
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.entidades.Datos;
 import club.contaniif.contaniff.registro.Registro;
@@ -42,7 +40,7 @@ public class SplashScreen extends AppCompatActivity {
         }
 
 
-        tiempo = new CountDownTimer(2000, 1000) {
+        tiempo = new CountDownTimer(2500, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 

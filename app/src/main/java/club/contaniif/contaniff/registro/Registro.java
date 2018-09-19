@@ -390,7 +390,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
                     break;
             }
-            bitmap=redimensionarImagen(bitmap,400,600);
+            bitmap=redimensionarImagen(bitmap,200,200);
         }catch (Exception e){
             //imagenUsuario.setBackgroundResource(R.drawable.usuario);
             Toast.makeText(getApplicationContext(),"No se ha elegido ninguna imagen",Toast.LENGTH_SHORT).show();
@@ -409,7 +409,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             Matrix matrix=new Matrix();
             matrix.postScale(escalaAncho,escalaAlto);
 
-            return Bitmap.createBitmap(bitmap,0,0,ancho,alto,matrix,false);
+            return Bitmap.createBitmap(bitmap,200,200,ancho,alto,matrix,false);
 
         }else{
             return bitmap;
@@ -425,6 +425,8 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         if (Build.VERSION.SDK_INT<Build.VERSION_CODES.M){//validamos si estamos en android menor a 6 para no buscar los permisos
             return true;
         }
+
+
 
         //validamos si los permisos ya fueron aceptados
         if((getApplicationContext().checkSelfPermission(WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED)&&getApplicationContext().checkSelfPermission(CAMERA)==PackageManager.PERMISSION_GRANTED){
@@ -503,24 +505,26 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
 
     private void registrarUsuarios() {
-        //progreso = new ProgressDialog(Registro.this);
-        //progreso.setMessage("Cargando...");
-        //progreso.show();
+        progreso = new ProgressDialog(this);
+        progreso.setMessage("Cargando...");
+        progreso.show();
 
         String url;
+        java.lang.System.setProperty("https.protocols", "TLSv1");
         url = getApplicationContext().getString(R.string.ipRegistro1);
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //progreso.hide();
+                progreso.hide();
                 if (response.trim().equalsIgnoreCase("registra")) {
-                    Toast.makeText(getApplicationContext(), "SE REGISTRA " + response, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Registro.this, MainActivity.class);
-                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(), "Respuesta server =  " + response, Toast.LENGTH_LONG).show();
+                    Log.i("RESULTADO", "Respuesta server" + response);
+                    //Intent intent = new Intent(Registro.this, MainActivity.class);
+                    //startActivity(intent);
 
                 } else {
-                    Toast.makeText(getApplicationContext(),"Se ha registrado exitosamente" + response, Toast.LENGTH_LONG).show();
-//                    progreso.hide();
+                    Toast.makeText(getApplicationContext(),"Entra al Onresponse 1 " + response, Toast.LENGTH_LONG).show();
+                    progreso.hide();
                     /*txtDocumento.setText("");
                     txtNombre.setText("");
                     txtApellido.setText("");
@@ -535,8 +539,9 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                progreso.hide();
-                Toast.makeText(getApplicationContext(), "No se pudo Registrar" + error.toString(), Toast.LENGTH_SHORT).show();
+                progreso.hide();
+                Toast.makeText(getApplicationContext(), "No se pudo Registrar" + error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "NO SE REGISTRA" + error, Toast.LENGTH_LONG).show();
                 Log.i("RESULTADO", "NO SE REGISTRA desde onError " + error);
             }
         }) {
@@ -551,15 +556,15 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 String municipio = getMunicipio();
                 String rutaImagen = convertirImgString(bitmap);*/
 
-                String nombres = "ausuario";
-                String apellidos = "ausuario";
-                String genero = "ausuario";
-                String correo = "victorsmanuels@outlook.es";
-                String fechaNacimiento = "2000-10-10";
-                String departamento = "ausuario";
-                String municipio = "ausuario";
-                //String rutaImagen = "imagen";
-                String rutaImagen = convertirImgString(bitmap);
+                String nombres = "manuel";
+                String apellidos = "hurtado";
+                String genero = "masculino";
+                String correo = "victorsmanuelsoutlookes";
+                String fechaNacimiento = "20001010";
+                String departamento = "quindio";
+                String municipio = "armenia";
+                String rutaImagen = "imagen";
+                //String rutaImagen = convertirImgString(bitmap);
 
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("nombres", nombres);
@@ -570,14 +575,16 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 parametros.put("departamento", departamento);
                 parametros.put("municipio", municipio);
                 parametros.put("rutaImagen", rutaImagen);
+                Log.i("--------PARAMETROS " , parametros.toString());
                 return parametros;
+
             }
         };
 
         guardarCredenciales();
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(stringRequest);
-        //request.add(stringRequest);
+        //VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(stringRequest);
+        request.add(stringRequest);
         accion = (2);
     }
 
@@ -595,7 +602,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 +departamento+"&municipio="+municipio+"&rutaImagen="+convertirImgString(bitmap);*/
 
         //url = getApplicationContext().getString(R.string.ipRegistro2)+"nombres=victor&apellidos=garcia&genero=masculino&correo=vmgarcia@gmail.com&fechaNacimiento=2000-10-10&departamento=quindio&municipio=armenia&rutaImagen="+convertirImgString(bitmap);
-        url = "http://contaniif.club/movil/registro.php?nombres=carlos&apellidos=carlos&genero=masculino&correo=vmgarcia@gmail.com&fechaNacimiento=2000-10-10&departamento=quindio&municipio=armenia&rutaImagen="+convertirImgString(bitmap);
+        url = "https://contaniif.club/movil/registro.php?nombres=carlos&apellidos=carlos&genero=masculino&correo=vmgarcia@gmail.com&fechaNacimiento=2000-10-10&departamento=quindio&municipio=armenia&rutaImagen="+convertirImgString(bitmap);
         url=url.replace(" ","%20");
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         //VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
@@ -631,7 +638,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     @Override
     public void onResponse(JSONObject response) {
         if ( accion == 1){
-//            progreso.hide();
+            //progreso.hide();
             JSONArray json = response.optJSONArray("usuario");
             JSONObject jsonObject = null;
             ArrayMunicipios = new ArrayList<String>();
@@ -667,8 +674,8 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
             }
         }else if (accion == 2){
-           // progreso.hide();
-            Toast.makeText(getApplicationContext(), "Se ha registrado exitosamente", Toast.LENGTH_LONG).show();
+            //progreso.hide();
+            Toast.makeText(getApplicationContext(), "Entra al Onresponse 2 ", Toast.LENGTH_LONG).show();
         }
     }
 }
