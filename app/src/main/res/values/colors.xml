@@ -20,6 +20,11 @@
     <color name="letraBlanca">#FFFFFF</color>
     <color name="letraGris">#FFCBCBCB</color>
 
+    <color name="colorMiPerfil2">#da340b</color>
+    <color name="colorMiPerfil1">#e2531e</color>
+    <color name="colorGrupos">#FF9AA5</color>
+
+
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
 </resources>

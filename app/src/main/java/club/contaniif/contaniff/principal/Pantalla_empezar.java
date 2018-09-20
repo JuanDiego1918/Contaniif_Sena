@@ -439,7 +439,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         SharedPreferences preferences = this.getActivity().getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         String credenciales = preferences.getString("correo", "No existe el valor");
         setCredenciales(credenciales);
-
     }
 
     private void cargarNombre() {

@@ -1,26 +1,12 @@
 package club.contaniif.contaniff.configuracion;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import java.io.File;
-import java.util.ArrayList;
 
 import club.contaniif.contaniff.R;
 
@@ -43,40 +29,6 @@ public class Configuracion extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    /////////////////////
-    private static final String CARPETA_PRINCIPAL = "misImagenesApp/";//directorio principal
-    private static final String CARPETA_IMAGEN = "imagenes";//carpeta donde se guardan las fotos
-    private static final String DIRECTORIO_IMAGEN = CARPETA_PRINCIPAL + CARPETA_IMAGEN;//ruta carpeta de directorios
-    private String path;//almacena la ruta de la imagen
-    File fileImagen;
-    Bitmap bitmap;
-    private final int MIS_PERMISOS = 100;
-    private static final int COD_SELECCIONA = 10;
-    private static final int COD_FOTO = 20;
-    ///////-Elementos del layout
-    Spinner listaDepartamentos, listaMunicipios, listaGenero;
-    EditText campoNombre, campoApellido, campoCorreo;
-    TextView campoMunicipio,campoDepartamento,campoGenero,campoFechaNacimiento;
-    ImageView imagenUsuario, imagenCamara;
-    ImageView editarGenero,editarFecha,editarDepartamento,editarMunicipio;
-    Button btnRegistro,btnFalso;
-    //////-Listas
-    String credenciales;
-    String genero;
-    String municipio;
-    String departamento;
-    boolean seleccionaGenero,seleccionaMunicipio,seleccionaDepartamento,seleccionaFecha,seleccionaImagen;
-    String urlImagenUsuario;
-
-    ArrayList<String> ArrayDepartamentos;
-    ArrayList<String> ArrayMunicipios;
-    ArrayList<String> ArrayGenero;
-
-    RequestQueue request;
-    JsonObjectRequest jsonObjectRequest;
-    //JsonObjectRequest jsonObjectRequest2;
-    //JsonObjectRequest jsonObjectRequest3;
-    StringRequest stringRequest;
 
     public Configuracion() {
         // Required empty public constructor
@@ -112,52 +64,8 @@ public class Configuracion extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.fragment_configuracion, container, false);
-
-        request = Volley.newRequestQueue(getContext());
-        //cargarCredenciales();
-        ArrayGenero = new ArrayList<>();
-        ArrayGenero.add("Seleccioar genero");
-        ArrayGenero.add("Masculino");
-        ArrayGenero.add("Femenino");
-        //
-        ArrayDepartamentos = new ArrayList<>();
-        ArrayDepartamentos.add("Seleccione su departamento");
-        ArrayDepartamentos.add("Antioquia");
-        ArrayDepartamentos.add("Atlántico");
-        ArrayDepartamentos.add("Bogotá");
-        ArrayDepartamentos.add("Bolívar");
-        ArrayDepartamentos.add("Boyacá");
-        ArrayDepartamentos.add("Caldas");
-        ArrayDepartamentos.add("Caquetá");
-        ArrayDepartamentos.add("Cauca");
-        ArrayDepartamentos.add("Cesar");
-        ArrayDepartamentos.add("Córdoba");
-        ArrayDepartamentos.add("Cundinamarca");
-        ArrayDepartamentos.add("Chocó");
-        ArrayDepartamentos.add("Huila");
-        ArrayDepartamentos.add("La Guajira");
-        ArrayDepartamentos.add("Magdalena");
-        ArrayDepartamentos.add("Meta");
-        ArrayDepartamentos.add("Nariño");
-        ArrayDepartamentos.add("Norte de Santander");
-        ArrayDepartamentos.add("Quindío");
-        ArrayDepartamentos.add("Risaralda");
-        ArrayDepartamentos.add("Santander");
-        ArrayDepartamentos.add("Sucre");
-        ArrayDepartamentos.add("Tolima");
-        ArrayDepartamentos.add("Valle del Cauca");
-        ArrayDepartamentos.add("Arauca");
-        ArrayDepartamentos.add("Casanare");
-        ArrayDepartamentos.add("Putumayo");
-        ArrayDepartamentos.add("San Andrés y Providencia");
-        ArrayDepartamentos.add("Amazonas");
-        ArrayDepartamentos.add("Guainía");
-        ArrayDepartamentos.add("Guaviare");
-        ArrayDepartamentos.add("Vaupés");
-        ArrayDepartamentos.add("Vichada");
-
-        return vista;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_configuracion2, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

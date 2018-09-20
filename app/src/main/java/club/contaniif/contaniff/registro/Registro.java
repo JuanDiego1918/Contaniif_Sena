@@ -219,7 +219,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                     Toast.makeText(getApplicationContext(),"Noebe llenar todos los campos",Toast.LENGTH_SHORT).show();
                     registrarUsuarios();
                 }*/
-                registrarUsuarios();
+                registrarUsuarios2();
             }
         });
 
@@ -603,11 +603,12 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 +departamento+"&municipio="+municipio+"&rutaImagen="+convertirImgString(bitmap);*/
 
         //url = getApplicationContext().getString(R.string.ipRegistro2)+"nombres=victor&apellidos=garcia&genero=masculino&correo=vmgarcia@gmail.com&fechaNacimiento=2000-10-10&departamento=quindio&municipio=armenia&rutaImagen="+convertirImgString(bitmap);
-        url = "https://contaniif.club/movil/registro.php?nombres=carlos&apellidos=carlos&genero=masculino&correo=vmgarcia@gmail.com&fechaNacimiento=2000-10-10&departamento=quindio&municipio=armenia&rutaImagen="+convertirImgString(bitmap);
+        url = "https://contaniif.club/movil/registro.php?nombres=carlos&apellidos=casas&genero=masculino&correo=vmgarcia@gmail.com&fechaNacimiento=2000-10-10&departamento=quindio&municipio=armenia&rutaImagen="+convertirImgString(bitmap);
         url=url.replace(" ","%20");
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         //VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
         request.add(jsonObjectRequest);
+        guardarCredenciales();
         accion = 2;
     }
 

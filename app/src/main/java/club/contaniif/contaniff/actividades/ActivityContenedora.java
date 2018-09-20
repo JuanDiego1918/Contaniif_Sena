@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.acercaDe.AcercaDeFragment;
+import club.contaniif.contaniff.configuracion.Configuracion;
+import club.contaniif.contaniff.grupos.Grupos;
 import club.contaniif.contaniff.interfaces.AllFragments;
 import club.contaniif.contaniff.interfaces.Puente;
 import club.contaniif.contaniff.miRendimiento.RendimiendoFragment;
@@ -55,8 +57,9 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
                 miFragment=new CategoriasSabias();
                 break;
             case 5:
-                //seleccionado = true;
-                //Toast.makeText(getApplicationContext(), 5 + "pantalla " + pantalla, Toast.LENGTH_SHORT).show();
+                seleccionado = true;
+                miFragment = new Grupos();
+                //miFragment = new Configuracion();
                 break;
             case 6:
                 seleccionado = true;

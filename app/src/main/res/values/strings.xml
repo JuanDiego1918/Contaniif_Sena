@@ -9,6 +9,7 @@
     <string name="ipComentario">192.168.0.7/pruebas/registroComentario.php</string>
     <string name="imgRendimiento">www.contaniif.club/img/</string>
     <string name="imgFotos">www.contaniif.club/img/usuarios/</string>
+    <string name="ipGrupos">https://www.contaniif.club/movil/listagrupos.php?idusuario=</string>
     <string name="ip2">10.71.128.47</string>
 
     <!-- TODO: Remove or change this placeholder text -->
