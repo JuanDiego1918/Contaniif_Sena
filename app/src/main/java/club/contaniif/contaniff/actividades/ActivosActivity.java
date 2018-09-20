@@ -2,6 +2,7 @@ package club.contaniif.contaniff.actividades;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -23,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -51,7 +53,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
     Button comprar;
     ImageView Imgactivo;
     AdapterActivos adapterActivos, adapterDisponible;
-
+    StringRequest stringRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,10 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
 
     @Override
     public void onResponse(JSONObject response) {
+        listaDisponible.clear();
+        listActivos.clear();
+        adapterActivos=null;
+        adapterDisponible=null;
         JSONArray json = response.optJSONArray("activos");
         try {
             JSONObject jsonObject = null;
@@ -129,8 +135,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
     }
 
     private void cargarVentana(ActivosVo activos) {
-        ActivosVo vo=activos;
-        Toast.makeText(getApplicationContext(), ""+vo.getNombre(), Toast.LENGTH_LONG).show();
+        final ActivosVo vo=activos;
         TextView titulo,descrip,valor;
         dialog.setContentView(R.layout.popup_activos);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -148,11 +153,36 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         comprar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                realizarComprar(vo);
+                dialog.dismiss();
             }
         });
 
         dialog.show();
+    }
+
+    private void realizarComprar(ActivosVo vo) {
+        String url;
+        url = "https://" + getApplicationContext().getString(R.string.ip)+"guardaactivos.php?idusuario="+correo+"&&activo="+vo.getId();
+        stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                String resultado=response;
+                if (resultado.equals("registra")) {
+                    Toast.makeText(getApplicationContext(), "Realiza Cambios" + response, Toast.LENGTH_LONG).show();
+                } else {
+                    cargarWebService();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Verifique Conexion A Internet" + error.toString(), Toast.LENGTH_LONG).show();
+            }
+
+        });
+
+        request.add(stringRequest);
     }
 
     private void cargarImgGeneral(String rutaImagen) {

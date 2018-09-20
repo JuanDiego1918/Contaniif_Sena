@@ -76,6 +76,12 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         // Required empty public constructor
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        cargarDatos();
+    }
+
     View view;
     Activity activity;
     LinearLayout puntos, canjes, activos, comentarios;
@@ -180,7 +186,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
                 float numeroValor=cambiarVarible(puntosDisponibles);
                 cambioCanjes = Integer.parseInt((campoCanjes.getText().toString()));
                 if (cambioCanjes<=numeroValor){
-                    realizarCanje1(cambioCanjes);
+                    realizarCanje(cambioCanjes);
                     dialogCanjes.dismiss();
                 }else {
                     Toast.makeText(getContext(),"Te Pasas Wey",Toast.LENGTH_SHORT).show();
@@ -216,40 +222,6 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         request.add(stringRequest);
     }
 
-    private void realizarCanje1(final float numero) {
-        String url;
-        url = "https://" + getContext().getString(R.string.ip)+"guardamonedas.php";
-        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                if (response.trim().equalsIgnoreCase("registra")) {
-                    Toast.makeText(getContext(), "Realiza Cambios" + response, Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(getContext(), "no registrado " + response, Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "No se pudo registrar el comentario" + error.toString(), Toast.LENGTH_LONG).show();
-            }
-
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                String idusuario = correo;
-                String cambio = cojeComentario;
-
-                Map<String, String> parametros = new HashMap<>();
-                parametros.put("idusuario", idusuario);
-                parametros.put("puntos", String.valueOf(numero));
-                return parametros;
-            }
-        };
-
-        request.add(stringRequest);
-    }
 
     private int cambiarVarible(String puntosDisponibles) {
         String cambio=puntosDisponibles.replaceAll(",","");

@@ -79,7 +79,7 @@
                             android:text="Puntos Obtenidos: 0"
                             android:textAlignment="textStart"
                             android:textColor="@color/letraBlanca"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/puntosCambiados"
@@ -89,7 +89,7 @@
                             android:text="Puntos Cambiados: 0"
                             android:textAlignment="textStart"
                             android:textColor="@color/letraBlanca"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
                         <TextView
                             android:id="@+id/puntosDescontados"
                             android:layout_width="match_parent"
@@ -98,7 +98,7 @@
                             android:text="Puntos Descontados: 0"
                             android:textAlignment="textStart"
                             android:textColor="@color/letraBlanca"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/puntosDisponibles"
@@ -108,7 +108,7 @@
                             android:text="Puntos Disponibles: 0"
                             android:textAlignment="textStart"
                             android:textColor="@color/letraBlanca"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -177,7 +177,7 @@
                             android:text="Puntos Obtenidos: 0"
                             android:textAlignment="textStart"
                             android:textColor="@color/letraBlanca"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/accion"
@@ -187,7 +187,7 @@
                             android:text="Acción del día: "
                             android:textAlignment="textStart"
                             android:textColor="@color/letraBlanca"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -258,7 +258,7 @@
                             android:text="Activos Adquiridos: 0"
                             android:textAlignment="textStart"
                             android:textColor="@color/letraBlanca"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
                 </LinearLayout>
