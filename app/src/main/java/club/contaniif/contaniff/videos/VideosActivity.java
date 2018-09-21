@@ -1,6 +1,9 @@
 package club.contaniif.contaniff.videos;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -38,7 +41,7 @@ public class VideosActivity extends AppCompatActivity implements Response.Listen
     private YouTubePlayerSupportFragment youTubePlayerFragment;
     private ArrayList<VideoVo> youtubeVideoArrayList;
 
-
+    Dialog dialogoCargando;
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     //youtube player to play video when new video selected
@@ -48,10 +51,10 @@ public class VideosActivity extends AppCompatActivity implements Response.Listen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_videos);
+        dialogoCargando = new Dialog(this);
         miBundle=this.getIntent().getExtras();
         request = Volley.newRequestQueue(getApplicationContext());
         cargarWebService();
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 ///////////////////////
@@ -162,10 +165,17 @@ public class VideosActivity extends AppCompatActivity implements Response.Listen
      * method to generate dummy array list of videos
      */
     private void cargarWebService() {
+        dialogoCargando();
         youtubeVideoArrayList = new ArrayList<>();
         String url="https://"+getApplicationContext().getString(R.string.ip)+"videos.php?categoria="+miBundle.getString("id");
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
+    }
+
+    private void dialogoCargando() {
+        dialogoCargando.setContentView(R.layout.popup_cargando);
+        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoCargando.show();
     }
 
     public void onErrorResponse(VolleyError error) {
@@ -196,5 +206,6 @@ public class VideosActivity extends AppCompatActivity implements Response.Listen
                     " "+response, Toast.LENGTH_LONG).show();
         }
 
+        dialogoCargando.dismiss();
     }
 }

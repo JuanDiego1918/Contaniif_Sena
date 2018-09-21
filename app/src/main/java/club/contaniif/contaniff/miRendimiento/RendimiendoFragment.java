@@ -63,6 +63,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    Dialog dialogoCargando;
     String credenciales;
     String cojeComentario;
     int cambioCanjes;
@@ -123,6 +124,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        dialogoCargando = new Dialog(this.getContext());
         cargarCredenciales();
         request = Volley.newRequestQueue(getContext());
         Datos.actualizarPuntos = true;
@@ -344,10 +346,17 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
     }
 
     private void cargarDatos() {
+        dialogoCargando();
         String url;
         url = "https://" + getContext().getString(R.string.ip) + "puntajes.php?correo=" + correo;
         JsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(JsonObjectRequest);
+    }
+
+    private void dialogoCargando() {
+        dialogoCargando.setContentView(R.layout.popup_cargando);
+        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoCargando.show();
     }
 
     @Override
@@ -371,6 +380,8 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         } catch (JSONException e) {
             Toast.makeText(getContext(), "" + e.toString(), Toast.LENGTH_SHORT).show();
         }
+
+        dialogoCargando.dismiss();
     }
 
     /**

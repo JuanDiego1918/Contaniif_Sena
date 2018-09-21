@@ -1,7 +1,10 @@
 package club.contaniif.contaniff.videos;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -51,6 +54,7 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    Dialog dialogoCargando;
 
     public CategoriasVideosFragment() {
         // Required empty public constructor
@@ -96,11 +100,9 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_categorias_videos, container, false);
-
-
+        dialogoCargando = new Dialog(this.getContext());
         recyclerView = view.findViewById(R.id.recycler_categoria);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-
         request = Volley.newRequestQueue(getContext());
         cargarWebservices();
 
@@ -108,10 +110,18 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
     }
 
     private void cargarWebservices() {
+        dialogoCargando();
         String url = "https://" + getContext().getString(R.string.ip) + "VideosCategorias.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
+
+    private void dialogoCargando() {
+        dialogoCargando.setContentView(R.layout.popup_cargando);
+        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoCargando.show();
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -175,6 +185,7 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
             Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" +
                     " " + response, Toast.LENGTH_LONG).show();
         }
+        dialogoCargando.dismiss();
 
     }
 

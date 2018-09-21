@@ -1,11 +1,14 @@
 package club.contaniif.contaniff.grupos;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -58,6 +61,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
     private OnFragmentInteractionListener mListener;
     RecyclerView recyclerGrupos;
     ArrayList<GruposVo>listaGrupos;
+    Dialog dialogoCargando;
     RequestQueue request;
     String dato;
     JsonObjectRequest jsonObjectRequest;
@@ -102,6 +106,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_grupos, container, false);
         request = Volley.newRequestQueue(getContext());
+        dialogoCargando = new Dialog(this.getContext());
         recyclerGrupos = vista.findViewById(R.id.recyclerGrupos);
         cargarWebservices();
 
@@ -116,13 +121,17 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
     }
 
     private void cargarWebservices() {
-        progreso = new ProgressDialog(this.getContext());
-        progreso.setMessage("Cargando...");
-        progreso.show();
-
+        dialogoCargando();
         String url = this.getString(R.string.ipGrupos)+idusuario;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
+
+    private void dialogoCargando() {
+        dialogoCargando.setContentView(R.layout.popup_cargando);
+        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoCargando.show();
     }
 
     private void opciones() {
@@ -190,14 +199,12 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
                 gruposVo.setCodigo(jsonObject.getString("codigo"));
 
                 listaGrupos.add(gruposVo);
-                progreso.hide();
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
 
             Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" + " " + response, Toast.LENGTH_LONG).show();
-            progreso.hide();
         }
 
         adapter = new AdapterGurpos(listaGrupos);
@@ -210,6 +217,8 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
                //Toast.makeText(getContext(),"Codigo " + dato,Toast.LENGTH_SHORT).show();
             }
         }));
+
+        dialogoCargando.dismiss();
     }
 
     /**

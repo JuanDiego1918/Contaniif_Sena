@@ -1,6 +1,9 @@
 package club.contaniif.contaniff.eventos;
 
+import android.app.Dialog;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -38,7 +41,7 @@ import club.contaniif.contaniff.adapter.PaginacionNumeroAdapter;
 import club.contaniif.contaniff.entidades.EventoVo;
 import club.contaniif.contaniff.entidades.NumeroVo;
 
-public class EventosActivity extends AppCompatActivity implements Response.Listener<JSONObject>,Response.ErrorListener{
+public class EventosActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -49,11 +52,12 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    public  static ArrayList<EventoVo> listaEventos;
+    public static ArrayList<EventoVo> listaEventos;
     public static ArrayList<NumeroVo> listaNumero;
     EventoVo miEventoVo;
     NumeroVo miNumeroVo;
     RequestQueue request;
+    Dialog dialogoCargando;
     JsonObjectRequest jsonObjectRequest;
     public static RecyclerView recyclerViewNumero;
     public static PaginacionNumeroAdapter miNumeroAdapter;
@@ -66,11 +70,12 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eventos);
-        listaEventos=new ArrayList<>();
-        listaNumero=new ArrayList<>();
+        dialogoCargando = new Dialog(this);
+        listaEventos = new ArrayList<>();
+        listaNumero = new ArrayList<>();
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = findViewById(R.id.container);
-        recyclerViewNumero=findViewById(R.id.numeroPaginacion);
+        recyclerViewNumero = findViewById(R.id.numeroPaginacion);
 
         cargarWebService();
         ///////////////////////
@@ -104,29 +109,38 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
     }*/
 
     private void cargarWebService() {
+        dialogoCargando();
         recyclerViewNumero.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recyclerViewNumero.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL,false));
-        request= Volley.newRequestQueue(getApplication());
-        String url="https://"+getApplicationContext().getString(R.string.ip)+"eventos.php";
-        jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+        recyclerViewNumero.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false));
+        request = Volley.newRequestQueue(getApplication());
+        String url = "https://" + getApplicationContext().getString(R.string.ip) + "eventos.php";
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
+
+
+    private void dialogoCargando() {
+        dialogoCargando.setContentView(R.layout.popup_cargando);
+        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoCargando.show();
+    }
+
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getApplication(),"NO se pudo Consultar:"+error.toString(), Toast.LENGTH_LONG).show();
-        Log.i("Error",error.toString());
+        Toast.makeText(getApplication(), "NO se pudo Consultar:" + error.toString(), Toast.LENGTH_LONG).show();
+        Log.i("Error", error.toString());
     }
 
     @Override
     public void onResponse(JSONObject response) {
-        JSONArray json=response.optJSONArray("eventos");
+        JSONArray json = response.optJSONArray("eventos");
         try {
-            JSONObject jsonObject=null;
-            for (int i=0;i<json.length();i++){
-                miEventoVo=new EventoVo();
-                miNumeroVo=new NumeroVo();
-                miNumeroVo.setNumeroPagina(i+1);
-                jsonObject=json.getJSONObject(i);
+            JSONObject jsonObject = null;
+            for (int i = 0; i < json.length(); i++) {
+                miEventoVo = new EventoVo();
+                miNumeroVo = new NumeroVo();
+                miNumeroVo.setNumeroPagina(i + 1);
+                jsonObject = json.getJSONObject(i);
                 miEventoVo.setNombre(jsonObject.optString("nombre"));
                 miEventoVo.setFecha(jsonObject.optString("fecha"));
                 miEventoVo.setLugar(jsonObject.optString("lugar"));
@@ -138,14 +152,15 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
             // Set up the ViewPager with the sections adapter.
             mViewPager.setAdapter(mSectionsPagerAdapter);
 
-            miNumeroAdapter=new PaginacionNumeroAdapter(listaNumero,getApplicationContext());
+            miNumeroAdapter = new PaginacionNumeroAdapter(listaNumero, getApplicationContext());
             recyclerViewNumero.setAdapter(miNumeroAdapter);
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "No se ha podido establecer conexión con el servidor" +
-                    " "+response, Toast.LENGTH_LONG).show();
+                    " " + response, Toast.LENGTH_LONG).show();
         }
 
+        dialogoCargando.dismiss();
     }
 
 
@@ -157,7 +172,7 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
          * The fragment argument representing the section number for this
          * fragment.
          */
-        TextView fecha,descripcion,lugar,nombre;
+        TextView fecha, descripcion, lugar, nombre;
         ImageView img;
         RequestQueue request;
         private static final String ARG_SECTION_NUMBER = "section_number";
@@ -179,24 +194,25 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
         }
 
         private static void funciona() {
-            Log.v("hola","ENTRA");
+            Log.v("hola", "ENTRA");
         }
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_eventos, container, false);
 
-            nombre=rootView.findViewById(R.id.nombreEvento);
-            fecha=rootView.findViewById(R.id.fechaEvento);
-            descripcion=rootView.findViewById(R.id.descripEvento);
-            img=rootView.findViewById(R.id.ImagenEvento);
-            lugar=rootView.findViewById(R.id.lugarEvento);
-            request= Volley.newRequestQueue(getContext());
+            nombre = rootView.findViewById(R.id.nombreEvento);
+            fecha = rootView.findViewById(R.id.fechaEvento);
+            descripcion = rootView.findViewById(R.id.descripEvento);
+            img = rootView.findViewById(R.id.ImagenEvento);
+            lugar = rootView.findViewById(R.id.lugarEvento);
+            request = Volley.newRequestQueue(getContext());
 
 
             mostrarImg(listaEventos.get(getArguments().getInt(ARG_SECTION_NUMBER)).getImage());
             nombre.setText(listaEventos.get(getArguments().getInt(ARG_SECTION_NUMBER)).getNombre());
-            descripcion.setText(listaEventos.get(getArguments().getInt(ARG_SECTION_NUMBER)).getDescripcion());
+            descripcion.setText(listaEventos.get(getArguments().getInt(ARG_SECTION_NUMBER)).getDescripcion()+" \n ");
             fecha.setText(listaEventos.get(getArguments().getInt(ARG_SECTION_NUMBER)).getFecha());
             lugar.setText(listaEventos.get(getArguments().getInt(ARG_SECTION_NUMBER)).getLugar());
 
@@ -206,10 +222,10 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
         //hola grupo
 
         private void mostrarImg(String rutaImagen) {
-            String ip=getContext().getString(R.string.ipImg);
+            String ip = getContext().getString(R.string.ipImg);
 
-            final String urlImagen="https://"+ip+rutaImagen+".jpg";
-            ImageRequest imageRequest=new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
+            final String urlImagen = "https://" + ip + rutaImagen + ".jpg";
+            ImageRequest imageRequest = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
                 @Override
                 public void onResponse(Bitmap response) {
                     img.setImageBitmap(response);
@@ -217,7 +233,7 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
             }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getContext(),"Error al cargar la imagen" + urlImagen, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Error al cargar la imagen" + urlImagen, Toast.LENGTH_LONG).show();
                 }
             });
             request.add(imageRequest);

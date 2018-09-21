@@ -49,6 +49,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
     String credenciales, correo;
     ArrayList<ActivosVo> listActivos, listaDisponible;
     ActivosVo activosVo;
+    Dialog dialogoCargando;
     Dialog dialog;
     Button comprar;
     ImageView Imgactivo;
@@ -59,8 +60,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activos);
-
-
+        dialogoCargando = new Dialog(this);
         obtenidos = findViewById(R.id.activosObtenidos);
         disponible = findViewById(R.id.activosDisponibles);
         dialog = new Dialog(this);
@@ -70,11 +70,18 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
     }
 
     private void cargarWebService() {
+        dialogoCargando();
         cargarCredenciales();
         request = Volley.newRequestQueue(getApplication());
         String url = "https://" + getApplicationContext().getString(R.string.ip) + "activos.php?idusuario=" + correo;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
+    }
+
+    private void dialogoCargando() {
+        dialogoCargando.setContentView(R.layout.popup_cargando);
+        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoCargando.show();
     }
 
     private void cargarCredenciales() {
@@ -132,6 +139,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
             Toast.makeText(getApplicationContext(), "No se ha podido establecer conexión con el servidor" +
                     " " + response, Toast.LENGTH_LONG).show();
         }
+        dialogoCargando.dismiss();
     }
 
     private void cargarVentana(ActivosVo activos) {

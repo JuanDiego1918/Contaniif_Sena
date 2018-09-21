@@ -179,20 +179,15 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
     ArrayList<NumeroVo> listanumero;
     NumeroVo miNumeroVo;
-    int numero = 3;
     RecyclerView miRecyclerNumero;
-
+    Dialog dialogoCargando;
     ArrayList<String> listaImagenes;
     PreguntasAdapter adapter;
     PreguntasImagenesAdapter adapter2;
     PreguntasSeleccionMultiple adapter3;
     ScrollView miScroll;
     String nombre;
-    ImageView img;
     Activity activity;
-    GestionPreguntas gestionPreguntas;
-    PreguntasAdapter preguntasAdap;
-    Fragment fragment;
     Puente puente;
     Button btnContinuar;
     Button btnContinuar2;
@@ -201,7 +196,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     TextView puntajeRespuestaMala;
     String informacion;
     String informacion2;
-    ProgressDialog dialog;
+
     StringRequest stringRequest;
     RecyclerView recyclerViewUsuarios;
     ArrayList<PreguntasVo> listaPreguntas;
@@ -244,8 +239,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        // ActionBar actionBar = getSupportActionBar();
-        // actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -258,6 +251,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         myDialogBuena = new Dialog(getContext());
         myDialogMala = new Dialog(getContext());
         MyDialogFinal = new Dialog(getContext());
+        dialogoCargando = new Dialog(this.getContext());
 
         btnContinuar2 = vista.findViewById(R.id.btnContinuar2);
         btnContinuar = vista.findViewById(R.id.btnContinuar);
@@ -350,6 +344,12 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
     }
 
+    private void dialogoCargando() {
+        dialogoCargando.setContentView(R.layout.popup_cargando);
+        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoCargando.show();
+    }
+
     private void updateCountDownText() {
         Log.v("Log_tag", "Tick of Progress" + i + mInitialTime);
         i++;
@@ -357,10 +357,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     }
 
     private void cargarWebservices() {
-        dialog = new ProgressDialog(getContext());
-        dialog.setMessage("Cargando..");
-//        dialog.show();
-
+        dialogoCargando();
         String ip = getContext().getString(R.string.ip);
         //String url = "http://" + ip + "wsPreguntasTipo1.php";
         //String url = "http://" + ip + "/apolunios/wsConsultaPreguntaPrueba1.php";
@@ -593,7 +590,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
                 listaPreguntas.add(preguntas);
                 //setUrlImagen(preguntas.getOpciones());
-                dialog.hide();
             }
             setRetroMala(preguntas.getRetromala());
             setRetroBuena(preguntas.getRetobuena());
@@ -619,7 +615,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             e.printStackTrace();
 
             Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" + " " + response, Toast.LENGTH_LONG).show();
-            dialog.hide();
         }
 
         if (getTipoPregunta() == 3) {
@@ -713,6 +708,8 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             cargarWebservices();
         }
 
+
+        dialogoCargando.dismiss();
     }
 
     /**

@@ -36,6 +36,7 @@ import club.contaniif.contaniff.eventos.EventosActivity;
 
 public class MainActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
     Dialog dialogoAyuda;
+    Dialog dialogoCargando;
     boolean seleccionado = false;
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dialogoAyuda = new Dialog(this);
+        dialogoCargando = new Dialog(this);
+
         puntosUsuario = findViewById(R.id.puntosUsuario);
         medalla=findViewById(R.id.tipodemedalla);
         cargarCredenciales();
@@ -74,6 +77,12 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         }else {
             Toast.makeText(getApplicationContext(),"Ya se mostro la ventana de ayuda",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void dialogoCargando() {
+        dialogoCargando.setContentView(R.layout.popup_cargando);
+        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoCargando.show();
     }
 
     private void showDialogo() {
@@ -179,6 +188,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     }
 
     private void cargarWebService() {
+        dialogoCargando();
         request = Volley.newRequestQueue(getApplication());
         String url = "https://" + getApplicationContext().getString(R.string.ip) + "puntaje.php?idusuario="+correo;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
@@ -192,17 +202,17 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
     @Override
     public void onResponse(JSONObject response) {
-        JSONArray json = response.optJSONArray("puntaje");
 
+        JSONArray json = response.optJSONArray("puntaje");
         try {
             puntajeUrl =json.getJSONObject(0).optString("puntos");
             imagenUrl = response.optJSONArray("medalla").getJSONObject(0).optString("medalla");
+            dialogoCargando.dismiss();
         } catch (JSONException e) {
             e.printStackTrace();
         }
         mostrarImg(imagenUrl);
         puntosUsuario.setText(puntajeUrl);
-
 
 
     }
