@@ -59,6 +59,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
     RecyclerView recyclerGrupos;
     ArrayList<GruposVo>listaGrupos;
     RequestQueue request;
+    String dato;
     JsonObjectRequest jsonObjectRequest;
     ProgressDialog progreso;
     AdapterGurpos adapter;
@@ -127,7 +128,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
     private void opciones() {
         final CharSequence[] opciones={"Aceptar","Cancelar"};
         final AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
-        builder.setTitle("¿ Esta seguro que desea unirse a este grupo ? ");
+        builder.setTitle("¿ Esta seguro que desea unirse a el grupo " + dato +  " ? ");
         builder.setItems(opciones, new DialogInterface.OnClickListener() {
 
             @Override
@@ -204,8 +205,9 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
         recyclerGrupos.addOnItemTouchListener(new RecyclerViewOnClickListener(getContext(), new RecyclerViewOnClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-               String dato = listaGrupos.get(recyclerGrupos.getChildAdapterPosition(view)).getCodigo();
-               Toast.makeText(getContext(),"Codigo " + dato,Toast.LENGTH_SHORT).show();
+               dato = listaGrupos.get(recyclerGrupos.getChildAdapterPosition(view)).getGrupo();
+               opciones();
+               //Toast.makeText(getContext(),"Codigo " + dato,Toast.LENGTH_SHORT).show();
             }
         }));
     }
