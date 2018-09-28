@@ -1,14 +1,18 @@
 package club.contaniif.contaniff.configuracion;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.interfaces.Puente;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +33,8 @@ public class Configuracion extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
+    LinearLayout btnGrupos,btnMiperfil;
+    Activity activity;
     public Configuracion() {
         // Required empty public constructor
     }
@@ -65,7 +70,42 @@ public class Configuracion extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_configuracion2, container, false);
+        View vista = inflater.inflate(R.layout.fragment_configuracion2, container, false);
+        btnGrupos = vista.findViewById(R.id.btnGrupos);
+        btnGrupos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cargarPantalla(1);
+            }
+        });
+
+        btnMiperfil = vista.findViewById(R.id.btnMiperfil);
+        btnMiperfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cargarPantalla(2);
+            }
+        });
+        return vista;
+    }
+
+    private void cargarPantalla(int i) {
+        Intent intent = new Intent(getContext(),ConfiguracionActivity.class);
+        Bundle miBundle = new Bundle();
+
+        switch (i){
+            case 1:
+                miBundle.putInt("pantalla",1);
+                intent.putExtra("dato",miBundle);
+                startActivity(intent);
+                break;
+
+            case 2:
+                miBundle.putInt("pantalla",2);
+                intent.putExtra("dato",miBundle);
+                startActivity(intent);
+                break;
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -78,6 +118,11 @@ public class Configuracion extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
+        if (context instanceof Activity) {
+            this.activity = (Activity) context;
+        }
+
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {

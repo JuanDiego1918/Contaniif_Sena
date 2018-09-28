@@ -58,8 +58,7 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
                 break;
             case 5:
                 seleccionado = true;
-                miFragment = new Grupos();
-                //miFragment = new Configuracion();
+                miFragment = new Configuracion();
                 break;
             case 6:
                 seleccionado = true;

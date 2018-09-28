@@ -3,7 +3,7 @@ package club.contaniif.contaniff.interfaces;
 
 import club.contaniif.contaniff.acercaDe.AcercaDeFragment;
 import club.contaniif.contaniff.configuracion.Configuracion;
-import club.contaniif.contaniff.configuracion.Miperfil;
+import club.contaniif.contaniff.configuracion.MiPerfil;
 import club.contaniif.contaniff.grupos.Grupos;
 import club.contaniif.contaniff.miRendimiento.RendimiendoFragment;
 import club.contaniif.contaniff.principal.Pantalla_empezar;
@@ -16,7 +16,7 @@ public interface AllFragments
         RendimiendoFragment.OnFragmentInteractionListener,
         CategoriasVideosFragment.OnFragmentInteractionListener,
         CategoriasSabias.OnFragmentInteractionListener,
-        Miperfil.OnFragmentInteractionListener,
         Configuracion.OnFragmentInteractionListener,
-        Grupos.OnFragmentInteractionListener{
+        Grupos.OnFragmentInteractionListener,
+        MiPerfil.OnFragmentInteractionListener{
 }

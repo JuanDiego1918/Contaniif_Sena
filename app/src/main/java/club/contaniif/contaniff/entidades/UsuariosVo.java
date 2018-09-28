@@ -66,7 +66,15 @@ public class UsuariosVo {
         this.municipio = municipio;
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    String id;
     String nombres;
     String apellidos;
     String genero;

@@ -56,6 +56,7 @@ import java.util.Map;
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.actividades.MainActivity;
 import club.contaniif.contaniff.entidades.VolleySingleton;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -79,7 +80,8 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     Bitmap bitmap;
     Spinner listaDepartamentos, listaMunicipios, listaGenero;
     EditText campoNombre, campoApellido, campoFechaNacimiento, campoCorreo;
-    ImageView imagenUsuario, imagenCamara;
+    ImageView  imagenCamara;
+    CircleImageView imagenUsuario;
     Button btnRegistro;
 
     ArrayList<String> ArrayDepartamentos;
@@ -89,7 +91,6 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     StringRequest stringRequest;
-
     ProgressDialog progreso;
 
 
@@ -219,7 +220,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                     Toast.makeText(getApplicationContext(),"Noebe llenar todos los campos",Toast.LENGTH_SHORT).show();
                     registrarUsuarios();
                 }*/
-                registrarUsuarios2();
+                registrarUsuarios();
             }
         });
 
@@ -334,7 +335,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             isCreada=miFile.mkdirs();//por si la variable no fue creada, se crea de nuevo
         }
         if (isCreada==true){
-            Long consecutivo= System.currentTimeMillis()/100;//aqui iba un 100, por si no funciona el codigo este es el error
+            Long consecutivo= System.currentTimeMillis()/1000;//aqui iba un 100, por si no funciona el codigo este es el error
             String nombre=consecutivo.toString()+".jpg";
 
             path=Environment.getExternalStorageDirectory()+File.separator+DIRECTORIO_IMAGEN
@@ -368,6 +369,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                     Uri miPath=data.getData();
                     imagenUsuario.setImageURI(miPath);
 
+
                     try {
                         bitmap=MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(),miPath);
                         imagenUsuario.setImageBitmap(bitmap);
@@ -387,10 +389,11 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
                     bitmap= BitmapFactory.decodeFile(path);
                     imagenUsuario.setImageBitmap(bitmap);
+                    imagenUsuario.setAdjustViewBounds(true);
 
                     break;
             }
-            bitmap=redimensionarImagen(bitmap,200,200);
+            //bitmap=redimensionarImagen(bitmap,400,400);
         }catch (Exception e){
             //imagenUsuario.setBackgroundResource(R.drawable.usuario);
             Toast.makeText(getApplicationContext(),"No se ha elegido ninguna imagen",Toast.LENGTH_SHORT).show();
@@ -409,7 +412,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             Matrix matrix=new Matrix();
             matrix.postScale(escalaAncho,escalaAlto);
 
-            return Bitmap.createBitmap(bitmap,200,200,ancho,alto,matrix,false);
+            return Bitmap.createBitmap(bitmap,0,0,ancho,alto,matrix,false);
 
         }else{
             return bitmap;
@@ -449,7 +452,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         if (requestCode==MIS_PERMISOS){
             if(grantResults.length==2 && grantResults[0]==PackageManager.PERMISSION_GRANTED && grantResults[1]==PackageManager.PERMISSION_GRANTED){//el dos representa los 2 permisos
                 Toast.makeText(getApplicationContext(),"Permisos aceptados",Toast.LENGTH_SHORT);
-                imagenCamara.setEnabled(true);
+                //imagenCamara.setEnabled(true);
             }
         }else{
             solicitarPermisosManual();
@@ -542,7 +545,8 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 progreso.hide();
                 Toast.makeText(getApplicationContext(), "No se pudo Registrar" + error.toString(), Toast.LENGTH_LONG).show();
                 Toast.makeText(getApplicationContext(), "NO SE REGISTRA" + error, Toast.LENGTH_LONG).show();
-                Log.i("RESULTADO", "NO SE REGISTRA desde onError " + error);
+                Log.i("RESULTADO", "NO SE REGISTRA desde onError " + error.toString());
+                Log.d("RESULT*****************", "NO SE REGISTRA desde onError " + error.toString());
             }
         }) {
             @Override
@@ -563,8 +567,8 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 String fechaNacimiento = "20001010";
                 String departamento = "quindio";
                 String municipio = "armenia";
-                String rutaImagen = "imagen";
-                //String rutaImagen = convertirImgString(bitmap);
+                //String rutaImagen = "imagen";
+                String rutaImagen = convertirImgString(bitmap);
 
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("nombres", nombres);
