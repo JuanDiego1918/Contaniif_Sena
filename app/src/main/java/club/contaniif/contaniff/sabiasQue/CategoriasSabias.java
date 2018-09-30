@@ -1,7 +1,10 @@
 package club.contaniif.contaniff.sabiasQue;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -63,6 +66,7 @@ public class CategoriasSabias extends Fragment implements Response.Listener<JSON
     Activity activity;
     JsonObjectRequest jsonObjectRequest;
     ArrayList<CategoriasVo> listasCategorias;
+    Dialog dialogoCargando;
 
 
     /**
@@ -97,7 +101,7 @@ public class CategoriasSabias extends Fragment implements Response.Listener<JSON
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_categorias_sabias, container, false);
-
+        dialogoCargando = new Dialog(this.getContext());
         recyclerView = view.findViewById(R.id.categoriasSabias);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
@@ -107,9 +111,16 @@ public class CategoriasSabias extends Fragment implements Response.Listener<JSON
     }
 
     private void cargarWebservices() {
+        dialogoCargando();
         String url = "https://" + getContext().getString(R.string.ip) + "VideosCategorias.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
+    }
+
+    private void dialogoCargando() {
+        dialogoCargando.setContentView(R.layout.popup_cargando);
+        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoCargando.show();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -174,6 +185,7 @@ public class CategoriasSabias extends Fragment implements Response.Listener<JSON
             Toast.makeText(getContext(), "No se ha podido establecer conexión" +
                     " " + response, Toast.LENGTH_LONG).show();
         }
+        dialogoCargando.dismiss();
     }
 
     /**

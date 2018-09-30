@@ -203,7 +203,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Empezar"
+                                android:text="Videos   "
                                 android:textAlignment="textStart"
                                 android:textColor="@color/letraBlanca"
                                 android:textSize="16sp"

@@ -44,12 +44,13 @@ public class SabiasActivity extends AppCompatActivity implements Response.Listen
     Bundle miBundle;
     int categoria;
     Dialog dialog;
+    Dialog dialogoCargando;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sabias);
-
+        dialogoCargando = new Dialog(this);
         listaSabias = new ArrayList();
         recyclerView = findViewById(R.id.recyclerSabias);
         miBundle = this.getIntent().getExtras();
@@ -60,12 +61,19 @@ public class SabiasActivity extends AppCompatActivity implements Response.Listen
     }
 
     private void cargarWebService() {
+        dialogoCargando();
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
         request = Volley.newRequestQueue(getApplication());
         String url = "https://" + getApplicationContext().getString(R.string.ip) + "sabias.php?categoria=" + categoria;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
+    }
+
+    private void dialogoCargando() {
+        dialogoCargando.setContentView(R.layout.popup_cargando);
+        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoCargando.show();
     }
 
     @Override
@@ -101,6 +109,7 @@ public class SabiasActivity extends AppCompatActivity implements Response.Listen
             Toast.makeText(getApplicationContext(), "No se ha podido establecer conexión con el servidor" +
                     " " + response, Toast.LENGTH_LONG).show();
         }
+        dialogoCargando.dismiss();
 
     }
 
