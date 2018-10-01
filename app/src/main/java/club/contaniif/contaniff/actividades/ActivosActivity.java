@@ -67,6 +67,10 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         listActivos = new ArrayList<>();
         listaDisponible = new ArrayList<>();
         cargarWebService();
+        Bundle miBundle=getIntent().getExtras();
+        if (miBundle!=null){
+            Toast.makeText(getApplicationContext(),""+miBundle.getString("puntos"),Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void cargarWebService() {

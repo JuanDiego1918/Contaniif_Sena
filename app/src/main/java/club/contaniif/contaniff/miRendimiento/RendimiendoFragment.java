@@ -91,6 +91,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
     Dialog ventanaComentarios;
     JsonObjectRequest JsonObjectRequest;
     Puente puente;
+    String monedasCanjeadas;
 
 
     /**
@@ -161,7 +162,11 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         activos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                puente.activos();
+                if (cambiarVarible(monedasCanjeadas)!=0){
+                    puente.activos(monedasCanjeadas);
+                }else {
+                    Toast.makeText(getContext(), "No tienes monedas disponibles para reaalizar compras", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return view;
@@ -372,11 +377,13 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
 
             txtPuntos.setText("Puntos Obtenidos: " + json.getJSONObject(0).optString("obtenidos"));
             txtCambiados.setText("Puntos Cambiados: " + json.getJSONObject(1).optString("canjeados"));
-            txtDescontados.setText("Puntos Descontados: " + json.getJSONObject(2).optString("descontados"));
-            txtDisponibles.setText("Puntos Disponibles: " + json.getJSONObject(3).optString("quedan"));
-            puntosDisponibles=json.getJSONObject(3).optString("quedan");
-            txtAccionDia.setText("Accion del día: " + json.getJSONObject(4).optString("accion"));
-            txtPuntosCanjes.setText("Monedas Canjeadas: " + response.optJSONArray("Criptoniif").getJSONObject(0).optString("monedas"));
+            txtActivo.setText("Activos Adquiridos: " + json.getJSONObject(2).optString("activos"));
+            txtDescontados.setText("Puntos Descontados: " + json.getJSONObject(3).optString("descontados"));
+            txtDisponibles.setText("Puntos Disponibles: " + json.getJSONObject(4).optString("quedan"));
+            puntosDisponibles=json.getJSONObject(4).optString("quedan");
+            txtAccionDia.setText("Accion del día: " + json.getJSONObject(5).optString("accion"));
+            monedasCanjeadas=response.optJSONArray("Criptoniif").getJSONObject(0).optString("monedas");
+            txtPuntosCanjes.setText("Monedas Canjeadas: " + monedasCanjeadas);
         } catch (JSONException e) {
             Toast.makeText(getContext(), "" + e.toString(), Toast.LENGTH_SHORT).show();
         }

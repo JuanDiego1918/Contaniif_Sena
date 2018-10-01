@@ -94,11 +94,11 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
     }
 
     @Override
-    public void activos() {
-        //Bundle miBundle = new Bundle();
-        //miBundle.putString("id", tipo);
+    public void activos(String puntos) {
+        Bundle miBundle = new Bundle();
+        miBundle.putString("puntos", puntos);
         Intent miIntent = new Intent(getApplicationContext(), ActivosActivity.class);
-        //miIntent.putExtras(miBundle);
+        miIntent.putExtras(miBundle);
         startActivity(miIntent);
     }
 
