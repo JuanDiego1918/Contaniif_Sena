@@ -84,10 +84,11 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     File fileImagen;
     Bitmap bitmap;
     Spinner listaDepartamentos, listaMunicipios, listaGenero;
-    EditText campoNombre, campoApellido, campoFechaNacimiento, campoCorreo;
+    EditText campoNombre, campoApellido, campoCorreo;
     ImageView  imagenCamara;
     CircleImageView imagenUsuario;
     TextView campoFecha;
+    String fecha;
     Button btnRegistro,btnFecha;
 
     private int dia,mes,anio;
@@ -250,8 +251,6 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         }else{
             //imagenCamara.setEnabled(false);
         }
-
-         campoCorreo.setText("victor@gmail.com");
     }
 
     private void cargarDialogoFecha() {
@@ -263,6 +262,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 campoFecha.setText(year+"-"+(month+1)+"-"+dayOfMonth);
+                fecha = ""+year+month+dayOfMonth;
             }
         },dia,mes,anio);
         datePickerDialog.show();
@@ -424,11 +424,11 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
                     bitmap= BitmapFactory.decodeFile(path);
                     imagenUsuario.setImageBitmap(bitmap);
-                    imagenUsuario.setAdjustViewBounds(true);
+                    //imagenUsuario.setAdjustViewBounds(false);
 
                     break;
             }
-            //bitmap=redimensionarImagen(bitmap,400,400);
+            bitmap=redimensionarImagen(bitmap,400,400);
         }catch (Exception e){
             //imagenUsuario.setBackgroundResource(R.drawable.usuario);
             Toast.makeText(getApplicationContext(),"No se ha elegido ninguna imagen",Toast.LENGTH_SHORT).show();
@@ -586,16 +586,16 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                /*String nombres = campoNombre.getText().toString();
+                String nombres = campoNombre.getText().toString();
                 String apellidos = campoApellido.getText().toString();
-                String genero = ();
+                String generoo = genero;
                 String correo = campoCorreo.getText().toString();
-                String fechaNacimiento = campoFechaNacimiento.getText().toString();
-                String departamento = getDepartamento();
-                String municipio = getMunicipio();
-                String rutaImagen = convertirImgString(bitmap);*/
+                String fechaNacimiento = fecha;
+                String departamentoo = departamento;
+                String municipioo = municipio;
+                String rutaImagen = convertirImgString(bitmap);
 
-                String nombres = "manuel";
+                /*String nombres = "manuel";
                 String apellidos = "hurtado";
                 String genero = "masculino";
                 String correo = "victor@gmail.com";
@@ -604,15 +604,15 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 String municipio = "armenia";
                 //String rutaImagen = "imagen";
                 String rutaImagen = convertirImgString(bitmap);
-
+*/
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("nombres", nombres);
                 parametros.put("apellidos", apellidos);
-                parametros.put("genero", genero);
+                parametros.put("genero", generoo);
                 parametros.put("correo", correo);
                 parametros.put("fechaNacimiento", fechaNacimiento);
-                parametros.put("departamento", departamento);
-                parametros.put("municipio", municipio);
+                parametros.put("departamento", departamentoo);
+                parametros.put("municipio", municipioo);
                 parametros.put("rutaImagen", rutaImagen);
                 Log.i("--------PARAMETROS " , parametros.toString());
                 return parametros;
@@ -664,7 +664,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         //editor.putString("correo",campoCorreo.getText().toString());
-        editor.putString("correo","victor@gmail.com");
+        editor.putString("correo",campoCorreo.getText().toString());
         editor.commit();
     }
 
@@ -673,7 +673,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         SharedPreferences preferences = getSharedPreferences("Nombre", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         //editor.putString("correo",campoCorreo.getText().toString());
-        editor.putString("nombre","victor manuel");
+        editor.putString("nombre",campoNombre.getText().toString());
         editor.commit();
     }
 

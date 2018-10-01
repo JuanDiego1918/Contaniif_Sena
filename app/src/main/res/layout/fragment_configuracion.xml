@@ -94,14 +94,18 @@
                         android:textColor="#000"
                         android:text="Naci el:"/>
 
+
                     <TextView
                         android:id="@+id/campoFechaConfig"
-                        android:layout_width="122dp"
-                        android:layout_marginLeft="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
                         android:textSize="18dp"
                         android:layout_height="wrap_content"
-                        android:textColor="#000"
-                        android:hint="Fecha" />
+                        android:layout_below="@+id/campoCorreoRegistro"
+                        android:textAlignment="center"
+                        android:hint="Fecha de nacimiento"
+                        android:inputType="date" />
+
 
                     <ImageView
                         android:id="@+id/imagenEditarFechaNacimiento"

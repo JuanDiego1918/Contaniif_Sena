@@ -1,6 +1,7 @@
 package club.contaniif.contaniff.configuracion;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -28,6 +29,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -49,6 +51,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import club.contaniif.contaniff.R;
@@ -65,6 +68,7 @@ import club.contaniif.contaniff.entidades.UsuariosVo;
 public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener {
     int posicion;
     int accion;
+    private int dia,mes,anio;
     String generoo;
     String departamentoo;
     String id;
@@ -275,6 +279,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     EditText campoNombre, campoApellido, campoCorreo;
     TextView campoMunicipio,campoDepartamento,campoGenero,campoFechaNacimiento;
     ImageView imagenUsuario, imagenCamara;
+    String fecha;
     ImageView editarGenero,editarFecha,editarDepartamento,editarMunicipio;
     Button btnRegistro,btnFalso;
     //////-Listas
@@ -449,7 +454,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
             @Override
             public void onClick(View view) {
                 setValidacionFecha(10);
-                //showDialogFecha();
+                cargarDialogoFecha();
             }
         });
 
@@ -556,6 +561,21 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         cargarDatosPerfil();
         //Toast.makeText(getContext(),"credenciales:" + getCredenciales(),Toast.LENGTH_SHORT).show();
 
+    }
+
+    private void cargarDialogoFecha() {
+        final Calendar calendar = Calendar.getInstance();
+        dia  = calendar.get(Calendar.DAY_OF_MONTH);
+        mes  = calendar.get(Calendar.MONTH);
+        anio = calendar.get(Calendar.YEAR);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this.getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                campoFechaNacimiento.setText(year+"-"+(month+1)+"-"+dayOfMonth);
+                fecha = ""+year+month+dayOfMonth;
+            }
+        },dia,mes,anio);
+        datePickerDialog.show();
     }
 
 
