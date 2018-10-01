@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -67,6 +69,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     String departamentoo;
     String id;
     String municipioo;
+    Dialog dialogoCargando;
     String rutaImagenn;
 
     public String getGeneroo() {
@@ -330,8 +333,8 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         View vista = inflater.inflate(R.layout.fragment_configuracion, container, false);
         request = Volley.newRequestQueue(getContext());
         request2 = Volley.newRequestQueue(getContext());
+        dialogoCargando = new Dialog(this.getContext());
         cargarCredenciales();
-
         // myDialogFecha.setContentView(R.layout.popup_seleccionar_fecha);
         ArrayGenero = new ArrayList<>();
         ArrayGenero.add("Seleccioar genero");
@@ -538,14 +541,24 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         setAccion(1);
     }
 
+
+    private void dialogoCargando() {
+        dialogoCargando.setContentView(R.layout.popup_cargando);
+        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoCargando.show();
+    }
+
     private void cargarCredenciales() {
         SharedPreferences preferences = this.getActivity().getSharedPreferences("Credenciales",Context.MODE_PRIVATE);
         String credenciales = preferences.getString("correo","No existe el valor");
         setCredenciales(credenciales);
+        dialogoCargando();
         cargarDatosPerfil();
         //Toast.makeText(getContext(),"credenciales:" + getCredenciales(),Toast.LENGTH_SHORT).show();
 
     }
+
+
 
 
     private void cargarDatosPerfil() {
@@ -825,6 +838,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                 break;
         }
 
+        dialogoCargando.hide();
     }
 
     private void actualizarUsuarios() {

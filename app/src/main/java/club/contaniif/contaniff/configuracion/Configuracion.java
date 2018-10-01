@@ -1,6 +1,7 @@
 package club.contaniif.contaniff.configuracion;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -35,6 +36,7 @@ public class Configuracion extends Fragment {
     private OnFragmentInteractionListener mListener;
     LinearLayout btnGrupos,btnMiperfil;
     Activity activity;
+    Dialog dialogoCargando;
     public Configuracion() {
         // Required empty public constructor
     }
@@ -78,7 +80,6 @@ public class Configuracion extends Fragment {
                 cargarPantalla(1);
             }
         });
-
         btnMiperfil = vista.findViewById(R.id.btnMiperfil);
         btnMiperfil.setOnClickListener(new View.OnClickListener() {
             @Override

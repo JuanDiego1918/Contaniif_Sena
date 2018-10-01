@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,9 +11,6 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="-18dp">
-
-
-
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -51,7 +48,6 @@
                 android:id="@+id/campoNombreRegistro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="#000"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="162dp"
@@ -61,7 +57,6 @@
                 android:id="@+id/campoApellidosRegistro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="#000"
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/campoNombreRegistro"
                 android:layout_centerHorizontal="true"
@@ -72,6 +67,7 @@
 
             <Spinner
                 android:layout_width="match_parent"
+                style="@style/mySpinnerItemStyle"
                 android:layout_height="wrap_content"
                 android:id="@+id/spinnerGeneroRegistro"
                 android:layout_below="@+id/campoApellidosRegistro"
@@ -109,24 +105,22 @@
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/spinnerGeneroRegistro"
-                android:textColorHint="#000"
                 android:layout_centerHorizontal="true"
                 android:ems="10"
                 android:hint="Correo electronico"
                 android:inputType="textEmailAddress" />
 
 
-            <EditText
+            <TextView
                 android:id="@+id/campoFechaRegistro"
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
+                android:textSize="18dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/campoCorreoRegistro"
-                android:textColorHint="#000"
-                android:layout_centerHorizontal="true"
-                android:ems="10"
+                android:textAlignment="center"
                 android:hint="Fecha de nacimiento"
-                android:inputType="datetime" />
+                android:inputType="date" />
 
 
 
@@ -155,4 +149,4 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:text="Registrar" />
-</LinearLayout>
+</RelativeLayout>

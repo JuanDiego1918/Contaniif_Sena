@@ -18,6 +18,8 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -31,6 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 
 import club.contaniif.contaniff.R;
@@ -61,7 +64,8 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
     private OnFragmentInteractionListener mListener;
     RecyclerView recyclerGrupos;
     ArrayList<GruposVo>listaGrupos;
-    Dialog dialogoCargando;
+    Dialog dialogoCargando,dialogGrupo;
+    String nombre;
     RequestQueue request;
     String dato;
     JsonObjectRequest jsonObjectRequest;
@@ -107,9 +111,10 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
         View vista = inflater.inflate(R.layout.fragment_grupos, container, false);
         request = Volley.newRequestQueue(getContext());
         dialogoCargando = new Dialog(this.getContext());
+        dialogGrupo = new Dialog(this.getContext());
         recyclerGrupos = vista.findViewById(R.id.recyclerGrupos);
         cargarWebservices();
-
+        cargarNombre();
 
         return vista;
     }
@@ -132,6 +137,15 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
         dialogoCargando.setContentView(R.layout.popup_cargando);
         dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogoCargando.show();
+    }
+
+
+    private void cargarNombre() {
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("Nombre", Context.MODE_PRIVATE);
+        String nombre = preferences.getString("nombre", "No existe el valor");
+        if (nombre != "No existe el valor") {
+            this.nombre = nombre;
+        }
     }
 
     private void opciones() {
@@ -213,12 +227,48 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
             @Override
             public void onItemClick(View view, int position) {
                dato = listaGrupos.get(recyclerGrupos.getChildAdapterPosition(view)).getGrupo();
-               opciones();
+               //opciones();
+                showPopup();
                //Toast.makeText(getContext(),"Codigo " + dato,Toast.LENGTH_SHORT).show();
             }
         }));
 
         dialogoCargando.dismiss();
+    }
+
+    private void showPopup() {
+
+        Button aceptar,cancelar;
+        TextView campoNombre,campoGrupo;
+
+        dialogGrupo.setContentView(R.layout.popup_grupos);
+        dialogGrupo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogGrupo.show();
+
+        campoNombre = dialogGrupo.findViewById(R.id.campoNombreGrupo);
+        campoGrupo = dialogGrupo.findViewById(R.id.campoGrupo);
+
+        campoNombre.setText(nombre);
+        campoGrupo.setText("Esta seguro que desea unirse al grupo " + dato);
+
+        aceptar = dialogGrupo.findViewById(R.id.btnContinuarGrupo);
+        aceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogGrupo.hide();
+                Toast.makeText(getContext(), "Se a unido al grupo " + dato, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        cancelar = dialogGrupo.findViewById(R.id.btnCancelarGrupo);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogGrupo.hide();
+                Toast.makeText(getContext(), "No ha elegido ningun grupo " , Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     /**
