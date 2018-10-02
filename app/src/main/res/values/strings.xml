@@ -3,10 +3,13 @@
     <string name="ip">www.contaniif.club/movil/</string>
     <string name="ipImg">www.contaniif.club/img/eventos/</string>
     <string name="ipTraerMunicipio">https://www.contaniif.club/movil/traerMunicipio.php?pas=</string>
+    <string name="ipActualizarUsuario1">https://www.contaniif.club/movil/actualizarUsuario1.php?</string>
+    <string name="ipActualizarUsuario2">https://www.contaniif.club/movil/actualizarUsuario1.php?</string>
     <string name="ipRegistro1">https://www.contaniif.club/movil/registro.php</string>
     <string name="ipMiPerfil">https://www.contaniif.club/movil/consultarUsuario.php?correo=</string>
     <!--<string name="ipRegistro1">http://www.cursosena.xyz/registro.php</string>-->
     <string name="ipRegistro2">https://www.contaniif.club/movil/registro.php?</string>
+    <string name="ipRegistroPuntaje">https://www.contaniif.club/movil/guardaPuntos.php?</string>
     <string name="ipComentario">192.168.0.7/pruebas/registroComentario.php</string>
     <string name="ipImgsuario">https://www.contaniif.club/img/usuarios/</string>
     <string name="imgRendimiento">www.contaniif.club/img/</string>

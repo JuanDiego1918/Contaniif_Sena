@@ -8,14 +8,14 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="419dp"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="-18dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="406dp"
+            android:layout_height="match_parent"
             android:paddingLeft="18dp"
             android:paddingRight="18dp">
 
@@ -36,6 +36,7 @@
                 android:id="@+id/imagenCamara"
                 android:layout_height="52dp"
                 android:layout_alignParentEnd="true"
+                android:layout_gravity="center_horizontal"
                 android:layout_alignParentTop="true"
                 android:layout_marginEnd="74dp"
                 android:layout_marginTop="81dp"
@@ -98,11 +99,11 @@
                     <TextView
                         android:id="@+id/campoFechaConfig"
                         android:layout_width="match_parent"
-                        android:layout_marginTop="10dp"
                         android:textSize="18dp"
+                        android:textColor="#000"
+                        android:textColorHint="#000"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/campoCorreoRegistro"
-                        android:textAlignment="center"
                         android:hint="Fecha de nacimiento"
                         android:inputType="date" />
 
@@ -152,7 +153,7 @@
                 </TableRow>
 
 
-                <TableRow android:layout_marginBottom="10dp">
+                <TableRow>
                     <TextView
                         android:textSize="16dp"
                         android:layout_width="102dp"
@@ -169,7 +170,6 @@
                             android:id="@+id/campoDepartamentoConfig"
                             android:layout_width="122dp"
                             android:textSize="18dp"
-                            android:layout_marginTop="10dp"
                             android:textColor="#000"
                             android:layout_marginLeft="5dp"
                             android:layout_height="wrap_content"
@@ -186,12 +186,11 @@
                         android:id="@+id/imagenEditarDepartamento"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:src="@drawable/lapiz" />
 
                 </TableRow>
 
-                <TableRow android:layout_marginBottom="10dp">
+                <TableRow>
                     <TextView
                         android:textSize="16dp"
                         android:layout_width="82dp"

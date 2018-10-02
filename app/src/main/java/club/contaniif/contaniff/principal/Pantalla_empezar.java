@@ -245,6 +245,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_pantalla_empezar, container, false);
+        cargarCredenciales();
         request = Volley.newRequestQueue(getContext());
         miScroll = vista.findViewById(R.id.scroll);
 
@@ -282,7 +283,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             btnContinuar2.setVisibility(View.INVISIBLE);
         }
         cargarNombre();
-        cargarCredenciales();
         cargarWebservices();
 
         //fragmentBolas = vista.findViewById(R.id.fragmentBolitas);
@@ -389,6 +389,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
         myDialogBuena.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialogBuena.show();
+        enviarDatosPuntaje();
     }
 
     private void revisar(boolean revisar) {
@@ -435,7 +436,8 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     private void cargarCredenciales() {
         SharedPreferences preferences = this.getActivity().getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         String credenciales = preferences.getString("correo", "No existe el valor");
-        setCredenciales(credenciales);
+        this.credenciales =credenciales;
+        Toast.makeText(getContext(),"Credenciales = " + this.credenciales, Toast.LENGTH_SHORT).show();
     }
 
     private void cargarNombre() {
@@ -447,11 +449,10 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     }
 
 
-    private void enviarDatosPuntaje(int puntos) {
+    private void enviarDatosPuntaje() {
 
-        setPuntos(puntos);
         String url;
-        url = "http://" + getContext().getString(R.string.ip2) + "/apolunios/registroEstadisticas.php?";
+        url = getContext().getString(R.string.ipRegistroPuntaje);
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -466,7 +467,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progreso.hide();
+//                progreso.hide();
                 Toast.makeText(getContext(), "No se pudo registrar el puntaje" + error.toString(), Toast.LENGTH_SHORT).show();
             }
 
@@ -474,16 +475,17 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                String idusuario = getCredenciales();
+                String idusuario = credenciales;
                 int idpregunta = preguntas.getId();
                 int tiempo = tiempoCapturado;
-                int puntaje = getPuntos();
+                int puntaje = getPuntage();
 
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("idusuario", idusuario);
                 parametros.put("idpregunta", Integer.toString(idpregunta));
                 parametros.put("tiempo", Integer.toString(tiempo));
                 parametros.put("puntaje", Integer.toString(puntaje));
+                Log.i("*******Parametros ",parametros.toString());
                 return parametros;
             }
         };

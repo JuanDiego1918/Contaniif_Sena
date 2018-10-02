@@ -2,6 +2,7 @@ package club.contaniif.contaniff.registro;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -81,6 +83,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     private static final int COD_SELECCIONA = 10;
     private static final int COD_FOTO = 20;
 
+    Dialog dialogoCargando;
     File fileImagen;
     Bitmap bitmap;
     Spinner listaDepartamentos, listaMunicipios, listaGenero;
@@ -108,7 +111,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_registro);
 
-
+        dialogoCargando = new Dialog(this);
         consultarCredenciales();
        /* if(solicitaPermisosVersionesSuperiores()){
             imagenCamara.setEnabled(true);
@@ -268,6 +271,11 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         datePickerDialog.show();
     }
 
+    private void dialogoCargando() {
+        dialogoCargando.setContentView(R.layout.popup_cargando);
+        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoCargando.show();
+    }
     private void consultarCredenciales() {
 
         SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
@@ -543,26 +551,28 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
 
     private void registrarUsuarios() {
-        progreso = new ProgressDialog(this);
+     /*   progreso = new ProgressDialog(this);
         progreso.setMessage("Cargando...");
-        progreso.show();
+        progreso.show();*/
 
+        dialogoCargando();
         String url;
         java.lang.System.setProperty("https.protocols", "TLSv1");
         url = getApplicationContext().getString(R.string.ipRegistro1);
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                progreso.hide();
+                //progreso.hide();
                 if (response.trim().equalsIgnoreCase("registra")) {
                     Toast.makeText(getApplicationContext(), "Respuesta server =  " + response, Toast.LENGTH_LONG).show();
                     Log.i("RESULTADO", "Respuesta server" + response);
-                    //Intent intent = new Intent(Registro.this, MainActivity.class);
-                    //startActivity(intent);
+                    dialogoCargando.hide();
+                    Intent intent = new Intent(Registro.this, MainActivity.class);
+                    startActivity(intent);
 
                 } else {
                     Toast.makeText(getApplicationContext(),"Entra al Onresponse 1 " + response, Toast.LENGTH_LONG).show();
-                    progreso.hide();
+                    //progreso.hide();
                     /*txtDocumento.setText("");
                     txtNombre.setText("");
                     txtApellido.setText("");
@@ -590,14 +600,14 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 String apellidos = campoApellido.getText().toString();
                 String generoo = genero;
                 String correo = campoCorreo.getText().toString();
-                String fechaNacimiento = fecha;
+                String fechaNacimiento = campoFecha.getText().toString();
                 String departamentoo = departamento;
                 String municipioo = municipio;
                 String rutaImagen = convertirImgString(bitmap);
 
                 /*String nombres = "manuel";
                 String apellidos = "hurtado";
-                String genero = "masculino";
+                String genero = "masculino";f
                 String correo = "victor@gmail.com";
                 String fechaNacimiento = "20001010";
                 String departamento = "quindio";

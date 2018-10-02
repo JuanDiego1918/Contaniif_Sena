@@ -50,9 +50,12 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.entidades.UsuariosVo;
@@ -72,9 +75,15 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     String generoo;
     String departamentoo;
     String id;
+    String img;
     String municipioo;
     Dialog dialogoCargando;
     String rutaImagenn;
+    String rutaImg;
+
+
+    int daate;
+    String date;
 
     public String getGeneroo() {
         return generoo;
@@ -454,6 +463,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
             @Override
             public void onClick(View view) {
                 setValidacionFecha(10);
+                validarFecha();
                 cargarDialogoFecha();
             }
         });
@@ -492,6 +502,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                 opcionesCapturaFoto();
                 setValidacionImagenusuario1(10);
                 setSeleccionaImagenusuario(true);
+                seleccionaImagenusuario = (true);
             }
         });
         //
@@ -521,24 +532,33 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         return vista;
     }
 
-/*    private void showDialogFecha() {
+    private void validarFecha() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yy",Locale.getDefault());
+        Date date = new Date();
+        dateFormat.format(date);
+        for (int i = 0; i < 80; i++) {
 
-        Button continuar;
-        TextView txtRetroBuena;
+        }
+    }
 
-        myDialogFecha.setContentView(R.layout.popup_seleccionar_fecha);
+    /*    private void showDialogFecha() {
 
-        continuar = myDialogFecha.findViewById(R.id.btnCerrarPopupFecha);
-        continuar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialogFecha.dismiss();
-            }
-        });
+            Button continuar;
+            TextView txtRetroBuena;
 
-        myDialogFecha.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialogFecha.show();
-    }*/
+            myDialogFecha.setContentView(R.layout.popup_seleccionar_fecha);
+
+            continuar = myDialogFecha.findViewById(R.id.btnCerrarPopupFecha);
+            continuar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    myDialogFecha.dismiss();
+                }
+            });
+
+            myDialogFecha.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            myDialogFecha.show();
+        }*/
     private void cargarListaMunicipios() {
         String url = getContext().getString(R.string.ipTraerMunicipio)+getPosicion();
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
@@ -556,23 +576,28 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     private void cargarCredenciales() {
         SharedPreferences preferences = this.getActivity().getSharedPreferences("Credenciales",Context.MODE_PRIVATE);
         String credenciales = preferences.getString("correo","No existe el valor");
-        setCredenciales(credenciales);
+        this.credenciales = credenciales;
         dialogoCargando();
         cargarDatosPerfil();
         //Toast.makeText(getContext(),"credenciales:" + getCredenciales(),Toast.LENGTH_SHORT).show();
 
     }
 
-    private void cargarDialogoFecha() {
+    public void cargarDialogoFecha() {
         final Calendar calendar = Calendar.getInstance();
         dia  = calendar.get(Calendar.DAY_OF_MONTH);
         mes  = calendar.get(Calendar.MONTH);
         anio = calendar.get(Calendar.YEAR);
+
+        calendar.after("01-01-1990");
+        calendar.before("01-01-2010");
+
         DatePickerDialog datePickerDialog = new DatePickerDialog(this.getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 campoFechaNacimiento.setText(year+"-"+(month+1)+"-"+dayOfMonth);
                 fecha = ""+year+month+dayOfMonth;
+                setValidacionFecha(3);
             }
         },dia,mes,anio);
         datePickerDialog.show();
@@ -685,7 +710,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
                 break;
         }
-        bitmap=redimensionarImagen(bitmap,600,800);
+        bitmap=redimensionarImagen(bitmap,400,400);
     }
 
     private Bitmap redimensionarImagen(Bitmap bitmap, float anchoNuevo, float altoNuevo) {
@@ -716,26 +741,24 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
     private void mostrarImg(String rutaImagen) {
         String ip=getContext().getString(R.string.ipImgsuario);
-
+        img = ip;
         final String urlImagen=ip+id+".jpg";
         ImageRequest imageRequest=new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
                 imagenUsuario.setImageBitmap(response);
+                dialogoCargando.hide();
             }
         }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(),"Error al cargar la imagen" + urlImagen, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"Error al cargar la imagen" + error +  urlImagen, Toast.LENGTH_LONG).show();
+                Log.i("Error img",error.toString() + urlImagen);
             }
         });
         setAccion(2);
         request.add(imageRequest);
     }
-
-
-
-
 
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -839,12 +862,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                     setMunicipioo(miUsuario.getMunicipio().toString());
                 }
 
-                if (seleccionaImagenusuario==false){
-                    setRutaImagenn(miUsuario.getRutaImagen().toString());
 
-                }else {
-                    setRutaImagenn(convertirImgString(bitmap));
-                }
                 id = miUsuario.getId().toString();
                 setUrlImagenUsuario(miUsuario.getRutaImagen().toString());
                 mostrarImg(miUsuario.getRutaImagen().toString());
@@ -855,20 +873,27 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                 campoFechaNacimiento.setText(miUsuario.getFechaNacimiento().toString());
                 campoDepartamento.setText(miUsuario.getDepartamento().toString());
                 campoMunicipio.setText(miUsuario.getMunicipio().toString());
+
+                if (seleccionaImagenusuario==true){
+                    //rutaImg=img+id;
+                }else {
+                    //rutaImg=convertirImgString(bitmap);
+                }
                 break;
         }
 
-        dialogoCargando.hide();
+
     }
 
     private void actualizarUsuarios() {
         //Toast.makeText(getContext(),"Has llenado todos los campos",Toast.LENGTH_SHORT).show();
         String url;
         if (seleccionaImagenusuario==true){
-            url = "http://"+getContext().getString(R.string.ip2)+"/apolunios/actualizarUsuario.php?";
+            url = getContext().getString(R.string.ipActualizarUsuario2);
         }else {
-            url = "http://"+getContext().getString(R.string.ip2)+"/apolunios/actualizarUsuario2.php?";
+            url = getContext().getString(R.string.ipActualizarUsuario1);
         }
+
 
 
         stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -905,7 +930,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                 String fechaNacimiento = campoFechaNacimiento.getText().toString();
                 String departamento = departamentoo;
                 String municipio = municipioo;
-                String rutaImagen = getRutaImagenn();
+                String rutaImagen =img;
 
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("nombres", nombres);
@@ -916,7 +941,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                 parametros.put("departamento", departamento);
                 parametros.put("municipio", municipio);
                 parametros.put("rutaImagen", rutaImagen);
-
+                Log.i("*******Parametros",parametros.toString());
                 return parametros;
             }
         };
