@@ -875,6 +875,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                 campoMunicipio.setText(miUsuario.getMunicipio().toString());
 
                 if (seleccionaImagenusuario==true){
+
                     //rutaImg=img+id;
                 }else {
                     //rutaImg=convertirImgString(bitmap);
