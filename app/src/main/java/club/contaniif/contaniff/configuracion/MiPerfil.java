@@ -730,7 +730,10 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
     private String convertirImgString(Bitmap bitmap) {
         ByteArrayOutputStream array=new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,array);
+        if (seleccionaImagenusuario==true){
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,array);
+        }
+
         byte[] imagenByte=array.toByteArray();
         String imagenString= Base64.encodeToString(imagenByte, Base64.DEFAULT);
         return imagenString;
@@ -876,9 +879,9 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
                 if (seleccionaImagenusuario==true){
 
-                    //rutaImg=img+id;
+
                 }else {
-                    //rutaImg=convertirImgString(bitmap);
+
                 }
                 break;
         }
@@ -891,8 +894,11 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         String url;
         if (seleccionaImagenusuario==true){
             url = getContext().getString(R.string.ipActualizarUsuario2);
+
         }else {
             url = getContext().getString(R.string.ipActualizarUsuario1);
+         //   rutaImg=img+id;
+
         }
 
 
@@ -931,7 +937,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                 String fechaNacimiento = campoFechaNacimiento.getText().toString();
                 String departamento = departamentoo;
                 String municipio = municipioo;
-                String rutaImagen =img;
+                String rutaImagen = rutaImg=convertirImgString(bitmap);
 
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("nombres", nombres);
