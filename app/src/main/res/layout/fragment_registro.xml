@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".registro.Registro">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,10 +15,11 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingLeft="18dp"
             android:id="@+id/lrelative"
             android:rotation="0"
+            android:layout_marginBottom="32dp"
             android:paddingRight="18dp">
 
 
@@ -116,11 +118,13 @@
                 android:id="@+id/campoFechaRegistro"
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
-                android:textSize="18dp"
+                android:textSize="16dp"
+                android:textColor="#000"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
                 android:layout_below="@+id/campoCorreoRegistro"
                 android:textAlignment="center"
-                android:hint="Fecha de nacimiento"
+                android:text="FECHA DE NACIMIENTO OPRIME AQUI"
                 android:inputType="date" />
 
             <Spinner

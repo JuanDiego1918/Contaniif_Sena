@@ -73,7 +73,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     int posicion = 0,accion = 0;
     String departamento = "", genero = "",municipio = "";
     boolean seleccionaDepartamento = false, seleccionaGenero = false,seleccionaImagen = false,seleccionaMunicipio = false;
-
+    Spinner lisdaAnios,listaMeses,listaDias;
 
     private static final String CARPETA_PRINCIPAL = "misImagenesApp/";//directorio principal
     private static final String CARPETA_IMAGEN = "imagenes";//carpeta donde se guardan las fotos
@@ -239,12 +239,13 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* if (campoNombre.getText().equals("") || campoApellido.getText().equals("")|| seleccionaGenero==false || seleccionaDepartamento==false || seleccionaMunicipio==false || seleccionaImagen==false ){
+              /*  if (campoNombre.getText().equals("") || campoApellido.getText().equals("")|| seleccionaGenero==false || seleccionaDepartamento==false || seleccionaMunicipio==false || seleccionaImagen==false ){
                     Toast.makeText(getApplicationContext(),"Debe llenar todos los campos",Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getApplicationContext(),"Noebe llenar todos los campos",Toast.LENGTH_SHORT).show();
                     registrarUsuarios();
-                }*/
+                }
+*/
                 registrarUsuarios();
             }
         });

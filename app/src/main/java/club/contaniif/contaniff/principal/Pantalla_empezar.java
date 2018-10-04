@@ -361,7 +361,8 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         String ip = getContext().getString(R.string.ip);
         //String url = "http://" + ip + "wsPreguntasTipo1.php";
         //String url = "http://" + ip + "/apolunios/wsConsultaPreguntaPrueba1.php";
-        String url = "https://" + ip + "/wsConsultaPreguntaPrueba1.php";
+        String url = "https://" + ip + "/wsConsultaPreguntaPrueba1.php?estudiante="+credenciales;
+        Toast.makeText(getContext(), "Estudiante " + credenciales, Toast.LENGTH_SHORT).show();
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
 //        request.add(jsonObjectRequest);
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
@@ -437,7 +438,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         SharedPreferences preferences = this.getActivity().getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         String credenciales = preferences.getString("correo", "No existe el valor");
         this.credenciales =credenciales;
-        Toast.makeText(getContext(),"Credenciales = " + this.credenciales, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(),"Credenciales = " + this.credenciales, Toast.LENGTH_SHORT).show();
     }
 
     private void cargarNombre() {
@@ -484,7 +485,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 parametros.put("idusuario", idusuario);
                 parametros.put("idpregunta", Integer.toString(idpregunta));
                 parametros.put("tiempo", Integer.toString(tiempo));
-                parametros.put("puntaje", Integer.toString(puntaje));
+                parametros.put("puntos", Integer.toString(puntaje));
                 Log.i("*******Parametros ",parametros.toString());
                 return parametros;
             }

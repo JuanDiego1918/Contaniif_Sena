@@ -10,7 +10,7 @@
     <!--<string name="ipRegistro1">http://www.cursosena.xyz/registro.php</string>-->
     <string name="ipRegistro2">https://www.contaniif.club/movil/registro.php?</string>
     <string name="ipRegistroPuntaje">https://www.contaniif.club/movil/guardaPuntos.php?</string>
-    <string name="ipComentario">192.168.0.7/pruebas/registroComentario.php</string>
+    <string name="ipComentario">https://www.contaniif.club/movil/registroComentario.php?comentario=</string>
     <string name="ipImgsuario">https://www.contaniif.club/img/usuarios/</string>
     <string name="imgRendimiento">www.contaniif.club/img/</string>
     <string name="imgFotos">www.contaniif.club/img/usuarios/</string>

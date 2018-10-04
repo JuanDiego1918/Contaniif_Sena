@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingLeft="30dp"
+    android:paddingTop="30dp"
+    android:paddingRight="30dp"
+    android:paddingBottom="30dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="122dp"
+        android:background="@drawable/borde_boton_redondo"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3">
+
+            <Spinner
+                android:id="@+id/SpinnerAnio"
+                android:layout_columnSpan="1"
+                android:layout_columnWeight="1"></Spinner>
+
+            <Spinner
+                android:id="@+id/SpinnerMes"
+                android:layout_columnSpan="1"
+                android:layout_columnWeight="1"></Spinner>
+
+            <Spinner
+                android:id="@+id/SpinnerDia"
+                android:layout_columnSpan="1"
+                android:layout_columnWeight="1"></Spinner>
+
+
+        </GridLayout>
+
+
+        <ScrollView
+            android:id="@+id/scrollInformacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tituloSabiaspopup"
+            android:layout_alignParentStart="true"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

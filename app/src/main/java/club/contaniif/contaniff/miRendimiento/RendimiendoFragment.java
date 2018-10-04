@@ -256,7 +256,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
             @Override
             public void onClick(View v) {
                 cojeComentario = (campoComentario.getText().toString());
-                enviarDatosComentarios();
+                enviarDatosComentarios(cojeComentario);
                 obtenerFecha();
                 ventanaComentarios.dismiss();
 
@@ -281,10 +281,10 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         correo = credenciales;
     }
 
-    private void enviarDatosComentarios() {
+    private void enviarDatosComentarios(String cojeComentario) {
 
         String url;
-        url = "https://" + getContext().getString(R.string.ipComentario);
+        url = getContext().getString(R.string.ipComentario)+cojeComentario+"&idusuario="+credenciales;
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -308,7 +308,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 String idusuario = credenciales;
-                String comentario = cojeComentario;
+                String comentario = RendimiendoFragment.this.cojeComentario;
 
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("idusuario", idusuario);

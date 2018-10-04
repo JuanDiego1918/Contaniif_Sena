@@ -37,6 +37,7 @@
             android:id="@+id/campoComentario"
             android:layout_width="200dp"
             android:layout_height="150dp"
+            android:maxLength="500"
             android:hint="Escriba su comentario" />
 
         <Button
