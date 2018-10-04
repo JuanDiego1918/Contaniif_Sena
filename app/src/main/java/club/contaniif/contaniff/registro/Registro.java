@@ -428,36 +428,46 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
 
     private void abrirCamara() {
-        seleccionaImagen = true;
-        File miFile = new File(Environment.getExternalStorageDirectory(),DIRECTORIO_IMAGEN);
-        boolean isCreada = miFile.exists();
-        if (isCreada==false){
-            isCreada=miFile.mkdirs();//por si la variable no fue creada, se crea de nuevo
-        }
-        if (isCreada==true){
-            Long consecutivo= System.currentTimeMillis()/1000;//aqui iba un 100, por si no funciona el codigo este es el error
-            String nombre=consecutivo.toString()+".jpg";
 
-            path=Environment.getExternalStorageDirectory()+File.separator+DIRECTORIO_IMAGEN
-                    +File.separator+nombre;//indicamos la ruta de almacenamiento
-
-            fileImagen=new File(path);
-
-            Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(fileImagen));
-
-            ////
-            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N)
-            {
-                String authorities=this.getPackageName()+".provider";
-                Uri imageUri= FileProvider.getUriForFile(this,authorities,fileImagen);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-            }else
-            {
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(fileImagen));
+        try {
+            seleccionaImagen = true;
+            File miFile = new File(Environment.getExternalStorageDirectory(),DIRECTORIO_IMAGEN);
+            boolean isCreada = miFile.exists();
+            if (isCreada==false){
+                isCreada=miFile.mkdirs();//por si la variable no fue creada, se crea de nuevo
             }
-            startActivityForResult(intent,COD_FOTO);
+            if (isCreada==true){
+                Long consecutivo= System.currentTimeMillis()/100;//aqui iba un 100, por si no funciona el codigo este es el error
+                String nombre=consecutivo.toString()+".jpg";
+
+                path=Environment.getExternalStorageDirectory()+File.separator+DIRECTORIO_IMAGEN
+                        +File.separator+nombre;//indicamos la ruta de almacenamiento
+
+                fileImagen=new File(path);
+
+                Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(fileImagen));
+
+                ////
+                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N)
+                {
+                    String authorities=this.getPackageName()+".provider";
+                    Uri imageUri= FileProvider.getUriForFile(this,authorities,fileImagen);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                }else
+                {
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(fileImagen));
+                }
+                startActivityForResult(intent,COD_FOTO);
+            }
+        }catch (Exception e){
+            Toast.makeText(this, "No se puede abrir la camara, intente mas tarde", Toast.LENGTH_SHORT).show();
+            seleccionaImagen = true;
+            Intent intent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent.setType("image/");
+            startActivityForResult(intent.createChooser(intent,"Seleccione"),COD_SELECCIONA);
         }
+
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
