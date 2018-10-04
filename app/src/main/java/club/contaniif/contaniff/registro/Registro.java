@@ -238,6 +238,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             @Override
             public void onClick(View view) {
                 //opcionesCapturaFoto();
+                seleccionaImagen = true;
                 mostrarDialogOpciones();
             }
         });
@@ -246,14 +247,14 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              /*  if (campoNombre.getText().equals("") || campoApellido.getText().equals("")|| seleccionaGenero==false || seleccionaDepartamento==false || seleccionaMunicipio==false || seleccionaImagen==false ){
+                if (campoNombre.getText().equals("") || campoApellido.getText().equals("")|| seleccionaGenero==false || seleccionaMunicipio == false || seleccionaDepartamento==false || seleccionaImagen==false ){
                     Toast.makeText(getApplicationContext(),"Debe llenar todos los campos",Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(getApplicationContext(),"Noebe llenar todos los campos",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"No debe llenar todos los campos",Toast.LENGTH_SHORT).show();
                     registrarUsuarios();
                 }
-*/
-                registrarUsuarios();
+
+                //registrarUsuarios();
             }
         });
 
@@ -355,6 +356,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                         startActivityForResult(intent.createChooser(intent,"Seleccione"),COD_SELECCIONA);
                     }else{
                         dialogInterface.dismiss();
+                        seleccionaImagen = false;
                     }
                 }
             }
@@ -494,6 +496,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             bitmap=redimensionarImagen(bitmap,400,400);
         }catch (Exception e){
             //imagenUsuario.setBackgroundResource(R.drawable.usuario);
+            seleccionaImagen = false;
             Toast.makeText(getApplicationContext(),"No se ha elegido ninguna imagen",Toast.LENGTH_SHORT).show();
         }
     }
