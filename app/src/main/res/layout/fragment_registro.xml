@@ -69,6 +69,7 @@
 
 
             <Spinner
+                android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 style="@style/mySpinnerItemStyle"
                 android:layout_height="wrap_content"
@@ -76,31 +77,6 @@
                 android:layout_below="@+id/campoApellidosRegistro"
                 android:layout_marginTop="10dp">
             </Spinner>
-
-            <!--<RadioGroup
-                android:id="@+id/grupoRadioGenero"
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/campoApellidosRegistro"
-                android:layout_centerHorizontal="true">
-
-                <RadioButton
-                    android:id="@+id/redioGeneroMasculinoRegistro"
-                    android:layout_width="match_parent"
-                    android:textColor="#000"
-                    android:layout_height="wrap_content"
-                    android:text="Femenino" />
-
-                <RadioButton
-                    android:id="@+id/redioGeneroFemeninoRegistro"
-                    android:layout_width="match_parent"
-                    android:textColor="#000"
-                    android:layout_height="wrap_content"
-                    android:text="Masculino" />
-            </RadioGroup>-->
-
-
 
             <EditText
                 android:id="@+id/campoCorreoRegistro"
@@ -136,8 +112,7 @@
             </Spinner>
             <Spinner
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:layout_marginBottom="33dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/spinnerCuidadRegistro"
                 android:layout_below="@+id/spinnerDepartamentoRegistro"
                 android:layout_marginTop="10dp">
@@ -147,6 +122,7 @@
     </ScrollView>
 
     <Button
+        android:background="@color/EmpezarOscuro"
         android:id="@+id/btnRegistrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

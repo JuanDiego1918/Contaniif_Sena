@@ -21,7 +21,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="47dp"
-            android:background="@color/white">
+            android:background="@drawable/borde_boton_redondo">
 
             <Button
                 android:id="@+id/btnFinal"
