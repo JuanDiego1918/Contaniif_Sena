@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -52,7 +53,9 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
     Dialog dialogoCargando;
     Dialog dialog;
     Button comprar;
+    double cantidadMonedas;
     ImageView Imgactivo;
+    TextView monedas;
     AdapterActivos adapterActivos, adapterDisponible;
     StringRequest stringRequest;
 
@@ -63,13 +66,15 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         dialogoCargando = new Dialog(this);
         obtenidos = findViewById(R.id.activosObtenidos);
         disponible = findViewById(R.id.activosDisponibles);
+        monedas=findViewById(R.id.cantidadMonedasAc);
         dialog = new Dialog(this);
         listActivos = new ArrayList<>();
         listaDisponible = new ArrayList<>();
         cargarWebService();
-        Bundle miBundle=getIntent().getExtras();
-        if (miBundle!=null){
-            Toast.makeText(getApplicationContext(),""+miBundle.getString("puntos"),Toast.LENGTH_SHORT).show();
+        Bundle miBundle = getIntent().getExtras();
+        if (miBundle != null) {
+            cantidadMonedas = cambiarVarible(miBundle.getString("puntos"));
+            monedas.setText("Monedas: "+miBundle.getString("puntos"));
         }
     }
 
@@ -104,8 +109,8 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
     public void onResponse(JSONObject response) {
         listaDisponible.clear();
         listActivos.clear();
-        adapterActivos=null;
-        adapterDisponible=null;
+        adapterActivos = null;
+        adapterDisponible = null;
         JSONArray json = response.optJSONArray("activos");
         try {
             JSONObject jsonObject = null;
@@ -147,25 +152,39 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
     }
 
     private void cargarVentana(ActivosVo activos) {
-        final ActivosVo vo=activos;
-        TextView titulo,descrip,valor;
+        final ActivosVo vo = activos;
+        TextView titulo, descrip, valor;
+        Button cancelar;
         dialog.setContentView(R.layout.popup_activos);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         comprar = dialog.findViewById(R.id.btnComprar);
-        titulo=dialog.findViewById(R.id.tituloPopupActivo);
-        descrip=dialog.findViewById(R.id.descripActivoPopup);
-        valor=dialog.findViewById(R.id.precioActivoPopup);
-        Imgactivo=dialog.findViewById(R.id.imagenPopupActivo);
+        cancelar = dialog.findViewById(R.id.btnCancel);
+        titulo = dialog.findViewById(R.id.tituloPopupActivo);
+        descrip = dialog.findViewById(R.id.descripActivoPopup);
+        valor = dialog.findViewById(R.id.precioActivoPopup);
+        Imgactivo = dialog.findViewById(R.id.imagenPopupActivo);
 
-        titulo.setText(""+vo.getNombre());
-        descrip.setText(""+vo.getDescripcion());
-        valor.setText(""+vo.getValor());
+        titulo.setText("" + vo.getNombre());
+        descrip.setText("" + vo.getDescripcion());
+        valor.setText("" + vo.getValor());
 
         cargarImgGeneral(vo.getId());
         comprar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                realizarComprar(vo);
+                String quitaPts=cambiarPts(vo.getValor());
+                double valorObjeto=cambiarVarible(quitaPts);
+                if (valorObjeto>cantidadMonedas){
+                    Toast.makeText(ActivosActivity.this, "Saldo Insuficiente", Toast.LENGTH_SHORT).show();
+                }else {
+                    realizarComprar(vo);
+                    dialog.dismiss();
+                }
+            }
+        });
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 dialog.dismiss();
             }
         });
@@ -175,11 +194,11 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
 
     private void realizarComprar(ActivosVo vo) {
         String url;
-        url = "https://" + getApplicationContext().getString(R.string.ip)+"guardaactivos.php?idusuario="+correo+"&&activo="+vo.getId();
+        url = "https://" + getApplicationContext().getString(R.string.ip) + "guardaactivos.php?idusuario=" + correo + "&&activo=" + vo.getId();
         stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                String resultado=response;
+                String resultado = response;
                 if (resultado.equals("registra")) {
                     Toast.makeText(getApplicationContext(), "Realiza Cambios" + response, Toast.LENGTH_LONG).show();
                 } else {
@@ -198,10 +217,10 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
     }
 
     private void cargarImgGeneral(String rutaImagen) {
-        String ip=getApplicationContext().getString(R.string.imgRendimiento);
+        String ip = getApplicationContext().getString(R.string.imgRendimiento);
 
-        final String urlImagen="https://"+ip+"activos/"+rutaImagen+".png";
-        ImageRequest imageRequest=new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
+        final String urlImagen = "https://" + ip + "activos/" + rutaImagen + ".png";
+        ImageRequest imageRequest = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
                 Imgactivo.setImageBitmap(response);
@@ -209,9 +228,20 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"Error al cargar la imagen" + urlImagen, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Error al cargar la imagen" + urlImagen, Toast.LENGTH_LONG).show();
             }
         });
         request.add(imageRequest);
+    }
+
+    private double cambiarVarible(String puntosDisponibles) {
+        String cambio = puntosDisponibles.replaceAll(",", "");
+        Log.v("*******************",cambio);
+        return Double.parseDouble(cambio);
+    }
+
+    private String cambiarPts(String puntosDisponibles) {
+        String cambio = puntosDisponibles.replaceAll("pts.", "");
+        return cambio;
     }
 }

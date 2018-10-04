@@ -75,6 +75,13 @@
                     android:layout_margin="10dp"
                     android:background="#ff00cc86"
                     android:text="Comprar" />
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="#ff00cc86"
+                    android:text="Cancelar" />
             </LinearLayout>
 
 
