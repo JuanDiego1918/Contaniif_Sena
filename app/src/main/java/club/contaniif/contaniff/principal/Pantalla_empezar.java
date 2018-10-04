@@ -208,6 +208,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     int correctoSeleccionMultiple = 0;
     PreguntasVo preguntas;
     ArrayList<String> listaColores;
+    boolean clicRespuesta = false;
 
     public Pantalla_empezar() {
         // Required empty public constructor
@@ -361,7 +362,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         String ip = getContext().getString(R.string.ip);
         //String url = "http://" + ip + "wsPreguntasTipo1.php";
         //String url = "http://" + ip + "/apolunios/wsConsultaPreguntaPrueba1.php";
-        String url = "https://" + ip + "/wsConsultaPreguntaPrueba1.php?estudiante="+credenciales;
+        String url = "https://" + ip + "/wsConsultaPreguntaPrueba1.php?estudiante=" + credenciales;
         Toast.makeText(getContext(), "Estudiante " + credenciales, Toast.LENGTH_SHORT).show();
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
 //        request.add(jsonObjectRequest);
@@ -377,7 +378,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         puntajeRespuestaBuena = myDialogBuena.findViewById(R.id.campoPuntajeCorrecto);
         puntajeRespuestaBuena.setText("+" + String.valueOf(getPuntage()));
         txtRetroBuena = myDialogBuena.findViewById(R.id.campoRetroBuena);
-        txtRetroBuena.setText(nombre +" \n "+ retorno);
+        txtRetroBuena.setText(nombre + " \n " + retorno);
 
         retroBuena = myDialogBuena.findViewById(R.id.btnRetroBuena);
         retroBuena.setOnClickListener(new View.OnClickListener() {
@@ -408,11 +409,24 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             puente.reinciar(numeroPregunta, 1, listaColores);
         } else {
             Button finalizar;
-
+            TextView campoFinal;
             MyDialogFinal.setContentView(R.layout.popup_terminar_preguntas);
             //puntajeRespuestaMala.setText("+"+String.valueOf(getPuntage()));
+            campoFinal = MyDialogFinal.findViewById(R.id.textoFinal);
             finalizar = MyDialogFinal.findViewById(R.id.btnFinal);
-
+            int buenas = 0, malas = 0;
+            for (int i = 0; i < listaColores.size(); i++) {
+                if (listaColores.get(i).equals("#45cc28")) {
+                    buenas++;
+                } else if (listaColores.get(i).equals("#ed2024")) {
+                    malas++;
+                }
+            }
+            if (buenas>malas){
+                campoFinal.setText("Felicitaciones");
+            }else if(malas>buenas){
+                campoFinal.setText("¡¡Debes Repasar Mas!!");
+            }
 
             finalizar.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -437,7 +451,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     private void cargarCredenciales() {
         SharedPreferences preferences = this.getActivity().getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         String credenciales = preferences.getString("correo", "No existe el valor");
-        this.credenciales =credenciales;
+        this.credenciales = credenciales;
         //Toast.makeText(getContext(),"Credenciales = " + this.credenciales, Toast.LENGTH_SHORT).show();
     }
 
@@ -486,7 +500,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 parametros.put("idpregunta", Integer.toString(idpregunta));
                 parametros.put("tiempo", Integer.toString(tiempo));
                 parametros.put("puntos", Integer.toString(puntaje));
-                Log.i("*******Parametros ",parametros.toString());
+                Log.i("*******Parametros ", parametros.toString());
                 return parametros;
             }
         };
@@ -498,7 +512,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     public void showPopup2(String retorno) {
         Button retroMala;
         TextView txtRetroMala;
-
         myDialogMala.setContentView(R.layout.popup_rincorrecta);
         puntajeRespuestaMala = myDialogMala.findViewById(R.id.campoPuntajeIncorrecto);
         //puntajeRespuestaMala.setText("+"+String.valueOf(getPuntage()));
@@ -518,7 +531,9 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         myDialogMala.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialogMala.show();
 
+
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -550,7 +565,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         super.onDetach();
         try {
             CountDownTimer.cancel();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         mListener = null;
@@ -626,7 +641,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             recyclerViewUsuarios.addOnItemTouchListener(new RecyclerViewOnClickListener(getContext(), new RecyclerViewOnClickListener.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-
                     btnContinuar.setVisibility(View.VISIBLE);
                     btnContinuar2.setVisibility(View.INVISIBLE);
 
@@ -740,5 +754,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         tiempoCapturado = i;
         numeroPregunta++;
     }
+
 
 }
