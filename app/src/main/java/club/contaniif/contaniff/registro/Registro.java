@@ -55,8 +55,10 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,8 +74,11 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
     int posicion = 0,accion = 0;
     String departamento = "", genero = "",municipio = "";
-    boolean seleccionaDepartamento = false, seleccionaGenero = false,seleccionaImagen = false,seleccionaMunicipio = false;
+    boolean seleccionaDepartamento = false, seleccionaGenero = false,seleccionaImagen = false,seleccionaMunicipio = false,seleccionaFecha = false;
+
     Spinner lisdaAnios,listaMeses,listaDias;
+    ArrayList arrayAnios,arrayMeses,arrayDias;
+    Dialog dialogoFecha;
 
     private static final String CARPETA_PRINCIPAL = "misImagenesApp/";//directorio principal
     private static final String CARPETA_IMAGEN = "imagenes";//carpeta donde se guardan las fotos
@@ -82,6 +87,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     private final int MIS_PERMISOS = 100;
     private static final int COD_SELECCIONA = 10;
     private static final int COD_FOTO = 20;
+
 
     Dialog dialogoCargando;
     File fileImagen;
@@ -110,8 +116,9 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_registro);
-
+        dialogoFecha = new Dialog(this);
         dialogoCargando = new Dialog(this);
+
         consultarCredenciales();
        /* if(solicitaPermisosVersionesSuperiores()){
             imagenCamara.setEnabled(true);
@@ -257,6 +264,12 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         }
     }
 
+    private void obtenerFecha() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yy");
+        Date date = new Date();
+        fecha = dateFormat.format(date);
+    }
+
     private void cargarDialogoFecha() {
         final Calendar calendar = Calendar.getInstance();
         dia  = calendar.get(Calendar.DAY_OF_MONTH);
@@ -270,6 +283,47 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             }
         },dia,mes,anio);
         datePickerDialog.show();
+       /* int numero1,numero2;
+
+            Button cancelar, enviar;
+            final EditText campoComentario;
+            lisdaAnios = dialogoFecha.findViewById(R.id.spinnerAnio);
+            listaMeses = dialogoFecha.findViewById(R.id.spinnerMes);
+            listaDias = dialogoFecha.findViewById(R.id.spinnerDia);
+            obtenerFecha();
+            numero1 = Integer.parseInt(fecha);
+            numero2 = numero1-80;
+            arrayAnios = new ArrayList();
+
+        for (int i = numero1; i == numero2; i--) {
+            arrayAnios.add(i);
+        }
+
+        ArrayAdapter<CharSequence> adaterAnios = new ArrayAdapter(getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,arrayAnios);
+            lisdaAnios.setAdapter(adaterAnios);
+            dialogoFecha.setContentView(R.layout.popup_fecha);
+            cancelar = dialogoFecha.findViewById(R.id.btnCancelarFecha);
+            cancelar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialogoFecha.dismiss();
+                    seleccionaFecha = false;
+                }
+            });
+
+            enviar = dialogoFecha.findViewById(R.id.btnAceptarFecha);
+            enviar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    dialogoFecha.dismiss();
+
+                }
+            });
+
+            dialogoFecha.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialogoFecha.show();
+*/
     }
 
     private void dialogoCargando() {

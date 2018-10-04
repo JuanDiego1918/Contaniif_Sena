@@ -13,30 +13,64 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="122dp"
+        android:gravity="center_horizontal"
         android:background="@drawable/borde_boton_redondo"
         android:orientation="vertical"
         android:padding="10dp">
 
 
         <GridLayout
+            android:id="@+id/gridFecha"
             android:layout_width="match_parent"
+            android:foregroundGravity="center_horizontal"
+            android:layout_marginTop="12dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
             android:columnCount="3">
 
             <Spinner
-                android:id="@+id/SpinnerAnio"
+                android:id="@+id/spinnerAnio"
                 android:layout_columnSpan="1"
                 android:layout_columnWeight="1"></Spinner>
 
             <Spinner
-                android:id="@+id/SpinnerMes"
+                android:id="@+id/spinnerMes"
                 android:layout_columnSpan="1"
                 android:layout_columnWeight="1"></Spinner>
 
             <Spinner
-                android:id="@+id/SpinnerDia"
+                android:id="@+id/spinnerDia"
                 android:layout_columnSpan="1"
                 android:layout_columnWeight="1"></Spinner>
+
+
+        </GridLayout>
+
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gridFecha"
+            android:columnCount="2">
+
+            <Button
+                android:id="@+id/btnCancelarFecha"
+                android:layout_height="25dp"
+                android:layout_columnSpan="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/borde_redondo_boton"
+                android:text="Cancelar"
+                android:textColor="#fff"></Button>
+
+            <Button
+                android:id="@+id/btnAceptarFecha"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_columnSpan="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/borde_redondo_boton"
+                android:text="Aceptar"
+                android:textColor="#fff"></Button>
 
 
         </GridLayout>
