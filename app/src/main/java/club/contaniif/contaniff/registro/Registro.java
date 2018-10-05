@@ -88,8 +88,12 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     private static final int COD_SELECCIONA = 10;
     private static final int COD_FOTO = 20;
 
+    String dato;
 
     Dialog dialogoCargando;
+    Dialog dialogoRegistrado;
+    Dialog dialogoIngresaCorreo;
+
     File fileImagen;
     Bitmap bitmap;
     Spinner listaDepartamentos, listaMunicipios, listaGenero;
@@ -116,9 +120,10 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_registro);
+        dialogoRegistrado = new Dialog(this);
+        dialogoIngresaCorreo = new Dialog(this);
         dialogoFecha = new Dialog(this);
         dialogoCargando = new Dialog(this);
-
         consultarCredenciales();
        /* if(solicitaPermisosVersionesSuperiores()){
             imagenCamara.setEnabled(true);
@@ -263,6 +268,112 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         }else{
             //imagenCamara.setEnabled(false);
         }
+
+        showPopupRegistrado();
+    }
+
+    private void showPopupRegistrado() {
+            Button si,no;
+             dialogoRegistrado.setContentView(R.layout.popup_pregunta_correo);
+            si = dialogoRegistrado.findViewById(R.id.btnSiRegistrado);
+            si.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showPopupIngresaCorreo();
+                    dialogoRegistrado.dismiss();
+                }
+            });
+
+            no = dialogoRegistrado.findViewById(R.id.btnNoregistrado);
+            no.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogoRegistrado.dismiss();
+
+                }
+            });
+
+        dialogoRegistrado.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoRegistrado.show();
+
+    }
+
+    private void showPopupIngresaCorreo() {
+        Button aceptar,cancelar;
+        EditText campoCorreo;
+        dialogoIngresaCorreo.setContentView(R.layout.popup_correo);
+        campoCorreo = dialogoIngresaCorreo.findViewById(R.id.campoCorreoValida);
+        dato = campoCorreo.getText().toString();
+        aceptar = dialogoIngresaCorreo.findViewById(R.id.btnEnviarCorreo);
+        aceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validarCorreo(dato);
+                dialogoIngresaCorreo.dismiss();
+            }
+        });
+
+        cancelar = dialogoIngresaCorreo.findViewById(R.id.btnCancelarCorreo);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogoIngresaCorreo.dismiss();
+
+            }
+        });
+
+        dialogoIngresaCorreo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoIngresaCorreo.show();
+    }
+
+    private void validarCorreo(String correo) {
+
+        dialogoCargando();
+        String url;
+        java.lang.System.setProperty("https.protocols", "TLSv1");
+        url = getApplicationContext().getString(R.string.ipValidaCorreo);
+        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //progreso.hide();
+                if (response.trim().equalsIgnoreCase("")) {
+                    Toast.makeText(getApplicationContext(),"No se encontro el usuario", Toast.LENGTH_LONG).show();
+                    dialogoCargando.hide();
+                } else {
+
+                    Toast.makeText(getApplicationContext(), "Respuesta server =  " + response, Toast.LENGTH_LONG).show();
+                    Log.i("********RESULTADO", "Respuesta server" + response);
+                    guardarNombre(response);
+                    guardarCredenciales(dato);
+                    dialogoCargando.hide();
+                    Intent intent = new Intent(Registro.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "No se pudo Registrar" + error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "NO SE REGISTRA" + error, Toast.LENGTH_LONG).show();
+                Log.i("RESULTADO", "NO SE REGISTRA desde onError " + error.toString());
+                Log.d("RESULT*****************", "NO SE REGISTRA desde onError " + error.toString());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                String correo = dato;
+
+                Map<String, String> parametros = new HashMap<>();
+                parametros.put("correo", correo);
+                Log.i("--------PARAMETROS " , parametros.toString());
+                return parametros;
+
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        request.add(stringRequest);
     }
 
     private void obtenerFecha() {
@@ -285,7 +396,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         },dia,mes,anio);
         datePickerDialog.show();
        /* int numero1,numero2;
-
+dialogoCargando.setContentView(R.layout.popup_cargando);
             Button cancelar, enviar;
             final EditText campoComentario;
             lisdaAnios = dialogoFecha.findViewById(R.id.spinnerAnio);
@@ -333,10 +444,9 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         dialogoCargando.show();
     }
     private void consultarCredenciales() {
-
         SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         String credenciales = preferences.getString("correo", "No existe el valor");
-        Toast.makeText(getApplicationContext(),"credenciales" + credenciales,Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),"credenciales" + credenciales,Toast.LENGTH_LONG).show();
     }
 
     private void mostrarDialogOpciones() {
@@ -655,7 +765,6 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progreso.hide();
                 Toast.makeText(getApplicationContext(), "No se pudo Registrar" + error.toString(), Toast.LENGTH_LONG).show();
                 Toast.makeText(getApplicationContext(), "NO SE REGISTRA" + error, Toast.LENGTH_LONG).show();
                 Log.i("RESULTADO", "NO SE REGISTRA desde onError " + error.toString());
@@ -698,8 +807,8 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             }
         };
 
-        guardarCredenciales();
-        guardarNombre();
+        guardarCredenciales(campoCorreo.getText().toString());
+        guardarNombre(campoNombre.getText().toString());
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(stringRequest);
         request.add(stringRequest);
@@ -725,7 +834,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         //VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
         request.add(jsonObjectRequest);
-        guardarCredenciales();
+        //guardarCredenciales();
         accion = 2;
     }
 
@@ -738,23 +847,21 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     }
 
 
-    private void guardarCredenciales() {
+    private void guardarCredenciales(String correo) {
         SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         //editor.putString("correo",campoCorreo.getText().toString());
-        editor.putString("correo",campoCorreo.getText().toString());
+        editor.putString("correo",correo);
         editor.commit();
     }
 
-
-    private void guardarNombre() {
+    private void guardarNombre(String nombre) {
         SharedPreferences preferences = getSharedPreferences("Nombre", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         //editor.putString("correo",campoCorreo.getText().toString());
-        editor.putString("nombre",campoNombre.getText().toString());
+        editor.putString("nombre",nombre);
         editor.commit();
     }
-
 
     @Override
     public void onErrorResponse(VolleyError error) {
@@ -768,7 +875,6 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     @Override
     public void onResponse(JSONObject response) {
         if ( accion == 1){
-            //progreso.hide();
             JSONArray json = response.optJSONArray("usuario");
             JSONObject jsonObject = null;
             ArrayMunicipios = new ArrayList<String>();
@@ -804,7 +910,6 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
             }
         }else if (accion == 2){
-            //progreso.hide();
             Toast.makeText(getApplicationContext(), "Entra al Onresponse 2 ", Toast.LENGTH_LONG).show();
         }
     }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/borde_boton_redondo"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tituloComentario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="12dp"
+            android:textSize="19dp"
+            android:text="¿ YA TE ENCUENTRAS REGISTRADO ?"
+            android:textColor="@color/black"
+            android:layout_marginBottom="22dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+            <Button
+                android:id="@+id/btnSiRegistrado"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/borde_redondo_boton"
+                android:text="SI"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnNoregistrado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/borde_redondo_boton"
+                android:text="No"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
