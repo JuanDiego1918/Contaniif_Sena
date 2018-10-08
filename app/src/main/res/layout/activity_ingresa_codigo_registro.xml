@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="22dp"
+    android:layout_height="match_parent"
+    tools:context=".actividades.IngresaCodigoRegistro">
+
+    <EditText
+        android:id="@+id/campoCodigoValidacion"
+        android:layout_width="match_parent"
+        android:textSize="22dp"
+        android:layout_marginBottom="22dp"
+        android:textAlignment="center"
+        android:inputType="number"
+        android:hint="Ingrese el codigo aqui"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btnRegistrarCodigo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:background="@drawable/borde_redondo_boton"
+        android:text="Button" />
+</LinearLayout>

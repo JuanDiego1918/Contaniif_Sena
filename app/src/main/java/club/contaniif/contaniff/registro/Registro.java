@@ -63,6 +63,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.actividades.IngresaCodigoRegistro;
 import club.contaniif.contaniff.actividades.MainActivity;
 import club.contaniif.contaniff.entidades.VolleySingleton;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -337,16 +338,22 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             public void onResponse(String response) {
                 //progreso.hide();
                 if (response.trim().equalsIgnoreCase("")) {
+
                     Toast.makeText(getApplicationContext(),"No se encontro el usuario", Toast.LENGTH_LONG).show();
                     dialogoCargando.hide();
+
                 } else {
 
                     Toast.makeText(getApplicationContext(), "Respuesta server =  " + response, Toast.LENGTH_LONG).show();
                     Log.i("********RESULTADO", "Respuesta server" + response);
                     guardarNombre(response);
-                    guardarCredenciales(dato);
+                    //guardarCredenciales(dato);
                     dialogoCargando.hide();
-                    Intent intent = new Intent(Registro.this, MainActivity.class);
+                    Bundle miBundle = new Bundle();
+                    miBundle.putString("usuario",dato);
+                    miBundle.putString("codigo",response);
+                    Intent intent = new Intent(Registro.this, IngresaCodigoRegistro.class);
+                    intent.putExtra("bundle",miBundle);
                     startActivity(intent);
                 }
             }
@@ -365,7 +372,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 String correo = dato;
 
                 Map<String, String> parametros = new HashMap<>();
-                parametros.put("correo", correo);
+                parametros.put("correo", "victor@gmail.com");
                 Log.i("--------PARAMETROS " , parametros.toString());
                 return parametros;
 

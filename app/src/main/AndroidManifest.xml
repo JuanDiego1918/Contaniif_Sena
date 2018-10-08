@@ -50,7 +50,8 @@
             android:name=".sabiasQue.SabiasActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".actividades.ActivosActivity" />
-        <activity android:name=".configuracion.ConfiguracionActivity"></activity>
+        <activity android:name=".configuracion.ConfiguracionActivity" />
+        <activity android:name=".actividades.IngresaCodigoRegistro"></activity>
     </application>
 
 </manifest>
