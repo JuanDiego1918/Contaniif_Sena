@@ -91,6 +91,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
     String dato;
 
+
     Dialog dialogoCargando;
     Dialog dialogoRegistrado;
     Dialog dialogoIngresaCorreo;
@@ -301,16 +302,20 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
     private void showPopupIngresaCorreo() {
         Button aceptar,cancelar;
-        EditText campoCorreo;
+        final EditText campoCorreo;
         dialogoIngresaCorreo.setContentView(R.layout.popup_correo);
         campoCorreo = dialogoIngresaCorreo.findViewById(R.id.campoCorreoValida);
-        dato = campoCorreo.getText().toString();
         aceptar = dialogoIngresaCorreo.findViewById(R.id.btnEnviarCorreo);
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validarCorreo(dato);
-                dialogoIngresaCorreo.dismiss();
+                if (campoCorreo.getText().toString().equalsIgnoreCase("")){
+                    Toast.makeText(Registro.this, "Por favor ingrese el correo", Toast.LENGTH_SHORT).show();
+                }else {
+                    dato = campoCorreo.getText().toString();
+                    validarCorreo(dato);
+                    dialogoIngresaCorreo.dismiss();
+                }
             }
         });
 
@@ -337,16 +342,16 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             @Override
             public void onResponse(String response) {
                 //progreso.hide();
-                if (response.trim().equalsIgnoreCase("")) {
+                if (response.trim().equalsIgnoreCase("NO")) {
 
                     Toast.makeText(getApplicationContext(),"No se encontro el usuario", Toast.LENGTH_LONG).show();
                     dialogoCargando.hide();
-
+                    Log.i("********RESULTADO", "Respuesta server" + response);
                 } else {
 
                     Toast.makeText(getApplicationContext(), "Respuesta server =  " + response, Toast.LENGTH_LONG).show();
                     Log.i("********RESULTADO", "Respuesta server" + response);
-                    guardarNombre(response);
+                    //guardarNombre(response);
                     //guardarCredenciales(dato);
                     dialogoCargando.hide();
                     Bundle miBundle = new Bundle();
@@ -368,11 +373,9 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-
                 String correo = dato;
-
                 Map<String, String> parametros = new HashMap<>();
-                parametros.put("correo", "victor@gmail.com");
+                parametros.put("correo",correo);
                 Log.i("--------PARAMETROS " , parametros.toString());
                 return parametros;
 
