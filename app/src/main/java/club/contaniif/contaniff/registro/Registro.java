@@ -80,6 +80,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     Spinner lisdaAnios,listaMeses,listaDias;
     ArrayList arrayAnios,arrayMeses,arrayDias;
     Dialog dialogoFecha;
+    boolean permisoCamara = false;
 
     private static final String CARPETA_PRINCIPAL = "misImagenesApp/";//directorio principal
     private static final String CARPETA_IMAGEN = "imagenes";//carpeta donde se guardan las fotos
@@ -127,11 +128,11 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         dialogoFecha = new Dialog(this);
         dialogoCargando = new Dialog(this);
         consultarCredenciales();
-       /* if(solicitaPermisosVersionesSuperiores()){
-            imagenCamara.setEnabled(true);
+        if(solicitaPermisosVersionesSuperiores()){
+            permisoCamara = true;
         }else{
-            imagenCamara.setEnabled(false);
-        }*/
+            permisoCamara = false;
+        }
 
 
 
@@ -246,7 +247,14 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             public void onClick(View view) {
                 //opcionesCapturaFoto();
                 seleccionaImagen = true;
-                mostrarDialogOpciones();
+                //mostrarDialogOpciones();
+
+                if (permisoCamara == false){
+                    Toast.makeText(Registro.this, "Debe aceptar los permisos para poder usar la camara", Toast.LENGTH_SHORT).show();
+                }else {
+                    mostrarDialogOpciones();
+                }
+
             }
         });
 
@@ -258,20 +266,20 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                     Toast.makeText(getApplicationContext(),"Debe llenar todos los campos",Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getApplicationContext(),"No debe llenar todos los campos",Toast.LENGTH_SHORT).show();
-                    registrarUsuarios();
+                    validaPermiso();
                 }
-
-                //registrarUsuarios();
             }
         });
 
-        if(solicitaPermisosVersionesSuperiores()){
-            //imagenCamara.setEnabled(true);
-        }else{
-            //imagenCamara.setEnabled(false);
-        }
-
         showPopupRegistrado();
+    }
+
+    private void validaPermiso() {
+        if (permisoCamara == false){
+            Toast.makeText(this, "Debe aceptar los permisos de camara, para poder registrarse ", Toast.LENGTH_LONG).show();
+        }else {
+            registrarUsuarios();
+        }
     }
 
     private void showPopupRegistrado() {
@@ -378,7 +386,6 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 parametros.put("correo",correo);
                 Log.i("--------PARAMETROS " , parametros.toString());
                 return parametros;
-
             }
         };
 
@@ -461,7 +468,6 @@ dialogoCargando.setContentView(R.layout.popup_cargando);
     private void consultarCredenciales() {
         SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         String credenciales = preferences.getString("correo", "No existe el valor");
-        //Toast.makeText(getApplicationContext(),"credenciales" + credenciales,Toast.LENGTH_LONG).show();
     }
 
     private void mostrarDialogOpciones() {
@@ -513,44 +519,12 @@ dialogoCargando.setContentView(R.layout.popup_cargando);
                 }
             }
         });
-        builder.show();
+
+        if (permisoCamara == true){
+            builder.show();
+        }
+
     }
-
-/*    private void abrirCamara() {
-
-        File miFile=new File(Environment.getExternalStorageDirectory(),DIRECTORIO_IMAGEN);
-        boolean isCreada=miFile.exists();
-
-        if(isCreada==false){
-            isCreada=miFile.mkdirs();
-        }
-
-        if(isCreada==true){
-            Long consecutivo= System.currentTimeMillis()/1000;
-            String nombre=consecutivo.toString()+".jpg";
-
-            path=Environment.getExternalStorageDirectory()+File.separator+DIRECTORIO_IMAGEN
-                    +File.separator+nombre;//indicamos la ruta de almacenamiento
-
-            fileImagen=new File(path);
-
-            Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(fileImagen));
-
-            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N)
-            {
-                String authorities=getApplicationContext().getPackageName()+".provider";
-                Uri imageUri= FileProvider.getUriForFile(getApplicationContext(),authorities,fileImagen);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-            }else
-            {
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(fileImagen));
-            }
-            startActivityForResult(intent,COD_FOTO);
-
-        }
-    }*/
-
 
     private void abrirCamara() {
 
@@ -624,13 +598,11 @@ dialogoCargando.setContentView(R.layout.popup_cargando);
 
                     bitmap= BitmapFactory.decodeFile(path);
                     imagenUsuario.setImageBitmap(bitmap);
-                    //imagenUsuario.setAdjustViewBounds(false);
 
                     break;
             }
             bitmap=redimensionarImagen(bitmap,400,400);
         }catch (Exception e){
-            //imagenUsuario.setBackgroundResource(R.drawable.usuario);
             seleccionaImagen = false;
             Toast.makeText(getApplicationContext(),"No se ha elegido ninguna imagen",Toast.LENGTH_SHORT).show();
         }
@@ -665,20 +637,17 @@ dialogoCargando.setContentView(R.layout.popup_cargando);
             return true;
         }
 
-
-
         //validamos si los permisos ya fueron aceptados
         if((getApplicationContext().checkSelfPermission(WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED)&&getApplicationContext().checkSelfPermission(CAMERA)==PackageManager.PERMISSION_GRANTED){
             return true;
         }
-
 
         if ((shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE)||(shouldShowRequestPermissionRationale(CAMERA)))){
             cargarDialogoRecomendacion();
         }else{
             requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA}, MIS_PERMISOS);
         }
-
+        permisoCamara = false;
         return false;//implementamos el que procesa el evento dependiendo de lo que se defina aqui
     }
 
@@ -687,14 +656,13 @@ dialogoCargando.setContentView(R.layout.popup_cargando);
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode==MIS_PERMISOS){
             if(grantResults.length==2 && grantResults[0]==PackageManager.PERMISSION_GRANTED && grantResults[1]==PackageManager.PERMISSION_GRANTED){//el dos representa los 2 permisos
+                permisoCamara = true;
                 Toast.makeText(getApplicationContext(),"Permisos aceptados",Toast.LENGTH_SHORT);
-                //imagenCamara.setEnabled(true);
             }
         }else{
             solicitarPermisosManual();
         }
     }
-
 
     private void solicitarPermisosManual() {
         final CharSequence[] opciones={"si","no"};
@@ -709,15 +677,16 @@ dialogoCargando.setContentView(R.layout.popup_cargando);
                     Uri uri=Uri.fromParts("package",getApplicationContext().getPackageName(),null);
                     intent.setData(uri);
                     startActivity(intent);
+                    permisoCamara = true;
                 }else{
                     Toast.makeText(getApplicationContext(),"Los permisos no fueron aceptados",Toast.LENGTH_SHORT).show();
                     dialogInterface.dismiss();
+                    permisoCamara = false;
                 }
             }
         });
         alertOpciones.show();
     }
-
 
     private void cargarDialogoRecomendacion() {
         android.support.v7.app.AlertDialog.Builder dialogo=new android.support.v7.app.AlertDialog.Builder(getApplicationContext());
@@ -731,7 +700,12 @@ dialogoCargando.setContentView(R.layout.popup_cargando);
                 requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
             }
         });
-        dialogo.show();
+        try{
+            dialogo.show();
+        }catch (Exception e){
+
+        }
+
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -742,12 +716,7 @@ dialogoCargando.setContentView(R.layout.popup_cargando);
         accion = 1;
     }
 
-
     private void registrarUsuarios() {
-     /*   progreso = new ProgressDialog(this);
-        progreso.setMessage("Cargando...");
-        progreso.show();*/
-
         dialogoCargando();
         String url;
         java.lang.System.setProperty("https.protocols", "TLSv1");
@@ -755,26 +724,14 @@ dialogoCargando.setContentView(R.layout.popup_cargando);
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //progreso.hide();
                 if (response.trim().equalsIgnoreCase("registra")) {
-                    Toast.makeText(getApplicationContext(), "Respuesta server =  " + response, Toast.LENGTH_LONG).show();
                     Log.i("RESULTADO", "Respuesta server" + response);
                     dialogoCargando.hide();
                     Intent intent = new Intent(Registro.this, MainActivity.class);
                     startActivity(intent);
 
                 } else {
-                    Toast.makeText(getApplicationContext(),"Entra al Onresponse 1 " + response, Toast.LENGTH_LONG).show();
-                    //progreso.hide();
-                    /*txtDocumento.setText("");
-                    txtNombre.setText("");
-                    txtApellido.setText("");
-                    txtFicha.setText("");
-                    txtTelefono.setText("");
-                    txtTalla.setText("");
-                    txtPeso.setText("");
-                    txtEdad.setText("");
-                    imgFoto.setImageDrawable(getDrawable(R.drawable.camara));*/
+                    Toast.makeText(getApplicationContext(),"No se pudo registrar" + response, Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -797,16 +754,6 @@ dialogoCargando.setContentView(R.layout.popup_cargando);
                 String municipioo = municipio;
                 String rutaImagen = convertirImgString(bitmap);
 
-                /*String nombres = "manuel";
-                String apellidos = "hurtado";
-                String genero = "masculino";f
-                String correo = "victor@gmail.com";
-                String fechaNacimiento = "20001010";
-                String departamento = "quindio";
-                String municipio = "armenia";
-                //String rutaImagen = "imagen";
-                String rutaImagen = convertirImgString(bitmap);
-*/
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("nombres", nombres);
                 parametros.put("apellidos", apellidos);
@@ -825,32 +772,8 @@ dialogoCargando.setContentView(R.layout.popup_cargando);
         guardarCredenciales(campoCorreo.getText().toString());
         guardarNombre(campoNombre.getText().toString());
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(stringRequest);
         request.add(stringRequest);
         accion = (2);
-    }
-
-
-    private void registrarUsuarios2() {
-        //progreso = new ProgressDialog(getApplicationContext());
-        //progreso.setMessage("Cargando...");
-        //progreso.show();
-
-        String url;
-        /*url = getApplicationContext().getString(R.string.ipRegistro2)+"nombres="+campoNombre.getText().toString()+"&apellidos="
-                +campoApellido.getText().toString()+"&genero="+genero+"&correo="
-                +campoCorreo.getText().toString()+"&fechaNacimiento="
-                +campoFechaNacimiento.getText().toString()+"&departamento="
-                +departamento+"&municipio="+municipio+"&rutaImagen="+convertirImgString(bitmap);*/
-
-        //url = getApplicationContext().getString(R.string.ipRegistro2)+"nombres=victor&apellidos=garcia&genero=masculino&correo=vmgarcia@gmail.com&fechaNacimiento=2000-10-10&departamento=quindio&municipio=armenia&rutaImagen="+convertirImgString(bitmap);
-        url = "https://contaniif.club/movil/registro.php?nombres=carlos&apellidos=casas&genero=masculino&correo=vmgarcia@gmail.com&fechaNacimiento=2000-10-10&departamento=quindio&municipio=armenia&rutaImagen="+convertirImgString(bitmap);
-        url=url.replace(" ","%20");
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
-        //VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
-        request.add(jsonObjectRequest);
-        //guardarCredenciales();
-        accion = 2;
     }
 
     private String convertirImgString(Bitmap bitmap) {
@@ -861,11 +784,9 @@ dialogoCargando.setContentView(R.layout.popup_cargando);
         return imagenString;
     }
 
-
     private void guardarCredenciales(String correo) {
         SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        //editor.putString("correo",campoCorreo.getText().toString());
         editor.putString("correo",correo);
         editor.commit();
     }
@@ -873,7 +794,6 @@ dialogoCargando.setContentView(R.layout.popup_cargando);
     private void guardarNombre(String nombre) {
         SharedPreferences preferences = getSharedPreferences("Nombre", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        //editor.putString("correo",campoCorreo.getText().toString());
         editor.putString("nombre",nombre);
         editor.commit();
     }
@@ -889,7 +809,7 @@ dialogoCargando.setContentView(R.layout.popup_cargando);
 
     @Override
     public void onResponse(JSONObject response) {
-        if ( accion == 1){
+        if (accion == 1) {
             JSONArray json = response.optJSONArray("usuario");
             JSONObject jsonObject = null;
             ArrayMunicipios = new ArrayList<String>();
@@ -900,15 +820,15 @@ dialogoCargando.setContentView(R.layout.popup_cargando);
                     jsonObject = json.getJSONObject(i);
                     ArrayMunicipios.add(jsonObject.getString("municipio"));
                 }
-                ArrayAdapter<CharSequence> adapterMunicipios=new ArrayAdapter(getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,ArrayMunicipios);
+                ArrayAdapter<CharSequence> adapterMunicipios = new ArrayAdapter(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, ArrayMunicipios);
                 listaMunicipios.setAdapter(adapterMunicipios);
                 listaMunicipios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        if (i!=0){
+                        if (i != 0) {
                             municipio = ArrayMunicipios.get(i);
                             seleccionaMunicipio = true;
-                        }else {
+                        } else {
                             seleccionaMunicipio = false;
                         }
                     }
@@ -924,8 +844,6 @@ dialogoCargando.setContentView(R.layout.popup_cargando);
                 Toast.makeText(getApplicationContext(), "No se ha podido establecer conexión con el servidor" + " " + response, Toast.LENGTH_LONG).show();
 
             }
-        }else if (accion == 2){
-            Toast.makeText(getApplicationContext(), "Entra al Onresponse 2 ", Toast.LENGTH_LONG).show();
         }
     }
 }

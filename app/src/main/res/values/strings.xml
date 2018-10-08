@@ -7,6 +7,7 @@
     <string name="ipActualizarUsuario2">https://www.contaniif.club/movil/actualizarUsuario1.php?</string>
     <string name="ipRegistro1">https://www.contaniif.club/movil/registro.php</string>
     <string name="ipMiPerfil">https://www.contaniif.club/movil/consultarUsuario.php?correo=</string>
+    <!--<string name="ipRegistro1">http://www.cursosena.xyz/registro.php</string>-->
     <string name="ipRegistro2">https://www.contaniif.club/movil/registro.php?</string>
     <string name="ipRegistroPuntaje">https://www.contaniif.club/movil/guardaPuntos.php?</string>
     <string name="ipValidaCorreo">https://www.contaniif.club/movil/validoUsuario.php?</string>
@@ -16,6 +17,7 @@
     <string name="imgRendimiento">www.contaniif.club/img/</string>
     <string name="imgFotos">www.contaniif.club/img/usuarios/</string>
     <string name="ipGrupos">https://www.contaniif.club/movil/listagrupos.php?idusuario=</string>
+    <string name="ip2">10.71.128.47</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
