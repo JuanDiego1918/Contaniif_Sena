@@ -47,7 +47,7 @@ public class IngresaCodigoRegistro extends AppCompatActivity {
     private void validarCodigo() {
         if (codigoJson.equalsIgnoreCase(codigoCampo)){
             guardarCredenciales(usuario);
-            Toast.makeText(this, "¡¡ El codigo es correcto !!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "El codigo es incorrecto o ya ha expirado", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(IngresaCodigoRegistro.this, MainActivity.class);
             startActivity(intent);
         }

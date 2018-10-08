@@ -253,7 +253,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (campoNombre.getText().equals("") || campoApellido.getText().equals("")|| seleccionaGenero==false || seleccionaMunicipio == false || seleccionaDepartamento==false || seleccionaImagen==false ){
+                if (campoNombre.getText().equals("") || campoApellido.getText().equals("")|| seleccionaGenero==false || seleccionaMunicipio == false || seleccionaDepartamento==false || seleccionaImagen==false || seleccionaFecha==false ){
                     Toast.makeText(getApplicationContext(),"Debe llenar todos los campos",Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getApplicationContext(),"No debe llenar todos los campos",Toast.LENGTH_SHORT).show();
@@ -399,6 +399,11 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 campoFecha.setText(year+"-"+(month+1)+"-"+dayOfMonth);
                 fecha = ""+year+month+dayOfMonth;
+                if (fecha != null) {
+                    seleccionaFecha = true;
+                }else {
+                    seleccionaFecha = false;
+                }
             }
         },dia,mes,anio);
         datePickerDialog.show();
