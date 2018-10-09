@@ -1,80 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
-    android:orientation="vertical"
-    android:paddingLeft="30dp"
-    android:paddingTop="30dp"
-    android:paddingRight="30dp"
-    android:paddingBottom="30dp">
+    android:orientation="vertical">
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="122dp"
-        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
         android:background="@drawable/borde_boton_redondo"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="3dp">
 
 
-        <GridLayout
+        <LinearLayout
             android:id="@+id/gridFecha"
             android:layout_width="match_parent"
-            android:foregroundGravity="center_horizontal"
-            android:layout_marginTop="12dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
-            android:columnCount="3">
+            android:layout_weight="3"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginTop="12dp">
 
             <Spinner
                 android:id="@+id/spinnerAnio"
-                android:layout_columnSpan="1"
-                android:layout_columnWeight="1"></Spinner>
+                android:layout_width="22dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:spinnerMode="dialog"></Spinner>
 
             <Spinner
                 android:id="@+id/spinnerMes"
-                android:layout_columnSpan="1"
-                android:layout_columnWeight="1"></Spinner>
+                android:layout_width="22dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"></Spinner>
 
             <Spinner
                 android:id="@+id/spinnerDia"
-                android:layout_columnSpan="1"
-                android:layout_columnWeight="1"></Spinner>
+                android:layout_width="22dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"></Spinner>
 
 
-        </GridLayout>
+        </LinearLayout>
 
-
-        <GridLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
             android:layout_below="@+id/gridFecha"
-            android:columnCount="2">
+            android:layout_weight="2"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnCancelarFecha"
-                android:layout_height="25dp"
-                android:layout_columnSpan="1"
-                android:layout_columnWeight="1"
-                android:background="@drawable/borde_redondo_boton"
-                android:text="Cancelar"
-                android:textColor="#fff"></Button>
 
             <Button
                 android:id="@+id/btnAceptarFecha"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:layout_columnSpan="1"
-                android:layout_columnWeight="1"
+                android:layout_weight="1"
                 android:background="@drawable/borde_redondo_boton"
                 android:text="Aceptar"
+                android:layout_marginRight="10dp"
+                android:textColor="#fff"></Button>
+
+            <Button
+                android:id="@+id/btnCancelarFecha"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:background="@drawable/borde_redondo_boton"
+                android:text="Cancelar"
                 android:textColor="#fff"></Button>
 
 
-        </GridLayout>
 
+
+        </LinearLayout>
 
         <ScrollView
             android:id="@+id/scrollInformacion"
@@ -90,8 +96,7 @@
                 android:orientation="vertical">
 
             </LinearLayout>
-
         </ScrollView>
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>
