@@ -361,9 +361,8 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         dialogoCargando();
         String ip = getContext().getString(R.string.ip);
         //String url = "http://" + ip + "wsPreguntasTipo1.php";
-        //String url = "http://" + ip + "/apolunios/wsConsultaPreguntaPrueba1.php";
+        //String url = "http://" + ip + "/multiples.php";
         String url = "https://" + ip + "/wsConsultaPreguntaPrueba1.php?estudiante=" + credenciales;
-        Toast.makeText(getContext(), "Estudiante " + credenciales, Toast.LENGTH_SHORT).show();
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
 //        request.add(jsonObjectRequest);
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);

@@ -57,7 +57,7 @@ public class PreguntasImagenesAdapterDrag extends RecyclerView.Adapter<Preguntas
     }
 
     private void cargarImagenWebService(String rutaImagen, final ImagenesHolder holder) {
-        String ip = context.getString(R.string.ip2);
+        String ip = context.getString(R.string.imgPreguntas);
         String urlImagen = "http://" + ip + rutaImagen;
         ImageRequest imageRequest = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
             @Override

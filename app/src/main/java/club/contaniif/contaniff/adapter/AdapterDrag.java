@@ -57,7 +57,7 @@ public class AdapterDrag extends RecyclerView.Adapter<AdapterDrag.AdapterHolder>
     }
 
     private void cargarImagenWebService(String rutaImagen, final AdapterHolder holder) {
-        String ip = context.getString(R.string.ip2);
+        String ip = context.getString(R.string.imgPreguntas);
         String urlImagen = "http://" + ip + rutaImagen;
         ImageRequest imageRequest = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
             @Override

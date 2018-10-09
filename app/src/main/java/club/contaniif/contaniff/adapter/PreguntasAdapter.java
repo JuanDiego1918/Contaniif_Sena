@@ -1,11 +1,14 @@
 package club.contaniif.contaniff.adapter;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -15,13 +18,14 @@ import java.util.ArrayList;
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.entidades.PreguntasVo;
 
-public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.UsuariosHolder> implements  View.OnClickListener,View.OnFocusChangeListener{
+public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.UsuariosHolder> implements View.OnClickListener, View.OnFocusChangeListener {
 
     private int selectedPosition = -1;
 
     ArrayList<PreguntasVo> listaUsuarios;
-    String listadoLetras []={"A. ","B. ","C. ","D. ","E. ","F. ","G. ","H. "};
+    String listadoLetras[] = {"A. ", "B. ", "C. ", "D. ", "E. ", "F. ", "G. ", "H. "};
     private View.OnClickListener listener;
+
     public PreguntasAdapter(ArrayList<PreguntasVo> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
 
@@ -31,7 +35,7 @@ public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.Usua
     @Override
     public UsuariosHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.modelo_usuarios_adapter,null,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.modelo_usuarios_adapter, null, false);
         view.setOnClickListener(this);
         return new UsuariosHolder(view);
     }
@@ -46,7 +50,7 @@ public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.Usua
     public void onBindViewHolder(UsuariosHolder holder, int position) {
 
         //holder.preguntaa.setText(listaUsuarios.get(position).getPregunta().toString());
-        holder.respuesta.setText(listadoLetras[position]+listaUsuarios.get(position).getOpciones());
+        holder.respuesta.setText(listadoLetras[position] + listaUsuarios.get(position).getOpciones());
 
         if (selectedPosition == position) {
             holder.respuesta.setBackgroundColor(Color.parseColor("#C4CDDA"));
@@ -63,7 +67,7 @@ public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.Usua
 
     @Override
     public void onClick(View view) {
-        if (listener!=null){
+        if (listener != null) {
             listener.onClick(view);
         }
     }
@@ -75,18 +79,20 @@ public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.Usua
 
     public class UsuariosHolder extends RecyclerView.ViewHolder {
         //TextView preguntaa;
-       // RadioGroup grupoRadio;
-       // Fragment fragment;
+        // RadioGroup grupoRadio;
+        // Fragment fragment;
         TextView respuesta;
+        LinearLayout relativeLayout;
         //int i = 0;
-       // boolean seleccion = false;
+        // boolean seleccion = false;
 
-    public UsuariosHolder(View itemView) {
-        super(itemView);
-        respuesta = itemView.findViewById(R.id.respuestaaaa);
+        public UsuariosHolder(View itemView) {
+            super(itemView);
+            respuesta = itemView.findViewById(R.id.respuestaaaa);
+        }
+
     }
 
-    }
     public void setSelectedPosition(int selectedPosition) {
         this.selectedPosition = selectedPosition;
         //when item selected notify the adapter
