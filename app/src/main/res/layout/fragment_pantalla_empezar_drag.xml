@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo"
+    tools:context=".principal.Pantalla_empezar_drag">
+
+    <LinearLayout
+        android:id="@+id/logos"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_margin="5dp"
+            android:layout_weight="40"
+            android:background="@drawable/logo_sicf" />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_margin="5dp"
+            android:layout_weight="20"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/colores" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:layout_weight="45"
+            android:background="@drawable/logo_sena" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/contenedorPaginas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="41dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerNumeros"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"></android.support.v7.widget.RecyclerView>
+
+
+        <!-- <fragment
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:name="com.example.victormanuel.apolunios.fragments.NumeroPreguntas">
+         </fragment>-->
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contenedorPaginas"
+        android:layout_alignParentStart="true"
+        android:minHeight="58dp">
+
+        <TextView
+            android:id="@+id/campoPregunta"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="7dp"
+            android:gravity="center_vertical"
+            android:inputType="textMultiLine"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+    </ScrollView>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scroll"
+        android:paddingBottom="70dp">
+
+        <TableRow>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/segundo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_weight="1">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/primero"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_weight="1">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btnContinuar"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/EmpezarOscuro"
+        android:text="continuar"
+        android:textColor="#FFF" />
+
+    <Button
+        android:id="@+id/btnContinuar2"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:background="#D9D9D9"
+        android:text="continuar"
+        android:textColor="#FFF" />
+</RelativeLayout>

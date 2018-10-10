@@ -1,38 +1,67 @@
 package club.contaniif.contaniff.actividades;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.acercaDe.AcercaDeFragment;
 import club.contaniif.contaniff.configuracion.Configuracion;
-import club.contaniif.contaniff.grupos.Grupos;
+import club.contaniif.contaniff.entidades.PreguntasVo;
+import club.contaniif.contaniff.entidades.VolleySingleton;
 import club.contaniif.contaniff.interfaces.AllFragments;
 import club.contaniif.contaniff.interfaces.Puente;
 import club.contaniif.contaniff.miRendimiento.RendimiendoFragment;
 import club.contaniif.contaniff.principal.Pantalla_empezar;
+import club.contaniif.contaniff.principal.Pantalla_empezar_drag;
 import club.contaniif.contaniff.sabiasQue.CategoriasSabias;
 import club.contaniif.contaniff.sabiasQue.SabiasActivity;
 import club.contaniif.contaniff.videos.CategoriasVideosFragment;
 import club.contaniif.contaniff.videos.VideosActivity;
 
-public class ActivityContenedora extends AppCompatActivity implements AllFragments ,Puente{
+public class ActivityContenedora extends AppCompatActivity implements AllFragments, Puente, Response.Listener<JSONObject>, Response.ErrorListener {
 
     int pantalla;
     boolean seleccionado = false;
     Fragment miFragment = null;
+    PreguntasVo preguntas;
+    Dialog dialogoCargando;
+    ArrayList<String> listaImagenes;
+    ArrayList<String> listaPreguntas;
+    String credenciales;
+    int tipo;
+    JsonObjectRequest jsonObjectRequest;
+    RequestQueue request;
+    int numeroPreguntaGlobal;
+    ArrayList<String> listaGobal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        listaGobal = new ArrayList<>();
         setContentView(R.layout.activity_contenedora);
 
+        dialogoCargando = new Dialog(this);
         Bundle miBundle = getIntent().getBundleExtra("dato");
         pantalla = miBundle.getInt("pantalla");
         pantalla();
@@ -45,16 +74,17 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
                 miFragment = new RendimiendoFragment();
                 break;
             case 2:
-                seleccionado = true;
-                miFragment = new Pantalla_empezar();
+                //seleccionado = true;
+                //miFragment = new Pantalla_empezar_drag();
+                reinciar(0, 0, listaGobal);
                 break;
             case 3:
                 seleccionado = true;
-                miFragment=new CategoriasVideosFragment();
+                miFragment = new CategoriasVideosFragment();
                 break;
             case 4:
                 seleccionado = true;
-                miFragment=new CategoriasSabias();
+                miFragment = new CategoriasSabias();
                 break;
             case 5:
                 seleccionado = true;
@@ -62,7 +92,7 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
                 break;
             case 6:
                 seleccionado = true;
-                miFragment=new AcercaDeFragment();
+                miFragment = new AcercaDeFragment();
                 break;
         }
         if (seleccionado == true) {
@@ -104,14 +134,10 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
 
     @Override
     public void reinciar(int numeroPregunta, int tipo, ArrayList<String> lista) {
-        Bundle datos = new Bundle();
-        Bundle miBundle=new Bundle();
-        datos.putInt("numeroPregunta", numeroPregunta);
-        datos.putStringArrayList("color",lista);
-        miBundle.putBundle("Todo",datos);
-        miFragment = new Pantalla_empezar();
-        miFragment.setArguments(miBundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, miFragment).commit();
+        numeroPreguntaGlobal = numeroPregunta;
+        listaGobal = lista;
+        cargarCredenciales();
+        cargarWebservices();
     }
 
     @Override
@@ -125,4 +151,87 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
         getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, miFragment).commit();
     }
 
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast.makeText(getApplicationContext(), "Error " + error, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+
+        preguntas = null;
+        JSONArray json = response.optJSONArray("pregunta");
+        JSONObject jsonObject = null;
+        listaPreguntas = new ArrayList<>();
+        listaImagenes = new ArrayList<>();
+        final ArrayList<String> lista = new ArrayList<>();
+
+        try {
+
+            for (int i = 0; i < json.length(); i++) {
+                jsonObject = json.getJSONObject(i);
+                preguntas = new PreguntasVo();
+                preguntas.setId(jsonObject.getInt("id"));
+                preguntas.setPregunta(jsonObject.getString("pregunta"));
+                preguntas.setCategoria(jsonObject.getInt("categoria"));
+                preguntas.setPuntaje(jsonObject.getInt("puntaje"));
+                preguntas.setTiempoDemora(jsonObject.getInt("tiempo"));
+                preguntas.setTipo(jsonObject.getInt("tipopregunta"));
+                preguntas.setRespuesta(jsonObject.getString("respuesta"));
+                preguntas.setRetobuena(jsonObject.getString("retrobuena"));
+                preguntas.setRetromala(jsonObject.getString("retromala"));
+                listaPreguntas.add(jsonObject.getString("opcion"));
+                listaImagenes.add(preguntas.getOpciones());
+            }
+
+            Bundle datos = new Bundle();
+            datos.putInt("numeroPregunta", numeroPreguntaGlobal);
+            datos.putStringArrayList("color", listaGobal);
+            Bundle objeto = new Bundle();
+            objeto.putSerializable("Objeto", preguntas);
+            Bundle miBundle = new Bundle();
+            miBundle.putBundle("Todo", datos);
+            miBundle.putBundle("BundleObjeto", objeto);
+            miBundle.putStringArrayList("respuestas", listaPreguntas);
+
+            if (preguntas.getTipo() == 1 || preguntas.getTipo() == 2 || preguntas.getTipo() == 3) {
+                miFragment = new Pantalla_empezar();
+            } else if (preguntas.getTipo() == 4) {
+                miFragment = new Pantalla_empezar_drag();
+            }
+            miFragment.setArguments(miBundle);
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, miFragment).commit();
+        } catch (JSONException e) {
+            e.printStackTrace();
+
+            Toast.makeText(getApplicationContext(), "No se ha podido establecer conexión con el servidor" + " " + response, Toast.LENGTH_LONG).show();
+        }
+
+
+        dialogoCargando.dismiss();
+    }
+
+    private void cargarCredenciales() {
+        SharedPreferences preferences = this.getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
+        String credenciales = preferences.getString("correo", "No existe el valor");
+        this.credenciales = credenciales;
+        //Toast.makeText(getContext(),"Credenciales = " + this.credenciales, Toast.LENGTH_SHORT).show();
+    }
+
+    private void dialogoCargando() {
+        dialogoCargando.setContentView(R.layout.popup_cargando);
+        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoCargando.show();
+    }
+
+    private void cargarWebservices() {
+        dialogoCargando();
+        String ip = getApplicationContext().getString(R.string.ip);
+        //String url = "http://" + ip + "wsPreguntasTipo1.php";
+        String url = "https://contaniif.club/movil/wsConsultaPreguntaPrueba1.php?estudiante=victor@gmail.com";
+        //String url = "https://" + ip + "/wsConsultaPreguntaPrueba1.php?estudiante=" + credenciales;
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+//        request.add(jsonObjectRequest);
+        VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+    }
 }

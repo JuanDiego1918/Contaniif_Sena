@@ -17,17 +17,18 @@ import java.util.ArrayList;
 
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.entidades.PreguntasDragVo;
+import club.contaniif.contaniff.entidades.PreguntasVo;
 import club.contaniif.contaniff.entidades.VolleySingleton;
 
 public class PreguntasImagenesAdapterDrag extends RecyclerView.Adapter<PreguntasImagenesAdapterDrag.ImagenesHolder> implements View.OnLongClickListener,View.OnClickListener {
 
-    ArrayList<PreguntasDragVo> listaImagenes;
+    ArrayList<PreguntasVo> listaImagenes;
     Context context;
     View.OnClickListener listener;
     public View.OnLongClickListener onLongClickListener;
 
 
-    public PreguntasImagenesAdapterDrag(ArrayList<PreguntasDragVo> listaImagenes, Context context) {
+    public PreguntasImagenesAdapterDrag(ArrayList<PreguntasVo> listaImagenes, Context context) {
         this.listaImagenes = listaImagenes;
         this.context = context;
     }
@@ -48,10 +49,10 @@ public class PreguntasImagenesAdapterDrag extends RecyclerView.Adapter<Preguntas
             if (listaImagenes.get(position).getRuta() != null) {
                 cargarImagenWebService(listaImagenes.get(position).getRuta(), holder);
             } else {
-                holder.imagen.setImageResource(R.drawable.borde_punteado);
+                //holder.imagen.setImageResource(R.drawable.borde_punteado);
             }
         }else{
-            holder.imagen.setImageResource(R.drawable.borde_punteado);
+           // holder.imagen.setImageResource(R.drawable.borde_punteado);
         }
 
     }

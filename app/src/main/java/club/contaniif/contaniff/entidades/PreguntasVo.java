@@ -1,8 +1,10 @@
 package club.contaniif.contaniff.entidades;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PreguntasVo {
+public class PreguntasVo implements Serializable {
+
 
 
     private String rutaImagen;
@@ -53,6 +55,12 @@ public class PreguntasVo {
 
     private String retobuena;
     private String retromala;
+
+
+    private String palabra;
+    private String ruta;
+    private boolean mostrar;
+    private String img;
 
     public String getPregunta() {
         return pregunta;
@@ -136,4 +144,51 @@ public class PreguntasVo {
         isCheck = check;
     }
 
+    public ArrayList<String> getListaSeleccionada() {
+        return listaSeleccionada;
+    }
+
+    public void setListaSeleccionada(ArrayList<String> listaSeleccionada) {
+        this.listaSeleccionada = listaSeleccionada;
+    }
+
+    public String getArregloPregunta() {
+        return arregloPregunta;
+    }
+
+    public void setArregloPregunta(String arregloPregunta) {
+        this.arregloPregunta = arregloPregunta;
+    }
+
+    public String getPalabra() {
+        return palabra;
+    }
+
+    public void setPalabra(String palabra) {
+        this.palabra = palabra;
+    }
+
+    public String getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
+    }
+
+    public boolean isMostrar() {
+        return mostrar;
+    }
+
+    public void setMostrar(boolean mostrar) {
+        this.mostrar = mostrar;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 }

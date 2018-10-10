@@ -7,6 +7,7 @@ import club.contaniif.contaniff.configuracion.MiPerfil;
 import club.contaniif.contaniff.grupos.Grupos;
 import club.contaniif.contaniff.miRendimiento.RendimiendoFragment;
 import club.contaniif.contaniff.principal.Pantalla_empezar;
+import club.contaniif.contaniff.principal.Pantalla_empezar_drag;
 import club.contaniif.contaniff.sabiasQue.CategoriasSabias;
 import club.contaniif.contaniff.videos.CategoriasVideosFragment;
 
@@ -18,5 +19,6 @@ public interface AllFragments
         CategoriasSabias.OnFragmentInteractionListener,
         Configuracion.OnFragmentInteractionListener,
         Grupos.OnFragmentInteractionListener,
-        MiPerfil.OnFragmentInteractionListener{
+        MiPerfil.OnFragmentInteractionListener,
+        Pantalla_empezar_drag.OnFragmentInteractionListener {
 }

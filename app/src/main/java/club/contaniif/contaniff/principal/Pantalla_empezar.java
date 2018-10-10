@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-;import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.adapter.PaginacionNumeroAdapter;
 import club.contaniif.contaniff.adapter.PreguntasAdapter;
 import club.contaniif.contaniff.adapter.PreguntasImagenesAdapter;
@@ -200,6 +200,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     StringRequest stringRequest;
     RecyclerView recyclerViewUsuarios;
     ArrayList<PreguntasVo> listaPreguntas;
+    ArrayList<String> listaRespuesta;
     JsonObjectRequest jsonObjectRequest;
     RequestQueue request;
     Dialog myDialogBuena;
@@ -284,23 +285,17 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             btnContinuar2.setVisibility(View.INVISIBLE);
         }
         cargarNombre();
-        cargarWebservices();
-
-        //fragmentBolas = vista.findViewById(R.id.fragmentBolitas);
-        //fragmentPregunta = vista.findViewById(R.id.fragmentPregunta1);
-
-        //miFragment = new FragmentBolitas();
-        //getFragmentManager().beginTransaction().replace(R.id.fragmentBolitas,miFragment).commit();
-
-
-        // miFragment = new FragmentPregunta1();
-        // getFragmentManager().beginTransaction().replace(R.id.fragmentPregunta1,miFragment).commit();
 
         listaColores = new ArrayList<>();
         Bundle todo;
+        Bundle objeto;
         Bundle miBundle = getArguments();
         if (miBundle != null) {
             todo = miBundle.getBundle("Todo");
+            objeto = miBundle.getBundle("BundleObjeto");
+            preguntas = (PreguntasVo) objeto.getSerializable("Objeto");
+            listaRespuesta = (ArrayList<String>) miBundle.getStringArrayList("respuestas").clone();
+            cargarDatos();
             numeroPregunta = todo.getInt("numeroPregunta");
             listaColores = todo.getStringArrayList("color");
         } else {
@@ -319,6 +314,132 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         PaginacionNumeroAdapter miNumeroAdapter = new PaginacionNumeroAdapter(listanumero, getContext());
         miRecyclerNumero.setAdapter(miNumeroAdapter);
         return vista;
+    }
+
+    private void cargarDatos() {
+
+        PreguntasVo lisPreguntasVo;
+        listaPreguntas = new ArrayList<>();
+        listaImagenes = new ArrayList<>();
+
+        for (int i = 0; i < listaRespuesta.size(); i++) {
+            lisPreguntasVo=new PreguntasVo();
+            lisPreguntasVo.setOpciones(listaRespuesta.get(i));
+            lisPreguntasVo.setRutaImagen(listaRespuesta.get(i));
+            listaPreguntas.add(lisPreguntasVo);
+        }
+
+        setRetroMala(preguntas.getRetromala());
+
+        setRetroBuena(preguntas.getRetobuena());
+
+        setTipoPregunta(preguntas.getTipo());
+
+        setPuntage(preguntas.getPuntaje());
+        pregunta.setText(preguntas.getPregunta());
+        informacion = preguntas.getRespuesta();
+
+        if (numeroPregunta != 0)
+
+        {
+            resetTimer();
+        }
+
+        mInitialTime = DateUtils.DAY_IN_MILLIS * 0 +
+                DateUtils.HOUR_IN_MILLIS * 0 +
+                DateUtils.MINUTE_IN_MILLIS * 0 +
+                DateUtils.SECOND_IN_MILLIS * preguntas.getTiempoDemora();
+        START_TIME_IN_MILLIS = preguntas.getTiempoDemora() * 1000;
+        mTimeLeftInMillis = START_TIME_IN_MILLIS;
+
+        starTime();
+        if (preguntas.getTipo() == 3) {
+            adapter2 = new PreguntasImagenesAdapter(listaPreguntas, getContext());
+            recyclerViewUsuarios.setAdapter(adapter2);
+            recyclerViewUsuarios.addOnItemTouchListener(new RecyclerViewOnClickListener(getContext(), new RecyclerViewOnClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    btnContinuar.setVisibility(View.VISIBLE);
+                    btnContinuar2.setVisibility(View.INVISIBLE);
+
+                    String enviaPregunta = listaPreguntas.get(recyclerViewUsuarios.getChildAdapterPosition(view)).getOpciones();
+                    String enviaRespuesta = informacion;
+
+                    if (enviaPregunta.equalsIgnoreCase(informacion)) {
+                        setResultado("correcto");
+                    } else {
+                        setResultado("incorrecto");
+                    }
+
+                    adapter2.setSelectedPosition(position);
+                }
+            }));
+
+        } else if (preguntas.getTipo() == 1) {
+            adapter = new PreguntasAdapter(listaPreguntas);
+            recyclerViewUsuarios.setAdapter(adapter);
+            recyclerViewUsuarios.addOnItemTouchListener(new RecyclerViewOnClickListener(getContext(), new RecyclerViewOnClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+
+                    btnContinuar.setVisibility(View.VISIBLE);
+                    btnContinuar2.setVisibility(View.INVISIBLE);
+
+                    String enviaPregunta = listaPreguntas.get(recyclerViewUsuarios.getChildAdapterPosition(view)).getOpciones();
+                    String enviaRespuesta = informacion;
+
+                    if (enviaPregunta.equalsIgnoreCase(informacion)) {
+                        setResultado("correcto");
+                    } else {
+                        setResultado("incorrecto");
+                    }
+
+                    adapter.setSelectedPosition(position);
+                }
+            }));
+        } else if (preguntas.getTipo() == 2) {
+            final ArrayList<String> listaRespuesta = new ArrayList<>();
+            String[] bar = preguntas.getRespuesta().split("#&");
+            for (String foobar : bar) {
+                listaRespuesta.add(String.format(foobar));
+            }
+
+
+            btnContinuar.setVisibility(View.VISIBLE);
+            btnContinuar2.setVisibility(View.INVISIBLE);
+            adapter3 = new PreguntasSeleccionMultiple(listaPreguntas);
+            recyclerViewUsuarios.setAdapter(adapter3);
+            listaSeleccionada = new ArrayList<>();
+            btnContinuar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    StringBuilder stringBuilder = new StringBuilder();
+
+                    for (PreguntasVo preguntasVo : listaPreguntas) {
+                        if (preguntasVo.isCheck()) {
+                            if (stringBuilder.length() > 0)
+                                stringBuilder.append(", ");
+                            listaSeleccionada.add(preguntasVo.getOpciones());
+                        }
+                    }
+                    if (listaSeleccionada.size() == listaRespuesta.size()) {
+                        for (int i = 0; i < listaSeleccionada.size(); i++) {
+                            if (listaRespuesta.contains(listaSeleccionada.get(i))) {
+                                correctoSeleccionMultiple++;
+                            }
+                        }
+                        if (correctoSeleccionMultiple == listaRespuesta.size()) {
+                            setResultado("correcto");
+                        } else {
+                            setResultado("incorrecto");
+                        }
+                    } else {
+                        setResultado("incorrecto");
+                    }
+                    comparar();
+                }
+            });
+        }
     }
 
 
@@ -421,9 +542,9 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                     malas++;
                 }
             }
-            if (buenas>malas){
+            if (buenas > malas) {
                 campoFinal.setText("Felicitaciones");
-            }else if(malas>buenas){
+            } else if (malas > buenas) {
                 campoFinal.setText("¡¡Debes Repasar Mas!!");
             }
 
@@ -721,7 +842,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 }
             });
         } else if (getTipoPregunta() == 4) {
-            cargarWebservices();
+            //cargarWebservices();
         }
 
 
@@ -741,6 +862,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
     }
 
 

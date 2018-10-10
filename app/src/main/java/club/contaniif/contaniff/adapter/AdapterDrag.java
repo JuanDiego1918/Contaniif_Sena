@@ -20,16 +20,17 @@ import java.util.ArrayList;
 
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.entidades.PreguntasDragVo;
+import club.contaniif.contaniff.entidades.PreguntasVo;
 import club.contaniif.contaniff.entidades.VolleySingleton;
 
 public class AdapterDrag extends RecyclerView.Adapter<AdapterDrag.AdapterHolder> implements View.OnClickListener, View.OnDragListener {
 
-    ArrayList<PreguntasDragVo> lista;
+    ArrayList<PreguntasVo> lista;
     View.OnClickListener listener;
     Context context;
     View.OnDragListener onDragListener;
 
-    public AdapterDrag(ArrayList<PreguntasDragVo> lista, Context context) {
+    public AdapterDrag(ArrayList<PreguntasVo> lista, Context context) {
         this.lista = lista;
         this.context = context;
     }
@@ -51,7 +52,7 @@ public class AdapterDrag extends RecyclerView.Adapter<AdapterDrag.AdapterHolder>
         if (lista.get(position).getImg() != null) {
             cargarImagenWebService(lista.get(position).getImg(), holder);
         } else {
-            holder.imagen.setImageResource(R.drawable.borde_punteado);
+           // holder.imagen.setImageResource(R.drawable.borde_punteado);
         }
         holder.palabra.setText(lista.get(position).getPalabra());
     }
