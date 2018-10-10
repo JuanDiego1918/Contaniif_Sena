@@ -258,11 +258,13 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             @Override
             public void onClick(View view) {
                 //opcionesCapturaFoto();
-                seleccionaImagen = true;
+                //seleccionaImagen = false;
                 //mostrarDialogOpciones();
 
                 if (permisoCamara == false) {
-                    Toast.makeText(Registro.this, "Debe aceptar los permisos para poder usar la camara", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Registro.this, "Debe aceptar los permisos para poder usar la camara, dirijase a configuracion de aplicaciones", Toast.LENGTH_LONG).show();
+                    //startActivity(new Intent(Settings.ACTION_APPLICATION_SETTINGS));
+                    cargarDialogoRecomendacion();
                 } else {
                     mostrarDialogOpciones();
                 }
@@ -809,7 +811,12 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 }
             }
         });
-        alertOpciones.show();
+        try{
+            alertOpciones.show();
+        }catch (Exception e){
+
+        }
+
     }
 
     private void cargarDialogoRecomendacion() {
