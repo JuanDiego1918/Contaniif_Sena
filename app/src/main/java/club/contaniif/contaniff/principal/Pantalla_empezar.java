@@ -466,7 +466,10 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     }
 
     private void resetTimer() {
-        CountDownTimer.cancel();
+        if (CountDownTimer != null) {
+            CountDownTimer.cancel();
+        }
+
         mTimeLeftInMillis = START_TIME_IN_MILLIS;
         i = reiniciar;
 
@@ -591,7 +594,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
 
     private void enviarDatosPuntaje() {
-        Toast.makeText(getContext(), ""+tiempoCapturado, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "" + tiempoCapturado, Toast.LENGTH_SHORT).show();
         String url;
         url = getContext().getString(R.string.ipRegistroPuntaje);
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -635,7 +638,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 parametros.put("tiempo", Integer.toString(tiempo));
                 parametros.put("puntos", Integer.toString(puntaje));
                 System.out.println(parametros.toString());
-                System.out.println("*******Parametros "+parametros.toString());
+                System.out.println("*******Parametros " + parametros.toString());
                 Log.i("*******Parametros ", parametros.toString());
                 return parametros;
             }
