@@ -497,7 +497,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
 
     public void showPopup(String retorno) {
-        Button retroBuena;
+        final Button retroBuena;
         TextView txtRetroBuena;
 
         myDialogBuena.setContentView(R.layout.popup_rcorrecta);
@@ -510,8 +510,8 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         retroBuena.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myDialogBuena.dismiss();
-                revisar(true);
+                enviarDatosPuntaje();
+                retroBuena.setEnabled(false);
             }
         });
 
@@ -526,7 +526,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             if (tiempoCapturado > preguntas.getTiempoDemora()) {
                 puntos = (puntage * 75) / 100;
             }
-            enviarDatosPuntaje();
             listaColores.add("#45cc28");
         } else {
             listaColores.add("#ed2024");
@@ -608,6 +607,8 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                     //                  Toast.makeText(getContext(),"Puntaje no registrado", Toast.LENGTH_SHORT).show();
 
                 }
+                myDialogBuena.dismiss();
+                revisar(true);
             }
         }, new Response.ErrorListener() {
             @Override

@@ -16,7 +16,6 @@ import com.android.volley.toolbox.ImageRequest;
 import java.util.ArrayList;
 
 import club.contaniif.contaniff.R;
-import club.contaniif.contaniff.entidades.PreguntasDragVo;
 import club.contaniif.contaniff.entidades.PreguntasVo;
 import club.contaniif.contaniff.entidades.VolleySingleton;
 
@@ -49,10 +48,10 @@ public class PreguntasImagenesAdapterDrag extends RecyclerView.Adapter<Preguntas
             if (listaImagenes.get(position).getRuta() != null) {
                 cargarImagenWebService(listaImagenes.get(position).getRuta(), holder);
             } else {
-                holder.imagen.setImageResource(R.drawable.punteado);
+                holder.imagen.setImageResource(R.drawable.punteadoc);
             }
         }else{
-            holder.imagen.setImageResource(R.drawable.punteado);
+            holder.imagen.setImageResource(R.drawable.punteadoc);
         }
 
     }

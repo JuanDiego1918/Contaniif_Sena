@@ -550,8 +550,7 @@ public class Pantalla_empezar_drag extends Fragment {
         retroBuena.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myDialogBuena.dismiss();
-                revisar(true);
+                enviarDatosPuntaje();
             }
         });
 
@@ -565,7 +564,6 @@ public class Pantalla_empezar_drag extends Fragment {
             if (tiempoCapturado > preguntasVo.getTiempoDemora()) {
                 puntos = (puntage * 75) / 100;
             }
-            enviarDatosPuntaje();
             listaColores.add("#45cc28");
         } else {
             listaColores.add("#ed2024");
@@ -621,6 +619,8 @@ public class Pantalla_empezar_drag extends Fragment {
                 } else {
                     //Toast.makeText(activity, ""+response, Toast.LENGTH_SHORT).show();
                 }
+                myDialogBuena.dismiss();
+                revisar(true);
             }
         }, new Response.ErrorListener() {
             @Override

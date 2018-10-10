@@ -19,7 +19,6 @@ import com.android.volley.toolbox.ImageRequest;
 import java.util.ArrayList;
 
 import club.contaniif.contaniff.R;
-import club.contaniif.contaniff.entidades.PreguntasDragVo;
 import club.contaniif.contaniff.entidades.PreguntasVo;
 import club.contaniif.contaniff.entidades.VolleySingleton;
 
@@ -52,7 +51,7 @@ public class AdapterDrag extends RecyclerView.Adapter<AdapterDrag.AdapterHolder>
         if (lista.get(position).getImg() != null) {
             cargarImagenWebService(lista.get(position).getImg(), holder);
         } else {
-           holder.imagen.setImageResource(R.drawable.punteado);
+           holder.imagen.setImageResource(R.drawable.punteadoc);
         }
         holder.palabra.setText(lista.get(position).getPalabra());
     }
