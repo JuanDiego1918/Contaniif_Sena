@@ -52,7 +52,7 @@ public class AdapterDrag extends RecyclerView.Adapter<AdapterDrag.AdapterHolder>
         if (lista.get(position).getImg() != null) {
             cargarImagenWebService(lista.get(position).getImg(), holder);
         } else {
-           // holder.imagen.setImageResource(R.drawable.borde_punteado);
+           holder.imagen.setImageResource(R.drawable.punteado);
         }
         holder.palabra.setText(lista.get(position).getPalabra());
     }

@@ -228,8 +228,8 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
         dialogoCargando();
         String ip = getApplicationContext().getString(R.string.ip);
         //String url = "http://" + ip + "wsPreguntasTipo1.php";
-        String url = "https://contaniif.club/movil/wsConsultaPreguntaPrueba1.php?estudiante=victor@gmail.com";
-        //String url = "https://" + ip + "/wsConsultaPreguntaPrueba1.php?estudiante=" + credenciales;
+        //String url = "https://contaniif.club/movil/wsConsultaPreguntaPrueba1.php?estudiante=victor@gmail.com";
+        String url = "https://" + ip + "/wsConsultaPreguntaPrueba1.php?estudiante=" + credenciales;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
 //        request.add(jsonObjectRequest);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);

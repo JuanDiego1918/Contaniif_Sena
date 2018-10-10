@@ -49,10 +49,10 @@ public class PreguntasImagenesAdapterDrag extends RecyclerView.Adapter<Preguntas
             if (listaImagenes.get(position).getRuta() != null) {
                 cargarImagenWebService(listaImagenes.get(position).getRuta(), holder);
             } else {
-                //holder.imagen.setImageResource(R.drawable.borde_punteado);
+                holder.imagen.setImageResource(R.drawable.punteado);
             }
         }else{
-           // holder.imagen.setImageResource(R.drawable.borde_punteado);
+            holder.imagen.setImageResource(R.drawable.punteado);
         }
 
     }
