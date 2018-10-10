@@ -71,16 +71,22 @@ import club.contaniif.contaniff.entidades.UsuariosVo;
 public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener {
     int posicion;
     int accion;
-    private int dia,mes,anio;
     String generoo;
     String departamentoo;
     String id;
     String img;
     String municipioo;
+
     Dialog dialogoCargando;
+    Spinner lisdaAnios, listaMeses, listaDias;
+    ArrayList arrayAnios, arrayMeses, arrayDias;
+    String anioLista,mesLista,diaLista;
+    Dialog dialogoFecha;
+
     String rutaImagenn;
     String rutaImg;
 
+    boolean seleccionaAnio = false,seleccionaMes = false,seleccionaDia = false;
 
     int daate;
     String date;
@@ -307,7 +313,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     /////
     String rutaImagen;
     /////
-    Dialog myDialogFecha;
+    String dato;
 
     public MiPerfil() {
         // Required empty public constructor
@@ -348,6 +354,12 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         request = Volley.newRequestQueue(getContext());
         request2 = Volley.newRequestQueue(getContext());
         dialogoCargando = new Dialog(this.getContext());
+        dialogoFecha = new Dialog(this.getContext());
+        obtenerFecha();
+        llenarAnios();
+        llenarMeses();
+        llenarDias();
+
         cargarCredenciales();
         // myDialogFecha.setContentView(R.layout.popup_seleccionar_fecha);
         ArrayGenero = new ArrayList<>();
@@ -395,7 +407,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         btnRegistro = vista.findViewById(R.id.btnRegistrar);
 
         listaDepartamentos = vista.findViewById(R.id.spinnerDepartamentoConfig);
-        ArrayAdapter<CharSequence> adapterDepartamentos = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, ArrayDepartamentos);
+        ArrayAdapter<CharSequence> adapterDepartamentos = new ArrayAdapter(getContext(), R.layout.spinner_item, ArrayDepartamentos);
         listaDepartamentos.setAdapter(adapterDepartamentos);
         listaDepartamentos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -420,7 +432,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         });
         listaMunicipios = vista.findViewById(R.id.spinnerMunicipioConfig);
         listaGenero = vista.findViewById(R.id.spinnerGeneroConfig);
-        ArrayAdapter<CharSequence> adapterGenero = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, ArrayGenero);
+        ArrayAdapter<CharSequence> adapterGenero = new ArrayAdapter(getContext(), R.layout.spinner_item, ArrayGenero);
         listaGenero.setAdapter(adapterGenero);
         listaGenero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -463,7 +475,6 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
             @Override
             public void onClick(View view) {
                 setValidacionFecha(10);
-                validarFecha();
                 cargarDialogoFecha();
             }
         });
@@ -532,33 +543,46 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         return vista;
     }
 
-    private void validarFecha() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yy",Locale.getDefault());
+    private void obtenerFecha() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yy");
         Date date = new Date();
-        dateFormat.format(date);
-        for (int i = 0; i < 80; i++) {
+        fecha = "20"+dateFormat.format(date);
+    }
 
+    private void llenarAnios(){
+        arrayAnios = new ArrayList();
+        arrayAnios.add("AÑO");
+        int anio = Integer.parseInt(fecha) - 10;
+        int restaAnio = anio -80;
+        for (int i = anio; i >= restaAnio; i--) {
+            arrayAnios.add(i);
         }
     }
 
-    /*    private void showDialogFecha() {
+    private void llenarMeses(){
+        arrayMeses = new ArrayList();
+        arrayMeses.add("MES");//31
+        arrayMeses.add("ENERO");//31
+        arrayMeses.add("FEBRERO");//29
+        arrayMeses.add("MARZO");//31
+        arrayMeses.add("ABRIL");//30
+        arrayMeses.add("MAYO");//31
+        arrayMeses.add("JUNIO");//30
+        arrayMeses.add("JULIO");//31
+        arrayMeses.add("AGOSTO");//31
+        arrayMeses.add("SEPTIEMBRE");//30
+        arrayMeses.add("OCTUBRE");//31
+        arrayMeses.add("NOVIEMBRE");//30
+        arrayMeses.add("DICIEMBRE");//31
+    }
 
-            Button continuar;
-            TextView txtRetroBuena;
-
-            myDialogFecha.setContentView(R.layout.popup_seleccionar_fecha);
-
-            continuar = myDialogFecha.findViewById(R.id.btnCerrarPopupFecha);
-            continuar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myDialogFecha.dismiss();
-                }
-            });
-
-            myDialogFecha.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            myDialogFecha.show();
-        }*/
+    private void llenarDias(){
+        arrayDias = new ArrayList();
+        arrayDias.add("DIA");
+        for (int i = 1; i <=31 ; i++) {
+            arrayDias.add(i);
+        }
+    }
     private void cargarListaMunicipios() {
         String url = getContext().getString(R.string.ipTraerMunicipio)+getPosicion();
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
@@ -585,22 +609,94 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
     public void cargarDialogoFecha() {
         final Calendar calendar = Calendar.getInstance();
-        dia  = calendar.get(Calendar.DAY_OF_MONTH);
-        mes  = calendar.get(Calendar.MONTH);
-        anio = calendar.get(Calendar.YEAR);
+        Button cancelar, enviar;
+        dialogoFecha.setContentView(R.layout.popup_fecha);
 
-        calendar.after("01-01-1990");
-        calendar.before("01-01-2010");
+        lisdaAnios = dialogoFecha.findViewById(R.id.spinnerAnio);
+        listaMeses = dialogoFecha.findViewById(R.id.spinnerMes);
+        listaDias = dialogoFecha.findViewById(R.id.spinnerDia);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this.getContext(), new DatePickerDialog.OnDateSetListener() {
+        ArrayAdapter<CharSequence> adapterAnios = new ArrayAdapter(this.getContext(), R.layout.spinner_item, arrayAnios);
+        lisdaAnios.setAdapter(adapterAnios);
+        lisdaAnios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                campoFechaNacimiento.setText(year+"-"+(month+1)+"-"+dayOfMonth);
-                fecha = ""+year+month+dayOfMonth;
-                setValidacionFecha(3);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position != 0){
+                    seleccionaAnio = true;
+                    anioLista = arrayAnios.get(position).toString();
+                }
             }
-        },dia,mes,anio);
-        datePickerDialog.show();
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                seleccionaAnio = false;
+            }
+        });
+
+        ArrayAdapter<CharSequence> adapterMeses = new ArrayAdapter(this.getContext(), R.layout.spinner_item, arrayMeses);
+        listaMeses.setAdapter(adapterMeses);
+        listaMeses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position != 0){
+                    seleccionaMes = true;
+                    mesLista = ""+position;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                seleccionaMes = false;
+            }
+        });
+
+        ArrayAdapter<CharSequence> adapterDias = new ArrayAdapter(this.getContext(), R.layout.spinner_item, arrayDias);
+        listaDias.setAdapter(adapterDias);
+        listaDias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position != 0){
+                    seleccionaDia = true;
+                    diaLista = arrayDias.get(position).toString();
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                seleccionaDia = false;
+            }
+        });
+
+        cancelar = dialogoFecha.findViewById(R.id.btnCancelarFecha);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogoFecha.dismiss();
+                setValidacionFecha(2);
+            }
+        });
+
+        enviar = dialogoFecha.findViewById(R.id.btnAceptarFecha);
+        enviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (seleccionaAnio == false || seleccionaMes == false || seleccionaDia == false){
+                    setValidacionFecha(10);
+                    campoFechaNacimiento.setText("000-00-00");
+                }else {
+                    setValidacionFecha(3);
+                    campoFechaNacimiento.setText(anioLista+"-"+mesLista+"-"+diaLista);
+                }
+
+
+                dialogoFecha.dismiss();
+            }
+        });
+
+        dialogoFecha.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoFecha.show();
+
     }
 
 
@@ -809,7 +905,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                         ArrayMunicipios.add(jsonObject.getString("municipio"));
                         //Toast.makeText(getContext(),"lista url" + response,Toast.LENGTH_LONG).show();
                     }
-                    ArrayAdapter<CharSequence> adapterMunicipios=new ArrayAdapter(getContext(),R.layout.support_simple_spinner_dropdown_item,ArrayMunicipios);
+                    ArrayAdapter<CharSequence> adapterMunicipios=new ArrayAdapter(this.getContext(),R.layout.spinner_item,ArrayMunicipios);
                     listaMunicipios.setAdapter(adapterMunicipios);
                     listaMunicipios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -912,7 +1008,17 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                     // etiNombre.setText("");
                     //  txtDocumento.setText("");
                     //   etiProfesion.setText("");
-                    Toast.makeText(getContext(),"Se ha actualizado con exito",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(),"Se ha actualizado con exito",Toast.LENGTH_SHORT).show();
+                    listaGenero.setVisibility(View.INVISIBLE);
+                    listaMunicipios.setVisibility(View.INVISIBLE);
+                    listaDepartamentos.setVisibility(View.INVISIBLE);
+
+
+                    campoMunicipio.setVisibility(View.VISIBLE);
+                    campoDepartamento.setVisibility(View.VISIBLE);
+                    campoGenero.setVisibility(View.VISIBLE);
+
+                    cargarDatosPerfil();
                 }else{
                     Toast.makeText(getContext(),"No se ha Actualizado ",Toast.LENGTH_SHORT).show();
                     Log.i("RESPUESTA: ",""+response);

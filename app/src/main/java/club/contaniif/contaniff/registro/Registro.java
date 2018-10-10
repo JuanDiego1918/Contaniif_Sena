@@ -212,7 +212,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         listaMunicipios = findViewById(R.id.spinnerCuidadRegistro);
         listaGenero = findViewById(R.id.spinnerGeneroRegistro);
 
-        ArrayAdapter<CharSequence> adapterDepartamentos = new ArrayAdapter(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, ArrayDepartamentos);
+        ArrayAdapter<CharSequence> adapterDepartamentos = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item, ArrayDepartamentos);
         listaDepartamentos.setAdapter(adapterDepartamentos);
         listaDepartamentos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -234,7 +234,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         });
 
 
-        ArrayAdapter<CharSequence> adapterGenero = new ArrayAdapter(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, ArrayGenero);
+        ArrayAdapter<CharSequence> adapterGenero = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item, ArrayGenero);
         listaGenero.setAdapter(adapterGenero);
         listaGenero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -264,7 +264,9 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 if (permisoCamara == false) {
                     Toast.makeText(Registro.this, "Debe aceptar los permisos para poder usar la camara, dirijase a configuracion de aplicaciones", Toast.LENGTH_LONG).show();
                     //startActivity(new Intent(Settings.ACTION_APPLICATION_SETTINGS));
-                    cargarDialogoRecomendacion();
+                    //cargarDialogoRecomendacion();
+                    //solicitarPermisosManual();
+                    solicitaPermisosVersionesSuperiores();
                 } else {
                     mostrarDialogOpciones();
                 }
@@ -454,18 +456,18 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     private void llenarMeses(){
         arrayMeses = new ArrayList();
         arrayMeses.add("MES");//31
-        arrayMeses.add("ENE");//31
-        arrayMeses.add("FEB");//29
-        arrayMeses.add("MAR");//31
-        arrayMeses.add("ABR");//30
-        arrayMeses.add("MAY");//31
-        arrayMeses.add("JUN");//30
-        arrayMeses.add("JUL");//31
-        arrayMeses.add("AGO");//31
-        arrayMeses.add("SEP");//30
-        arrayMeses.add("OCT");//31
-        arrayMeses.add("NOV");//30
-        arrayMeses.add("DIC");//31
+        arrayMeses.add("ENERO");//31
+        arrayMeses.add("FEBRERO");//29
+        arrayMeses.add("MARZO");//31
+        arrayMeses.add("ABRIL");//30
+        arrayMeses.add("MAYO");//31
+        arrayMeses.add("JUNIO");//30
+        arrayMeses.add("JULIO");//31
+        arrayMeses.add("AGOSTO");//31
+        arrayMeses.add("SEPTIEMBRE");//30
+        arrayMeses.add("OCTUBRE");//31
+        arrayMeses.add("NOVIEMBRE");//30
+        arrayMeses.add("DICIEMBRE");//31
     }
 
     private void llenarDias(){
@@ -504,7 +506,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         listaMeses = dialogoFecha.findViewById(R.id.spinnerMes);
         listaDias = dialogoFecha.findViewById(R.id.spinnerDia);
 
-        ArrayAdapter<CharSequence> adapterAnios = new ArrayAdapter(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayAnios);
+        ArrayAdapter<CharSequence> adapterAnios = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item, arrayAnios);
         lisdaAnios.setAdapter(adapterAnios);
         lisdaAnios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -521,7 +523,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             }
         });
 
-        ArrayAdapter<CharSequence> adapterMeses = new ArrayAdapter(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayMeses);
+        ArrayAdapter<CharSequence> adapterMeses = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item, arrayMeses);
         listaMeses.setAdapter(adapterMeses);
         listaMeses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -538,7 +540,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             }
         });
 
-        ArrayAdapter<CharSequence> adapterDias = new ArrayAdapter(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayDias);
+        ArrayAdapter<CharSequence> adapterDias = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item, arrayDias);
         listaDias.setAdapter(adapterDias);
         listaDias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -792,7 +794,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
     private void solicitarPermisosManual() {
         final CharSequence[] opciones = {"si", "no"};
-        final android.support.v7.app.AlertDialog.Builder alertOpciones = new android.support.v7.app.AlertDialog.Builder(getApplicationContext());//estamos en fragment
+        final android.support.v7.app.AlertDialog.Builder alertOpciones = new android.support.v7.app.AlertDialog.Builder(this);//estamos en fragment
         alertOpciones.setTitle("¿Desea configurar los permisos de forma manual?");
         alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
             @Override
@@ -820,7 +822,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     }
 
     private void cargarDialogoRecomendacion() {
-        android.support.v7.app.AlertDialog.Builder dialogo = new android.support.v7.app.AlertDialog.Builder(getApplicationContext());
+        android.support.v7.app.AlertDialog.Builder dialogo = new android.support.v7.app.AlertDialog.Builder(this);
         dialogo.setTitle("Permisos Desactivados");
         dialogo.setMessage("Debe aceptar los permisos para el correcto funcionamiento de la App");
 
@@ -856,13 +858,15 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             @Override
             public void onResponse(String response) {
                 if (response.trim().equalsIgnoreCase("registra")) {
-                    Log.i("RESULTADO", "Respuesta server" + response);
+                    Log.i("********RESULTADO", "Respuesta server" + response);
                     dialogoCargando.hide();
                     Intent intent = new Intent(Registro.this, MainActivity.class);
                     startActivity(intent);
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "No se pudo registrar" + response, Toast.LENGTH_LONG).show();
+                } else if (response.trim().equalsIgnoreCase("ya existe, datos no guardados")){
+                    Toast.makeText(getApplicationContext(), "El usuario ya existe, por favor ingrese un correo distindo" + response, Toast.LENGTH_LONG).show();
+                    dialogoCargando.hide();
+                }else {
+                    Toast.makeText(getApplicationContext(), "Por el momento el usuario no se puede registrar", Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -951,7 +955,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                     jsonObject = json.getJSONObject(i);
                     ArrayMunicipios.add(jsonObject.getString("municipio"));
                 }
-                ArrayAdapter<CharSequence> adapterMunicipios = new ArrayAdapter(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, ArrayMunicipios);
+                ArrayAdapter<CharSequence> adapterMunicipios = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item, ArrayMunicipios);
                 listaMunicipios.setAdapter(adapterMunicipios);
                 listaMunicipios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
