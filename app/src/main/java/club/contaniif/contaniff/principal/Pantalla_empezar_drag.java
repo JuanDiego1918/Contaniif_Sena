@@ -183,36 +183,22 @@ public class Pantalla_empezar_drag extends Fragment {
     //int numero = 3;
     RecyclerView miRecyclerNumero;
 
-    ArrayList<String> listaImagenes;
-    PreguntasAdapter adapter;
-    PreguntasImagenesAdapter adapter2;
-    PreguntasSeleccionMultiple adapter3;
-    ScrollView miScroll;
-    ImageView img;
-    GestionPreguntas gestionPreguntas;
-    PreguntasAdapter preguntasAdap;
-    Fragment fragment;
     TextView pregunta;
     TextView puntajeRespuestaBuena;
     TextView puntajeRespuestaMala;
     String informacion;
     String informacion2;
-    ProgressDialog dialog;
-    RecyclerView recyclerViewUsuarios;
-    ArrayList<PreguntasVo> listaPreguntas;
     RequestQueue request;
     Dialog myDialogBuena;
     Dialog myDialogMala, MyDialogFinal;
-    ArrayList<String> listaSeleccionada;
-    int correctoSeleccionMultiple = 0;
     String nombre;
     ArrayList<String> listaColores;
-    PreguntasVo preguntas;
     ArrayList<String> listaRespuesta;
     int numeroPregunta;
     int tiempoCapturado;
     String credenciales;
     StringRequest stringRequest;
+    PreguntasVo preguntasVo;
     ////////////////////////////////////////////////////////////////////////////////
 
     /**
@@ -331,7 +317,7 @@ public class Pantalla_empezar_drag extends Fragment {
 
     private void cargarDatos() {
         list = new ArrayList<>();
-        PreguntasVo preguntasVo;
+
         JSONObject jsonObject = null;
         final ArrayList<String> lista = new ArrayList<>();
 
@@ -340,6 +326,13 @@ public class Pantalla_empezar_drag extends Fragment {
             lista.add(listaRespuesta.get(i));
             preguntasVo.setRespuesta(miVo.getRespuesta());
             preguntasVo.setOpciones(listaRespuesta.get(i));
+            preguntasVo.setId(miVo.getId());
+            preguntasVo.setPregunta(miVo.getPregunta());
+            preguntasVo.setPuntaje(miVo.getPuntaje());
+            preguntasVo.setTiempoDemora(miVo.getTiempoDemora());
+            preguntasVo.setRespuesta(miVo.getRespuesta());
+            preguntasVo.setRetobuena(miVo.getRetobuena());
+            preguntasVo.setRetromala(miVo.getRetromala());
             list.add(preguntasVo);
         }
 
@@ -352,13 +345,13 @@ public class Pantalla_empezar_drag extends Fragment {
         }
 
 
-        setRetroMala(miVo.getRetromala());
-        setRetroBuena(miVo.getRetobuena());
-        setTipoPregunta(miVo.getTipo());
-        setPuntage(miVo.getPuntaje());
-        pregunta.setText(miVo.getPregunta());
-        informacion = miVo.getRespuesta();
-        informacion2 = miVo.getOpciones();
+        setRetroMala(preguntasVo.getRetromala());
+        setRetroBuena(preguntasVo.getRetobuena());
+        setTipoPregunta(preguntasVo.getTipo());
+        setPuntage(preguntasVo.getPuntaje());
+        pregunta.setText(preguntasVo.getPregunta());
+        informacion = preguntasVo.getRespuesta();
+        informacion2 = preguntasVo.getOpciones();
         if (numeroPregunta != 0)
 
         {
@@ -368,8 +361,8 @@ public class Pantalla_empezar_drag extends Fragment {
         mInitialTime = DateUtils.DAY_IN_MILLIS * 0 +
                 DateUtils.HOUR_IN_MILLIS * 0 +
                 DateUtils.MINUTE_IN_MILLIS * 0 +
-                DateUtils.SECOND_IN_MILLIS * miVo.getTiempoDemora();
-        START_TIME_IN_MILLIS = miVo.getTiempoDemora() * 1000;
+                DateUtils.SECOND_IN_MILLIS * preguntasVo.getTiempoDemora();
+        START_TIME_IN_MILLIS = preguntasVo.getTiempoDemora() * 1000;
         mTimeLeftInMillis = START_TIME_IN_MILLIS;
         starTime();
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -539,7 +532,6 @@ public class Pantalla_empezar_drag extends Fragment {
             showPopup2(getRetroMala());
         }
         tiempoCapturado = i;
-        Toast.makeText(activity, ""+tiempoCapturado, Toast.LENGTH_SHORT).show();
         numeroPregunta++;
     }
 
@@ -565,15 +557,15 @@ public class Pantalla_empezar_drag extends Fragment {
 
         myDialogBuena.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialogBuena.show();
-        enviarDatosPuntaje();
     }
 
     private void revisar(boolean revisar) {
         if (revisar == true) {
             int puntos = puntage;
-            if (tiempoCapturado > miVo.getTiempoDemora()) {
+            if (tiempoCapturado > preguntasVo.getTiempoDemora()) {
                 puntos = (puntage * 75) / 100;
             }
+            enviarDatosPuntaje();
             listaColores.add("#45cc28");
         } else {
             listaColores.add("#ed2024");
@@ -618,18 +610,15 @@ public class Pantalla_empezar_drag extends Fragment {
 
 
     private void enviarDatosPuntaje() {
-
         String url;
         url = getContext().getString(R.string.ipRegistroPuntaje);
-        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        stringRequest =new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //progreso.hide();
                 if (response.trim().equalsIgnoreCase("registra")) {
-//                    Toast.makeText(getContext(), "Registro de puntaje exitoso", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(activity, ""+response, Toast.LENGTH_SHORT).show();
                 } else {
-                    //                  Toast.makeText(getContext(),"Puntaje no registrado", Toast.LENGTH_SHORT).show();
-
+                    //Toast.makeText(activity, ""+response, Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -643,10 +632,9 @@ public class Pantalla_empezar_drag extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 String idusuario = credenciales;
-                int idpregunta = miVo.getId();
+                int idpregunta = preguntasVo.getId();
                 int tiempo = tiempoCapturado;
                 int puntaje = getPuntage();
-
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("idusuario", idusuario);
                 parametros.put("idpregunta", Integer.toString(idpregunta));

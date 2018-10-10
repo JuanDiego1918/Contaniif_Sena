@@ -511,7 +511,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
         myDialogBuena.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialogBuena.show();
-        enviarDatosPuntaje();
+
     }
 
     private void revisar(boolean revisar) {
@@ -520,7 +520,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             if (tiempoCapturado > preguntas.getTiempoDemora()) {
                 puntos = (puntage * 75) / 100;
             }
-            //enviarDatosPuntaje(puntos);
+            enviarDatosPuntaje();
             listaColores.add("#45cc28");
         } else {
             listaColores.add("#ed2024");
