@@ -199,6 +199,7 @@ public class Pantalla_empezar_drag extends Fragment {
     String credenciales;
     StringRequest stringRequest;
     PreguntasVo preguntasVo;
+    Dialog dialogoCargando;
     ////////////////////////////////////////////////////////////////////////////////
 
     /**
@@ -238,7 +239,7 @@ public class Pantalla_empezar_drag extends Fragment {
         respuestaCorrecta = new ArrayList<>();
         respuestaCompleta = new ArrayList<>();
         list = new ArrayList<>();
-
+        dialogoCargando = new Dialog(this.getContext());
         myDialogBuena = new Dialog(getContext());
         myDialogMala = new Dialog(getContext());
         MyDialogFinal = new Dialog(getContext());
@@ -537,7 +538,7 @@ public class Pantalla_empezar_drag extends Fragment {
 
 
     public void showPopup(String retorno) {
-        Button retroBuena;
+        final Button retroBuena;
         TextView txtRetroBuena;
 
         myDialogBuena.setContentView(R.layout.popup_rcorrecta);
@@ -551,12 +552,21 @@ public class Pantalla_empezar_drag extends Fragment {
             @Override
             public void onClick(View v) {
                 enviarDatosPuntaje();
+                retroBuena.setEnabled(true);
+                dialogoCargando();
             }
         });
 
         myDialogBuena.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialogBuena.show();
     }
+
+    private void dialogoCargando() {
+        dialogoCargando.setContentView(R.layout.popup_cargando);
+        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoCargando.show();
+    }
+
 
     private void revisar(boolean revisar) {
         if (revisar == true) {
@@ -621,6 +631,7 @@ public class Pantalla_empezar_drag extends Fragment {
                 }
                 myDialogBuena.dismiss();
                 revisar(true);
+                dialogoCargando.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override

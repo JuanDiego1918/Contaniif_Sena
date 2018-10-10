@@ -512,6 +512,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             public void onClick(View v) {
                 enviarDatosPuntaje();
                 retroBuena.setEnabled(false);
+                dialogoCargando();
             }
         });
 
@@ -609,6 +610,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 }
                 myDialogBuena.dismiss();
                 revisar(true);
+                dialogoCargando.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
