@@ -215,6 +215,12 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         // Required empty public constructor
     }
 
+
+    Map<String, String> parametros;
+    int idpregunta;
+    int tiempo;
+    int puntaje;
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -295,7 +301,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             objeto = miBundle.getBundle("BundleObjeto");
             preguntas = (PreguntasVo) objeto.getSerializable("Objeto");
             listaRespuesta = (ArrayList<String>) miBundle.getStringArrayList("respuestas").clone();
-            cargarDatos();
             numeroPregunta = todo.getInt("numeroPregunta");
             listaColores = todo.getStringArrayList("color");
         } else {
@@ -313,6 +318,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         }
         PaginacionNumeroAdapter miNumeroAdapter = new PaginacionNumeroAdapter(listanumero, getContext());
         miRecyclerNumero.setAdapter(miNumeroAdapter);
+        cargarDatos();
         return vista;
     }
 
@@ -323,7 +329,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         listaImagenes = new ArrayList<>();
 
         for (int i = 0; i < listaRespuesta.size(); i++) {
-            lisPreguntasVo=new PreguntasVo();
+            lisPreguntasVo = new PreguntasVo();
             lisPreguntasVo.setOpciones(listaRespuesta.get(i));
             lisPreguntasVo.setRutaImagen(listaRespuesta.get(i));
             listaPreguntas.add(lisPreguntasVo);
@@ -585,12 +591,16 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
 
     private void enviarDatosPuntaje() {
-
+        Toast.makeText(getContext(), ""+tiempoCapturado, Toast.LENGTH_SHORT).show();
         String url;
         url = getContext().getString(R.string.ipRegistroPuntaje);
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                parametros.clear();
+                idpregunta = 0;
+                tiempo = 0;
+                puntaje = 0;
                 //progreso.hide();
                 if (response.trim().equalsIgnoreCase("registra")) {
 //                    Toast.makeText(getContext(), "Registro de puntaje exitoso", Toast.LENGTH_SHORT).show();
@@ -611,15 +621,18 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 String idusuario = credenciales;
-                int idpregunta = preguntas.getId();
-                int tiempo = tiempoCapturado;
-                int puntaje = getPuntage();
+                idpregunta = preguntas.getId();
+                tiempo = tiempoCapturado;
+                puntaje = getPuntage();
 
-                Map<String, String> parametros = new HashMap<>();
+
+                parametros = new HashMap<>();
                 parametros.put("idusuario", idusuario);
                 parametros.put("idpregunta", Integer.toString(idpregunta));
                 parametros.put("tiempo", Integer.toString(tiempo));
                 parametros.put("puntos", Integer.toString(puntaje));
+                System.out.println(parametros.toString());
+                System.out.println("*******Parametros "+parametros.toString());
                 Log.i("*******Parametros ", parametros.toString());
                 return parametros;
             }
