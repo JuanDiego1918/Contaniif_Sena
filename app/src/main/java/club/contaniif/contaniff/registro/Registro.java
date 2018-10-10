@@ -401,7 +401,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                     showPopupIngresaCorreo();
                 } else {
 
-                    Toast.makeText(getApplicationContext(), "Respuesta server =  " + response, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "Respuesta server =  " + response, Toast.LENGTH_LONG).show();
                     Log.i("********RESULTADO", "Respuesta server" + response);
                     //guardarNombre(response);
                     //guardarCredenciales(dato);
@@ -875,8 +875,8 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "No se pudo Registrar" + error.toString(), Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(), "NO SE REGISTRA" + error, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "No se pudo Registrar" + error.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "NO SE REGISTRA" + error, Toast.LENGTH_LONG).show();
                 Log.i("RESULTADO", "NO SE REGISTRA desde onError " + error.toString());
                 Log.d("RESULT*****************", "NO SE REGISTRA desde onError " + error.toString());
             }
