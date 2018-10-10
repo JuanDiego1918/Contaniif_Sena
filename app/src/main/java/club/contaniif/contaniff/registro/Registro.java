@@ -860,10 +860,13 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 if (response.trim().equalsIgnoreCase("registra")) {
                     Log.i("********RESULTADO", "Respuesta server" + response);
                     dialogoCargando.hide();
+                    guardarCredenciales(campoCorreo.getText().toString());
+                    guardarNombre(campoNombre.getText().toString());
                     Intent intent = new Intent(Registro.this, MainActivity.class);
                     startActivity(intent);
+
                 } else if (response.trim().equalsIgnoreCase("ya existe, datos no guardados")){
-                    Toast.makeText(getApplicationContext(), "El usuario ya existe, por favor ingrese un correo distindo" + response, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "El usuario ya existe, por favor ingrese un correo distindo", Toast.LENGTH_LONG).show();
                     dialogoCargando.hide();
                 }else {
                     Toast.makeText(getApplicationContext(), "Por el momento el usuario no se puede registrar", Toast.LENGTH_LONG).show();
@@ -904,8 +907,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             }
         };
 
-        guardarCredenciales(campoCorreo.getText().toString());
-        guardarNombre(campoNombre.getText().toString());
+
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         request.add(stringRequest);
         accion = (2);
