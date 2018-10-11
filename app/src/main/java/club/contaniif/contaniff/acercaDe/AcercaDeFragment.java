@@ -139,15 +139,36 @@ public class AcercaDeFragment extends Fragment {
     }
 
     private void ventanaDesa() {
+        TextView ver1, ver2, ver3;
         ventanaInformacion.setContentView(R.layout.popup_desarrollo);
         ventanaInformacion.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         usuario1 = ventanaInformacion.findViewById(R.id.imagenUsuario);
         usuario2 = ventanaInformacion.findViewById(R.id.imagenUsuario2);
         usuario3 = ventanaInformacion.findViewById(R.id.imagenUsuario3);
-
+        ver1 = ventanaInformacion.findViewById(R.id.vermas1);
+        ver2 = ventanaInformacion.findViewById(R.id.vermas2);
+        ver3 = ventanaInformacion.findViewById(R.id.vermas3);
         cargarImgGeneral(1);
         cargarImgGeneral(2);
         cargarImgGeneral(3);
+        ver1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ventanaInstructoras(1);
+            }
+        });
+        ver2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ventanaInstructoras(2);
+            }
+        });
+        ver3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ventanaInstructoras(3);
+            }
+        });
         usuario1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -222,7 +243,7 @@ public class AcercaDeFragment extends Fragment {
         }
     }
 
- private void ventanaInstructoras(int numero) {
+    private void ventanaInstructoras(int numero) {
         TextView titulo, descripcion;
 
         ventanaInstru.setContentView(R.layout.popup_detalles);
@@ -259,7 +280,7 @@ public class AcercaDeFragment extends Fragment {
         ventanaInstru.show();
     }
 
-   private void cargarImg(int i) {
+    private void cargarImg(int i) {
         String ip = getContext().getString(R.string.imgFotos);
 
         final String urlImagen = "https://" + ip + i + ".jpg";

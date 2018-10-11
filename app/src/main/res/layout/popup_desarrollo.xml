@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:paddingBottom="30dp"
     android:paddingLeft="30dp"
+    android:paddingTop="30dp"
     android:paddingRight="30dp"
-    android:paddingTop="30dp">
+    android:paddingBottom="30dp">
 
 
     <LinearLayout
@@ -17,95 +17,236 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <TextView
-            android:id="@+id/tituloInforpopup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/imagenPopupInforma"
-            android:text="Equipo Desarrollo"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="23dp" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imagenUsuario"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="22dp"
-            android:src="@drawable/usuario" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imagenUsuario2"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:layout_weight="2"
-                android:src="@drawable/usuario" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imagenUsuario3"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:layout_weight="2"
-                android:src="@drawable/usuario" />
-        </LinearLayout>
-
         <ScrollView
             android:id="@+id/scrollInformacion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/tituloInforpopup"
             android:layout_margin="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/tituloInforpopup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imagenPopupInforma"
+                    android:layout_alignParentStart="true"
+                    android:text="Gestoras de proyecto"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="23dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imagenUsuario"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/usuario" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imagenPopupInforma"
+                            android:layout_alignParentStart="true"
+                            android:text="Sonia Cenelia"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imagenPopupInforma"
+                            android:layout_alignParentStart="true"
+                            android:text="León Forero"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/vermas1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imagenPopupInforma"
+                            android:layout_alignParentStart="true"
+                            android:text="Ver más..."
+                            android:textAlignment="center"
+                            android:textColor="#3b5be7"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imagenUsuario2"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/usuario" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imagenPopupInforma"
+                            android:layout_alignParentStart="true"
+                            android:text="Ángela Rosa"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imagenPopupInforma"
+                            android:layout_alignParentStart="true"
+                            android:text="Amaya Ortíz"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/vermas2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imagenPopupInforma"
+                            android:layout_alignParentStart="true"
+                            android:text="Ver más..."
+                            android:textAlignment="center"
+                            android:textColor="#3b5be7"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imagenUsuario3"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/usuario" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imagenPopupInforma"
+                            android:layout_alignParentStart="true"
+                            android:text="Angélica María"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imagenPopupInforma"
+                            android:layout_alignParentStart="true"
+                            android:text="Medina Correa"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/vermas3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imagenPopupInforma"
+                            android:layout_alignParentStart="true"
+                            android:text="Ver más..."
+                            android:textAlignment="center"
+                            android:textColor="#3b5be7"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:text="Miryam Montenegro
-                    Tecnologo Contabilidad y Finanzas."
+                    android:layout_below="@+id/imagenPopupInforma"
+                    android:layout_alignParentStart="true"
+                    android:text="Equipo de desarrollo"
+                    android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="18dp" />
+                    android:textSize="23dp" />
 
-                <TextView
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:text="Gian Carlos Martinez Quintero
-                    Diseñador Gráfico"
-                    android:textColor="@color/black"
-                    android:textSize="18dp" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:text="Victor Manuel García Hurtado
-                    Desarrollador"
-                    android:textColor="@color/black"
-                    android:textSize="18dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:text="Myriam Montenegro Tecnólogo Contabilidad y Finanzas."
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:text="Juan Diego Villa Zuluaga
-                    Desarrollador"
-                    android:textColor="@color/black"
-                    android:textSize="18dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:text="Gian Carlos Martinez Quintero Diseñador Gráfico"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:text="Victor Manuel García Hurtado Desarrollador"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:text="Juan Diego Villa Zuluaga Desarrollador"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
 
             </LinearLayout>
-
         </ScrollView>
     </LinearLayout>
 
