@@ -58,6 +58,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
     TextView monedas;
     AdapterActivos adapterActivos, adapterDisponible;
     StringRequest stringRequest;
+    double valorObjeto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +174,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
             @Override
             public void onClick(View view) {
                 String quitaPts=cambiarPts(vo.getValor());
-                double valorObjeto=cambiarVarible(quitaPts);
+                valorObjeto=cambiarVarible(quitaPts);
                 if (valorObjeto>cantidadMonedas){
                     Toast.makeText(ActivosActivity.this, "Saldo Insuficiente", Toast.LENGTH_SHORT).show();
                 }else {
@@ -202,6 +203,8 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
                 if (resultado.equals("registra")) {
                     Toast.makeText(getApplicationContext(), "Realiza Cambios" + response, Toast.LENGTH_LONG).show();
                 } else {
+                    cantidadMonedas=cantidadMonedas-valorObjeto;
+                    monedas.setText("Monedas: "+cantidadMonedas);
                     cargarWebService();
                 }
             }
