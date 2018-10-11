@@ -59,6 +59,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
     AdapterActivos adapterActivos, adapterDisponible;
     StringRequest stringRequest;
     double valorObjeto;
+    String nombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         listActivos = new ArrayList<>();
         listaDisponible = new ArrayList<>();
         cargarWebService();
+        cargarNombre();
         Bundle miBundle = getIntent().getExtras();
         if (miBundle != null) {
             cantidadMonedas = cambiarVarible(miBundle.getString("puntos"));
@@ -176,8 +178,9 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
                 String quitaPts=cambiarPts(vo.getValor());
                 valorObjeto=cambiarVarible(quitaPts);
                 if (valorObjeto>cantidadMonedas){
-                    Toast.makeText(ActivosActivity.this, "Saldo Insuficiente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivosActivity.this, nombre+", Saldo Insuficiente", Toast.LENGTH_SHORT).show();
                 }else {
+                    comprar.setEnabled(false);
                     realizarComprar(vo);
                     dialog.dismiss();
                 }
@@ -191,6 +194,14 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         });
 
         dialog.show();
+    }
+
+    private void cargarNombre() {
+        SharedPreferences preferences = this.getApplicationContext().getSharedPreferences("Nombre", Context.MODE_PRIVATE);
+        String nombre = preferences.getString("nombre", "No existe el valor");
+        if (nombre != "No existe el valor") {
+            this.nombre = nombre;
+        }
     }
 
     private void realizarComprar(ActivosVo vo) {

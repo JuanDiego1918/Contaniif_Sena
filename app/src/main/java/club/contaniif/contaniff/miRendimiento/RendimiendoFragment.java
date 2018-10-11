@@ -92,6 +92,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
     JsonObjectRequest JsonObjectRequest;
     Puente puente;
     String monedasCanjeadas;
+    String nombre;
 
 
     /**
@@ -143,6 +144,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         activos=view.findViewById(R.id.btnActivos);
         dialogCanjes=new Dialog(getContext());
 
+        cargarNombre();
         cargarDatos();
 
         comentarios.setOnClickListener(new View.OnClickListener() {
@@ -196,7 +198,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
                     realizarCanje(cambioCanjes);
                     dialogCanjes.dismiss();
                 }else {
-                    Toast.makeText(getContext(),"Te Pasas Wey",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),nombre+", Puntos insuficientes para realizar en canje",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -205,6 +207,13 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         dialogCanjes.show();
     }
 
+    private void cargarNombre() {
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("Nombre", Context.MODE_PRIVATE);
+        String nombre = preferences.getString("nombre", "No existe el valor");
+        if (nombre != "No existe el valor") {
+            this.nombre = nombre;
+        }
+    }
     private void realizarCanje(final float numero) {
         String url;
         url = "https://" + getContext().getString(R.string.ip)+"guardamonedas.php?idusuario="+correo+"&&puntos="+String.valueOf(numero);
