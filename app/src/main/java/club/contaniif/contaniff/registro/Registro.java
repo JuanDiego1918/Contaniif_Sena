@@ -209,6 +209,17 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             }
         });*/
         imagenUsuario = findViewById(R.id.imagenUsuario);
+        imagenUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (permisoCamara == false) {
+                    Toast.makeText(Registro.this, "Debe aceptar los permisos para poder usar la camara, dirijase a configuracion de aplicaciones", Toast.LENGTH_LONG).show();
+                    solicitaPermisosVersionesSuperiores();
+                } else {
+                    mostrarDialogOpciones();
+                }
+            }
+        });
         imagenCamara = findViewById(R.id.imagenCamara);
         listaDepartamentos = findViewById(R.id.spinnerDepartamentoRegistro);
         listaMunicipios = findViewById(R.id.spinnerCuidadRegistro);
@@ -458,18 +469,18 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     private void llenarMeses(){
         arrayMeses = new ArrayList();
         arrayMeses.add("MES");//31
-        arrayMeses.add("ENERO");//31
-        arrayMeses.add("FEBRERO");//29
-        arrayMeses.add("MARZO");//31
-        arrayMeses.add("ABRIL");//30
-        arrayMeses.add("MAYO");//31
-        arrayMeses.add("JUNIO");//30
-        arrayMeses.add("JULIO");//31
-        arrayMeses.add("AGOSTO");//31
-        arrayMeses.add("SEPTIEMBRE");//30
-        arrayMeses.add("OCTUBRE");//31
-        arrayMeses.add("NOVIEMBRE");//30
-        arrayMeses.add("DICIEMBRE");//31
+        arrayMeses.add("ENE");//31
+        arrayMeses.add("FEB");//29
+        arrayMeses.add("MAR");//31
+        arrayMeses.add("ABR");//30
+        arrayMeses.add("MAY");//31
+        arrayMeses.add("JUN");//30
+        arrayMeses.add("JUL");//31
+        arrayMeses.add("AGO");//31
+        arrayMeses.add("SEP");//30
+        arrayMeses.add("OCT");//31
+        arrayMeses.add("NOV");//30
+        arrayMeses.add("DIC");//31
     }
 
     private void llenarDias(){
@@ -626,7 +637,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         builder.show();
     }
 
-    private void opcionesCapturaFoto() {
+/*    private void opcionesCapturaFoto() {
         final CharSequence[] opciones = {"Tomar Foto", "Elegir de Galeria", "Cancelar"};
         final AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
         builder.setTitle("Elige una Opción");
@@ -655,7 +666,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             builder.show();
         }
 
-    }
+    }*/
 
     private void abrirCamara() {
 
@@ -667,7 +678,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 isCreada = miFile.mkdirs();//por si la variable no fue creada, se crea de nuevo
             }
             if (isCreada == true) {
-                Long consecutivo = System.currentTimeMillis() / 100;//aqui iba un 100, por si no funciona el codigo este es el error
+                Long consecutivo = System.currentTimeMillis() / 1000;//aqui iba un 100, por si no funciona el codigo este es el error
                 String nombre = consecutivo.toString() + ".jpg";
 
                 path = Environment.getExternalStorageDirectory() + File.separator + DIRECTORIO_IMAGEN
@@ -702,6 +713,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        seleccionaImagen = true;
         try {
             switch (requestCode) {
                 case COD_SELECCIONA:
@@ -711,6 +723,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), miPath);
+                        bitmap = redimensionarImagen(bitmap, 200, 200);
                         imagenUsuario.setImageBitmap(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -727,11 +740,12 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                             });
 
                     bitmap = BitmapFactory.decodeFile(path);
+                    bitmap = redimensionarImagen(bitmap, 200, 200);
                     imagenUsuario.setImageBitmap(bitmap);
 
                     break;
             }
-            bitmap = redimensionarImagen(bitmap, 400, 400);
+            bitmap = redimensionarImagen(bitmap, 200, 200);
         } catch (Exception e) {
             seleccionaImagen = false;
             Toast.makeText(getApplicationContext(), "No se ha elegido ninguna imagen", Toast.LENGTH_SHORT).show();
@@ -739,7 +753,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     }
 
     private Bitmap redimensionarImagen(Bitmap bitmap, float anchoNuevo, float altoNuevo) {
-
+        seleccionaImagen = true;
         int ancho = bitmap.getWidth();
         int alto = bitmap.getHeight();
 

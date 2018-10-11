@@ -4,6 +4,6 @@
     android:layout_height="wrap_content"
     android:textColor="#000"
     android:textAlignment="center"
-    android:textSize="18sp"
+    android:textSize="15sp"
     android:textStyle="bold"
     xmlns:android="http://schemas.android.com/apk/res/android" />

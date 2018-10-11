@@ -59,6 +59,7 @@ import java.util.Locale;
 import java.util.Map;
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.entidades.UsuariosVo;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -293,7 +294,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     Spinner listaDepartamentos, listaMunicipios, listaGenero;
     EditText campoNombre, campoApellido, campoCorreo;
     TextView campoMunicipio,campoDepartamento,campoGenero,campoFechaNacimiento;
-    ImageView imagenUsuario, imagenCamara;
+    CircleImageView imagenUsuario, imagenCamara;
     String fecha;
     ImageView editarGenero,editarFecha,editarDepartamento,editarMunicipio;
     Button btnRegistro,btnFalso;
@@ -506,6 +507,15 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         campoFechaNacimiento = vista.findViewById(R.id.campoFechaConfig);
         //
         imagenUsuario = vista.findViewById(R.id.imagenUsuario);
+        imagenUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                opcionesCapturaFoto();
+                setValidacionImagenusuario1(10);
+                setSeleccionaImagenusuario(true);
+                seleccionaImagenusuario = (true);
+            }
+        });
         imagenCamara = vista.findViewById(R.id.imagenCamara);
         imagenCamara.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -774,54 +784,60 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        try {
+            switch (requestCode) {
+                case COD_SELECCIONA:
+                    Uri miPath = data.getData();
+                    imagenUsuario.setImageURI(miPath);
 
-        switch (requestCode){
-            case COD_SELECCIONA:
-                Uri miPath=data.getData();
-                if (data.getData()==null){
-                    Toast.makeText(getContext(),"No se eligio ninguna imagen",Toast.LENGTH_SHORT).show();
-                }
-                imagenUsuario.setImageURI(miPath);
 
-                try {
-                    bitmap=MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),miPath);
+                    try {
+                        bitmap = redimensionarImagen(bitmap, 200, 200);
+                        bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), miPath);
+                        imagenUsuario.setImageBitmap(bitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                break;
+                case COD_FOTO:
+                    MediaScannerConnection.scanFile(getContext(), new String[]{path}, null,
+                            new MediaScannerConnection.OnScanCompletedListener() {
+                                @Override
+                                public void onScanCompleted(String path, Uri uri) {
+                                    Log.i("Path", "" + path);
+                                }
+                            });
+
+                    bitmap = BitmapFactory.decodeFile(path);
+                    bitmap = redimensionarImagen(bitmap, 200, 200);
                     imagenUsuario.setImageBitmap(bitmap);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
-                break;
-            case COD_FOTO:
-                MediaScannerConnection.scanFile(getContext(), new String[]{path}, null,
-                        new MediaScannerConnection.OnScanCompletedListener() {
-                            @Override
-                            public void onScanCompleted(String path, Uri uri) {
-                                Log.i("Path",""+path);
-//                                imgFoto.setVisibility(View.INVISIBLE);
-                            }
-                        });
-
-                bitmap= BitmapFactory.decodeFile(path);
-                imagenUsuario.setImageBitmap(bitmap);
-
-                break;
+                    break;
+            }
+            bitmap = redimensionarImagen(bitmap, 200, 200);
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "No se ha elegido ninguna imagen", Toast.LENGTH_SHORT).show();
         }
-        bitmap=redimensionarImagen(bitmap,400,400);
     }
 
     private Bitmap redimensionarImagen(Bitmap bitmap, float anchoNuevo, float altoNuevo) {
-        int ancho=bitmap.getWidth();
-        int alto=bitmap.getHeight();
-        if(ancho>anchoNuevo || alto>altoNuevo){
-            float escalaAncho=anchoNuevo/ancho;
-            float escalaAlto= altoNuevo/alto;
-            Matrix matrix=new Matrix();
-            matrix.postScale(escalaAncho,escalaAlto);
-            return Bitmap.createBitmap(bitmap,0,0,ancho,alto,matrix,false);
+        int ancho = bitmap.getWidth();
+        int alto = bitmap.getHeight();
 
-        }else{
+        if (ancho > anchoNuevo || alto > altoNuevo) {
+            float escalaAncho = anchoNuevo / ancho;
+            float escalaAlto = altoNuevo / alto;
+
+            Matrix matrix = new Matrix();
+            matrix.postScale(escalaAncho, escalaAlto);
+
+            return Bitmap.createBitmap(bitmap, 0, 0, ancho, alto, matrix, false);
+
+        } else {
             return bitmap;
         }
+
     }
 
     private String convertirImgString(Bitmap bitmap) {
