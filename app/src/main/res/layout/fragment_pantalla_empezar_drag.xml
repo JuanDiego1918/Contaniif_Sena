@@ -55,16 +55,9 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerNumeros"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_margin="5dp"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"></android.support.v7.widget.RecyclerView>
-
-
-        <!-- <fragment
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:name="com.example.victormanuel.apolunios.fragments.NumeroPreguntas">
-         </fragment>-->
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_margin="5dp"></android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
 

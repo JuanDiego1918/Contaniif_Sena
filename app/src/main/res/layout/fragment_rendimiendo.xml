@@ -43,12 +43,6 @@
                         android:textSize="25sp"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="bottom"
-                        android:layout_weight="4"
-                        android:src="@drawable/logo_linea_siguiente" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -62,7 +56,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-                        android:layout_weight="10"
+                        android:layout_weight="3"
                         android:padding="5dp"
                         android:src="@drawable/logo_puntos" />
 
@@ -239,6 +233,7 @@
                     android:padding="10dp">
 
                     <ImageView
+                        android:minHeight="100dp"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:layout_weight="10"
