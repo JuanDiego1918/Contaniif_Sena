@@ -629,7 +629,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                         startActivityForResult(intent.createChooser(intent, "Seleccione"), COD_SELECCIONA);
                     } else {
                         dialogInterface.dismiss();
-                        seleccionaImagen = false;
+                        //seleccionaImagen = false;
                     }
                 }
             }

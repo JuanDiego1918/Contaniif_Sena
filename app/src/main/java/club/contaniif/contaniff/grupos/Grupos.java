@@ -67,7 +67,8 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
     Dialog dialogoCargando,dialogGrupo;
     String nombre;
     RequestQueue request;
-    String dato;
+    String dato,esta;
+    TextView campoGrupoP;
     JsonObjectRequest jsonObjectRequest;
     ProgressDialog progreso;
     AdapterGurpos adapter;
@@ -112,6 +113,8 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
         request = Volley.newRequestQueue(getContext());
         dialogoCargando = new Dialog(this.getContext());
         dialogGrupo = new Dialog(this.getContext());
+        campoGrupoP = vista.findViewById(R.id.campoGrupoP);
+
         recyclerGrupos = vista.findViewById(R.id.recyclerGrupos);
         cargarWebservices();
         cargarNombre();
@@ -213,8 +216,10 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
                 gruposVo.setCodigo(jsonObject.getString("codigo"));
 
                 listaGrupos.add(gruposVo);
+                esta = gruposVo.getEsta();
             }
 
+            campoGrupoP.setText(esta);
         } catch (JSONException e) {
             e.printStackTrace();
 
