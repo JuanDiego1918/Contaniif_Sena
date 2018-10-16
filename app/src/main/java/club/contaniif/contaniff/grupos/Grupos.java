@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +23,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -35,13 +39,17 @@ import org.json.JSONObject;
 
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import club.contaniif.contaniff.R;
+import club.contaniif.contaniff.actividades.MainActivity;
 import club.contaniif.contaniff.adapter.AdapterGurpos;
 import club.contaniif.contaniff.entidades.GruposVo;
 import club.contaniif.contaniff.entidades.PreguntasVo;
 import club.contaniif.contaniff.entidades.RecyclerViewOnClickListener;
 import club.contaniif.contaniff.entidades.VolleySingleton;
+import club.contaniif.contaniff.registro.Registro;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,7 +75,8 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
     Dialog dialogoCargando,dialogGrupo;
     String nombre;
     RequestQueue request;
-    String dato,esta;
+    String dato,esta,dato2;
+    StringRequest stringRequest;
     TextView campoGrupoP;
     JsonObjectRequest jsonObjectRequest;
     ProgressDialog progreso;
@@ -137,11 +146,15 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
 
 
     private void dialogoCargando() {
-        dialogoCargando.setContentView(R.layout.popup_cargando);
-        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialogoCargando.show();
-    }
+        try {
+            dialogoCargando.setContentView(R.layout.popup_cargando);
+            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialogoCargando.show();
+        }catch (Exception e){
+            Log.i("Error " , e.toString());
+        }
 
+    }
 
     private void cargarNombre() {
         SharedPreferences preferences = this.getActivity().getSharedPreferences("Nombre", Context.MODE_PRIVATE);
@@ -231,9 +244,10 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
         recyclerGrupos.addOnItemTouchListener(new RecyclerViewOnClickListener(getContext(), new RecyclerViewOnClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-               dato = listaGrupos.get(recyclerGrupos.getChildAdapterPosition(view)).getGrupo();
-               //opciones();
+               dato = listaGrupos.get(recyclerGrupos.getChildAdapterPosition(view)).getCodigo();
+                dato2 = listaGrupos.get(recyclerGrupos.getChildAdapterPosition(view)).getGrupo();
                 showPopup();
+               //opciones();
                //Toast.makeText(getContext(),"Codigo " + dato,Toast.LENGTH_SHORT).show();
             }
         }));
@@ -245,23 +259,26 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
 
         Button aceptar,cancelar;
         TextView campoNombre,campoGrupo;
-
-        dialogGrupo.setContentView(R.layout.popup_grupos);
-        dialogGrupo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialogGrupo.show();
+        try {
+            dialogGrupo.setContentView(R.layout.popup_grupos);
+            dialogGrupo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialogGrupo.show();
+        }catch (Exception e){
+           Log.i("Error ",e.toString());
+        }
 
         campoNombre = dialogGrupo.findViewById(R.id.campoNombreGrupo);
         campoGrupo = dialogGrupo.findViewById(R.id.campoGrupo);
 
         campoNombre.setText(nombre);
-        campoGrupo.setText("Esta seguro que desea unirse al grupo " + dato);
+        campoGrupo.setText("Esta seguro que desea unirse al grupo " + dato2);
 
         aceptar = dialogGrupo.findViewById(R.id.btnContinuarGrupo);
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                registrarGrupo();
                 dialogGrupo.hide();
-                Toast.makeText(getContext(), "Se a unido al grupo " + dato, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -274,6 +291,55 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
             }
         });
 
+    }
+
+    private void registrarGrupo() {
+        dialogoCargando();
+        String url;
+        java.lang.System.setProperty("https.protocols", "TLSv1");
+        url = getContext().getString(R.string.ipRegistraGrupo);
+        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (response.trim().equalsIgnoreCase("asignado")) {
+                    Log.i("********RESULTADO", "Respuesta server" + response);
+                    dialogoCargando.hide();
+                    Toast.makeText(getContext(), "Se a unido al grupo " + dato2, Toast.LENGTH_SHORT).show();
+                    cargarWebservices();
+
+                }else {
+                    Toast.makeText(getContext(), "Por el momento el usuario no se puede registrar", Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                if (error.equals("com.android.volley.TimeoutError")){
+                    dialogoCargando.hide();
+                    Toast.makeText(getContext(), "Por favor verificar la conexion a internet", Toast.LENGTH_SHORT).show();
+                }
+
+                Log.i("RESULTADO", "NO SE REGISTRA desde onError " + error.toString());
+                Log.d("RESULT*****************", "NO SE REGISTRA desde onError " + error.toString());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                String idUsuaio = idusuario;
+                String curso = dato;
+
+                Map<String, String> parametros = new HashMap<>();
+                parametros.put("idusuario", idUsuaio);
+                parametros.put("curso", curso);
+                Log.i("--------PARAMETROS ", parametros.toString());
+                return parametros;
+
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        request.add(stringRequest);
     }
 
     /**

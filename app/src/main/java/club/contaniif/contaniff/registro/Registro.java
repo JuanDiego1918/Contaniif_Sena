@@ -602,9 +602,14 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     }
 
     private void dialogoCargando() {
-        dialogoCargando.setContentView(R.layout.popup_cargando);
-        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialogoCargando.show();
+        try {
+            dialogoCargando.setContentView(R.layout.popup_cargando);
+            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialogoCargando.show();
+        }catch (Exception e){
+            Log.i("Error " , e.toString());
+        }
+
     }
 
     private void consultarCredenciales() {
@@ -723,7 +728,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), miPath);
-                        bitmap = redimensionarImagen(bitmap, 200, 200);
+                        bitmap = redimensionarImagen(bitmap, 150, 150);
                         imagenUsuario.setImageBitmap(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -740,12 +745,12 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                             });
 
                     bitmap = BitmapFactory.decodeFile(path);
-                    bitmap = redimensionarImagen(bitmap, 200, 200);
+                    bitmap = redimensionarImagen(bitmap, 150, 150);
                     imagenUsuario.setImageBitmap(bitmap);
 
                     break;
             }
-            bitmap = redimensionarImagen(bitmap, 200, 200);
+            bitmap = redimensionarImagen(bitmap, 150, 150);
         } catch (Exception e) {
             seleccionaImagen = false;
             Toast.makeText(getApplicationContext(), "No se ha elegido ninguna imagen", Toast.LENGTH_SHORT).show();

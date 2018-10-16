@@ -562,9 +562,14 @@ public class Pantalla_empezar_drag extends Fragment {
     }
 
     private void dialogoCargando() {
-        dialogoCargando.setContentView(R.layout.popup_cargando);
-        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialogoCargando.show();
+        try {
+            dialogoCargando.setContentView(R.layout.popup_cargando);
+            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialogoCargando.show();
+        }catch (Exception e){
+            Log.i("Error " , e.toString());
+        }
+
     }
 
 

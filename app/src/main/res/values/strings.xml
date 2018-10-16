@@ -11,6 +11,7 @@
     <!--<string name="ipRegistro1">http://www.cursosena.xyz/registro.php</string>-->
     <string name="ipRegistro2">https://www.contaniif.club/movil/registro.php?</string>
     <string name="ipRegistroPuntaje">https://www.contaniif.club/movil/guardaPuntos.php?</string>
+    <string name="ipRegistraGrupo">https://www.contaniif.club/movil/asignousuario.php?</string>
     <string name="ipValidaCorreo">https://www.contaniif.club/movil/validoUsuario.php?</string>
     <string name="ipEnviaCodigo">https://www.contaniif.club/movil/validoCodigo.php?</string>
     <string name="ipComentario">https://www.contaniif.club/movil/registroComentario.php?comentario=</string>

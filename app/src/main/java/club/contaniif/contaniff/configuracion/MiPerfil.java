@@ -538,6 +538,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                     //setSeleccionaDepartamento(false);
                     //setSeleccionaGenero(false);
                     actualizarUsuarios();
+                    guardarNombre(campoNombre.getText().toString());
                 }
 
 
@@ -602,9 +603,21 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
 
     private void dialogoCargando() {
-        dialogoCargando.setContentView(R.layout.popup_cargando);
-        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialogoCargando.show();
+        try {
+            dialogoCargando.setContentView(R.layout.popup_cargando);
+            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialogoCargando.show();
+        }catch (Exception e){
+            Log.i("Error " , e.toString());
+        }
+
+    }
+
+    private void guardarNombre(String nombre) {
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("Nombre", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("nombre", nombre);
+        editor.commit();
     }
 
     private void cargarCredenciales() {
@@ -792,7 +805,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
 
                     try {
-                        bitmap = redimensionarImagen(bitmap, 200, 200);
+                        bitmap = redimensionarImagen(bitmap, 150, 150);
                         bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), miPath);
                         imagenUsuario.setImageBitmap(bitmap);
                     } catch (IOException e) {
@@ -810,12 +823,12 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                             });
 
                     bitmap = BitmapFactory.decodeFile(path);
-                    bitmap = redimensionarImagen(bitmap, 200, 200);
+                    bitmap = redimensionarImagen(bitmap, 150, 150);
                     imagenUsuario.setImageBitmap(bitmap);
 
                     break;
             }
-            bitmap = redimensionarImagen(bitmap, 200, 200);
+            bitmap = redimensionarImagen(bitmap, 150, 150);
         } catch (Exception e) {
             Toast.makeText(getContext(), "No se ha elegido ninguna imagen", Toast.LENGTH_SHORT).show();
         }

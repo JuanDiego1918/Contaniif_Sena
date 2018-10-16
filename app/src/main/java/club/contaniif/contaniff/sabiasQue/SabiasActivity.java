@@ -71,11 +71,15 @@ public class SabiasActivity extends AppCompatActivity implements Response.Listen
     }
 
     private void dialogoCargando() {
-        dialogoCargando.setContentView(R.layout.popup_cargando);
-        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialogoCargando.show();
-    }
+        try {
+            dialogoCargando.setContentView(R.layout.popup_cargando);
+            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialogoCargando.show();
+        }catch (Exception e){
+            Log.i("Error " , e.toString());
+        }
 
+    }
     @Override
     public void onErrorResponse(VolleyError error) {
         Toast.makeText(getApplication(), "NO se pudo Consultar:" + error.toString(), Toast.LENGTH_LONG).show();

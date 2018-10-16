@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -60,13 +61,13 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         medalla=findViewById(R.id.tipodemedalla);
         cargarCredenciales();
         cargarWebService();
-        //ayuda = findViewById(R.id.btnAyuda);
-/*        ayuda.setOnClickListener(new View.OnClickListener() {
+        ayuda = findViewById(R.id.btnAyuda);
+        ayuda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialogo();
             }
-        });*/
+        });
 
     }
 
@@ -81,9 +82,14 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     }
 
     private void dialogoCargando() {
-        dialogoCargando.setContentView(R.layout.popup_cargando);
-        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialogoCargando.show();
+        try {
+            dialogoCargando.setContentView(R.layout.popup_cargando);
+            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialogoCargando.show();
+        }catch (Exception e){
+            Log.i("Error " , e.toString());
+        }
+
     }
 
     private void showDialogo() {
