@@ -786,7 +786,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             return true;
         }
 
-        //validamos si los permisos ya fueron aceptados
+        //validamos si los permisos ya fueron aceptadosss
         if ((getApplicationContext().checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) && getApplicationContext().checkSelfPermission(CAMERA) == PackageManager.PERMISSION_GRANTED) {
             return true;
         }
