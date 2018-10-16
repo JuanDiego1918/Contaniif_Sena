@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 public class PreguntasVo implements Serializable {
 
-
-
     private String rutaImagen;
 
     private boolean isCheck;
@@ -191,4 +189,5 @@ public class PreguntasVo implements Serializable {
     public void setImg(String img) {
         this.img = img;
     }
+
 }

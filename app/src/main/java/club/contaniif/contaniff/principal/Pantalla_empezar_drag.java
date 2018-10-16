@@ -373,7 +373,6 @@ public class Pantalla_empezar_drag extends Fragment {
         Imagenes.setAdapter(miPreguntasImagenesAdapter);
         PreguntasTexto.setAdapter(miAdapter);
 
-
         miPreguntasImagenesAdapter.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -415,7 +414,7 @@ public class Pantalla_empezar_drag extends Fragment {
                     Toast.makeText(getApplicationContext(), "EXITED" + list.get(PreguntasTexto.getChildAdapterPosition(view)).getPalabra(), Toast.LENGTH_SHORT).show();
                     break;*/
                     case DragEvent.ACTION_DROP:
-                        if (list.get(numero).isMostrar() == false) {
+                        if (list.get(numero).isMostrar() == false && list.get(PreguntasTexto.getChildAdapterPosition(v)).getImg() == null ) {
                             list.get(PreguntasTexto.getChildAdapterPosition(v)).setImg(list.get(numero).getRuta());
                             btnContinuar.setVisibility(View.VISIBLE);
                             btnContinuar2.setVisibility(View.INVISIBLE);

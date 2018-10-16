@@ -48,7 +48,7 @@ public class AdapterDrag extends RecyclerView.Adapter<AdapterDrag.AdapterHolder>
 
     @Override
     public void onBindViewHolder(@NonNull AdapterHolder holder, int position) {
-        if (lista.get(position).getImg() != null) {
+        if (lista.get(position).getImg() != null ) {
             cargarImagenWebService(lista.get(position).getImg(), holder);
         } else {
            holder.imagen.setImageResource(R.drawable.punteadoc);
@@ -70,7 +70,6 @@ public class AdapterDrag extends RecyclerView.Adapter<AdapterDrag.AdapterHolder>
                 Toast.makeText(context, "Error al cargar la imagen" + error.toString(), Toast.LENGTH_SHORT).show();
             }
         });
-        //request.add(imageRequest);
         VolleySingleton.getIntanciaVolley(context).addToRequestQueue(imageRequest);
     }
 
