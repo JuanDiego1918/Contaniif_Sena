@@ -134,6 +134,7 @@ public class PreguntasVo implements Serializable {
 
     public void setId(String pregunta) {
     }
+
     public boolean isCheck() {
         return isCheck;
     }
