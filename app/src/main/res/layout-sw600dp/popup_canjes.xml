@@ -23,35 +23,34 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:src="@drawable/comentarios" />
+            android:src="@drawable/logo_criptoniif" />
 
         <TextView
             android:id="@+id/tituloComentario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="25sp"
-            android:text="COMENTARIO"
+            android:textSize="35sp"
+            android:text="Canjes"
             android:textColor="@color/black"
             android:textStyle="bold" />
 
         <EditText
-            android:textSize="25sp"
-            android:id="@+id/campoComentario"
+            android:textSize="30dp"
+            android:id="@+id/campoCanjes"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:maxLength="500"
-            android:hint="Escriba su comentario" />
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Escriba el monto a cambiar" />
 
         <Button
-
             android:id="@+id/enviar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:background="@drawable/borde_redondo_boton"
-            android:text="Enviar"
+            android:text="Canjear"
             android:textColor="@color/white" />
 
         <Button

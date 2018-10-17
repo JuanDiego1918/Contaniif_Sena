@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containaer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo"
+    android:orientation="vertical"
+    tools:context=".principal.Pantalla_empezar">
+
+    <LinearLayout
+        android:id="@+id/logos"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_margin="5dp"
+            android:layout_weight="40"
+            android:background="@drawable/logo_sicf" />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_margin="5dp"
+            android:layout_weight="20"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/colores" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:layout_weight="45"
+            android:background="@drawable/logo_sena" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/numeritos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/logos"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerNumeros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_margin="5dp"></android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/numeritos">
+
+        <LinearLayout
+            android:paddingBottom="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:padding="10dp"
+                android:id="@+id/campoPregunta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:inputType="textMultiLine"
+                android:text="Hola"
+                android:textColor="#000"
+                android:textSize="28sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_gravity="center"
+                android:id="@+id/recyclerPreguntasss"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/scroll"></android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true">
+
+        <Button
+            android:id="@+id/btnContinuar"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/EmpezarOscuro"
+            android:text="continuar"
+            android:textColor="#FFF" />
+
+        <Button
+            android:id="@+id/btnContinuar2"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="#D9D9D9"
+            android:text="continuar"
+            android:textColor="#FFF" />
+    </RelativeLayout>
+</RelativeLayout>
