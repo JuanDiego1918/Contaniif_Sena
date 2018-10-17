@@ -14,7 +14,8 @@
     <string name="ipRegistraGrupo">https://www.contaniif.club/movil/asignousuario.php?</string>
     <string name="ipValidaCorreo">https://www.contaniif.club/movil/validoUsuario.php?</string>
     <string name="ipEnviaCodigo">https://www.contaniif.club/movil/validoCodigo.php?</string>
-    <string name="ipComentario">https://www.contaniif.club/movil/registroComentario.php?comentario=</string>
+    <string name="ipComentario">https://www.contaniif.club/movil/registroComentario.php?</string>
+    <!--    <string name="ipComentario">https://www.contaniif.club/movil/registroComentario.php?comentario=</string>-->
     <string name="ipImgsuario">https://www.contaniif.club/img/usuarios/</string>
     <string name="imgRendimiento">www.contaniif.club/img/</string>
     <string name="imgFotos">www.contaniif.club/img/usuarios/</string>
