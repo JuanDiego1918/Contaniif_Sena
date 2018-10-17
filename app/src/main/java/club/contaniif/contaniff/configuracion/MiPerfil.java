@@ -1015,15 +1015,13 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     }
 
     private void actualizarUsuarios() {
-        //Toast.makeText(getContext(),"Has llenado todos los campos",Toast.LENGTH_SHORT).show();
+        dialogoCargando();
         String url;
         if (seleccionaImagenusuario==true){
             url = getContext().getString(R.string.ipActualizarUsuario2);
 
         }else {
             url = getContext().getString(R.string.ipActualizarUsuario1);
-         //   rutaImg=img+id;
-
         }
 
 
@@ -1031,8 +1029,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //pDialog.hide();
-
+                dialogoCargando.hide();
                 if (response.trim().equalsIgnoreCase("actualiza")){
                     // etiNombre.setText("");
                     //  txtDocumento.setText("");

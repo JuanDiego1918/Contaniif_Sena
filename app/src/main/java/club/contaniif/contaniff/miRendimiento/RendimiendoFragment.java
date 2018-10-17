@@ -291,10 +291,11 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         correo = credenciales;
     }
 
-    private void enviarDatosComentarios(String cojeComentario) {
+    private void enviarDatosComentarios(final String cojeComentario) {
 
         String url;
-        url = getContext().getString(R.string.ipComentario)+cojeComentario+"&idusuario="+credenciales;
+        //url = getContext().getString(R.string.ipComentario)+cojeComentario+"&idusuario="+credenciales;
+        url = getContext().getString(R.string.ipComentario);
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -318,12 +319,12 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 String idusuario = credenciales;
-                String comentario = RendimiendoFragment.this.cojeComentario;
+                String comentario = cojeComentario;
 
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("idusuario", idusuario);
                 parametros.put("comentario", comentario);
-                parametros.put("fecha", fecha);
+                //parametros.put("fecha", fecha);
                 return parametros;
             }
         };
