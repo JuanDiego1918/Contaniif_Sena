@@ -59,6 +59,16 @@
                     android:textSize="18dp" />
 
                 <TextView
+                    android:id="@+id/precioDescPopup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descuento diario: 1 pts."
+                    android:textAlignment="center"
+                    android:textColor="#000"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
                     android:id="@+id/precioActivoPopup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

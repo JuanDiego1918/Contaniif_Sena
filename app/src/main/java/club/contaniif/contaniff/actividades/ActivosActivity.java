@@ -156,7 +156,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
 
     private void cargarVentana(ActivosVo activos) {
         final ActivosVo vo = activos;
-        TextView titulo, descrip, valor;
+        TextView titulo, descrip, valor,descuento;
         Button cancelar;
         dialog.setContentView(R.layout.popup_activos);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -165,8 +165,10 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         titulo = dialog.findViewById(R.id.tituloPopupActivo);
         descrip = dialog.findViewById(R.id.descripActivoPopup);
         valor = dialog.findViewById(R.id.precioActivoPopup);
+        descuento=dialog.findViewById(R.id.precioDescPopup);
         Imgactivo = dialog.findViewById(R.id.imagenPopupActivo);
 
+        descuento.setText("Descuento diario: "+vo.getDescuento());
         titulo.setText("" + vo.getNombre());
         descrip.setText("" + vo.getDescripcion());
         valor.setText("" + vo.getValor());
@@ -255,7 +257,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
     }
 
     private String cambiarPts(String puntosDisponibles) {
-        String cambio = puntosDisponibles.replaceAll("pts.", "");
+        String cambio = puntosDisponibles.replaceAll("CriptoNIIF.", "");
         return cambio;
     }
 }

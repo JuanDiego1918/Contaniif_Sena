@@ -622,7 +622,6 @@ public class Pantalla_empezar_drag extends Fragment {
 
 
     private void enviarDatosPuntaje() {
-        Toast.makeText(getContext(), ""+tiempoCapturado, Toast.LENGTH_SHORT).show();
         String url;
         url = getContext().getString(R.string.ipRegistroPuntaje);
         stringRequest =new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
