@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="#66628f"
+        android:orientation="vertical">
+
+        <me.biubiubiu.justifytext.library.JustifyTextView
+            android:id="@+id/descripcionSabias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hola
+"
+            android:layout_marginLeft="15dp"
+            android:maxHeight="250dp"
+            android:textColor="#fff"
+            android:textSize="28sp" />
+
+        <TextView
+            android:elevation="20dp"
+            android:padding="8dp"
+            android:id="@+id/vermas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#39307c"
+            android:text="Ver más"
+            android:textStyle=""
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingBottom="40dp"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
+    android:paddingTop="40dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/borde_boton_redondo"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/imagenPopupInforma"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:elevation="200dp"
+            android:src="@drawable/logo_sicf" />
+
+        <TextView
+            android:id="@+id/tituloHistpopup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/imagenPopupInforma"
+            android:text="Nuestra Historia"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="33dp" />
+
+
+        <ScrollView
+            android:id="@+id/scrollInformacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/tituloHistpopup"
+            android:layout_margin="20dp"
+            android:layout_marginTop="-20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <me.biubiubiu.justifytext.library.JustifyTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Desde el 2013 las instructoras mencionadas plantearon espacios de talleres extracurriculares para los estudiantes con el fin de reforzar las competencias laborales, y eventos que motivaran el quehacer contable como la celebración del día del contador; debido a la acogida de este trabajo, el Centro Comercio y Turismo Regional Quindío, dio el aval para la creación del Semillero de Investigación en Contabilidad y Finanzas-APOLUNIOS (SICF- APOLUNIOS) para el año 2017, en cabeza de su líder Sonia Cenelia León Forero.
+
+"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="28dp" />
+            </LinearLayout>
+
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

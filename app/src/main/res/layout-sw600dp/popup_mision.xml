@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingBottom="40dp"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
+    android:paddingTop="40dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/borde_boton_redondo"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tituloHistpopup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Misión y Visión"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="33dp" />
+
+
+        <ScrollView
+            android:id="@+id/scrollInformacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/tituloHistpopup"
+            android:layout_margin="20dp"
+            android:layout_marginTop="-20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Misión"
+                    android:textColor="@color/black"
+                    android:textSize="29dp" />
+
+                <me.biubiubiu.justifytext.library.JustifyTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Afianzar el conocimiento contable, financiero y tributario a los aprendices de la Tecnologías relacionadas con el área contable del SENA, a través de un juego interactivo y didáctico en sus celulares.
+
+"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="28dp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Visión"
+                    android:textColor="@color/black"
+                    android:textSize="29dp" />
+
+                <me.biubiubiu.justifytext.library.JustifyTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Contribuir a nivel Nacional en la calidad de la formación para los aprendices de las tecnologías relacionadas con el área contable en el SENA, mejorando el rendimiento académico y contribuyendo a disminuir la deserción de los aprendices.
+
+"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="28dp" />
+
+            </LinearLayout>
+
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

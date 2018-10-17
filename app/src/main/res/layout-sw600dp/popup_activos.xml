@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingLeft="30dp"
+    android:paddingTop="30dp"
+    android:paddingRight="30dp"
+    android:paddingBottom="30dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/borde_boton_redondo"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/imagenPopupActivo"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/logo_contaniif" />
+
+
+        <TextView
+            android:id="@+id/tituloPopupActivo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imagenPopupActivo"
+            android:layout_alignParentStart="true"
+            android:text="Información de ContaNIIF"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="33dp" />
+
+        <ScrollView
+            android:id="@+id/scrollInformacionActivo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tituloPopupActivo"
+            android:layout_alignParentStart="true"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/descripActivoPopup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ContaNIIF, es una estrategia didáctica activa de aprendizaje, que incentivará al aprendiz, al instructor y al Empresario a estar actualizados en la normatividad contable, financiera y tributaria vigente que regula a nuestro país.
+"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="28dp" />
+
+                <TextView
+                    android:id="@+id/precioDescPopup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descuento diario: 1 pts."
+                    android:textAlignment="center"
+                    android:textColor="#000"
+                    android:textSize="28dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/precioActivoPopup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2,300,300 CriptoNIIF"
+                    android:textAlignment="center"
+                    android:textColor="@color/VideosClaro"
+                    android:textSize="28dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnComprar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="#ff00cc86"
+                    android:text="Comprar"
+                    android:textSize="28sp" />
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="#ff00cc86"
+                    android:text="Cancelar"
+                    android:textSize="28sp" />
+            </LinearLayout>
+
+
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>
