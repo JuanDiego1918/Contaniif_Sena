@@ -1031,14 +1031,9 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
             public void onResponse(String response) {
                 dialogoCargando.hide();
                 if (response.trim().equalsIgnoreCase("actualiza")){
-                    // etiNombre.setText("");
-                    //  txtDocumento.setText("");
-                    //   etiProfesion.setText("");
-                    //Toast.makeText(getContext(),"Se ha actualizado con exito",Toast.LENGTH_SHORT).show();
                     listaGenero.setVisibility(View.INVISIBLE);
                     listaMunicipios.setVisibility(View.INVISIBLE);
                     listaDepartamentos.setVisibility(View.INVISIBLE);
-
 
                     campoMunicipio.setVisibility(View.VISIBLE);
                     campoDepartamento.setVisibility(View.VISIBLE);
@@ -1046,7 +1041,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
                     cargarDatosPerfil();
                 }else{
-                    Toast.makeText(getContext(),"No se ha Actualizado ",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"No se ha Actualizado",Toast.LENGTH_SHORT).show();
                     Log.i("RESPUESTA: ",""+response);
                 }
 

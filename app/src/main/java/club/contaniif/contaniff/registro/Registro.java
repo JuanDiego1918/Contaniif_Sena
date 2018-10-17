@@ -728,7 +728,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), miPath);
-                        bitmap = redimensionarImagen(bitmap, 150, 150);
+                        bitmap = redimensionarImagen(bitmap, 200, 200);
                         imagenUsuario.setImageBitmap(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -745,12 +745,12 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                             });
 
                     bitmap = BitmapFactory.decodeFile(path);
-                    bitmap = redimensionarImagen(bitmap, 150, 150);
+                    bitmap = redimensionarImagen(bitmap, 200, 200);
                     imagenUsuario.setImageBitmap(bitmap);
 
                     break;
             }
-            bitmap = redimensionarImagen(bitmap, 150, 150);
+            bitmap = redimensionarImagen(bitmap, 200, 200);
         } catch (Exception e) {
             seleccionaImagen = false;
             Toast.makeText(getApplicationContext(), "No se ha elegido ninguna imagen", Toast.LENGTH_SHORT).show();
@@ -878,6 +878,13 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
+
+                if (response.equals("com.android.volley.TimeoutError")){
+                    dialogoCargando.hide();
+                    Toast.makeText(Registro.this, "Por favor verificar la conexion a internet", Toast.LENGTH_SHORT).show();
+                }
+
                 if (response.trim().equalsIgnoreCase("registra")) {
                     Log.i("********RESULTADO", "Respuesta server" + response);
                     dialogoCargando.hide();
@@ -885,6 +892,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                     guardarNombre(campoNombre.getText().toString());
                     Intent intent = new Intent(Registro.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
 
                 } else if (response.trim().equalsIgnoreCase("ya existe, datos no guardados")){
                     Toast.makeText(getApplicationContext(), "El usuario ya existe, por favor ingrese un correo distindo", Toast.LENGTH_LONG).show();

@@ -8,9 +8,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -183,6 +185,7 @@ public class Pantalla_empezar_drag extends Fragment {
     //int numero = 3;
     RecyclerView miRecyclerNumero;
 
+    MediaPlayer respondeBien,terminaBien,terminaMal;
     TextView pregunta;
     TextView puntajeRespuestaBuena;
     TextView puntajeRespuestaMala;
@@ -243,6 +246,11 @@ public class Pantalla_empezar_drag extends Fragment {
         myDialogBuena = new Dialog(getContext());
         myDialogMala = new Dialog(getContext());
         MyDialogFinal = new Dialog(getContext());
+
+        respondeBien = MediaPlayer.create(getContext(),R.raw.responde_bien);
+        terminaBien = MediaPlayer.create(getContext(),R.raw.finalizar_bien);
+        terminaMal = MediaPlayer.create(getContext(),R.raw.finalizar_mal);
+
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressbar);
         mProgressBar.setProgress(i);
         pregunta = view.findViewById(R.id.campoPregunta);
@@ -537,6 +545,7 @@ public class Pantalla_empezar_drag extends Fragment {
 
 
     public void showPopup(String retorno) {
+        respondeBien.start();
         final Button retroBuena;
         TextView txtRetroBuena;
 
@@ -600,8 +609,10 @@ public class Pantalla_empezar_drag extends Fragment {
             }
             if (buenas > malas) {
                 campoFinal.setText("Felicitaciones");
+                terminaBien.start();
             } else if (malas > buenas) {
                 campoFinal.setText("¡¡Debes Repasar Mas!!");
+                terminaMal.start();
             }
 
             finalizar.setOnClickListener(new View.OnClickListener() {
@@ -665,6 +676,9 @@ public class Pantalla_empezar_drag extends Fragment {
 
 
     public void showPopup2(String retorno) {
+        Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(500);
+
         Button retroMala;
         TextView txtRetroMala;
         myDialogMala.setContentView(R.layout.popup_rincorrecta);

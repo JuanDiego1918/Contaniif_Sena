@@ -7,9 +7,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -177,6 +179,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     ProgressBar mProgressBar;
     long mInitialTime;
 
+    MediaPlayer respondeBien,terminaBien,terminaMal;
     ArrayList<NumeroVo> listanumero;
     NumeroVo miNumeroVo;
     RecyclerView miRecyclerNumero;
@@ -261,6 +264,10 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         myDialogMala = new Dialog(getContext());
         MyDialogFinal = new Dialog(getContext());
         dialogoCargando = new Dialog(this.getContext());
+
+        respondeBien = MediaPlayer.create(getContext(),R.raw.responde_bien);
+        terminaBien = MediaPlayer.create(getContext(),R.raw.finalizar_bien);
+        terminaMal = MediaPlayer.create(getContext(),R.raw.finalizar_mal);
 
         btnContinuar2 = vista.findViewById(R.id.btnContinuar2);
         btnContinuar = vista.findViewById(R.id.btnContinuar);
@@ -505,6 +512,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
 
     public void showPopup(String retorno) {
+        respondeBien.start();
         final Button retroBuena;
         TextView txtRetroBuena;
 
@@ -558,8 +566,10 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             }
             if (buenas > malas) {
                 campoFinal.setText("Felicitaciones");
+                terminaBien.start();
             } else if (malas > buenas) {
                 campoFinal.setText("¡¡Debes Repasar Mas!!");
+                terminaMal.start();
             }
 
             finalizar.setOnClickListener(new View.OnClickListener() {
@@ -654,6 +664,9 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
 
     public void showPopup2(String retorno) {
+        Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(500);
+
         Button retroMala;
         TextView txtRetroMala;
         myDialogMala.setContentView(R.layout.popup_rincorrecta);
