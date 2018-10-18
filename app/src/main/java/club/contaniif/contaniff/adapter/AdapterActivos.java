@@ -52,19 +52,22 @@ public class AdapterActivos extends RecyclerView.Adapter<AdapterActivos.ActivosH
         }
         holder.nombre.setText(listaActivos.get(position).getNombre());
         holder.precio.setText(listaActivos.get(position).getValor());
-        if (listaActivos.get(position).getEstado().equals("Tiene")){
+        if (listaActivos.get(position).getEstado().equals("Tiene")) {
             holder.contenido.setBackgroundColor(Color.parseColor("#fff9c342"));
             holder.descrip.setText(listaActivos.get(position).getDescripcion());
             holder.descrip.setVisibility(View.VISIBLE);
-        }else{
+            holder.desc.setVisibility(View.VISIBLE);
+            holder.desc.setText(listaActivos.get(position).getDescuento());
+        } else {
             holder.contenido.setBackgroundColor(Color.parseColor("#ff00cc86"));
             holder.descrip.setVisibility(View.INVISIBLE);
+            holder.desc.setVisibility(View.INVISIBLE);
         }
     }
 
     private void cargarImagenWebService(String rutaImagen, final ActivosHolderView holder) {
         String ip = context.getString(R.string.imgRendimiento);
-        String urlImagen = "https://" + ip + "activos/" + rutaImagen+".png";
+        String urlImagen = "https://" + ip + "activos/" + rutaImagen + ".png";
         ImageRequest imageRequest = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
@@ -98,7 +101,7 @@ public class AdapterActivos extends RecyclerView.Adapter<AdapterActivos.ActivosH
     }
 
     public class ActivosHolderView extends RecyclerView.ViewHolder {
-        TextView nombre, precio,descrip;
+        TextView nombre, precio, descrip, desc;
         ImageView imagen;
         LinearLayout contenido;
 
@@ -107,9 +110,9 @@ public class AdapterActivos extends RecyclerView.Adapter<AdapterActivos.ActivosH
             nombre = itemView.findViewById(R.id.nombreActivo);
             precio = itemView.findViewById(R.id.precioActivo);
             imagen = itemView.findViewById(R.id.imagenActivos);
-            contenido=itemView.findViewById(R.id.contenido);
-            descrip=itemView.findViewById(R.id.descripActivo);
-
+            contenido = itemView.findViewById(R.id.contenido);
+            descrip = itemView.findViewById(R.id.descripActivo);
+            desc = itemView.findViewById(R.id.descActivo);
         }
     }
 }
