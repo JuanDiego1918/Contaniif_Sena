@@ -641,7 +641,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 tiempo = tiempoCapturado;
                 puntaje = getPuntage();
 
-
+                //Hola Mono
                 parametros = new HashMap<>();
                 parametros.put("idusuario", idusuario);
                 parametros.put("idpregunta", Integer.toString(idpregunta));
