@@ -14,13 +14,11 @@
         android:layout_height="343dp"
         android:src="@drawable/mascota_error"/>
 
+
     <TextView
-        android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:textSize="28sp"
-        android:padding="10dp"
-        android:text="No hay conexion a internet, no podra acceder a algunas funciones" />
+        android:text="Polevault Heroes"/>
+
 
 </LinearLayout>

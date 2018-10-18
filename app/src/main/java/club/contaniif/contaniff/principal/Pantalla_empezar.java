@@ -596,7 +596,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         SharedPreferences preferences = this.getActivity().getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         String credenciales = preferences.getString("correo", "No existe el valor");
         this.credenciales = credenciales;
-        //Toast.makeText(getContext(),"Credenciales = " + this.credenciales, Toast.LENGTH_SHORT).show();
     }
 
     private void cargarNombre() {
@@ -609,7 +608,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
 
     private void enviarDatosPuntaje() {
-        Toast.makeText(getContext(), "" + tiempoCapturado, Toast.LENGTH_SHORT).show();
         String url;
         url = getContext().getString(R.string.ipRegistroPuntaje);
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -621,9 +619,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 puntaje = 0;
                 //progreso.hide();
                 if (response.trim().equalsIgnoreCase("registra")) {
-//                    Toast.makeText(getContext(), "Registro de puntaje exitoso", Toast.LENGTH_SHORT).show();
                 } else {
-                    //                  Toast.makeText(getContext(),"Puntaje no registrado", Toast.LENGTH_SHORT).show();
 
                 }
                 myDialogBuena.dismiss();
@@ -633,7 +629,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                progreso.hide();
                 Toast.makeText(getContext(), "No se pudo registrar el puntaje" + error.toString(), Toast.LENGTH_SHORT).show();
             }
 
@@ -761,10 +756,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 preguntas.setRutaImagen(jsonObject.getString("opcion"));
 
                 listaImagenes.add(preguntas.getOpciones());
-                //Toast.makeText(getContext(),"lista url" + listaImagenes,Toast.LENGTH_LONG).show();
-
                 listaPreguntas.add(preguntas);
-                //setUrlImagen(preguntas.getOpciones());
             }
             setRetroMala(preguntas.getRetromala());
             setRetroBuena(preguntas.getRetobuena());
