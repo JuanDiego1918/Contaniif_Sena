@@ -7,7 +7,9 @@
     android:background="@android:color/transparent"
     android:padding="3dp">
 
-    <LinearLayout
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
@@ -16,10 +18,20 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/borde_boton_cuadrado">
 
+        <ImageView
+            android:id="@+id/circuloPuntajeCorrecto"
+            android:layout_width="83dp"
+            android:layout_height="69dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:src="@drawable/pregunta_grupo" />
         <WebView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/webTerminos"></WebView>
 
-    </LinearLayout>
+
+
+    </RelativeLayout>
 </RelativeLayout>
