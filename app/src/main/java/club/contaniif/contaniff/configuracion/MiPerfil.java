@@ -294,7 +294,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     Spinner listaDepartamentos, listaMunicipios, listaGenero;
     EditText campoNombre, campoApellido, campoCorreo;
     TextView campoMunicipio,campoDepartamento,campoGenero,campoFechaNacimiento;
-    CircleImageView imagenUsuario, imagenCamara;
+    ImageView imagenCamara;
     String fecha;
     ImageView editarGenero,editarFecha,editarDepartamento,editarMunicipio;
     Button btnRegistro,btnFalso;
@@ -506,17 +506,8 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         campoCorreo = vista.findViewById(R.id.campoCorreoConfig);
         campoFechaNacimiento = vista.findViewById(R.id.campoFechaConfig);
         //
-        imagenUsuario = vista.findViewById(R.id.imagenUsuario);
-        imagenUsuario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                opcionesCapturaFoto();
-                setValidacionImagenusuario1(10);
-                setSeleccionaImagenusuario(true);
-                seleccionaImagenusuario = (true);
-            }
-        });
-        imagenCamara = vista.findViewById(R.id.imagenCamara);
+
+        imagenCamara = vista.findViewById(R.id.imagenUsuario);
         imagenCamara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -801,13 +792,13 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
             switch (requestCode) {
                 case COD_SELECCIONA:
                     Uri miPath = data.getData();
-                    imagenUsuario.setImageURI(miPath);
+                    imagenCamara.setImageURI(miPath);
 
 
                     try {
                         bitmap = redimensionarImagen(bitmap, 150, 150);
                         bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), miPath);
-                        imagenUsuario.setImageBitmap(bitmap);
+                        imagenCamara.setImageBitmap(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -824,7 +815,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
                     bitmap = BitmapFactory.decodeFile(path);
                     bitmap = redimensionarImagen(bitmap, 150, 150);
-                    imagenUsuario.setImageBitmap(bitmap);
+                    imagenCamara.setImageBitmap(bitmap);
 
                     break;
             }
@@ -874,7 +865,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         ImageRequest imageRequest=new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
-                imagenUsuario.setImageBitmap(response);
+                imagenCamara.setImageBitmap(response);
                 dialogoCargando.hide();
             }
         }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {

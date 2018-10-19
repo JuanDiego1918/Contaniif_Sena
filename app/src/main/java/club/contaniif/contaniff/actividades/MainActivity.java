@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         if (ayuda.equalsIgnoreCase("no")) {
             showDialogo();
         }else {
-            Toast.makeText(getApplicationContext(),"Ya se mostro la ventana de ayuda",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(),"Ya se mostro la ventana de ayuda",Toast.LENGTH_SHORT).show();
         }
     }
 

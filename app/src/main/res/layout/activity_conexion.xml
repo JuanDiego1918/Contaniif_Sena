@@ -14,4 +14,13 @@
         android:layout_height="243dp"
         android:src="@drawable/mascota_error"/>
 
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textColor="#0620e7"
+        android:textSize="33dp"
+        android:layout_height="wrap_content"
+        android:text="Polevault Heroes"/>
+
 </LinearLayout>
