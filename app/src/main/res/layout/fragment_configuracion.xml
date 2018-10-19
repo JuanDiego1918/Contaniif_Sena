@@ -21,7 +21,7 @@
             android:paddingLeft="18dp"
             android:paddingRight="18dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:id="@+id/imagenUsuario"
                 android:layout_height="122dp"
@@ -31,19 +31,7 @@
                 android:layout_marginTop="22dp"
                 android:paddingLeft="44dp"
                 android:paddingRight="44dp"
-                android:src="@drawable/usuario" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="wrap_content"
-                android:id="@+id/imagenCamara"
-                android:layout_height="52dp"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="74dp"
-                android:layout_marginTop="81dp"
                 android:src="@drawable/editar" />
-
 
             <TableLayout
                 android:layout_width="match_parent"

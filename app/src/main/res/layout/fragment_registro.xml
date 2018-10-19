@@ -28,25 +28,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/imagenUsuario"
                     android:layout_width="match_parent"
                     android:layout_height="122dp"
-                    android:rotationX="360"
-                    android:rotationY="180"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/usuario" />
+                    android:src="@drawable/camara" />
             </LinearLayout>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="52dp"
-                android:id="@+id/imagenCamara"
-                android:layout_height="52dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="74dp"
-                android:layout_marginTop="81dp"
-                android:src="@drawable/camara" />
+
 
             <EditText
                 android:id="@+id/campoNombreRegistro"
@@ -119,7 +109,37 @@
                 android:layout_marginTop="10dp">
 
             </Spinner>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="12dp"
+                android:layout_below="@+id/spinnerCuidadRegistro"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:id="@+id/checkTerminos"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Acepto los "
+                    android:textStyle="bold"
+                    android:textColor="@color/azul" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/campoTerminos"
+                    android:textStyle="bold"
+                    android:textColor="@color/azul" />
+
+            </LinearLayout>
         </RelativeLayout>
+
     </ScrollView>
 
     <Button

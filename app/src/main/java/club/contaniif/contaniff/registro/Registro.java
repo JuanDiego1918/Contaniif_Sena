@@ -18,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -30,12 +31,16 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -104,13 +109,15 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     Dialog dialogoCargando;
     Dialog dialogoRegistrado;
     Dialog dialogoIngresaCorreo;
+    Dialog dialogoTerminos;
+    TextView campoTerminos;
+    CheckBox checkTerminos;
 
     File fileImagen;
     Bitmap bitmap;
     Spinner listaDepartamentos, listaMunicipios, listaGenero;
     EditText campoNombre, campoApellido, campoCorreo;
     ImageView imagenCamara;
-    CircleImageView imagenUsuario;
     TextView campoFecha;
     String fecha;
     Button btnRegistro, btnFecha;
@@ -134,6 +141,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         dialogoIngresaCorreo = new Dialog(this);
         dialogoFecha = new Dialog(this);
         dialogoCargando = new Dialog(this);
+        dialogoTerminos = new Dialog(this);
 
         consultarCredenciales();
         obtenerFecha();
@@ -191,6 +199,21 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         ArrayDepartamentos.add("Vaupés");
         ArrayDepartamentos.add("Vichada");
 
+        campoTerminos = findViewById(R.id.campoTerminos);
+        checkTerminos = findViewById(R.id.checkTerminos);
+        //SpannableString mitextoU = new SpannableString("terminos y condiciones");
+        //mitextoU.setSpan(new UnderlineSpan(), 0, mitextoU.length(), 0);
+        campoTerminos.setPaintFlags(campoTerminos.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        campoTerminos.setText("terminos y condiciones");
+        campoTerminos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupTerminos();
+            }
+        });
+
+        //
+
         campoNombre = findViewById(R.id.campoNombreRegistro);
         campoApellido = findViewById(R.id.campoApellidosRegistro);
         campoCorreo = findViewById(R.id.campoCorreoRegistro);
@@ -208,19 +231,8 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 cargarDialogoFecha();
             }
         });*/
-        imagenUsuario = findViewById(R.id.imagenUsuario);
-        imagenUsuario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (permisoCamara == false) {
-                    Toast.makeText(Registro.this, "Debe aceptar los permisos para poder usar la camara, dirijase a configuracion de aplicaciones", Toast.LENGTH_LONG).show();
-                    solicitaPermisosVersionesSuperiores();
-                } else {
-                    mostrarDialogOpciones();
-                }
-            }
-        });
-        imagenCamara = findViewById(R.id.imagenCamara);
+
+        imagenCamara = findViewById(R.id.imagenUsuario);
         listaDepartamentos = findViewById(R.id.spinnerDepartamentoRegistro);
         listaMunicipios = findViewById(R.id.spinnerCuidadRegistro);
         listaGenero = findViewById(R.id.spinnerGeneroRegistro);
@@ -294,8 +306,12 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 if (campoNombre.getText().equals("") || campoApellido.getText().equals("") || seleccionaGenero == false || seleccionaMunicipio == false || seleccionaDepartamento == false || seleccionaImagen == false || seleccionaFecha == false) {
                     Toast.makeText(getApplicationContext(), "Debe llenar todos los campos", Toast.LENGTH_SHORT).show();
                 } else {
-                    //Toast.makeText(getApplicationContext(),"No debe llenar todos los campos",Toast.LENGTH_SHORT).show();
-                    validaCorreo();
+                    if (checkTerminos.isChecked()){
+                        validaCorreo();
+                    }else {
+                        Toast.makeText(getApplicationContext(), "Debe aceptar los terminos y condiciones dela aplicacion", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             }
         });
@@ -349,6 +365,18 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
     }
 
+    private void showPopupTerminos() {
+        WebView webView;
+
+        dialogoTerminos.setContentView(R.layout.popup_terminos_condiciones);
+        webView = dialogoTerminos.findViewById(R.id.webTerminos);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("https://www.contaniif.club/terminos.html");
+
+        dialogoTerminos.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoTerminos.show();
+
+    }
     private void showPopupIngresaCorreo() {
         Button aceptar, cancelar;
         final EditText campoCorreo;
@@ -723,13 +751,13 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             switch (requestCode) {
                 case COD_SELECCIONA:
                     Uri miPath = data.getData();
-                    imagenUsuario.setImageURI(miPath);
+                    imagenCamara.setImageURI(miPath);
 
 
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), miPath);
                         bitmap = redimensionarImagen(bitmap, 200, 200);
-                        imagenUsuario.setImageBitmap(bitmap);
+                        imagenCamara.setImageBitmap(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -746,7 +774,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
                     bitmap = BitmapFactory.decodeFile(path);
                     bitmap = redimensionarImagen(bitmap, 200, 200);
-                    imagenUsuario.setImageBitmap(bitmap);
+                    imagenCamara.setImageBitmap(bitmap);
 
                     break;
             }
