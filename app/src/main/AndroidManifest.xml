@@ -3,6 +3,7 @@
     package="club.contaniif.contaniff">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" /> <!-- - para usar la camara desde la App -->
     <uses-permission android:name="android.permission.VIBRATE" />
