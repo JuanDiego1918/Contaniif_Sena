@@ -8,30 +8,37 @@
     android:padding="3dp">
 
 
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/borde_boton_cuadrado">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/circuloPuntajeCorrecto"
-            android:layout_width="83dp"
-            android:layout_height="69dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="center"
-            android:src="@drawable/pregunta_grupo" />
-        <WebView
+        <LinearLayout
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_height="match_parent"
-            android:id="@+id/webTerminos"></WebView>
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/borde_boton_cuadrado"
+            android:orientation="vertical">
 
+            <WebView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/webTerminos"></WebView>
 
-
-    </RelativeLayout>
+            <Button
+                android:id="@+id/btnAceptarTerminos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:layout_marginBottom="22dp"
+                android:layout_marginRight="22dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/borde_redondo_boton"
+                android:text="Aceptar"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
