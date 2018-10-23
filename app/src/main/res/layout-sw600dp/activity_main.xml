@@ -56,6 +56,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:background="@drawable/mi_rendimiento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -127,16 +128,14 @@
                             android:layout_height="240dp"
                             android:background="@color/EmpezarClaro"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:padding="3dp">
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="200dp"
-                                android:layout_height="170dp"
-                                android:padding="20dp"
-                                android:layout_gravity="center_vertical"
+                                android:layout_height="240dp"
+                                android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_empezar" />
+                                android:background="@drawable/empezar" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -185,11 +184,10 @@
 
                             <ImageView
                                 android:layout_width="200dp"
-                                android:layout_height="170dp"
-                                android:padding="20dp"
-                                android:layout_gravity="center_vertical"
+                                android:layout_height="240dp"
+                                android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_videos" />
+                                android:background="@drawable/videos" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -251,11 +249,10 @@
 
                             <ImageView
                                 android:layout_width="200dp"
-                                android:layout_height="170dp"
-                                android:layout_gravity="center_vertical"
+                                android:layout_height="240dp"
+                                android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:padding="20dp"
-                                android:src="@drawable/logo_eventos" />
+                                android:background="@drawable/eventos" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -306,11 +303,10 @@
 
                             <ImageView
                                 android:layout_width="200dp"
-                                android:layout_height="170dp"
-                                android:layout_gravity="center_vertical"
+                                android:layout_height="240dp"
+                                android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:padding="20dp"
-                                android:src="@drawable/logo_sabiasque" />
+                                android:background="@drawable/sabias_que" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -372,11 +368,10 @@
 
                             <ImageView
                                 android:layout_width="200dp"
-                                android:layout_height="170dp"
-                                android:layout_gravity="center_vertical"
+                                android:layout_height="240dp"
+                                android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:padding="20dp"
-                                android:src="@drawable/logo_configuracion" />
+                                android:background="@drawable/configuracion" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -427,11 +422,10 @@
 
                             <ImageView
                                 android:layout_width="200dp"
-                                android:layout_height="170dp"
-                                android:layout_gravity="center_vertical"
+                                android:layout_height="240dp"
+                                android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:padding="20dp"
-                                android:src="@drawable/logo_acerca_de" />
+                                android:background="@drawable/acerca" />
                         </LinearLayout>
 
                         <LinearLayout
