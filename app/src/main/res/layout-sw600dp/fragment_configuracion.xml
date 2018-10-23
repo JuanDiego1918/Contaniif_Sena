@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/imagenUsuario"
         android:layout_width="wrap_content"
-        android:layout_height="122dp"
+        android:layout_height="222dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
@@ -21,7 +21,7 @@
         android:src="@drawable/editar" />
 
     <ScrollView
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="250dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imagenUsuario"
@@ -44,11 +44,11 @@
                 <TextView
                     android:id="@+id/txtNombre"
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:text="Nombre"
                     android:textColor="#000"
-                    android:textSize="16dp"
+                    android:textSize="24dp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -64,7 +64,7 @@
                 android:id="@+id/campoCorreoRegistro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="55dp"
                 android:layout_weight="2">
 
                 <TextView
@@ -74,7 +74,7 @@
                     android:layout_weight="5"
                     android:text="Apellido"
                     android:textColor="#000"
-                    android:textSize="16dp"
+                    android:textSize="24dp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -90,18 +90,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="95dp"
+                android:layout_marginTop="105dp"
                 android:layout_weight="5"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/txtFecha"
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:text="Naci el:"
                     android:textColor="#000"
-                    android:textSize="16dp"
+                    android:textSize="24dp"
                     android:textStyle="bold" />
 
 
@@ -109,13 +109,11 @@
                     android:id="@+id/campoFechaConfig"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/campoCorreoRegistro"
                     android:layout_weight="2"
                     android:hint="Fecha de nacimiento"
                     android:inputType="date"
-                    android:textColor="#000"
                     android:textColorHint="#000"
-                    android:textSize="18dp" />
+                    android:textSize="20dp" />
 
 
                 <ImageView
@@ -130,7 +128,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="135dp"
+                android:layout_marginTop="150dp"
                 android:layout_weight="2"
                 android:orientation="horizontal">
 
@@ -140,7 +138,7 @@
                     android:layout_weight="4"
                     android:text="Genero"
                     android:textColor="#000"
-                    android:textSize="16dp"
+                    android:textSize="24dp"
                     android:textStyle="bold" />
 
 
@@ -154,12 +152,11 @@
                         android:id="@+id/campoGeneroConfig"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:hint="Genero"
                         android:textColor="#000"
                         android:textColorHint="#000"
-                        android:textSize="18dp" />
+                        android:textSize="20dp" />
 
                     <Spinner
                         android:id="@+id/spinnerGeneroConfig"
@@ -179,35 +176,34 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="165dp"
+                android:layout_marginTop="180dp"
                 android:layout_weight="2"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="10"
+                    android:layout_weight="4"
                     android:text="Vivo en:"
                     android:textColor="#000"
-                    android:textSize="16dp"
+                    android:textSize="24dp"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="5"
+                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/campoDepartamentoConfig"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:hint="Departamento"
                         android:textColor="#000"
                         android:textColorHint="#000"
-                        android:textSize="18dp" />
+                        android:textSize="20dp" />
 
                     <Spinner
                         android:id="@+id/spinnerDepartamentoConfig"
@@ -227,7 +223,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="195dp"
+                android:layout_marginTop="210dp"
                 android:layout_weight="2"
                 android:orientation="horizontal">
 
@@ -235,41 +231,41 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="12"
+                    android:layout_weight="5"
                     android:text="Municipio"
                     android:textColor="#000"
-                    android:textSize="16dp"
+                    android:textSize="24dp"
                     android:textStyle="bold" />
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="5"
+                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/campoMunicipioConfig"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="6000"
+                        android:layout_weight="1"
                         android:hint="Municipio"
                         android:textColor="#000"
                         android:textColorHint="#000"
-                        android:textSize="18dp" />
+                        android:textSize="20dp" />
 
                     <Spinner
                         android:id="@+id/spinnerMunicipioConfig"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="19000"></Spinner>
+                        android:layout_weight="5"></Spinner>
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="215dp"
+                android:layout_marginTop="240dp"
                 android:layout_weight="2"
                 android:orientation="horizontal">
 
@@ -280,7 +276,7 @@
                     android:layout_weight="5"
                     android:text="Correo"
                     android:textColor="#000"
-                    android:textSize="16dp"
+                    android:textSize="24dp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -290,6 +286,7 @@
                     android:layout_weight="2"
                     android:editable="false"
                     android:hint="Correo"
+                    android:textSize="20dp"
                     android:textColorHint="#000" />
             </LinearLayout>
         </RelativeLayout>
