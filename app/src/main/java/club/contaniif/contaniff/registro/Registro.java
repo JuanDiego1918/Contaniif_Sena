@@ -367,8 +367,19 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
     private void showPopupTerminos() {
         WebView webView;
+        Button btnAceptar;
 
         dialogoTerminos.setContentView(R.layout.popup_terminos_condiciones);
+        btnAceptar = dialogoTerminos.findViewById(R.id.btnAceptarTerminos);
+        btnAceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogoTerminos.hide();
+                checkTerminos.setChecked(true);
+
+            }
+        });
+
         webView = dialogoTerminos.findViewById(R.id.webTerminos);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("https://www.contaniif.club/terminos.html");
