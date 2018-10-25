@@ -30,7 +30,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_alignStart="@+id/image"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 android:paddingBottom="3dp"
@@ -89,7 +88,8 @@
         android:layout_alignParentStart="true"
         android:layout_gravity="center"
         android:layout_marginStart="0dp"
-        android:src="@drawable/mascota_entrenar"/>
+        android:src="@drawable/mascota_entrenar"
+        android:contentDescription="TODO" />
 
 
 

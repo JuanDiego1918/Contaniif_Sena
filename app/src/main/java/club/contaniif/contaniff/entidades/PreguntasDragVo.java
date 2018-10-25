@@ -1,6 +1,6 @@
 package club.contaniif.contaniff.entidades;
 
-public class PreguntasDragVo {
+class PreguntasDragVo {
 
     private String palabra;
     private String ruta;

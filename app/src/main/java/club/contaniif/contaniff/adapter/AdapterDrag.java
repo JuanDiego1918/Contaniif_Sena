@@ -24,10 +24,10 @@ import club.contaniif.contaniff.entidades.VolleySingleton;
 
 public class AdapterDrag extends RecyclerView.Adapter<AdapterDrag.AdapterHolder> implements View.OnClickListener, View.OnDragListener {
 
-    ArrayList<PreguntasVo> lista;
-    View.OnClickListener listener;
-    Context context;
-    View.OnDragListener onDragListener;
+    private final ArrayList<PreguntasVo> lista;
+    private View.OnClickListener listener;
+    private final Context context;
+    private View.OnDragListener onDragListener;
 
     public AdapterDrag(ArrayList<PreguntasVo> lista, Context context) {
         this.lista = lista;
@@ -104,10 +104,10 @@ public class AdapterDrag extends RecyclerView.Adapter<AdapterDrag.AdapterHolder>
     }
 
     public class AdapterHolder extends RecyclerView.ViewHolder {
-        TextView palabra;
-        ImageView imagen;
+        final TextView palabra;
+        final ImageView imagen;
 
-        public AdapterHolder(View itemView) {
+        AdapterHolder(View itemView) {
             super(itemView);
             palabra = itemView.findViewById(R.id.preguntasRespuestaRelacion);
             imagen = itemView.findViewById(R.id.imagenesRespuestaRelacion);

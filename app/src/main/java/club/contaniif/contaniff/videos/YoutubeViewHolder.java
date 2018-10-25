@@ -14,14 +14,14 @@ import club.contaniif.contaniff.R;
  */
 
 public class YoutubeViewHolder extends RecyclerView.ViewHolder{
-    public YouTubeThumbnailView videoThumbnailImageView;
-    public LinearLayout youtubeCardView;
-    public TextView tituloVideo,descripcionVideo;
+    public final YouTubeThumbnailView videoThumbnailImageView;
+    public final TextView tituloVideo;
+    public final TextView descripcionVideo;
 
     public YoutubeViewHolder(View itemView) {
         super(itemView);
         videoThumbnailImageView = itemView.findViewById(R.id.video_thumbnail_image_view);
-        youtubeCardView = itemView.findViewById(R.id.youtube_row_card_view);
+        LinearLayout youtubeCardView = itemView.findViewById(R.id.youtube_row_card_view);
         tituloVideo=itemView.findViewById(R.id.tituloVideo);
         descripcionVideo=itemView.findViewById(R.id.descVideo);
     }

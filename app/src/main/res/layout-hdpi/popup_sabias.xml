@@ -22,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:elevation="100dp"
-            android:src="@drawable/mascota_pensando" />
+            android:src="@drawable/mascota_pensando"
+            android:contentDescription="TODO" />
 
 
         <TextView

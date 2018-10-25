@@ -1,18 +1,15 @@
 package club.contaniif.contaniff.adapter;
 
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import club.contaniif.contaniff.R;
@@ -22,8 +19,8 @@ public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.Usua
 
     private int selectedPosition = -1;
 
-    ArrayList<PreguntasVo> listaUsuarios;
-    String listadoLetras[] = {"A. ", "B. ", "C. ", "D. ", "E. ", "F. ", "G. ", "H. "};
+    private final ArrayList<PreguntasVo> listaUsuarios;
+    private final String[] listadoLetras = {"A. ", "B. ", "C. ", "D. ", "E. ", "F. ", "G. ", "H. "};
     private View.OnClickListener listener;
 
     public PreguntasAdapter(ArrayList<PreguntasVo> listaUsuarios) {
@@ -41,13 +38,13 @@ public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.Usua
     }
 
     @Override
-    public void onViewDetachedFromWindow(UsuariosHolder viewHolder) {
+    public void onViewDetachedFromWindow(@NonNull UsuariosHolder viewHolder) {
         super.onViewDetachedFromWindow(viewHolder);
         viewHolder.itemView.clearAnimation();
     }
 
     @Override
-    public void onBindViewHolder(UsuariosHolder holder, int position) {
+    public void onBindViewHolder(@NonNull UsuariosHolder holder, int position) {
 
         //holder.preguntaa.setText(listaUsuarios.get(position).getPregunta().toString());
         holder.respuesta.setText(listadoLetras[position] + listaUsuarios.get(position).getOpciones());
@@ -81,12 +78,12 @@ public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.Usua
         //TextView preguntaa;
         // RadioGroup grupoRadio;
         // Fragment fragment;
-        TextView respuesta;
+        final TextView respuesta;
         LinearLayout relativeLayout;
         //int i = 0;
         // boolean seleccion = false;
 
-        public UsuariosHolder(View itemView) {
+        UsuariosHolder(View itemView) {
             super(itemView);
             respuesta = itemView.findViewById(R.id.respuestaaaa);
         }

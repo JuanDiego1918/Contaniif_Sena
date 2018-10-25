@@ -22,7 +22,8 @@
                 android:layout_height="50dp"
                 android:layout_weight="16"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/logo_criptoniif" />
+                android:src="@drawable/logo_criptoniif"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/precioActivo"
@@ -39,8 +40,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_weight="8"
-                android:src="@drawable/logo_linea_siguiente" />
+                android:layout_weight="5"
+                android:src="@drawable/logo_linea_siguiente"
+                android:contentDescription="TODO" />
         </LinearLayout>
 
         <LinearLayout
@@ -53,7 +55,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:padding="20dp"
-                android:src="@drawable/cargando" />
+                android:src="@drawable/cargando"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/descripActivo"

@@ -83,7 +83,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginBottom="-17dp"
                 android:layout_gravity="center"
-                android:src="@drawable/mascota_pequena_feliz" />
+                android:src="@drawable/mascota_pequena_feliz"
+                android:contentDescription="TODO" />
 
 
             <ImageView
@@ -95,7 +96,8 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="-5dp"
                 android:layout_marginTop="30dp"
-                android:src="@drawable/estrella" />
+                android:src="@drawable/estrella"
+                android:contentDescription="TODO" />
 
             <RelativeLayout
                 android:layout_width="58dp"

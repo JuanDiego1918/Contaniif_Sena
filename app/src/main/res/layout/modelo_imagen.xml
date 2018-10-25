@@ -9,6 +9,7 @@
         android:padding="10dp"
         android:layout_height="170dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:contentDescription="TODO" />
 
 </RelativeLayout>

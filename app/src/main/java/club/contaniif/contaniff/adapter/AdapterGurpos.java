@@ -14,7 +14,7 @@ import club.contaniif.contaniff.entidades.GruposVo;
 
 public class AdapterGurpos extends RecyclerView.Adapter<AdapterGurpos.GruposHolder> /*implements View.OnClickListener*/ {
 
-    ArrayList<GruposVo>listaGrupos;
+    private final ArrayList<GruposVo>listaGrupos;
     //View.OnClickListener listener;
 
     public AdapterGurpos(ArrayList<GruposVo> listaGrupos) {
@@ -47,8 +47,8 @@ public class AdapterGurpos extends RecyclerView.Adapter<AdapterGurpos.GruposHold
     }*/
 
     public class GruposHolder extends RecyclerView.ViewHolder {
-        TextView campoGrupo;
-        public GruposHolder(View itemView) {
+        final TextView campoGrupo;
+        GruposHolder(View itemView) {
             super(itemView);
             campoGrupo = itemView.findViewById(R.id.campoGrupoModelo);
         }

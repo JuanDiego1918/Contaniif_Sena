@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -35,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.adapter.PaginacionNumeroAdapter;
@@ -52,15 +54,10 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    public static ArrayList<EventoVo> listaEventos;
-    public static ArrayList<NumeroVo> listaNumero;
-    EventoVo miEventoVo;
-    NumeroVo miNumeroVo;
-    RequestQueue request;
-    Dialog dialogoCargando;
-    JsonObjectRequest jsonObjectRequest;
-    public static RecyclerView recyclerViewNumero;
-    public static PaginacionNumeroAdapter miNumeroAdapter;
+    private static ArrayList<EventoVo> listaEventos;
+    private static ArrayList<NumeroVo> listaNumero;
+    private Dialog dialogoCargando;
+    private static RecyclerView recyclerViewNumero;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -80,7 +77,7 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
         cargarWebService();
         ///////////////////////
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(actionBar).setDisplayHomeAsUpEnabled(true);
 ///////////////////////
 
     }
@@ -112,9 +109,9 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
         dialogoCargando();
         recyclerViewNumero.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerViewNumero.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false));
-        request = Volley.newRequestQueue(getApplication());
+        RequestQueue request = Volley.newRequestQueue(getApplication());
         String url = "https://" + getApplicationContext().getString(R.string.ip) + "eventos.php";
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
 
@@ -122,7 +119,7 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
     private void dialogoCargando() {
         try {
             dialogoCargando.setContentView(R.layout.popup_cargando);
-            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
         }catch (Exception e){
             Log.i("Error " , e.toString());
@@ -140,10 +137,10 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
     public void onResponse(JSONObject response) {
         JSONArray json = response.optJSONArray("eventos");
         try {
-            JSONObject jsonObject = null;
+            JSONObject jsonObject;
             for (int i = 0; i < json.length(); i++) {
-                miEventoVo = new EventoVo();
-                miNumeroVo = new NumeroVo();
+                EventoVo miEventoVo = new EventoVo();
+                NumeroVo miNumeroVo = new NumeroVo();
                 miNumeroVo.setNumeroPagina(i + 1);
                 jsonObject = json.getJSONObject(i);
                 miEventoVo.setNombre(jsonObject.optString("nombre"));
@@ -157,7 +154,7 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
             // Set up the ViewPager with the sections adapter.
             mViewPager.setAdapter(mSectionsPagerAdapter);
 
-            miNumeroAdapter = new PaginacionNumeroAdapter(listaNumero, getApplicationContext());
+            PaginacionNumeroAdapter miNumeroAdapter = new PaginacionNumeroAdapter(listaNumero, getApplicationContext());
             recyclerViewNumero.setAdapter(miNumeroAdapter);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -189,7 +186,7 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
+        static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -203,7 +200,7 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_eventos, container, false);
 
@@ -212,10 +209,10 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
             descripcion = rootView.findViewById(R.id.descripEvento);
             img = rootView.findViewById(R.id.ImagenEvento);
             lugar = rootView.findViewById(R.id.lugarEvento);
-            request = Volley.newRequestQueue(getContext());
+            request = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
 
 
-            mostrarImg(listaEventos.get(getArguments().getInt(ARG_SECTION_NUMBER)).getImage());
+            mostrarImg(listaEventos.get(Objects.requireNonNull(getArguments()).getInt(ARG_SECTION_NUMBER)).getImage());
             nombre.setText(listaEventos.get(getArguments().getInt(ARG_SECTION_NUMBER)).getNombre());
             descripcion.setText(listaEventos.get(getArguments().getInt(ARG_SECTION_NUMBER)).getDescripcion()+" \n ");
             fecha.setText(listaEventos.get(getArguments().getInt(ARG_SECTION_NUMBER)).getFecha());
@@ -227,7 +224,7 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
         //hola grupo
 
         private void mostrarImg(String rutaImagen) {
-            String ip = getContext().getString(R.string.ipImg);
+            String ip = Objects.requireNonNull(getContext()).getString(R.string.ipImg);
 
             final String urlImagen = "https://" + ip + rutaImagen + ".jpg";
             ImageRequest imageRequest = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
@@ -244,7 +241,7 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
             request.add(imageRequest);
         }
 
-        public class SectionsPagerAdapter extends FragmentPagerAdapter {
+        class SectionsPagerAdapter extends FragmentPagerAdapter {
 
             public SectionsPagerAdapter(FragmentManager fm) {
                 super(fm);
@@ -271,9 +268,9 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 

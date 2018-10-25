@@ -25,9 +25,9 @@ import club.contaniif.contaniff.entidades.VolleySingleton;
 
 public class AdapterActivos extends RecyclerView.Adapter<AdapterActivos.ActivosHolderView> implements View.OnClickListener {
 
-    ArrayList<ActivosVo> listaActivos;
-    View.OnClickListener listener;
-    Context context;
+    private final ArrayList<ActivosVo> listaActivos;
+    private View.OnClickListener listener;
+    private final Context context;
 
     public AdapterActivos(ArrayList<ActivosVo> listaActivos, Context context) {
         this.listaActivos = listaActivos;
@@ -58,10 +58,12 @@ public class AdapterActivos extends RecyclerView.Adapter<AdapterActivos.ActivosH
             holder.descrip.setVisibility(View.VISIBLE);
             holder.desc.setVisibility(View.VISIBLE);
             holder.desc.setText(listaActivos.get(position).getDescuento());
+            holder.siguienteActivo.setVisibility(View.INVISIBLE);
         } else {
             holder.contenido.setBackgroundColor(Color.parseColor("#ff00cc86"));
             holder.descrip.setVisibility(View.INVISIBLE);
             holder.desc.setVisibility(View.INVISIBLE);
+            holder.siguienteActivo.setVisibility(View.VISIBLE);
         }
     }
 
@@ -101,11 +103,15 @@ public class AdapterActivos extends RecyclerView.Adapter<AdapterActivos.ActivosH
     }
 
     public class ActivosHolderView extends RecyclerView.ViewHolder {
-        TextView nombre, precio, descrip, desc;
-        ImageView imagen;
-        LinearLayout contenido;
+        final TextView nombre;
+        final TextView precio;
+        final TextView descrip;
+        final TextView desc;
+        final ImageView imagen;
+        final ImageView siguienteActivo;
+        final LinearLayout contenido;
 
-        public ActivosHolderView(View itemView) {
+        ActivosHolderView(View itemView) {
             super(itemView);
             nombre = itemView.findViewById(R.id.nombreActivo);
             precio = itemView.findViewById(R.id.precioActivo);
@@ -113,6 +119,7 @@ public class AdapterActivos extends RecyclerView.Adapter<AdapterActivos.ActivosH
             contenido = itemView.findViewById(R.id.contenido);
             descrip = itemView.findViewById(R.id.descripActivo);
             desc = itemView.findViewById(R.id.descActivo);
+            siguienteActivo=itemView.findViewById(R.id.siguienteActivo);
         }
     }
 }

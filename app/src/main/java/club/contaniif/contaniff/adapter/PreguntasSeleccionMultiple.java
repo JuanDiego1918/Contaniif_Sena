@@ -15,7 +15,7 @@ import club.contaniif.contaniff.entidades.PreguntasVo;
 
 public class PreguntasSeleccionMultiple extends RecyclerView.Adapter<PreguntasSeleccionMultiple.UsuariosHolder> implements  View.OnClickListener,View.OnFocusChangeListener{
 
-    ArrayList<PreguntasVo> listaUsuarios;
+    private final ArrayList<PreguntasVo> listaUsuarios;
     private View.OnClickListener listener;
     public PreguntasSeleccionMultiple(ArrayList<PreguntasVo> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
@@ -32,13 +32,13 @@ public class PreguntasSeleccionMultiple extends RecyclerView.Adapter<PreguntasSe
     }
 
     @Override
-    public void onViewDetachedFromWindow(UsuariosHolder viewHolder) {
+    public void onViewDetachedFromWindow(@NonNull UsuariosHolder viewHolder) {
         super.onViewDetachedFromWindow(viewHolder);
         viewHolder.itemView.clearAnimation();
     }
 
     @Override
-    public void onBindViewHolder(final UsuariosHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final UsuariosHolder holder, int position) {
 
         //holder.preguntaa.setText(listaUsuarios.get(position).getPregunta().toString());
         holder.respuesta.setText(listaUsuarios.get(position).getOpciones());
@@ -78,11 +78,11 @@ public class PreguntasSeleccionMultiple extends RecyclerView.Adapter<PreguntasSe
         //TextView preguntaa;
         // RadioGroup grupoRadio;
         // Fragment fragment;
-        CheckBox respuesta;
+        final CheckBox respuesta;
         //int i = 0;
         // boolean seleccion = false;
 
-        public UsuariosHolder(View itemView) {
+        UsuariosHolder(View itemView) {
             super(itemView);
             respuesta = itemView.findViewById(R.id.respuestaaaa);
         }

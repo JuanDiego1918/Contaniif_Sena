@@ -14,8 +14,8 @@ import club.contaniif.contaniff.entidades.SabiasVo;
 
 public class AdapterSabias extends RecyclerView.Adapter<AdapterSabias.SabiasHolderView> implements View.OnClickListener {
 
-    ArrayList<SabiasVo> listaSabias;
-    View.OnClickListener listener;
+    private final ArrayList<SabiasVo> listaSabias;
+    private View.OnClickListener listener;
 
     public AdapterSabias(ArrayList<SabiasVo> listaSabias) {
         this.listaSabias = listaSabias;
@@ -50,9 +50,9 @@ public class AdapterSabias extends RecyclerView.Adapter<AdapterSabias.SabiasHold
     }
 
     public class SabiasHolderView extends RecyclerView.ViewHolder {
-        TextView descripcionCorta;
+        final TextView descripcionCorta;
 
-        public SabiasHolderView(View itemView) {
+        SabiasHolderView(View itemView) {
             super(itemView);
 
             descripcionCorta = itemView.findViewById(R.id.descripcionSabias);

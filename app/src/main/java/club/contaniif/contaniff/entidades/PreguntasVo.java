@@ -132,7 +132,7 @@ public class PreguntasVo implements Serializable {
         this.retromala = retromala;
     }
 
-    public void setId(String pregunta) {
+    public void setId() {
     }
 
     public boolean isCheck() {
@@ -176,7 +176,7 @@ public class PreguntasVo implements Serializable {
     }
 
     public boolean isMostrar() {
-        return mostrar;
+        return !mostrar;
     }
 
     public void setMostrar(boolean mostrar) {

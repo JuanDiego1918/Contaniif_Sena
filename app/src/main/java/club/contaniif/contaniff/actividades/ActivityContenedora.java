@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.acercaDe.AcercaDeFragment;
@@ -41,19 +41,19 @@ import club.contaniif.contaniff.videos.VideosActivity;
 
 public class ActivityContenedora extends AppCompatActivity implements AllFragments, Puente, Response.Listener<JSONObject>, Response.ErrorListener {
 
-    int pantalla;
-    boolean seleccionado = false;
-    Fragment miFragment = null;
-    PreguntasVo preguntas;
-    Dialog dialogoCargando;
-    ArrayList<String> listaImagenes;
-    ArrayList<String> listaPreguntas;
-    String credenciales;
+    private int pantalla;
+    private boolean seleccionado = false;
+    private Fragment miFragment = null;
+    private PreguntasVo preguntas;
+    private Dialog dialogoCargando;
+    private ArrayList<String> listaImagenes;
+    private ArrayList<String> listaPreguntas;
+    private String credenciales;
     int tipo;
-    JsonObjectRequest jsonObjectRequest;
+    private JsonObjectRequest jsonObjectRequest;
     RequestQueue request;
-    int numeroPreguntaGlobal;
-    ArrayList<String> listaGobal;
+    private int numeroPreguntaGlobal;
+    private ArrayList<String> listaGobal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +76,7 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
             case 2:
                 //seleccionado = true;
                 //miFragment = new Pantalla_empezar_drag();
-                reinciar(0, 0, listaGobal);
+                reinciar(0, listaGobal);
                 break;
             case 3:
                 seleccionado = true;
@@ -95,13 +95,13 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
                 miFragment = new AcercaDeFragment();
                 break;
         }
-        if (seleccionado == true) {
+        if (seleccionado) {
             getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, miFragment).commit();
         }
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onFragmentInteraction() {
 
     }
 
@@ -133,7 +133,7 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
     }
 
     @Override
-    public void reinciar(int numeroPregunta, int tipo, ArrayList<String> lista) {
+    public void reinciar(int numeroPregunta, ArrayList<String> lista) {
         numeroPreguntaGlobal = numeroPregunta;
         listaGobal = lista;
         cargarCredenciales();
@@ -161,7 +161,7 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
 
         preguntas = null;
         JSONArray json = response.optJSONArray("pregunta");
-        JSONObject jsonObject = null;
+        JSONObject jsonObject;
         listaPreguntas = new ArrayList<>();
         listaImagenes = new ArrayList<>();
         final ArrayList<String> lista = new ArrayList<>();
@@ -213,14 +213,13 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
 
     private void cargarCredenciales() {
         SharedPreferences preferences = this.getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
-        String credenciales = preferences.getString("correo", "No existe el valor");
-        this.credenciales = credenciales;
+        this.credenciales = preferences.getString("correo", "No existe el valor");
         //Toast.makeText(getContext(),"Credenciales = " + this.credenciales, Toast.LENGTH_SHORT).show();
     }
 
     private void dialogoCargando() {
         dialogoCargando.setContentView(R.layout.popup_cargando);
-        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogoCargando.show();
     }
 

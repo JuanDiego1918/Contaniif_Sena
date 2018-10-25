@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -28,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.adapter.YoutubeVideoAdapter;
@@ -41,12 +41,11 @@ public class VideosActivity extends AppCompatActivity implements Response.Listen
     private YouTubePlayerSupportFragment youTubePlayerFragment;
     private ArrayList<VideoVo> youtubeVideoArrayList;
 
-    Dialog dialogoCargando;
-    RequestQueue request;
-    JsonObjectRequest jsonObjectRequest;
+    private Dialog dialogoCargando;
+    private RequestQueue request;
     //youtube player to play video when new video selected
     private YouTubePlayer youTubePlayer;
-    Bundle miBundle;
+    private Bundle miBundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +55,7 @@ public class VideosActivity extends AppCompatActivity implements Response.Listen
         request = Volley.newRequestQueue(getApplicationContext());
         cargarWebService();
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(actionBar).setDisplayHomeAsUpEnabled(true);
 ///////////////////////
     }
     /*@Override
@@ -133,17 +132,17 @@ public class VideosActivity extends AppCompatActivity implements Response.Listen
      * populate the recycler view and implement the click event here
      */
     private void populateRecyclerView() {
-        final YoutubeVideoAdapter adapter = new YoutubeVideoAdapter(this, youtubeVideoArrayList);
+        final YoutubeVideoAdapter adapter = new YoutubeVideoAdapter(youtubeVideoArrayList);
         recyclerView.setAdapter(adapter);
 
         //set click event
         recyclerView.addOnItemTouchListener(new RecyclerViewOnClickListener(this, new RecyclerViewOnClickListener.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(int position) {
 
                 if (youTubePlayerFragment != null && youTubePlayer != null) {
                     //update selected position
-                    adapter.setSelectedPosition(position);
+                    adapter.setSelectedPosition();
 
                     //load selected video
                     youTubePlayer.cueVideo(youtubeVideoArrayList.get(position).getEnlace());
@@ -168,14 +167,14 @@ public class VideosActivity extends AppCompatActivity implements Response.Listen
         dialogoCargando();
         youtubeVideoArrayList = new ArrayList<>();
         String url="https://"+getApplicationContext().getString(R.string.ip)+"videos.php?categoria="+miBundle.getString("id");
-        jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
 
     private void dialogoCargando() {
         try {
             dialogoCargando.setContentView(R.layout.popup_cargando);
-            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
         }catch (Exception e){
             Log.i("Error " , e.toString());
@@ -193,7 +192,7 @@ public class VideosActivity extends AppCompatActivity implements Response.Listen
         youtubeVideoArrayList=new ArrayList<>();
         JSONArray json=response.optJSONArray("videos");
         try {
-            JSONObject jsonObject=null;
+            JSONObject jsonObject;
             for (int i=0;i<json.length();i++){
                 VideoVo videoVo=new VideoVo();
                 jsonObject=json.getJSONObject(i);

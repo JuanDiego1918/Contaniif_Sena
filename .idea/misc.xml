@@ -1,5 +1,282 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="EntryPointsManager">
+    <entry_points version="2.0">
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.acercaDe.AcercaDeFragment activity" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.actividades.MainActivity adelante" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.registro.Registro anio" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil btnFalso" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.registro.Registro btnFecha" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar clicRespuesta" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar contador" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar_drag copia" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.actividades.ActivosActivity credenciales" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil daate" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil date" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil dato" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.registro.Registro dia" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.Configuracion dialogoCargando" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil editarMunicipio" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.actividades.MainActivity fondoAyuda" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.actividades.MainActivity imagen" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar_drag jsonObjectRequest" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil jsonObjectRequest3" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar listaPre" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.adapter.PreguntasAdapter listener" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.adapter.PreguntasImagenesAdapter listener" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.registro.Registro mes" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil MIS_PERMISOS" />
+      <entry_point TYPE="method" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar_drag$4 boolean onDrag(android.view.View v, android.view.DragEvent event)" />
+      <entry_point TYPE="method" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar$2 void onItemClick(android.view.View view, int position)" />
+      <entry_point TYPE="method" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar$3 void onItemClick(android.view.View view, int position)" />
+      <entry_point TYPE="method" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar$12 void onItemClick(android.view.View view, int position)" />
+      <entry_point TYPE="method" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar$13 void onItemClick(android.view.View view, int position)" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.grupos.Grupos progreso" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil progreso" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar progreso" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar_drag progreso" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.miRendimiento.RendimiendoFragment puntos" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.adapter.PreguntasAdapter.UsuariosHolder relativeLayout" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.actividades.ActivityContenedora request" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil rutaImagen" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil rutaImg" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.actividades.MainActivity salir" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.actividades.ActivityContenedora tipo" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.miRendimiento.RendimiendoFragment valorCriptoniif" />
+    </entry_points>
+    <pattern value="club.contaniif.contaniff.acercaDe.AcercaDeFragment" />
+    <pattern value="club.contaniif.contaniff.acercaDe.AcercaDeFragment" method="AcercaDeFragment" />
+    <pattern value="club.contaniif.contaniff.actividades.ActivityContenedora" />
+    <pattern value="club.contaniif.contaniff.actividades.ActivosActivity" />
+    <pattern value="club.contaniif.contaniff.ExampleUnitTest" method="addition_isCorrect" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar" method="cargarDatos" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar_drag" method="cargarDatos" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="cargarDialogoFecha" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar" method="cargarWebservices" />
+    <pattern value="club.contaniif.contaniff.adapter.CategoriasAdapter" />
+    <pattern value="club.contaniif.contaniff.sabiasQue.CategoriasSabias" />
+    <pattern value="club.contaniif.contaniff.sabiasQue.CategoriasSabias" method="CategoriasSabias" />
+    <pattern value="club.contaniif.contaniff.videos.CategoriasVideosFragment" />
+    <pattern value="club.contaniif.contaniff.videos.CategoriasVideosFragment" method="CategoriasVideosFragment" />
+    <pattern value="club.contaniif.contaniff.actividades.Conexion" />
+    <pattern value="club.contaniif.contaniff.configuracion.Configuracion" />
+    <pattern value="club.contaniif.contaniff.configuracion.Configuracion" method="Configuracion" />
+    <pattern value="club.contaniif.contaniff.configuracion.ConfiguracionActivity" />
+    <pattern value="club.contaniif.contaniff.registro.Registro" method="consultarCredenciales" />
+    <pattern value="club.contaniif.contaniff.entidades.DepartamentosVo" />
+    <pattern value="club.contaniif.contaniff.eventos.EventosActivity" />
+    <pattern value="club.contaniif.contaniff.entidades.EventoVo" />
+    <pattern value="club.contaniif.contaniff.entidades.EventoVo" method="EventoVo" />
+    <pattern value="club.contaniif.contaniff.ExampleInstrumentedTest" />
+    <pattern value="club.contaniif.contaniff.ExampleUnitTest" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasVo" method="getArregloPregunta" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="getCategoria" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="getCategoria" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasVo" method="getCategoria" />
+    <pattern value="club.contaniif.contaniff.entidades.DepartamentosVo" method="getCodigo" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="getColor" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar" method="getCredenciales" />
+    <pattern value="club.contaniif.contaniff.entidades.DepartamentosVo" method="getDepartamento" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="getDepartamento" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="getDepartamentoo" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="getGenero" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="getGeneroo" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="getId" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="getId" />
+    <pattern value="club.contaniif.contaniff.entidades.SabiasVo" method="getId" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasConImagenVo" method="getImage" />
+    <pattern value="club.contaniif.contaniff.entidades.NumeroVo" method="getImg" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="getImg" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasVo" method="getListaSeleccionada" />
+    <pattern value="club.contaniif.contaniff.entidades.DepartamentosVo" method="getMunicipio" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="getMunicipio" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="getMunicipioo" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="getNumeroPregunt" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="getOpciones" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="getOpciones" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="getPalabra" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="getPregunta" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasConImagenVo" method="getPregunta" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="getPregunta" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="getPuntaje" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="getPuntaje" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar" method="getPuntos" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasVo" method="getRepuesta" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="getRespuesta" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="getRespuesta" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="getResultado" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="getRetobuena" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="getRetobuena" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="getRetromala" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="getRetromala" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="getRuta" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="getRutaImagenn" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="getTiempoDemora" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="getTiempoDemora" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="getTipo" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="getTipo" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar_drag" method="getTipoPregunta" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar" method="getUrlImagen" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar_drag" method="getUrlImagen" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="getUrlImagenUsuario" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="getValidacionImagenusuario1" />
+    <pattern value="club.contaniif.contaniff.grupos.Grupos" />
+    <pattern value="club.contaniif.contaniff.grupos.Grupos" method="Grupos" />
+    <pattern value="club.contaniif.contaniff.actividades.IngresaCodigoRegistro" />
+    <pattern value="club.contaniif.contaniff.actividades.MainActivity" />
+    <pattern value="club.contaniif.contaniff.internet.MyWebViewClient" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasConImagenVo" />
+    <pattern value="club.contaniif.contaniff.registro.Registro" />
+    <pattern value="club.contaniif.contaniff.sabiasQue.SabiasActivity" />
+    <pattern value="club.contaniif.contaniff.actividades.SplashScreen" />
+    <pattern value="club.contaniif.contaniff.videos.Videos" />
+    <pattern value="club.contaniif.contaniff.videos.VideosActivity" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="isMostrar" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="isSeleccionaDepartamento" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="isSeleccionaGenero" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="isSeleccionaImagen" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="isSeleccionaImagenusuario" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="MiPerfil" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="mostrarImg" />
+    <pattern value="club.contaniif.contaniff.acercaDe.AcercaDeFragment" method="newInstance" />
+    <pattern value="club.contaniif.contaniff.sabiasQue.CategoriasSabias" method="newInstance" />
+    <pattern value="club.contaniif.contaniff.videos.CategoriasVideosFragment" method="newInstance" />
+    <pattern value="club.contaniif.contaniff.configuracion.Configuracion" method="newInstance" />
+    <pattern value="club.contaniif.contaniff.grupos.Grupos" method="newInstance" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="newInstance" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar" method="newInstance" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar_drag" method="newInstance" />
+    <pattern value="club.contaniif.contaniff.miRendimiento.RendimiendoFragment" method="newInstance" />
+    <pattern value="club.contaniif.contaniff.entidades.NumeroVo" />
+    <pattern value="club.contaniif.contaniff.acercaDe.AcercaDeFragment" method="onButtonPressed" />
+    <pattern value="club.contaniif.contaniff.sabiasQue.CategoriasSabias" method="onButtonPressed" />
+    <pattern value="club.contaniif.contaniff.videos.CategoriasVideosFragment" method="onButtonPressed" />
+    <pattern value="club.contaniif.contaniff.configuracion.Configuracion" method="onButtonPressed" />
+    <pattern value="club.contaniif.contaniff.grupos.Grupos" method="onButtonPressed" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="onButtonPressed" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar" method="onButtonPressed" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar_drag" method="onButtonPressed" />
+    <pattern value="club.contaniif.contaniff.miRendimiento.RendimiendoFragment" method="onButtonPressed" />
+    <pattern value="club.contaniif.contaniff.actividades.MainActivity" method="onClick" />
+    <pattern value="club.contaniif.contaniff.acercaDe.AcercaDeFragment" method="onCreate" />
+    <pattern value="club.contaniif.contaniff.sabiasQue.CategoriasSabias" method="onCreate" />
+    <pattern value="club.contaniif.contaniff.videos.CategoriasVideosFragment" method="onCreate" />
+    <pattern value="club.contaniif.contaniff.configuracion.Configuracion" method="onCreate" />
+    <pattern value="club.contaniif.contaniff.grupos.Grupos" method="onCreate" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="onCreate" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar" method="onCreate" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar_drag" method="onCreate" />
+    <pattern value="club.contaniif.contaniff.miRendimiento.RendimiendoFragment" method="onCreate" />
+    <pattern value="club.contaniif.contaniff.acercaDe.AcercaDeFragment.OnFragmentInteractionListener" method="onFragmentInteraction" />
+    <pattern value="club.contaniif.contaniff.sabiasQue.CategoriasSabias.OnFragmentInteractionListener" method="onFragmentInteraction" />
+    <pattern value="club.contaniif.contaniff.videos.CategoriasVideosFragment.OnFragmentInteractionListener" method="onFragmentInteraction" />
+    <pattern value="club.contaniif.contaniff.configuracion.Configuracion.OnFragmentInteractionListener" method="onFragmentInteraction" />
+    <pattern value="club.contaniif.contaniff.grupos.Grupos.OnFragmentInteractionListener" method="onFragmentInteraction" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil.OnFragmentInteractionListener" method="onFragmentInteraction" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar.OnFragmentInteractionListener" method="onFragmentInteraction" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar_drag.OnFragmentInteractionListener" method="onFragmentInteraction" />
+    <pattern value="club.contaniif.contaniff.miRendimiento.RendimiendoFragment.OnFragmentInteractionListener" method="onFragmentInteraction" />
+    <pattern value="club.contaniif.contaniff.acercaDe.AcercaDeFragment.OnFragmentInteractionListener" />
+    <pattern value="club.contaniif.contaniff.configuracion.Configuracion.OnFragmentInteractionListener" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil.OnFragmentInteractionListener" />
+    <pattern value="club.contaniif.contaniff.grupos.Grupos.OnFragmentInteractionListener" />
+    <pattern value="club.contaniif.contaniff.miRendimiento.RendimiendoFragment.OnFragmentInteractionListener" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar.OnFragmentInteractionListener" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar_drag.OnFragmentInteractionListener" />
+    <pattern value="club.contaniif.contaniff.sabiasQue.CategoriasSabias.OnFragmentInteractionListener" />
+    <pattern value="club.contaniif.contaniff.videos.CategoriasVideosFragment.OnFragmentInteractionListener" />
+    <pattern value="club.contaniif.contaniff.videos.RecyclerViewOnClickListener.OnItemClickListener" method="onItemClick" />
+    <pattern value="club.contaniif.contaniff.videos.RecyclerViewOnClickListener.OnItemClickListener" />
+    <pattern value="club.contaniif.contaniff.actividades.ActivityContenedora" method="onResponse" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar" method="onResponse" />
+    <pattern value="club.contaniif.contaniff.grupos.Grupos" method="opciones" />
+    <pattern value="club.contaniif.contaniff.adapter.PaginacionNumeroAdapter" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar" method="Pantalla_empezar" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar_drag" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar_drag" method="Pantalla_empezar_drag" />
+    <pattern value="club.contaniif.contaniff.eventos.EventosActivity.PlaceholderFragment" />
+    <pattern value="club.contaniif.contaniff.eventos.EventosActivity.PlaceholderFragment" method="PlaceholderFragment" />
+    <pattern value="club.contaniif.contaniff.adapter.PreguntasAdapter" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="PreguntasDragVo" />
+    <pattern value="club.contaniif.contaniff.adapter.PreguntasImagenesAdapter" />
+    <pattern value="club.contaniif.contaniff.adapter.PreguntasImagenesAdapterDrag" />
+    <pattern value="club.contaniif.contaniff.adapter.PreguntasSeleccionMultiple" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasVo" />
+    <pattern value="club.contaniif.contaniff.interfaces.Puente" />
+    <pattern value="club.contaniif.contaniff.videos.RecyclerViewOnClickListener" />
+    <pattern value="club.contaniif.contaniff.interfaces.Puente" method="reinciar" />
+    <pattern value="club.contaniif.contaniff.miRendimiento.RendimiendoFragment" />
+    <pattern value="club.contaniif.contaniff.miRendimiento.RendimiendoFragment" method="RendimiendoFragment" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar" method="revisar" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar_drag" method="revisar" />
+    <pattern value="club.contaniif.contaniff.entidades.SabiasVo" />
+    <pattern value="club.contaniif.contaniff.eventos.EventosActivity.PlaceholderFragment.SectionsPagerAdapter" />
+    <pattern value="club.contaniif.contaniff.eventos.EventosActivity.PlaceholderFragment.SectionsPagerAdapter" method="SectionsPagerAdapter" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasVo" method="setArregloPregunta" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="setCategoria" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="setCategoria" />
+    <pattern value="club.contaniif.contaniff.entidades.DepartamentosVo" method="setCodigo" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="setColor" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="setCredenciales" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar" method="setCredenciales" />
+    <pattern value="club.contaniif.contaniff.entidades.DepartamentosVo" method="setDepartamento" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="setId" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="setId" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasConImagenVo" method="setImage" />
+    <pattern value="club.contaniif.contaniff.entidades.NumeroVo" method="setImg" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="setImg" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar" method="setIsCheked" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar_drag" method="setIsCheked" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasVo" method="setListaSeleccionada" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="setMostrar" />
+    <pattern value="club.contaniif.contaniff.entidades.DepartamentosVo" method="setMunicipio" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="setNumeroPregunt" />
+    <pattern value="club.contaniif.contaniff.adapter.PaginacionNumeroAdapter" method="setOnClickListener" />
+    <pattern value="club.contaniif.contaniff.adapter.PreguntasImagenesAdapterDrag" method="setOnClickListener" />
+    <pattern value="club.contaniif.contaniff.adapter.PreguntasSeleccionMultiple" method="setOnClickListener" />
+    <pattern value="club.contaniif.contaniff.adapter.PaginacionNumeroAdapter" method="setOnTouchListener" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="setOpciones" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="setOpciones" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="setPalabra" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="setPregunta" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasConImagenVo" method="setPregunta" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="setPregunta" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="setPuntaje" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="setPuntaje" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar" method="setPuntos" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasVo" method="setRepuesta" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="setRespuesta" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="setRespuesta" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="setResultado" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="setRetobuena" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="setRetobuena" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="setRetromala" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="setRetromala" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="setRuta" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="setRutaImagenn" />
+    <pattern value="club.contaniif.contaniff.configuracion.MiPerfil" method="setSeleccionaImagen" />
+    <pattern value="club.contaniif.contaniff.adapter.CategoriasAdapter" method="setSelectedPosition" />
+    <pattern value="club.contaniif.contaniff.adapter.PaginacionNumeroAdapter" method="setSelectedPosition" />
+    <pattern value="club.contaniif.contaniff.adapter.YoutubeVideoAdapter" method="setSelectedPosition" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="setTiempoDemora" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="setTiempoDemora" />
+    <pattern value="club.contaniif.contaniff.entidades.GestionPreguntas" method="setTipo" />
+    <pattern value="club.contaniif.contaniff.entidades.PreguntasDragVo" method="setTipo" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar" method="setUrlImagen" />
+    <pattern value="club.contaniif.contaniff.principal.Pantalla_empezar_drag" method="setUrlImagen" />
+    <pattern value="club.contaniif.contaniff.ExampleInstrumentedTest" method="useAppContext" />
+    <pattern value="club.contaniif.contaniff.adapter.PreguntasAdapter.UsuariosHolder" />
+    <pattern value="club.contaniif.contaniff.registro.Registro" method="validarCorreo" />
+    <pattern value="club.contaniif.contaniff.entidades.VideoVo" />
+    <pattern value="club.contaniif.contaniff.entidades.VideoVo" method="VideoVo" />
+    <pattern value="club.contaniif.contaniff.adapter.YoutubeVideoAdapter" />
+    <pattern value="club.contaniif.contaniff.adapter.YoutubeVideoAdapter" method="YoutubeVideoAdapter" />
+    <pattern value="club.contaniif.contaniff.videos.YoutubeViewHolder" />
+  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
     <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />

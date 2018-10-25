@@ -2,6 +2,7 @@ package club.contaniif.contaniff.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +22,10 @@ import club.contaniif.contaniff.entidades.VolleySingleton;
 
 public class PreguntasImagenesAdapterDrag extends RecyclerView.Adapter<PreguntasImagenesAdapterDrag.ImagenesHolder> implements View.OnLongClickListener,View.OnClickListener {
 
-    ArrayList<PreguntasVo> listaImagenes;
-    Context context;
-    View.OnClickListener listener;
-    public View.OnLongClickListener onLongClickListener;
+    private final ArrayList<PreguntasVo> listaImagenes;
+    private final Context context;
+    private View.OnClickListener listener;
+    private View.OnLongClickListener onLongClickListener;
 
 
     public PreguntasImagenesAdapterDrag(ArrayList<PreguntasVo> listaImagenes, Context context) {
@@ -32,8 +33,9 @@ public class PreguntasImagenesAdapterDrag extends RecyclerView.Adapter<Preguntas
         this.context = context;
     }
 
+    @NonNull
     @Override
-    public ImagenesHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ImagenesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.modelo_imagen, null, false);
         RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -43,8 +45,8 @@ public class PreguntasImagenesAdapterDrag extends RecyclerView.Adapter<Preguntas
     }
 
     @Override
-    public void onBindViewHolder(ImagenesHolder holder, int position) {
-        if (listaImagenes.get(position).isMostrar()==false){
+    public void onBindViewHolder(@NonNull ImagenesHolder holder, int position) {
+        if (listaImagenes.get(position).isMostrar()){
             if (listaImagenes.get(position).getRuta() != null) {
                 cargarImagenWebService(listaImagenes.get(position).getRuta(), holder);
             } else {
@@ -103,9 +105,9 @@ public class PreguntasImagenesAdapterDrag extends RecyclerView.Adapter<Preguntas
 
 
     public class ImagenesHolder extends RecyclerView.ViewHolder {
-        ImageView imagen;
+        final ImageView imagen;
 
-        public ImagenesHolder(View itemView) {
+        ImagenesHolder(View itemView) {
             super(itemView);
             imagen = itemView.findViewById(R.id.imagenesRespuestaRelacion);
         }

@@ -1,12 +1,10 @@
 package club.contaniif.contaniff.registro;
 
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 
-import java.util.concurrent.TimeoutException;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,8 +29,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -41,19 +37,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -68,7 +61,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -76,23 +68,31 @@ import java.util.Map;
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.actividades.IngresaCodigoRegistro;
 import club.contaniif.contaniff.actividades.MainActivity;
-import club.contaniif.contaniff.entidades.VolleySingleton;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class Registro extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
-    int posicion = 0, accion = 0;
-    String departamento = "", genero = "", municipio = "";
-    boolean seleccionaDepartamento = false, seleccionaGenero = false, seleccionaImagen = false, seleccionaMunicipio = false, seleccionaFecha = false;
-    boolean seleccionaAnio = false,seleccionaMes = false,seleccionaDia = false;
+    private int posicion = 0;
+    private int accion = 0;
+    private String departamento = "";
+    private String genero = "";
+    private String municipio = "";
+    private boolean seleccionaDepartamento = false;
+    private boolean seleccionaGenero = false;
+    private boolean seleccionaImagen = false;
+    private boolean seleccionaMunicipio = false;
+    private boolean seleccionaFecha = false;
+    private boolean seleccionaAnio = false;
+    private boolean seleccionaMes = false;
+    private boolean seleccionaDia = false;
 
-    Spinner lisdaAnios, listaMeses, listaDias;
-    ArrayList arrayAnios, arrayMeses, arrayDias;
-    Dialog dialogoFecha;
-    boolean permisoCamara = false;
+    private ArrayList arrayAnios;
+    private ArrayList arrayMeses;
+    private ArrayList arrayDias;
+    private Dialog dialogoFecha;
+    private boolean permisoCamara = false;
 
     private static final String CARPETA_PRINCIPAL = "misImagenesApp/";//directorio principal
     private static final String CARPETA_IMAGEN = "imagenes";//carpeta donde se guardan las fotos
@@ -103,34 +103,35 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     private static final int COD_FOTO = 20;
 
     // Patrón para validar el email
-    Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+    private final Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 
-    String dato;
-    Dialog dialogoCargando;
-    Dialog dialogoRegistrado;
-    Dialog dialogoIngresaCorreo;
-    Dialog dialogoTerminos;
-    TextView campoTerminos;
-    CheckBox checkTerminos;
+    private String dato;
+    private Dialog dialogoCargando;
+    private Dialog dialogoRegistrado;
+    private Dialog dialogoIngresaCorreo;
+    private Dialog dialogoTerminos;
+    private CheckBox checkTerminos;
 
-    File fileImagen;
-    Bitmap bitmap;
-    Spinner listaDepartamentos, listaMunicipios, listaGenero;
-    EditText campoNombre, campoApellido, campoCorreo;
-    ImageView imagenCamara;
-    TextView campoFecha;
-    String fecha;
-    Button btnRegistro, btnFecha;
+    private Bitmap bitmap;
+    private Spinner listaMunicipios;
+    private EditText campoNombre;
+    private EditText campoApellido;
+    private EditText campoCorreo;
+    private ImageView imagenCamara;
+    private TextView campoFecha;
+    private String fecha;
+    Button btnFecha;
 
-    String anioLista,mesLista,diaLista;
+    private String anioLista;
+    private String mesLista;
+    private String diaLista;
     private int dia, mes, anio;
-    ArrayList<String> ArrayDepartamentos;
-    ArrayList<String> ArrayMunicipios;
-    ArrayList<String> ArrayGenero;
+    private ArrayList<String> ArrayDepartamentos;
+    private ArrayList<String> ArrayMunicipios;
+    private ArrayList<String> ArrayGenero;
 
-    RequestQueue request;
-    JsonObjectRequest jsonObjectRequest;
-    StringRequest stringRequest;
+    private RequestQueue request;
+    private StringRequest stringRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,11 +151,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         llenarDias();
 
 
-        if (solicitaPermisosVersionesSuperiores()) {
-            permisoCamara = true;
-        } else {
-            permisoCamara = false;
-        }
+        permisoCamara = solicitaPermisosVersionesSuperiores();
 
         request = Volley.newRequestQueue(getApplicationContext());
 
@@ -199,7 +196,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         ArrayDepartamentos.add("Vaupés");
         ArrayDepartamentos.add("Vichada");
 
-        campoTerminos = findViewById(R.id.campoTerminos);
+        TextView campoTerminos = findViewById(R.id.campoTerminos);
         checkTerminos = findViewById(R.id.checkTerminos);
         //SpannableString mitextoU = new SpannableString("terminos y condiciones");
         //mitextoU.setSpan(new UnderlineSpan(), 0, mitextoU.length(), 0);
@@ -233,9 +230,9 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         });*/
 
         imagenCamara = findViewById(R.id.imagenUsuario);
-        listaDepartamentos = findViewById(R.id.spinnerDepartamentoRegistro);
+        Spinner listaDepartamentos = findViewById(R.id.spinnerDepartamentoRegistro);
         listaMunicipios = findViewById(R.id.spinnerCuidadRegistro);
-        listaGenero = findViewById(R.id.spinnerGeneroRegistro);
+        Spinner listaGenero = findViewById(R.id.spinnerGeneroRegistro);
 
         ArrayAdapter<CharSequence> adapterDepartamentos = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item, ArrayDepartamentos);
         listaDepartamentos.setAdapter(adapterDepartamentos);
@@ -286,7 +283,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                 //seleccionaImagen = false;
                 //mostrarDialogOpciones();
 
-                if (permisoCamara == false) {
+                if (!permisoCamara) {
                     Toast.makeText(Registro.this, "Debe aceptar los permisos para poder usar la camara, dirijase a configuracion de aplicaciones", Toast.LENGTH_LONG).show();
                     //startActivity(new Intent(Settings.ACTION_APPLICATION_SETTINGS));
                     //cargarDialogoRecomendacion();
@@ -299,11 +296,11 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             }
         });
 
-        btnRegistro = findViewById(R.id.btnRegistrar);
+        Button btnRegistro = findViewById(R.id.btnRegistrar);
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (campoNombre.getText().equals("") || campoApellido.getText().equals("") || seleccionaGenero == false || seleccionaMunicipio == false || seleccionaDepartamento == false || seleccionaImagen == false || seleccionaFecha == false) {
+                if (campoNombre.getText().equals("") || campoApellido.getText().equals("") || !seleccionaGenero || !seleccionaMunicipio || !seleccionaDepartamento || !seleccionaImagen || !seleccionaFecha) {
                     Toast.makeText(getApplicationContext(), "Debe llenar todos los campos", Toast.LENGTH_SHORT).show();
                 } else {
                     if (checkTerminos.isChecked()){
@@ -323,7 +320,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         // El email a validar
         String email = campoCorreo.getText().toString();
         Matcher mather = pattern.matcher(email);
-        if (mather.find() == true) {
+        if (mather.find()) {
             validaPermisoCamara();
         } else {
             Toast.makeText(this, "El email ingresado es inválido.", Toast.LENGTH_SHORT).show();
@@ -332,7 +329,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     }
 
     private void validaPermisoCamara() {
-        if (permisoCamara == false) {
+        if (!permisoCamara) {
             Toast.makeText(this, "Debe aceptar los permisos de camara, para poder registrarse ", Toast.LENGTH_LONG).show();
         } else {
             registrarUsuarios();
@@ -360,7 +357,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             }
         });
 
-        dialogoRegistrado.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialogoRegistrado.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogoRegistrado.show();
 
     }
@@ -384,7 +381,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("https://www.contaniif.club/terminos.html");
 
-        dialogoTerminos.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialogoTerminos.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogoTerminos.show();
 
     }
@@ -402,12 +399,12 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
                 String email = campoCorreo.getText().toString();
                 Matcher mather = pattern.matcher(email);
-                if (mather.find() == true) {
+                if (mather.find()) {
                     if (campoCorreo.getText().toString().equalsIgnoreCase("")) {
                         Toast.makeText(Registro.this, "Por favor ingrese el correo", Toast.LENGTH_SHORT).show();
                     } else {
                         dato = campoCorreo.getText().toString();
-                        validarCorreo(dato);
+                        validarCorreo();
                         dialogoIngresaCorreo.dismiss();
                     }
                 } else {
@@ -427,11 +424,11 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             }
         });
 
-        dialogoIngresaCorreo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialogoIngresaCorreo.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogoIngresaCorreo.show();
     }
 
-    private void validarCorreo(String correo) {
+    private void validarCorreo() {
 
         dialogoCargando();
         String url;
@@ -476,7 +473,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 String correo = dato;
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("correo", correo);
@@ -490,7 +487,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     }
 
     private void obtenerFecha() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yy");
         Date date = new Date();
         fecha = "20"+dateFormat.format(date);
     }
@@ -554,9 +551,9 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         Button cancelar, enviar;
         dialogoFecha.setContentView(R.layout.popup_fecha);
 
-        lisdaAnios = dialogoFecha.findViewById(R.id.spinnerAnio);
-        listaMeses = dialogoFecha.findViewById(R.id.spinnerMes);
-        listaDias = dialogoFecha.findViewById(R.id.spinnerDia);
+        Spinner lisdaAnios = dialogoFecha.findViewById(R.id.spinnerAnio);
+        Spinner listaMeses = dialogoFecha.findViewById(R.id.spinnerMes);
+        Spinner listaDias = dialogoFecha.findViewById(R.id.spinnerDia);
 
         ArrayAdapter<CharSequence> adapterAnios = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item, arrayAnios);
         lisdaAnios.setAdapter(adapterAnios);
@@ -622,7 +619,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (seleccionaAnio == false || seleccionaMes == false || seleccionaDia == false){
+                if (!seleccionaAnio || !seleccionaMes || !seleccionaDia){
                     seleccionaFecha = false;
                     campoFecha.setText("000-00-00");
                 }else {
@@ -635,7 +632,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             }
         });
 
-        dialogoFecha.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialogoFecha.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogoFecha.show();
 
     }
@@ -643,7 +640,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     private void dialogoCargando() {
         try {
             dialogoCargando.setContentView(R.layout.popup_cargando);
-            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
         }catch (Exception e){
             Log.i("Error " , e.toString());
@@ -670,7 +667,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                         Intent intent = new Intent(Intent.ACTION_PICK,
                                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         intent.setType("image/");
-                        startActivityForResult(intent.createChooser(intent, "Seleccione"), COD_SELECCIONA);
+                        startActivityForResult(Intent.createChooser(intent, "Seleccione"), COD_SELECCIONA);
                     } else {
                         dialogInterface.dismiss();
                         //seleccionaImagen = false;
@@ -718,17 +715,17 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             seleccionaImagen = true;
             File miFile = new File(Environment.getExternalStorageDirectory(), DIRECTORIO_IMAGEN);
             boolean isCreada = miFile.exists();
-            if (isCreada == false) {
+            if (!isCreada) {
                 isCreada = miFile.mkdirs();//por si la variable no fue creada, se crea de nuevo
             }
-            if (isCreada == true) {
+            if (isCreada) {
                 Long consecutivo = System.currentTimeMillis() / 1000;//aqui iba un 100, por si no funciona el codigo este es el error
                 String nombre = consecutivo.toString() + ".jpg";
 
                 path = Environment.getExternalStorageDirectory() + File.separator + DIRECTORIO_IMAGEN
                         + File.separator + nombre;//indicamos la ruta de almacenamiento
 
-                fileImagen = new File(path);
+                File fileImagen = new File(path);
 
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(fileImagen));
@@ -748,7 +745,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             seleccionaImagen = true;
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             intent.setType("image/");
-            startActivityForResult(intent.createChooser(intent, "Seleccione"), COD_SELECCIONA);
+            startActivityForResult(Intent.createChooser(intent, "Seleccione"), COD_SELECCIONA);
         }
 
     }
@@ -767,7 +764,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), miPath);
-                        bitmap = redimensionarImagen(bitmap, 200, 200);
+                        bitmap = redimensionarImagen(bitmap);
                         imagenCamara.setImageBitmap(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -784,26 +781,26 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                             });
 
                     bitmap = BitmapFactory.decodeFile(path);
-                    bitmap = redimensionarImagen(bitmap, 200, 200);
+                    bitmap = redimensionarImagen(bitmap);
                     imagenCamara.setImageBitmap(bitmap);
 
                     break;
             }
-            bitmap = redimensionarImagen(bitmap, 200, 200);
+            bitmap = redimensionarImagen(bitmap);
         } catch (Exception e) {
             seleccionaImagen = false;
             Toast.makeText(getApplicationContext(), "No se ha elegido ninguna imagen", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private Bitmap redimensionarImagen(Bitmap bitmap, float anchoNuevo, float altoNuevo) {
+    private Bitmap redimensionarImagen(Bitmap bitmap) {
         seleccionaImagen = true;
         int ancho = bitmap.getWidth();
         int alto = bitmap.getHeight();
 
-        if (ancho > anchoNuevo || alto > altoNuevo) {
-            float escalaAncho = anchoNuevo / ancho;
-            float escalaAlto = altoNuevo / alto;
+        if (ancho > (float) 200 || alto > (float) 200) {
+            float escalaAncho = (float) 200 / ancho;
+            float escalaAlto = (float) 200 / alto;
 
             Matrix matrix = new Matrix();
             matrix.postScale(escalaAncho, escalaAlto);
@@ -875,7 +872,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         });
         try{
             alertOpciones.show();
-        }catch (Exception e){
+        }catch (Exception ignored){
 
         }
 
@@ -904,7 +901,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void cargarListaMunicipios() {
         String url = getApplicationContext().getString(R.string.ipTraerMunicipio) + posicion;
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
         accion = 1;
     }
@@ -955,7 +952,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 String nombres = campoNombre.getText().toString();
                 String apellidos = campoApellido.getText().toString();
                 String generoo = genero;
@@ -990,8 +987,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         ByteArrayOutputStream array = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, array);
         byte[] imagenByte = array.toByteArray();
-        String imagenString = Base64.encodeToString(imagenByte, Base64.DEFAULT);
-        return imagenString;
+        return Base64.encodeToString(imagenByte, Base64.DEFAULT);
     }
 
     private void guardarCredenciales(String correo) {
@@ -1021,8 +1017,8 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     public void onResponse(JSONObject response) {
         if (accion == 1) {
             JSONArray json = response.optJSONArray("usuario");
-            JSONObject jsonObject = null;
-            ArrayMunicipios = new ArrayList<String>();
+            JSONObject jsonObject;
+            ArrayMunicipios = new ArrayList<>();
 
             try {
                 ArrayMunicipios.add("Seleccione su municipio");

@@ -1,6 +1,5 @@
 package club.contaniif.contaniff.actividades;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +7,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,24 +29,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.entidades.Datos;
 import club.contaniif.contaniff.eventos.EventosActivity;
 
 public class MainActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
-    Dialog dialogoAyuda;
-    Dialog dialogoCargando;
-    boolean seleccionado = false;
-    RequestQueue request;
-    JsonObjectRequest jsonObjectRequest;
-    TextView puntosUsuario;
-    String correo;
+    private Dialog dialogoAyuda;
+    private Dialog dialogoCargando;
+    private boolean seleccionado = false;
+    private RequestQueue request;
+    private TextView puntosUsuario;
+    private String correo;
     Button salir;
     FloatingActionButton adelante;
     int imagen = 1;
-    ImageView ayuda,fondoAyuda;
-    String puntajeUrl, imagenUrl;
-    ImageView medalla;
+    ImageView fondoAyuda;
+    private String puntajeUrl;
+    private String imagenUrl;
+    private ImageView medalla;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         medalla=findViewById(R.id.tipodemedalla);
         cargarCredenciales();
         cargarWebService();
-        ayuda = findViewById(R.id.btnAyuda);
+        ImageView ayuda = findViewById(R.id.btnAyuda);
         ayuda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,15 +76,14 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         String ayuda = preferences.getString("ayuda", "no");
         if (ayuda.equalsIgnoreCase("no")) {
             showDialogo();
-        }else {
-            //Toast.makeText(getApplicationContext(),"Ya se mostro la ventana de ayuda",Toast.LENGTH_SHORT).show();
-        }
+        } //Toast.makeText(getApplicationContext(),"Ya se mostro la ventana de ayuda",Toast.LENGTH_SHORT).show();
+
     }
 
     private void dialogoCargando() {
         try {
             dialogoCargando.setContentView(R.layout.popup_cargando);
-            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
         }catch (Exception e){
             Log.i("Error " , e.toString());
@@ -122,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
             }
         });*/
 
-        dialogoAyuda.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialogoAyuda.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogoAyuda.show();
         guardarAyuda();
     }
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     private void cargarCredenciales() {
         SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         String credenciales = preferences.getString("correo", "No existe el valor");
-        if (credenciales != "No existe el valor") {
+        if (!Objects.equals(credenciales, "No existe el valor")) {
             correo = credenciales;
             cargarAyuda();
         }
@@ -177,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
                 seleccionado = true;
                 break;
         }
-        if (seleccionado == true) {
+        if (seleccionado) {
             miIntent = new Intent(MainActivity.this, ActivityContenedora.class);
             miIntent.putExtra("dato", miBundle);
         }
@@ -188,8 +187,10 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     @Override
     protected void onResume() {
         super.onResume();
-        if (Datos.actualizarPuntos == true) {
+        if (Datos.actualizarPuntos) {
             Datos.actualizarPuntos = false;
+            cargarWebService();
+        }else {
             cargarWebService();
         }
     }
@@ -198,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         dialogoCargando();
         request = Volley.newRequestQueue(getApplication());
         String url = "https://" + getApplicationContext().getString(R.string.ip) + "puntaje.php?idusuario="+correo;
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
 

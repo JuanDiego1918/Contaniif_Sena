@@ -1,6 +1,6 @@
 package club.contaniif.contaniff.entidades;
 
-public class GestionPreguntas{
+class GestionPreguntas{
 
     public int getId() {
         return id;

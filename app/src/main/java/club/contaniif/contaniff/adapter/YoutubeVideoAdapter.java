@@ -1,7 +1,6 @@
 package club.contaniif.contaniff.adapter;
 
-import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,27 +24,23 @@ import club.contaniif.contaniff.videos.YoutubeViewHolder;
 
 public class YoutubeVideoAdapter extends RecyclerView.Adapter<YoutubeViewHolder> {
     private static final String TAG = YoutubeVideoAdapter.class.getSimpleName();
-    private Context context;
-    private ArrayList<VideoVo> listaVideo;
-
-    //position to check which position is selected
-    private int selectedPosition = 0;
+    private final ArrayList<VideoVo> listaVideo;
 
 
-    public YoutubeVideoAdapter(Context context, ArrayList<VideoVo> youtubeVideoModelArrayList) {
-        this.context = context;
+    public YoutubeVideoAdapter(ArrayList<VideoVo> youtubeVideoModelArrayList) {
         this.listaVideo = youtubeVideoModelArrayList;
     }
 
+    @NonNull
     @Override
-    public YoutubeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public YoutubeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.youtube_video_custom_layout, parent, false);
         return new YoutubeViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(YoutubeViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull YoutubeViewHolder holder, final int position) {
 
         //if selected position is equal to that mean view is selected so change the cardview color
 
@@ -90,10 +85,9 @@ public class YoutubeVideoAdapter extends RecyclerView.Adapter<YoutubeViewHolder>
 
     /**
      * method the change the selected position when item clicked
-     * @param selectedPosition
      */
-    public void setSelectedPosition(int selectedPosition) {
-        this.selectedPosition = selectedPosition;
+    public void setSelectedPosition() {
+        //position to check which position is selected
         //when item selected notify the adapter
         notifyDataSetChanged();
     }

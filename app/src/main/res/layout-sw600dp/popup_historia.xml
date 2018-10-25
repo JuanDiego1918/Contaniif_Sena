@@ -22,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:elevation="200dp"
-            android:src="@drawable/logo_sicf" />
+            android:src="@drawable/logo_sicf"
+            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/tituloHistpopup"

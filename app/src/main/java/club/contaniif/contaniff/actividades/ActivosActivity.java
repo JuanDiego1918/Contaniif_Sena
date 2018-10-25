@@ -2,20 +2,17 @@ package club.contaniif.contaniff.actividades;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,33 +30,35 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.adapter.AdapterActivos;
-import club.contaniif.contaniff.adapter.AdapterSabias;
 import club.contaniif.contaniff.entidades.ActivosVo;
-import club.contaniif.contaniff.entidades.SabiasVo;
-import club.contaniif.contaniff.entidades.VolleySingleton;
 
 public class ActivosActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
 
-    RequestQueue request;
-    JsonObjectRequest jsonObjectRequest;
-    RecyclerView obtenidos, disponible;
-    String credenciales, correo;
-    ArrayList<ActivosVo> listActivos, listaDisponible;
-    ActivosVo activosVo;
-    Dialog dialogoCargando;
-    Dialog dialog;
-    Button comprar;
-    double cantidadMonedas;
-    ImageView Imgactivo;
-    TextView monedas;
-    AdapterActivos adapterActivos, adapterDisponible;
-    StringRequest stringRequest;
-    double valorObjeto;
-    String nombre;
+    private RequestQueue request;
+    private JsonObjectRequest jsonObjectRequest;
+    private RecyclerView obtenidos;
+    private RecyclerView disponible;
+    private String credenciales;
+    private String correo;
+    private ArrayList<ActivosVo> listActivos;
+    private ArrayList<ActivosVo> listaDisponible;
+    private ActivosVo activosVo;
+    private Dialog dialogoCargando;
+    private Dialog dialog;
+    private Button comprar;
+    private double cantidadMonedas;
+    private ImageView Imgactivo;
+    private TextView monedas;
+    private AdapterActivos adapterActivos;
+    private AdapterActivos adapterDisponible;
+    private StringRequest stringRequest;
+    private double valorObjeto;
+    private String nombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +75,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         cargarNombre();
         Bundle miBundle = getIntent().getExtras();
         if (miBundle != null) {
-            cantidadMonedas = cambiarVarible(miBundle.getString("puntos"));
+            cantidadMonedas = cambiarVarible(Objects.requireNonNull(miBundle.getString("puntos")));
             monedas.setText("Monedas: "+miBundle.getString("puntos"));
         }
     }
@@ -116,7 +115,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         adapterDisponible = null;
         JSONArray json = response.optJSONArray("activos");
         try {
-            JSONObject jsonObject = null;
+            JSONObject jsonObject;
             for (int i = 0; i < json.length(); i++) {
                 jsonObject = json.getJSONObject(i);
                 activosVo = new ActivosVo();
@@ -201,7 +200,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
     private void cargarNombre() {
         SharedPreferences preferences = this.getApplicationContext().getSharedPreferences("Nombre", Context.MODE_PRIVATE);
         String nombre = preferences.getString("nombre", "No existe el valor");
-        if (nombre != "No existe el valor") {
+        if (!Objects.equals(nombre, "No existe el valor")) {
             this.nombre = nombre;
         }
     }
@@ -212,8 +211,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                String resultado = response;
-                if (resultado.equals("registra")) {
+                if (response.equals("registra")) {
                     Toast.makeText(getApplicationContext(), "Realiza Cambios" + response, Toast.LENGTH_LONG).show();
                 } else {
                     cantidadMonedas=cantidadMonedas-valorObjeto;
@@ -257,7 +255,6 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
     }
 
     private String cambiarPts(String puntosDisponibles) {
-        String cambio = puntosDisponibles.replaceAll("CriptoNIIF.", "");
-        return cambio;
+        return puntosDisponibles.replaceAll("CriptoNIIF.", "");
     }
 }

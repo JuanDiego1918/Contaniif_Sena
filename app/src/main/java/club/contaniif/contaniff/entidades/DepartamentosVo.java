@@ -1,10 +1,10 @@
 package club.contaniif.contaniff.entidades;
 
-public class DepartamentosVo {
+class DepartamentosVo {
 
-    int codigo;
-    String departamento;
-    String municipio;
+    private int codigo;
+    private String departamento;
+    private String municipio;
 
     public String getMunicipio() {
         return municipio;

@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:text="Hola
 "
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:maxHeight="150dp"
             android:textColor="#fff"
             android:textSize="18sp" />

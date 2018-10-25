@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -52,7 +51,8 @@
                         android:layout_height="40dp"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="4"
-                        android:src="@drawable/logo_linea_siguiente" />
+                        android:src="@drawable/logo_linea_siguiente"
+                        android:contentDescription="TODO" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -69,7 +69,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="220dp"
                         android:layout_weight="4"
-                        />
+                        android:contentDescription="TODO" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -86,7 +86,7 @@
                             android:textColor="@color/letraBlanca"
                             android:textSize="45sp" />
                         <TextView
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginStart="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Pts"
@@ -100,7 +100,8 @@
                         android:layout_gravity="bottom"
                         android:layout_weight="5"
                         android:id="@+id/btnAyuda"
-                        android:src="@drawable/logo_ayuda" />
+                        android:src="@drawable/logo_ayuda"
+                        android:contentDescription="TODO" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -135,7 +136,8 @@
                                 android:layout_height="240dp"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:background="@drawable/empezar" />
+                                android:background="@drawable/empezar"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -160,7 +162,8 @@
                                 android:layout_height="25dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente" />
+                                android:src="@drawable/logo_linea_siguiente"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -187,7 +190,8 @@
                                 android:layout_height="240dp"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:background="@drawable/videos" />
+                                android:background="@drawable/videos"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -212,7 +216,8 @@
                                 android:layout_height="25dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente" />
+                                android:src="@drawable/logo_linea_siguiente"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -252,7 +257,8 @@
                                 android:layout_height="240dp"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:background="@drawable/eventos" />
+                                android:background="@drawable/eventos"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -277,7 +283,8 @@
                                 android:layout_height="25dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente" />
+                                android:src="@drawable/logo_linea_siguiente"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -306,7 +313,8 @@
                                 android:layout_height="240dp"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:background="@drawable/sabias_que" />
+                                android:background="@drawable/sabias_que"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -332,7 +340,8 @@
                                 android:layout_height="25dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente" />
+                                android:src="@drawable/logo_linea_siguiente"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
                     </LinearLayout>
                 </TableRow>
@@ -371,7 +380,8 @@
                                 android:layout_height="240dp"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:background="@drawable/configuracion" />
+                                android:background="@drawable/configuracion"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -396,7 +406,8 @@
                                 android:layout_height="25dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente" />
+                                android:src="@drawable/logo_linea_siguiente"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -425,7 +436,8 @@
                                 android:layout_height="240dp"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:background="@drawable/acerca" />
+                                android:background="@drawable/acerca"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -452,7 +464,8 @@
                                 android:layout_height="25dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente" />
+                                android:src="@drawable/logo_linea_siguiente"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
                     </LinearLayout>
                 </TableRow>

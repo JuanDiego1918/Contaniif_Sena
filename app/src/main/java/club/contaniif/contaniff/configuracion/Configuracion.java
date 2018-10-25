@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import club.contaniif.contaniff.R;
-import club.contaniif.contaniff.interfaces.Puente;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,13 +29,7 @@ public class Configuracion extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
-    LinearLayout btnGrupos,btnMiperfil;
-    Activity activity;
     Dialog dialogoCargando;
     public Configuracion() {
         // Required empty public constructor
@@ -63,24 +57,25 @@ public class Configuracion extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // TODO: Rename and change types of parameters
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_configuracion2, container, false);
-        btnGrupos = vista.findViewById(R.id.btnGrupos);
+        LinearLayout btnGrupos = vista.findViewById(R.id.btnGrupos);
         btnGrupos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cargarPantalla(1);
             }
         });
-        btnMiperfil = vista.findViewById(R.id.btnMiperfil);
+        LinearLayout btnMiperfil = vista.findViewById(R.id.btnMiperfil);
         btnMiperfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,7 +107,7 @@ public class Configuracion extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction();
         }
     }
 
@@ -121,7 +116,7 @@ public class Configuracion extends Fragment {
         super.onAttach(context);
 
         if (context instanceof Activity) {
-            this.activity = (Activity) context;
+            Activity activity = (Activity) context;
         }
 
         if (context instanceof OnFragmentInteractionListener) {
@@ -150,6 +145,6 @@ public class Configuracion extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction();
     }
 }
