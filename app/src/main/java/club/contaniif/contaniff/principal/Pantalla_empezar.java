@@ -212,6 +212,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     private int idpregunta;
     private int tiempo;
     private int puntaje;
+    private int clickChek = 0;
 
     /**
      * Use this factory method to create a new instance of
@@ -255,9 +256,9 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         MyDialogFinal = new Dialog(getContext());
         dialogoCargando = new Dialog(this.getContext());
 
-        respondeBien = MediaPlayer.create(getContext(),R.raw.responde_bien);
-        terminaBien = MediaPlayer.create(getContext(),R.raw.finalizar_bien);
-        terminaMal = MediaPlayer.create(getContext(),R.raw.finalizar_mal);
+        respondeBien = MediaPlayer.create(getContext(), R.raw.responde_bien);
+        terminaBien = MediaPlayer.create(getContext(), R.raw.finalizar_bien);
+        terminaMal = MediaPlayer.create(getContext(), R.raw.finalizar_mal);
 
         btnContinuar2 = vista.findViewById(R.id.btnContinuar2);
         btnContinuar = vista.findViewById(R.id.btnContinuar);
@@ -273,7 +274,13 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                comparar();
+                if (clickChek == 1) {
+                    Toast.makeText(getContext(), nombre+", No debes hacer trampa", Toast.LENGTH_SHORT).show();
+                    revisar(false);
+                } else {
+                    clickChek = 1;
+                    comparar();
+                }
             }
         });
 
@@ -476,8 +483,8 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             dialogoCargando.setContentView(R.layout.popup_cargando);
             Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
-        }catch (Exception e){
-            Log.i("Error " , e.toString());
+        } catch (Exception e) {
+            Log.i("Error ", e.toString());
         }
 
     }

@@ -184,6 +184,7 @@ public class Pantalla_empezar_drag extends Fragment {
     private String credenciales;
     private PreguntasVo preguntasVo;
     private Dialog dialogoCargando;
+    private int clickChek = 0;
     ////////////////////////////////////////////////////////////////////////////////
 
     /**
@@ -251,21 +252,28 @@ public class Pantalla_empezar_drag extends Fragment {
         btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] bar = list.get(0).getRespuesta().split("&&");
-                for (String foobar : bar) {
-                    respuestaCorrecta.add(foobar);
-                }
-                for (int i = 0; i < respuestaCompleta.size(); i++) {
-                    if (respuestaCorrecta.contains(respuestaCompleta.get(i).getRespuesta())) {
-                        correctas++;
-                    }
-                }
-                if (correctas == 4) {
-                    setResultado("correcto");
+                if (clickChek == 1) {
+                    Toast.makeText(getContext(), nombre+", No debes hacer trampa", Toast.LENGTH_SHORT).show();
+                    revisar(false);
                 } else {
-                    setResultado("incorrecto");
+                    String[] bar = list.get(0).getRespuesta().split("&&");
+                    for (String foobar : bar) {
+                        respuestaCorrecta.add(foobar);
+                    }
+                    for (int i = 0; i < respuestaCompleta.size(); i++) {
+                        if (respuestaCorrecta.contains(respuestaCompleta.get(i).getRespuesta())) {
+                            correctas++;
+                        }
+                    }
+                    if (correctas == 4) {
+                        setResultado("correcto");
+                    } else {
+                        setResultado("incorrecto");
+                    }
+                    comparar();
+                    clickChek = 1;
+                    comparar();
                 }
-                comparar();
             }
         });
 
