@@ -1,5 +1,6 @@
 package club.contaniif.contaniff.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +14,8 @@ import club.contaniif.contaniff.entidades.CategoriasVo;
 
 public class CategoriasAdapter extends RecyclerView.Adapter<CategoriasAdapter.CategoriaHolder> implements  View.OnClickListener {
 
-    View.OnClickListener listener;
-    ArrayList<CategoriasVo> listaCategorias;
-    private int selectedPosition = -1;
+    private View.OnClickListener listener;
+    private final ArrayList<CategoriasVo> listaCategorias;
 
     public CategoriasAdapter(ArrayList<CategoriasVo> listaCategorias) {
         this.listaCategorias = listaCategorias;
@@ -23,6 +23,7 @@ public class CategoriasAdapter extends RecyclerView.Adapter<CategoriasAdapter.Ca
     }
 
 
+    @NonNull
     @Override
     public CategoriaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.modelo_categorias_adapter,null,false);
@@ -51,14 +52,13 @@ public class CategoriasAdapter extends RecyclerView.Adapter<CategoriasAdapter.Ca
     }
 
     public class CategoriaHolder extends RecyclerView.ViewHolder {
-        TextView palabra;
-        public CategoriaHolder(View itemView) {
+        final TextView palabra;
+        CategoriaHolder(View itemView) {
             super(itemView);
             palabra=itemView.findViewById(R.id.palabra);
         }
     }
-    public void setSelectedPosition(int selectedPosition) {
-        this.selectedPosition = selectedPosition;
+    public void setSelectedPosition() {
         //when item selected notify the adapter
         notifyDataSetChanged();
     }

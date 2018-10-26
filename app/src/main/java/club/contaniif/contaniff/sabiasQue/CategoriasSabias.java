@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,11 +29,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.adapter.CategoriasAdapter;
 import club.contaniif.contaniff.entidades.CategoriasVo;
-import club.contaniif.contaniff.entidades.Datos;
 import club.contaniif.contaniff.interfaces.Puente;
 
 /**
@@ -49,24 +50,17 @@ public class CategoriasSabias extends Fragment implements Response.Listener<JSON
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
 
     public CategoriasSabias() {
         // Required empty public constructor
     }
 
-    View view;
-    RecyclerView recyclerView;
-    RequestQueue request;
-    Puente puente;
-    Activity activity;
-    JsonObjectRequest jsonObjectRequest;
-    ArrayList<CategoriasVo> listasCategorias;
-    Dialog dialogoCargando;
+    private RecyclerView recyclerView;
+    private RequestQueue request;
+    private Puente puente;
+    private ArrayList<CategoriasVo> listasCategorias;
+    private Dialog dialogoCargando;
 
 
     /**
@@ -91,17 +85,18 @@ public class CategoriasSabias extends Fragment implements Response.Listener<JSON
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // TODO: Rename and change types of parameters
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_categorias_sabias, container, false);
-        dialogoCargando = new Dialog(this.getContext());
+        View view = inflater.inflate(R.layout.fragment_categorias_sabias, container, false);
+        dialogoCargando = new Dialog(Objects.requireNonNull(this.getContext()));
         recyclerView = view.findViewById(R.id.categoriasSabias);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
@@ -112,15 +107,15 @@ public class CategoriasSabias extends Fragment implements Response.Listener<JSON
 
     private void cargarWebservices() {
         dialogoCargando();
-        String url = "https://" + getContext().getString(R.string.ip) + "VideosCategorias.php";
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        String url = "https://" + Objects.requireNonNull(getContext()).getString(R.string.ip) + "VideosCategorias.php";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
 
     private void dialogoCargando() {
         try {
             dialogoCargando.setContentView(R.layout.popup_cargando);
-            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
         }catch (Exception e){
             Log.i("Error " , e.toString());
@@ -131,7 +126,7 @@ public class CategoriasSabias extends Fragment implements Response.Listener<JSON
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction();
         }
     }
 
@@ -140,8 +135,8 @@ public class CategoriasSabias extends Fragment implements Response.Listener<JSON
         super.onAttach(context);
 
         if (context instanceof Activity) {
-            this.activity = (Activity) context;
-            puente = (Puente) this.activity;
+            Activity activity = (Activity) context;
+            puente = (Puente) activity;
         }
 
         if (context instanceof OnFragmentInteractionListener) {
@@ -168,7 +163,7 @@ public class CategoriasSabias extends Fragment implements Response.Listener<JSON
         listasCategorias = new ArrayList<>();
         JSONArray json = response.optJSONArray("categorias");
         try {
-            JSONObject jsonObject = null;
+            JSONObject jsonObject;
             for (int i = 0; i < json.length(); i++) {
                 jsonObject = json.getJSONObject(i);
                 CategoriasVo categoriasVo = new CategoriasVo();
@@ -205,6 +200,6 @@ public class CategoriasSabias extends Fragment implements Response.Listener<JSON
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction();
     }
 }

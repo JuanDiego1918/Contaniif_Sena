@@ -8,11 +8,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +23,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
+
+import java.util.Objects;
 
 import club.contaniif.contaniff.R;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -41,23 +43,24 @@ public class AcercaDeFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
 
     public AcercaDeFragment() {
         // Required empty public constructor
     }
 
-    LinearLayout informacion, desarrollo, mision, historia;
-    View view;
-    Activity activity;
-    Dialog ventanaInformacion, ventanaInstru;
-    CircleImageView foto;
-    CircleImageView usuario1, usuario2, usuario3;
-    RequestQueue request;
+    private LinearLayout desarrollo;
+    private LinearLayout mision;
+    private LinearLayout historia;
+    private View view;
+    private Activity activity;
+    private Dialog ventanaInformacion;
+    private Dialog ventanaInstru;
+    private CircleImageView foto;
+    private CircleImageView usuario1;
+    private CircleImageView usuario2;
+    private CircleImageView usuario3;
+    private RequestQueue request;
 
     /**
      * Use this factory method to create a new instance of
@@ -81,22 +84,23 @@ public class AcercaDeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // TODO: Rename and change types of parameters
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_acerca_de, container, false);
-        informacion = view.findViewById(R.id.btnInformacion);
+        LinearLayout informacion = view.findViewById(R.id.btnInformacion);
         desarrollo = view.findViewById(R.id.btnDesarrollo);
         mision = view.findViewById(R.id.btnMision);
         historia = view.findViewById(R.id.btnHistoria);
 
-        request = Volley.newRequestQueue(getContext());
+        request = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
         ventanaInformacion = new Dialog(getContext());
         ventanaInstru = new Dialog(getContext());
 
@@ -314,7 +318,7 @@ public class AcercaDeFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction();
         }
     }
 
@@ -351,6 +355,6 @@ public class AcercaDeFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction();
     }
 }

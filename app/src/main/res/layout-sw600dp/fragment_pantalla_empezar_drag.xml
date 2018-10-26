@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,7 +19,8 @@
             android:layout_height="20dp"
             android:layout_margin="5dp"
             android:layout_weight="40"
-            android:background="@drawable/logo_sicf" />
+            android:background="@drawable/logo_sicf"
+            android:contentDescription="TODO" />
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -38,7 +38,8 @@
             android:layout_height="30dp"
             android:layout_margin="5dp"
             android:layout_weight="45"
-            android:background="@drawable/logo_sena" />
+            android:background="@drawable/logo_sena"
+            android:contentDescription="TODO" />
     </LinearLayout>
 
 
@@ -57,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:layout_margin="5dp"></android.support.v7.widget.RecyclerView>
+            android:layout_margin="5dp" />
 
     </LinearLayout>
 

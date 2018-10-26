@@ -28,7 +28,8 @@
             android:layout_height="370dp"
             android:padding="5dp"
             android:layout_alignStart="@+id/preguntasRespuestaRelacion"
-            android:layout_below="@+id/preguntasRespuestaRelacion" />
+            android:layout_below="@+id/preguntasRespuestaRelacion"
+            android:contentDescription="TODO" />
 
     </RelativeLayout>
 

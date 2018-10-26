@@ -30,7 +30,7 @@ public class VolleySingleton {
         return intanciaVolley;
     }
 
-    public RequestQueue getRequestQueue() {
+    private RequestQueue getRequestQueue() {
         if (request == null) {
             request = Volley.newRequestQueue(contexto.getApplicationContext());
         }

@@ -73,12 +73,13 @@
         android:layout_gravity="center"
         android:layout_marginEnd="-5dp"
         android:layout_marginTop="30dp"
-        android:src="@drawable/pregunta_grupo" />
+        android:src="@drawable/pregunta_grupo"
+        android:contentDescription="TODO" />
 
     <RelativeLayout
         android:layout_width="68dp"
         android:layout_height="68dp"
-        android:layout_marginRight="17dp"
+        android:layout_marginEnd="17dp"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="33dp">
 

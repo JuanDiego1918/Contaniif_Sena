@@ -5,16 +5,14 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +21,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,19 +34,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import club.contaniif.contaniff.R;
-import club.contaniif.contaniff.actividades.MainActivity;
 import club.contaniif.contaniff.adapter.AdapterGurpos;
 import club.contaniif.contaniff.entidades.GruposVo;
-import club.contaniif.contaniff.entidades.PreguntasVo;
 import club.contaniif.contaniff.entidades.RecyclerViewOnClickListener;
 import club.contaniif.contaniff.entidades.VolleySingleton;
-import club.contaniif.contaniff.registro.Registro;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,29 +53,26 @@ import club.contaniif.contaniff.registro.Registro;
  * Use the {@link Grupos#newInstance} factory method to
  * create an instance of this fragment.
  */
+@SuppressWarnings("EqualsBetweenInconvertibleTypes")
 public class Grupos extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
-    RecyclerView recyclerGrupos;
-    ArrayList<GruposVo>listaGrupos;
-    Dialog dialogoCargando,dialogGrupo;
-    String nombre;
-    RequestQueue request;
-    String dato,esta,dato2;
-    StringRequest stringRequest;
-    TextView campoGrupoP;
-    JsonObjectRequest jsonObjectRequest;
+    private RecyclerView recyclerGrupos;
+    private ArrayList<GruposVo>listaGrupos;
+    private Dialog dialogoCargando;
+    private Dialog dialogGrupo;
+    private String nombre;
+    private RequestQueue request;
+    private String dato;
+    private String esta;
+    private String dato2;
+    private TextView campoGrupoP;
     ProgressDialog progreso;
-    AdapterGurpos adapter;
-    String idusuario;
+    private String idusuario;
 
     public Grupos() {
         // Required empty public constructor
@@ -110,16 +101,17 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
         cargarCredenciales();
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // TODO: Rename and change types of parameters
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_grupos, container, false);
-        request = Volley.newRequestQueue(getContext());
+        request = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
         dialogoCargando = new Dialog(this.getContext());
         dialogGrupo = new Dialog(this.getContext());
         campoGrupoP = vista.findViewById(R.id.campoGrupoP);
@@ -132,15 +124,14 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
     }
 
     private void cargarCredenciales() {
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
-        String credenciales = preferences.getString("correo", "No existe el valor");
-        idusuario = credenciales;
+        SharedPreferences preferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
+        idusuario = preferences.getString("correo", "No existe el valor");
     }
 
     private void cargarWebservices() {
         dialogoCargando();
         String url = this.getString(R.string.ipGrupos)+idusuario;
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
@@ -148,7 +139,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
     private void dialogoCargando() {
         try {
             dialogoCargando.setContentView(R.layout.popup_cargando);
-            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
         }catch (Exception e){
             Log.i("Error " , e.toString());
@@ -157,9 +148,9 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
     }
 
     private void cargarNombre() {
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("Nombre", Context.MODE_PRIVATE);
+        SharedPreferences preferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences("Nombre", Context.MODE_PRIVATE);
         String nombre = preferences.getString("nombre", "No existe el valor");
-        if (nombre != "No existe el valor") {
+        if (!Objects.equals(nombre, "No existe el valor")) {
             this.nombre = nombre;
         }
     }
@@ -172,11 +163,6 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
 
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (opciones[i].equals("Aceptar")){
-                    //Se envian los datos de la persona y a que grupo va a pertenecer
-                }else{
-
-                }
             }
         });
         builder.show();
@@ -186,7 +172,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction();
         }
     }
 
@@ -215,7 +201,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
     @Override
     public void onResponse(JSONObject response) {
         JSONArray json = response.optJSONArray("grupos");
-        JSONObject jsonObject = null;
+        JSONObject jsonObject;
         listaGrupos = new ArrayList<>();
         GruposVo gruposVo;
 
@@ -239,7 +225,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
             Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" + " " + response, Toast.LENGTH_LONG).show();
         }
 
-        adapter = new AdapterGurpos(listaGrupos);
+        AdapterGurpos adapter = new AdapterGurpos(listaGrupos);
         recyclerGrupos.setAdapter(adapter);
         recyclerGrupos.addOnItemTouchListener(new RecyclerViewOnClickListener(getContext(), new RecyclerViewOnClickListener.OnItemClickListener() {
             @Override
@@ -261,7 +247,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
         TextView campoNombre,campoGrupo;
         try {
             dialogGrupo.setContentView(R.layout.popup_grupos);
-            dialogGrupo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            Objects.requireNonNull(dialogGrupo.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogGrupo.show();
         }catch (Exception e){
            Log.i("Error ",e.toString());
@@ -297,8 +283,8 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
         dialogoCargando();
         String url;
         java.lang.System.setProperty("https.protocols", "TLSv1");
-        url = getContext().getString(R.string.ipRegistraGrupo);
-        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        url = Objects.requireNonNull(getContext()).getString(R.string.ipRegistraGrupo);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (response.trim().equalsIgnoreCase("asignado")) {
@@ -307,7 +293,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
                     Toast.makeText(getContext(), "Se a unido al grupo " + dato2, Toast.LENGTH_SHORT).show();
                     cargarWebservices();
 
-                }else {
+                } else {
                     Toast.makeText(getContext(), "Por el momento el usuario no se puede registrar", Toast.LENGTH_LONG).show();
                 }
             }
@@ -315,7 +301,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                if (error.equals("com.android.volley.TimeoutError")){
+                if (error.equals("com.android.volley.TimeoutError")) {
                     dialogoCargando.hide();
                     Toast.makeText(getContext(), "Por favor verificar la conexion a internet", Toast.LENGTH_SHORT).show();
                 }
@@ -325,7 +311,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 String idUsuaio = idusuario;
                 String curso = dato;
 
@@ -354,6 +340,6 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction();
     }
 }

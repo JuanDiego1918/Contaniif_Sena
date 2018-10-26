@@ -58,7 +58,8 @@
                         android:layout_height="120dp"
                         android:layout_weight="3"
                         android:padding="5dp"
-                        android:src="@drawable/logo_puntos" />
+                        android:src="@drawable/logo_puntos"
+                        android:contentDescription="TODO" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -140,7 +141,8 @@
                         android:layout_height="40dp"
                         android:layout_gravity="bottom"
                         android:layout_weight="4"
-                        android:src="@drawable/logo_linea_siguiente" />
+                        android:src="@drawable/logo_linea_siguiente"
+                        android:contentDescription="TODO" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -156,7 +158,8 @@
                         android:layout_height="120dp"
                         android:layout_weight="10"
                         android:padding="5dp"
-                        android:src="@drawable/logo_criptoniif" />
+                        android:src="@drawable/logo_criptoniif"
+                        android:contentDescription="TODO" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -221,7 +224,8 @@
                         android:layout_height="40dp"
                         android:layout_gravity="bottom"
                         android:layout_weight="4"
-                        android:src="@drawable/logo_linea_siguiente" />
+                        android:src="@drawable/logo_linea_siguiente"
+                        android:contentDescription="TODO" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -238,7 +242,8 @@
                         android:layout_height="120dp"
                         android:layout_weight="10"
                         android:padding="5dp"
-                        android:src="@drawable/logo_activos" />
+                        android:src="@drawable/logo_activos"
+                        android:contentDescription="TODO" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -291,7 +296,8 @@
                         android:layout_height="40dp"
                         android:layout_gravity="bottom"
                         android:layout_weight="4"
-                        android:src="@drawable/logo_linea_siguiente" />
+                        android:src="@drawable/logo_linea_siguiente"
+                        android:contentDescription="TODO" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -307,7 +313,8 @@
                         android:layout_height="120dp"
                         android:layout_weight="10"
                         android:padding="10dp"
-                        android:src="@drawable/comentarios" />
+                        android:src="@drawable/comentarios"
+                        android:contentDescription="TODO" />
 
                 </LinearLayout>
             </LinearLayout>

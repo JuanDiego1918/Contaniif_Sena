@@ -51,14 +51,15 @@
                         android:layout_height="40dp"
                         android:layout_gravity="bottom"
                         android:layout_weight="4"
-                        android:src="@drawable/logo_linea_siguiente" />
+                        android:src="@drawable/logo_linea_siguiente"
+                        android:contentDescription="TODO" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:background="@drawable/mi_rendimiento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
+                    android:background="@drawable/mi_rendimiento"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="10dp">
@@ -67,7 +68,8 @@
                         android:id="@+id/tipodemedalla"
                         android:layout_width="200dp"
                         android:layout_height="120dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/puntosUsuario"
@@ -80,12 +82,13 @@
                         android:textSize="25sp" />
 
                     <ImageView
+                        android:id="@+id/btnAyuda"
                         android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_gravity="bottom"
                         android:layout_weight="1"
-                        android:id="@+id/btnAyuda"
-                        android:src="@drawable/logo_ayuda" />
+                        android:src="@drawable/logo_ayuda"
+                        android:contentDescription="TODO" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -113,8 +116,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:padding="3dp">
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="100dp"
@@ -122,7 +124,7 @@
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
                                 android:background="@drawable/empezar"
-                                />
+                                android:contentDescription="TODO" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -139,7 +141,7 @@
                                 android:text="Empezar"
                                 android:textAlignment="textStart"
                                 android:textColor="@color/letraBlanca"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                             <ImageView
@@ -147,7 +149,8 @@
                                 android:layout_height="25dp"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente" />
+                                android:src="@drawable/logo_linea_siguiente"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -168,8 +171,7 @@
                             android:layout_weight="2"
                             android:background="@color/VideosOscuro"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:padding="3dp">
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="100dp"
@@ -177,7 +179,7 @@
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
                                 android:background="@drawable/videos"
-                                />
+                                android:contentDescription="TODO" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -195,7 +197,7 @@
                                 android:text="Videos   "
                                 android:textAlignment="textStart"
                                 android:textColor="@color/letraBlanca"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                             <ImageView
@@ -203,7 +205,8 @@
                                 android:layout_height="25dp"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente" />
+                                android:src="@drawable/logo_linea_siguiente"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
                     </LinearLayout>
                 </TableRow>
@@ -234,8 +237,7 @@
                             android:layout_weight="2"
                             android:background="@color/EventosClaro"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:padding="3dp">
+                            android:orientation="horizontal">
 
 
                             <ImageView
@@ -243,7 +245,8 @@
                                 android:layout_height="110dp"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:background="@drawable/eventos" />
+                                android:background="@drawable/eventos"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -257,10 +260,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Eventos         "
+                                android:text="Eventos            "
                                 android:textAlignment="textStart"
                                 android:textColor="@color/letraBlanca"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                             <ImageView
@@ -268,7 +271,8 @@
                                 android:layout_height="25dp"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente" />
+                                android:src="@drawable/logo_linea_siguiente"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -289,8 +293,7 @@
                             android:layout_weight="2"
                             android:background="@color/SabiasClaro"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:padding="3dp">
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="100dp"
@@ -298,7 +301,7 @@
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
                                 android:background="@drawable/sabias_que"
-                                />
+                                android:contentDescription="TODO" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -316,7 +319,7 @@
                                 android:text="¿Sabias que?"
                                 android:textAlignment="textStart"
                                 android:textColor="@color/letraBlanca"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                             <ImageView
@@ -324,7 +327,8 @@
                                 android:layout_height="25dp"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente" />
+                                android:src="@drawable/logo_linea_siguiente"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
                     </LinearLayout>
                 </TableRow>
@@ -355,8 +359,7 @@
                             android:layout_weight="2"
                             android:background="@color/ConfiguracionClaro"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:padding="3dp">
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="100dp"
@@ -364,7 +367,7 @@
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
                                 android:background="@drawable/configuracion"
-                                />
+                                android:contentDescription="TODO" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -378,10 +381,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Configuración          "
+                                android:text="Configuración           "
                                 android:textAlignment="textStart"
                                 android:textColor="@color/letraBlanca"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                             <ImageView
@@ -389,7 +392,8 @@
                                 android:layout_height="25dp"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente" />
+                                android:src="@drawable/logo_linea_siguiente"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -410,8 +414,7 @@
                             android:layout_weight="2"
                             android:background="@color/AcercaClaro"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:padding="3dp">
+                            android:orientation="horizontal">
 
 
                             <ImageView
@@ -420,7 +423,7 @@
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
                                 android:background="@drawable/acerca"
-                                />
+                                android:contentDescription="TODO" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -435,10 +438,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Acerca de                 "
+                                android:text="Acerca de               "
                                 android:textAlignment="textStart"
                                 android:textColor="@color/letraBlanca"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                             <ImageView
@@ -446,7 +449,8 @@
                                 android:layout_height="25dp"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente" />
+                                android:src="@drawable/logo_linea_siguiente"
+                                android:contentDescription="TODO" />
                         </LinearLayout>
                     </LinearLayout>
                 </TableRow>

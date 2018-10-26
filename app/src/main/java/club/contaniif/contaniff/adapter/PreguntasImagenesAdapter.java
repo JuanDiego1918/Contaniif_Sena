@@ -3,6 +3,7 @@ package club.contaniif.contaniff.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +26,8 @@ public class PreguntasImagenesAdapter extends RecyclerView.Adapter<PreguntasImag
 
     private int selectedPosition = -1;
     private View.OnClickListener listener;
-    ArrayList<PreguntasVo> listaImagenes;
-    Context context;
+    private final ArrayList<PreguntasVo> listaImagenes;
+    private final Context context;
 
 
     public PreguntasImagenesAdapter(ArrayList<PreguntasVo> listaImagenes, Context context) {
@@ -34,8 +35,9 @@ public class PreguntasImagenesAdapter extends RecyclerView.Adapter<PreguntasImag
         this.context = context;
     }
 
+    @NonNull
     @Override
-    public ImagenesHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ImagenesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.modelo_preguntas_imagenes, null, false);
         RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -45,7 +47,7 @@ public class PreguntasImagenesAdapter extends RecyclerView.Adapter<PreguntasImag
     }
 
     @Override
-    public void onBindViewHolder(ImagenesHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ImagenesHolder holder, int position) {
         // holder.imagen.setImageBitmap(listaImagenes.get(position).getImagen())
         if (listaImagenes.get(position).getRutaImagen() != null) {
             cargarImagenWebService(listaImagenes.get(position).getRutaImagen(), holder);
@@ -95,9 +97,9 @@ public class PreguntasImagenesAdapter extends RecyclerView.Adapter<PreguntasImag
     }
 
     public static class ImagenesHolder extends RecyclerView.ViewHolder {
-        ImageView imagen;
+        final ImageView imagen;
 
-        public ImagenesHolder(View itemView) {
+        ImagenesHolder(View itemView) {
             super(itemView);
             imagen = itemView.findViewById(R.id.imgPregunta);
         }

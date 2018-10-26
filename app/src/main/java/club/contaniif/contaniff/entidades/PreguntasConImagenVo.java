@@ -2,7 +2,7 @@ package club.contaniif.contaniff.entidades;
 
 import android.graphics.Bitmap;
 
-public class PreguntasConImagenVo {
+class PreguntasConImagenVo {
     private Bitmap Image;
 
     public Bitmap getImage() {

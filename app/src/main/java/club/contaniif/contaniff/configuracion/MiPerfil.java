@@ -1,7 +1,7 @@
 package club.contaniif.contaniff.configuracion;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.util.Base64;
@@ -29,13 +30,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.android.volley.AuthFailureError;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -55,11 +55,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
+
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.entidades.UsuariosVo;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,24 +70,28 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * create an instance of this fragment.
  */
 public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener {
-    int posicion;
-    int accion;
-    String generoo;
-    String departamentoo;
-    String id;
-    String img;
-    String municipioo;
+    private int posicion;
+    private int accion;
+    private String generoo;
+    private String departamentoo;
+    private String id;
+    private String municipioo;
 
-    Dialog dialogoCargando;
-    Spinner lisdaAnios, listaMeses, listaDias;
-    ArrayList arrayAnios, arrayMeses, arrayDias;
-    String anioLista,mesLista,diaLista;
-    Dialog dialogoFecha;
+    private Dialog dialogoCargando;
+    private ArrayList arrayAnios;
+    private ArrayList arrayMeses;
+    private ArrayList arrayDias;
+    private String anioLista;
+    private String mesLista;
+    private String diaLista;
+    private Dialog dialogoFecha;
 
-    String rutaImagenn;
-    String rutaImg;
+    private String rutaImagenn;
+    private String rutaImg;
 
-    boolean seleccionaAnio = false,seleccionaMes = false,seleccionaDia = false;
+    private boolean seleccionaAnio = false;
+    private boolean seleccionaMes = false;
+    private boolean seleccionaDia = false;
 
     int daate;
     String date;
@@ -96,7 +100,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         return generoo;
     }
 
-    public void setGeneroo(String generoo) {
+    private void setGeneroo(String generoo) {
         this.generoo = generoo;
     }
 
@@ -104,7 +108,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         return departamentoo;
     }
 
-    public void setDepartamentoo(String departamentoo) {
+    private void setDepartamentoo(String departamentoo) {
         this.departamentoo = departamentoo;
     }
 
@@ -112,7 +116,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         return municipioo;
     }
 
-    public void setMunicipioo(String municipioo) {
+    private void setMunicipioo(String municipioo) {
         this.municipioo = municipioo;
     }
 
@@ -128,8 +132,8 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         return seleccionaGenero;
     }
 
-    public void setSeleccionaGenero(boolean seleccionaGenero) {
-        this.seleccionaGenero = seleccionaGenero;
+    private void setSeleccionaGenero() {
+        this.seleccionaGenero = true;
     }
 
     public boolean isSeleccionaImagen() {
@@ -144,39 +148,39 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         return seleccionaDepartamento;
     }
 
-    public void setSeleccionaDepartamento(boolean seleccionaDepartamento) {
-        this.seleccionaDepartamento = seleccionaDepartamento;
+    private void setSeleccionaDepartamento() {
+        this.seleccionaDepartamento = true;
     }
 
-    boolean seleccionaGenero;
-    boolean SeleccionaImagen;
-    boolean seleccionaDepartamento;
+    private boolean seleccionaGenero;
+    private boolean SeleccionaImagen;
+    private boolean seleccionaDepartamento;
 
     public boolean isSeleccionaImagenusuario() {
         return seleccionaImagenusuario;
     }
 
-    public void setSeleccionaImagenusuario(boolean seleccionaImagenusuario) {
-        this.seleccionaImagenusuario = seleccionaImagenusuario;
+    private void setSeleccionaImagenusuario() {
+        this.seleccionaImagenusuario = true;
     }
 
-    boolean seleccionaImagenusuario;
+    private boolean seleccionaImagenusuario;
 
-    String genero;
-    String municipio;
-    String departamento;
-    int validacionGenero;
-    int validacionMunicipio;
-    int validacionDepartamento;
-    int validacionFecha;
-    int validacionImagenusuario1;
-    String urlImagenUsuario;
+    private String genero;
+    private String municipio;
+    private String departamento;
+    private int validacionGenero;
+    private int validacionMunicipio;
+    private int validacionDepartamento;
+    private int validacionFecha;
+    private int validacionImagenusuario1;
+    private String urlImagenUsuario;
 
     public String getUrlImagenUsuario() {
         return urlImagenUsuario;
     }
 
-    public void setUrlImagenUsuario(String urlImagenUsuario) {
+    private void setUrlImagenUsuario(String urlImagenUsuario) {
         this.urlImagenUsuario = urlImagenUsuario;
     }
 
@@ -184,21 +188,21 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         return validacionImagenusuario1;
     }
 
-    public void setValidacionImagenusuario1(int validacionImagenusuario1) {
-        this.validacionImagenusuario1 = validacionImagenusuario1;
+    private void setValidacionImagenusuario1() {
+        this.validacionImagenusuario1 = 10;
     }
 
-    public int getValidacionFecha() {
+    private int getValidacionFecha() {
         return validacionFecha;
     }
 
-    public void setValidacionFecha(int validacionFecha) {
+    private void setValidacionFecha(int validacionFecha) {
         this.validacionFecha = validacionFecha;
     }
 
-    String credenciales;
+    private String credenciales;
 
-    public String getCredenciales() {
+    private String getCredenciales() {
         return credenciales;
     }
 
@@ -206,19 +210,19 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         this.credenciales = credenciales;
     }
 
-    public int getPosicion() {
+    private int getPosicion() {
         return posicion;
     }
 
-    public void setPosicion(int posicion) {
+    private void setPosicion(int posicion) {
         this.posicion = posicion;
     }
 
-    public int getAccion() {
+    private int getAccion() {
         return accion;
     }
 
-    public void setAccion(int accion) {
+    private void setAccion(int accion) {
         this.accion = accion;
     }
 
@@ -226,7 +230,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         return genero;
     }
 
-    public void setGenero(String genero) {
+    private void setGenero(String genero) {
         this.genero = genero;
     }
 
@@ -234,7 +238,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         return municipio;
     }
 
-    public void setMunicipio(String municipio) {
+    private void setMunicipio(String municipio) {
         this.municipio = municipio;
     }
 
@@ -242,32 +246,32 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         return departamento;
     }
 
-    public void setDepartamento(String departamento) {
+    private void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
 
-    public int getValidacionGenero() {
+    private int getValidacionGenero() {
         return validacionGenero;
     }
 
-    public void setValidacionGenero(int validacionGenero) {
+    private void setValidacionGenero(int validacionGenero) {
         this.validacionGenero = validacionGenero;
     }
 
-    public int getValidacionMunicipio() {
+    private int getValidacionMunicipio() {
         return validacionMunicipio;
     }
 
-    public void setValidacionMunicipio(int validacionMunicipio) {
+    private void setValidacionMunicipio(int validacionMunicipio) {
         this.validacionMunicipio = validacionMunicipio;
     }
 
-    public int getValidacionDepartamento() {
+    private int getValidacionDepartamento() {
         return validacionDepartamento;
     }
 
-    public void setValidacionDepartamento(int validacionDepartamento) {
-        this.validacionDepartamento = validacionDepartamento;
+    private void setValidacionDepartamento() {
+        this.validacionDepartamento = 2;
     }
 
     // TODO: Rename parameter arguments, choose names that match
@@ -275,40 +279,39 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
     ///////
     private static final String CARPETA_PRINCIPAL = "misImagenesApp/";//directorio principal
     private static final String CARPETA_IMAGEN = "imagenes";//carpeta donde se guardan las fotos
     private static final String DIRECTORIO_IMAGEN = CARPETA_PRINCIPAL + CARPETA_IMAGEN;//ruta carpeta de directorios
     private String path;//almacena la ruta de la imagen
-    File fileImagen;
-    Bitmap bitmap;
+    private Bitmap bitmap;
     private final int MIS_PERMISOS = 100;
     private static final int COD_SELECCIONA = 10;
     private static final int COD_FOTO = 20;
     ///////-Elementos del layout
-    Spinner listaDepartamentos, listaMunicipios, listaGenero;
-    EditText campoNombre, campoApellido, campoCorreo;
-    TextView campoMunicipio,campoDepartamento,campoGenero,campoFechaNacimiento;
-    ImageView imagenCamara;
-    String fecha;
-    ImageView editarGenero,editarFecha,editarDepartamento,editarMunicipio;
-    Button btnRegistro,btnFalso;
+    private Spinner listaDepartamentos;
+    private Spinner listaMunicipios;
+    private Spinner listaGenero;
+    private EditText campoNombre;
+    private EditText campoApellido;
+    private EditText campoCorreo;
+    private TextView campoMunicipio;
+    private TextView campoDepartamento;
+    private TextView campoGenero;
+    private TextView campoFechaNacimiento;
+    private ImageView imagenCamara;
+    private String fecha;
+    ImageView editarMunicipio;
+    Button btnFalso;
     //////-Listas
-    ArrayList<String> ArrayDepartamentos;
-    ArrayList<String> ArrayMunicipios;
-    ArrayList<String> ArrayGenero;
+    private ArrayList<String> ArrayDepartamentos;
+    private ArrayList<String> ArrayMunicipios;
+    private ArrayList<String> ArrayGenero;
     //////-Para pedir los datos a la base de datos
-    RequestQueue request;
-    RequestQueue request2;
-    JsonObjectRequest jsonObjectRequest;
-    JsonObjectRequest jsonObjectRequest2;
+    private RequestQueue request;
+    private RequestQueue request2;
     JsonObjectRequest jsonObjectRequest3;
-    StringRequest stringRequest;
     /////
     ProgressDialog progreso;
     /////
@@ -342,17 +345,18 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // TODO: Rename and change types of parameters
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_configuracion, container, false);
-        request = Volley.newRequestQueue(getContext());
+        request = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
         request2 = Volley.newRequestQueue(getContext());
         dialogoCargando = new Dialog(this.getContext());
         dialogoFecha = new Dialog(this.getContext());
@@ -405,7 +409,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         ArrayDepartamentos.add("Vichada");
 
 
-        btnRegistro = vista.findViewById(R.id.btnRegistrar);
+        Button btnRegistro = vista.findViewById(R.id.btnRegistrar);
 
         listaDepartamentos = vista.findViewById(R.id.spinnerDepartamentoConfig);
         ArrayAdapter<CharSequence> adapterDepartamentos = new ArrayAdapter(getContext(), R.layout.spinner_item, ArrayDepartamentos);
@@ -414,15 +418,13 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 if (position != 0) {
-                    setValidacionDepartamento(2);
+                    setValidacionDepartamento();
                     setPosicion(position);
                     setDepartamento(ArrayDepartamentos.get(position));
                     cargarListaMunicipios();
                     setDepartamentoo(ArrayDepartamentos.get(position));
-                    setSeleccionaDepartamento(true);
+                    setSeleccionaDepartamento();
                     //seleccionaDepartamento = true;
-                } else {
-
                 }
             }
 
@@ -442,7 +444,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                     setGenero(ArrayGenero.get(i));
                     setValidacionGenero(2);
                     setGeneroo(ArrayGenero.get(i));
-                    setSeleccionaGenero(true);
+                    setSeleccionaGenero();
                     //seleccionaGenero=true;
                 } else {
 
@@ -461,7 +463,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         campoDepartamento = vista.findViewById(R.id.campoDepartamentoConfig);
         campoMunicipio = vista.findViewById(R.id.campoMunicipioConfig);
 
-        editarGenero = vista.findViewById(R.id.imagenEditarGenero);
+        ImageView editarGenero = vista.findViewById(R.id.imagenEditarGenero);
         editarGenero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -471,7 +473,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
             }
         });
 
-        editarFecha = vista.findViewById(R.id.imagenEditarFechaNacimiento);
+        ImageView editarFecha = vista.findViewById(R.id.imagenEditarFechaNacimiento);
         editarFecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -480,7 +482,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
             }
         });
 
-        editarDepartamento = vista.findViewById(R.id.imagenEditarDepartamento);
+        ImageView editarDepartamento = vista.findViewById(R.id.imagenEditarDepartamento);
         editarDepartamento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -512,8 +514,8 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
             @Override
             public void onClick(View view) {
                 opcionesCapturaFoto();
-                setValidacionImagenusuario1(10);
-                setSeleccionaImagenusuario(true);
+                setValidacionImagenusuario1();
+                setSeleccionaImagenusuario();
                 seleccionaImagenusuario = (true);
             }
         });
@@ -546,7 +548,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     }
 
     private void obtenerFecha() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yy");
         Date date = new Date();
         fecha = "20"+dateFormat.format(date);
     }
@@ -586,8 +588,8 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         }
     }
     private void cargarListaMunicipios() {
-        String url = getContext().getString(R.string.ipTraerMunicipio)+getPosicion();
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        String url = Objects.requireNonNull(getContext()).getString(R.string.ipTraerMunicipio)+getPosicion();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
         setAccion(1);
     }
@@ -596,7 +598,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     private void dialogoCargando() {
         try {
             dialogoCargando.setContentView(R.layout.popup_cargando);
-            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
         }catch (Exception e){
             Log.i("Error " , e.toString());
@@ -605,32 +607,31 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     }
 
     private void guardarNombre(String nombre) {
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("Nombre", Context.MODE_PRIVATE);
+        SharedPreferences preferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences("Nombre", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("nombre", nombre);
         editor.commit();
     }
 
     private void cargarCredenciales() {
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("Credenciales",Context.MODE_PRIVATE);
-        String credenciales = preferences.getString("correo","No existe el valor");
-        this.credenciales = credenciales;
+        SharedPreferences preferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences("Credenciales",Context.MODE_PRIVATE);
+        this.credenciales = preferences.getString("correo","No existe el valor");
         dialogoCargando();
         cargarDatosPerfil();
         //Toast.makeText(getContext(),"credenciales:" + getCredenciales(),Toast.LENGTH_SHORT).show();
 
     }
 
-    public void cargarDialogoFecha() {
+    private void cargarDialogoFecha() {
         final Calendar calendar = Calendar.getInstance();
         Button cancelar, enviar;
         dialogoFecha.setContentView(R.layout.popup_fecha);
 
-        lisdaAnios = dialogoFecha.findViewById(R.id.spinnerAnio);
-        listaMeses = dialogoFecha.findViewById(R.id.spinnerMes);
-        listaDias = dialogoFecha.findViewById(R.id.spinnerDia);
+        Spinner lisdaAnios = dialogoFecha.findViewById(R.id.spinnerAnio);
+        Spinner listaMeses = dialogoFecha.findViewById(R.id.spinnerMes);
+        Spinner listaDias = dialogoFecha.findViewById(R.id.spinnerDia);
 
-        ArrayAdapter<CharSequence> adapterAnios = new ArrayAdapter(this.getContext(), R.layout.spinner_item, arrayAnios);
+        ArrayAdapter<CharSequence> adapterAnios = new ArrayAdapter(Objects.requireNonNull(this.getContext()), R.layout.spinner_item, arrayAnios);
         lisdaAnios.setAdapter(adapterAnios);
         lisdaAnios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -695,7 +696,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (seleccionaAnio == false || seleccionaMes == false || seleccionaDia == false){
+                if (!seleccionaAnio || !seleccionaMes || !seleccionaDia){
                     setValidacionFecha(10);
                     campoFechaNacimiento.setText("000-00-00");
                 }else {
@@ -708,7 +709,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
             }
         });
 
-        dialogoFecha.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialogoFecha.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogoFecha.show();
 
     }
@@ -721,8 +722,8 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         // progreso.setMessage("Consultando...");
         // progreso.show();
 
-        String url = getContext().getString(R.string.ipMiPerfil)+getCredenciales();
-        jsonObjectRequest2 = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+        String url = Objects.requireNonNull(getContext()).getString(R.string.ipMiPerfil)+getCredenciales();
+        JsonObjectRequest jsonObjectRequest2 = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request2.add(jsonObjectRequest2);
         setAccion(2);
     }
@@ -743,7 +744,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
                         Intent intent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         intent.setType("image/");
-                        startActivityForResult(intent.createChooser(intent,"Seleccione"),COD_SELECCIONA);
+                        startActivityForResult(Intent.createChooser(intent,"Seleccione"),COD_SELECCIONA);
                     }else{
                         dialogInterface.dismiss();
                     }
@@ -756,17 +757,17 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     private void abrirCamara() {
         File miFile = new File(Environment.getExternalStorageDirectory(),DIRECTORIO_IMAGEN);
         boolean isCreada = miFile.exists();
-        if (isCreada==false){
+        if (!isCreada){
             isCreada=miFile.mkdirs();//por si la variable no fue creada, se crea de nuevo
         }
-        if (isCreada==true){
+        if (isCreada){
             Long consecutivo= System.currentTimeMillis()/100;//aqui iba un 100, por si no funciona el codigo este es el error
             String nombre=consecutivo.toString()+".jpg";
 
             path=Environment.getExternalStorageDirectory()+File.separator+DIRECTORIO_IMAGEN
                     +File.separator+nombre;//indicamos la ruta de almacenamiento
 
-            fileImagen=new File(path);
+            File fileImagen = new File(path);
 
             Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(fileImagen));
@@ -774,8 +775,8 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
             ////
             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N)
             {
-                String authorities=getContext().getPackageName()+".provider";
-                Uri imageUri= FileProvider.getUriForFile(getContext(),authorities,fileImagen);
+                String authorities=Objects.requireNonNull(getContext()).getPackageName()+".provider";
+                Uri imageUri= FileProvider.getUriForFile(getContext(),authorities, fileImagen);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             }else
             {
@@ -796,8 +797,8 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
 
                     try {
-                        bitmap = redimensionarImagen(bitmap, 150, 150);
-                        bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), miPath);
+                        bitmap = redimensionarImagen(bitmap);
+                        bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(this.getContext()).getContentResolver(), miPath);
                         imagenCamara.setImageBitmap(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -814,24 +815,24 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                             });
 
                     bitmap = BitmapFactory.decodeFile(path);
-                    bitmap = redimensionarImagen(bitmap, 150, 150);
+                    bitmap = redimensionarImagen(bitmap);
                     imagenCamara.setImageBitmap(bitmap);
 
                     break;
             }
-            bitmap = redimensionarImagen(bitmap, 150, 150);
+            bitmap = redimensionarImagen(bitmap);
         } catch (Exception e) {
             Toast.makeText(getContext(), "No se ha elegido ninguna imagen", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private Bitmap redimensionarImagen(Bitmap bitmap, float anchoNuevo, float altoNuevo) {
+    private Bitmap redimensionarImagen(Bitmap bitmap) {
         int ancho = bitmap.getWidth();
         int alto = bitmap.getHeight();
 
-        if (ancho > anchoNuevo || alto > altoNuevo) {
-            float escalaAncho = anchoNuevo / ancho;
-            float escalaAlto = altoNuevo / alto;
+        if (ancho > (float) 150 || alto > (float) 150) {
+            float escalaAncho = (float) 150 / ancho;
+            float escalaAlto = (float) 150 / alto;
 
             Matrix matrix = new Matrix();
             matrix.postScale(escalaAncho, escalaAlto);
@@ -846,21 +847,20 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
     private String convertirImgString(Bitmap bitmap) {
         ByteArrayOutputStream array=new ByteArrayOutputStream();
-        if (seleccionaImagenusuario==true){
+        if (seleccionaImagenusuario){
             bitmap.compress(Bitmap.CompressFormat.JPEG,100,array);
         }
 
         byte[] imagenByte=array.toByteArray();
-        String imagenString= Base64.encodeToString(imagenByte, Base64.DEFAULT);
-        return imagenString;
+        return Base64.encodeToString(imagenByte, Base64.DEFAULT);
     }
 
 /////////////////////////////////////////////////////////
 
 
-    private void mostrarImg(String rutaImagen) {
-        String ip=getContext().getString(R.string.ipImgsuario);
-        img = ip;
+    private void mostrarImg() {
+        String ip=Objects.requireNonNull(getContext()).getString(R.string.ipImgsuario);
+        String img = ip;
         final String urlImagen=ip+id+".jpg";
         ImageRequest imageRequest=new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
             @Override
@@ -883,7 +883,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction();
         }
     }
 
@@ -915,8 +915,8 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         switch(getAccion()){
             case 1:
                 JSONArray json = response.optJSONArray("usuario");
-                JSONObject jsonObject =     null;
-                ArrayMunicipios = new ArrayList<String>();
+                JSONObject jsonObject;
+                ArrayMunicipios = new ArrayList<>();
                 try {
                     ArrayMunicipios.add("Seleccione su municipio");
                     for (int i = 0; i < json.length(); i++) {
@@ -925,7 +925,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                         ArrayMunicipios.add(jsonObject.getString("municipio"));
                         //Toast.makeText(getContext(),"lista url" + response,Toast.LENGTH_LONG).show();
                     }
-                    ArrayAdapter<CharSequence> adapterMunicipios=new ArrayAdapter(this.getContext(),R.layout.spinner_item,ArrayMunicipios);
+                    ArrayAdapter<CharSequence> adapterMunicipios=new ArrayAdapter(Objects.requireNonNull(this.getContext()),R.layout.spinner_item,ArrayMunicipios);
                     listaMunicipios.setAdapter(adapterMunicipios);
                     listaMunicipios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -954,7 +954,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
             case 2:
                 UsuariosVo miUsuario = new UsuariosVo();
                 JSONArray json2 = response.optJSONArray("usuario");
-                JSONObject jsonObject2= null;
+                JSONObject jsonObject2;
 
                 try {
                     jsonObject2 = json2.getJSONObject(0);
@@ -972,11 +972,11 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                     e.printStackTrace();
                 }
 
-                if (seleccionaGenero==false){
-                    setGeneroo(miUsuario.getGenero().toString());
+                if (!seleccionaGenero){
+                    setGeneroo(miUsuario.getGenero());
                 }
 
-                if (seleccionaDepartamento==false){
+                if (!seleccionaDepartamento){
                     setDepartamentoo(miUsuario.getDepartamento().toString());
                     setMunicipioo(miUsuario.getMunicipio().toString());
                 }
@@ -984,7 +984,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
                 id = miUsuario.getId().toString();
                 setUrlImagenUsuario(miUsuario.getRutaImagen().toString());
-                mostrarImg(miUsuario.getRutaImagen().toString());
+                mostrarImg();
                 campoNombre.setText(miUsuario.getNombres().toString());
                 campoApellido.setText(miUsuario.getApellidos().toString());
                 campoGenero.setText(miUsuario.getGenero().toString());
@@ -993,7 +993,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                 campoDepartamento.setText(miUsuario.getDepartamento().toString());
                 campoMunicipio.setText(miUsuario.getMunicipio().toString());
 
-                if (seleccionaImagenusuario==true){
+                if (seleccionaImagenusuario){
 
 
                 }else {
@@ -1008,20 +1008,19 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     private void actualizarUsuarios() {
         dialogoCargando();
         String url;
-        if (seleccionaImagenusuario==true){
-            url = getContext().getString(R.string.ipActualizarUsuario2);
+        if (seleccionaImagenusuario){
+            url = Objects.requireNonNull(getContext()).getString(R.string.ipActualizarUsuario2);
 
         }else {
-            url = getContext().getString(R.string.ipActualizarUsuario1);
+            url = Objects.requireNonNull(getContext()).getString(R.string.ipActualizarUsuario1);
         }
 
 
-
-        stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dialogoCargando.hide();
-                if (response.trim().equalsIgnoreCase("actualiza")){
+                if (response.trim().equalsIgnoreCase("actualiza")) {
                     listaGenero.setVisibility(View.INVISIBLE);
                     listaMunicipios.setVisibility(View.INVISIBLE);
                     listaDepartamentos.setVisibility(View.INVISIBLE);
@@ -1031,22 +1030,22 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                     campoGenero.setVisibility(View.VISIBLE);
 
                     cargarDatosPerfil();
-                }else{
-                    Toast.makeText(getContext(),"No se ha Actualizado",Toast.LENGTH_SHORT).show();
-                    Log.i("RESPUESTA: ",""+response);
+                } else {
+                    Toast.makeText(getContext(), "No se ha Actualizado", Toast.LENGTH_SHORT).show();
+                    Log.i("RESPUESTA: ", "" + response);
                 }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(),"No se ha podido conectar",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "No se ha podido conectar", Toast.LENGTH_SHORT).show();
                 //pDialog.hide();
             }
-        }){
+        }) {
 
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
 
                 String nombres = campoNombre.getText().toString();
                 String apellidos = campoApellido.getText().toString();
@@ -1055,7 +1054,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                 String fechaNacimiento = campoFechaNacimiento.getText().toString();
                 String departamento = departamentoo;
                 String municipio = municipioo;
-                String rutaImagen = rutaImg=convertirImgString(bitmap);
+                String rutaImagen = rutaImg = convertirImgString(bitmap);
 
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("nombres", nombres);
@@ -1066,7 +1065,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                 parametros.put("departamento", departamento);
                 parametros.put("municipio", municipio);
                 parametros.put("rutaImagen", rutaImagen);
-                Log.i("*******Parametros",parametros.toString());
+                Log.i("*******Parametros", parametros.toString());
                 return parametros;
             }
         };
@@ -1086,6 +1085,6 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction();
     }
 }

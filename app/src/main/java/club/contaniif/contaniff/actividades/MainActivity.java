@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,13 +43,12 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     JsonObjectRequest jsonObjectRequest;
     TextView puntosUsuario;
     String correo;
-    Button btnSalirAyuda;
+    Button salir;
     FloatingActionButton adelante;
-    int imagen = 0;
-    ImageView ayuda,fondoAyuda,fondo;
+    int imagen = 1;
+    ImageView ayuda,fondoAyuda;
     String puntajeUrl, imagenUrl;
     ImageView medalla;
-    ImageButton next,back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,63 +93,38 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     }
 
     private void showDialogo() {
+
         dialogoAyuda.setContentView(R.layout.popup_ayuda);
-        fondo = dialogoAyuda.findViewById(R.id.imagenFondoAyuda);
-        next = dialogoAyuda.findViewById(R.id.btnNextAyuda);
-        back = dialogoAyuda.findViewById(R.id.btnBackAyuda);
-        btnSalirAyuda = dialogoAyuda.findViewById(R.id.btnSalirAyuda);
-        next.setOnClickListener(new View.OnClickListener() {
+/*        fondoAyuda = dialogoAyuda.findViewById(R.id.imgAyuda);
+        adelante = dialogoAyuda.findViewById(R.id.fabAdelante);
+        adelante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imagen = imagen+1;
-                if (imagen >= 4){
-                    imagen = 1;
-                }
-                cambiarImagen(imagen);
-
-            }
-
-        });
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imagen = imagen-1;
-                if (imagen <= 0){
+                imagen++;
+                if (imagen > 3){
                     imagen = 3;
                 }
-                cambiarImagen(imagen);
 
+                switch (imagen){
+                    case 1:
+                        fondoAyuda.setImageDrawable(getDrawable(R.drawable.num1));
+                        break;
+                    case 2:
+                        fondoAyuda.setImageDrawable(getDrawable(R.drawable.num2));
+                        break;
+                    case 3:
+                        fondoAyuda.setImageDrawable(getDrawable(R.drawable.num3));
+                        break;
+
+                }
+
+                Toast.makeText(getApplicationContext(),"Valos numaro " + imagen,Toast.LENGTH_SHORT).show();
             }
-        });
-
-
-        btnSalirAyuda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogoAyuda.hide();
-            }
-        });
+        });*/
 
         dialogoAyuda.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogoAyuda.show();
         guardarAyuda();
-    }
-
-    private void cambiarImagen(int imagen) {
-        Toast.makeText(MainActivity.this, "Numero : " + imagen, Toast.LENGTH_SHORT).show();
-        switch (imagen){
-            case 1:
-                fondo.setImageDrawable(getDrawable(R.drawable.logo_ayuda));
-                break;
-            case 2:
-                fondo.setImageDrawable(getDrawable(R.drawable.logo_activos));
-                break;
-            case 3:
-                fondo.setImageDrawable(getDrawable(R.drawable.logo_configuracion));
-                break;
-
-        }
     }
 
     private void guardarAyuda() {

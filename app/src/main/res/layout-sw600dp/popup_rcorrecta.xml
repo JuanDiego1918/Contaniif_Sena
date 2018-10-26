@@ -87,7 +87,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="center"
                 android:layout_marginBottom="-27dp"
-                android:src="@drawable/mascota_pequena_feliz" />
+                android:src="@drawable/mascota_pequena_feliz"
+                android:contentDescription="TODO" />
 
 
             <ImageView
@@ -99,14 +100,15 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="-5dp"
-                android:src="@drawable/estrella" />
+                android:src="@drawable/estrella"
+                android:contentDescription="TODO" />
 
             <RelativeLayout
                 android:layout_width="68dp"
                 android:layout_height="68dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="43dp"
-                android:layout_marginRight="8dp">
+                android:layout_marginEnd="8dp">
 
                 <TextView
                     android:id="@+id/campoPuntajeCorrecto"

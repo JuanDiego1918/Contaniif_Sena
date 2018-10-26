@@ -74,13 +74,13 @@ public class UsuariosVo {
         this.id = id;
     }
 
-    String id;
-    String nombres;
-    String apellidos;
-    String genero;
-    String correo;
-    String fechaNacimiento;
-    String departamento;
-    String municipio;
-    String rutaImagen;
+    private String id;
+    private String nombres;
+    private String apellidos;
+    private String genero;
+    private String correo;
+    private String fechaNacimiento;
+    private String departamento;
+    private String municipio;
+    private String rutaImagen;
 }

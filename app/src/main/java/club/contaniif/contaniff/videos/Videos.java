@@ -14,9 +14,7 @@ public class Videos extends AppCompatActivity {
 
     private static final String TAG = Videos.class.getSimpleName();
 
-    //youtube player fragment
-    private YouTubePlayerSupportFragment youTubePlayerFragment;
-    Bundle miBundle;
+    private Bundle miBundle;
 
     //youtube player to play video when new video selected
     private YouTubePlayer youTubePlayer;
@@ -35,7 +33,8 @@ public class Videos extends AppCompatActivity {
 
     private void initializeYoutubePlayer() {
 
-        youTubePlayerFragment = (YouTubePlayerSupportFragment) getSupportFragmentManager()
+        //youtube player fragment
+        YouTubePlayerSupportFragment youTubePlayerFragment = (YouTubePlayerSupportFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.youtube_player_fragments);
 
         if (youTubePlayerFragment == null)

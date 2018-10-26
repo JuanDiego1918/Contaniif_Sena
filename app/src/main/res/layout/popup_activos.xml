@@ -21,7 +21,8 @@
             android:id="@+id/imagenPopupActivo"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:src="@drawable/logo_contaniif" />
+            android:src="@drawable/logo_contaniif"
+            android:contentDescription="TODO" />
 
 
         <TextView

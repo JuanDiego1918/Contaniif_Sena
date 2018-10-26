@@ -34,7 +34,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="222dp"
                     android:layout_marginTop="30dp"
-                    android:src="@drawable/camara" />
+                    android:src="@drawable/camara"
+                    android:contentDescription="TODO" />
             </LinearLayout>
 
 
@@ -68,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/campoApellidosRegistro"
                 android:layout_marginTop="20dp"
-                android:gravity="center_vertical"></Spinner>
+                android:gravity="center_vertical" />
 
             <EditText
                 android:id="@+id/campoCorreoRegistro"
@@ -101,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/campoFechaRegistro"
-                android:layout_marginTop="20dp"></Spinner>
+                android:layout_marginTop="20dp" />
 
             <Spinner
                 android:id="@+id/spinnerCuidadRegistro"

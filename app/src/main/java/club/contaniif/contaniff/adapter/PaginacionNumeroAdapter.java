@@ -3,6 +3,7 @@ package club.contaniif.contaniff.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,20 +19,18 @@ import club.contaniif.contaniff.entidades.NumeroVo;
 
 public class PaginacionNumeroAdapter extends RecyclerView.Adapter<PaginacionNumeroAdapter.NumeroHolder> implements View.OnClickListener,View.OnTouchListener{
 
-    View.OnClickListener listener;
-    View.OnTouchListener touchListener;
-    ArrayList<NumeroVo> listaNumero;
-    Context context;
-
-    private int selectedPosition = 0;
+    private View.OnClickListener listener;
+    private View.OnTouchListener touchListener;
+    private final ArrayList<NumeroVo> listaNumero;
 
     public PaginacionNumeroAdapter(ArrayList<NumeroVo> listaNumero, Context context) {
         this.listaNumero = listaNumero;
-        this.context=context;
+        Context context1 = context;
     }
 
+    @NonNull
     @Override
-    public PaginacionNumeroAdapter.NumeroHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PaginacionNumeroAdapter.NumeroHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.modelo_paginacion,null,false);
         view.setOnClickListener(this);
         view.setOnTouchListener(this);
@@ -39,7 +38,7 @@ public class PaginacionNumeroAdapter extends RecyclerView.Adapter<PaginacionNume
     }
 
     @Override
-    public void onBindViewHolder(PaginacionNumeroAdapter.NumeroHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull PaginacionNumeroAdapter.NumeroHolder holder, final int position) {
         holder.numero.setText(String.valueOf(listaNumero.get(position).getNumeroPagina()));
         if (listaNumero.get(position).getColor()!=null){
             holder.numero.setTextColor(Color.parseColor(listaNumero.get(position).getColor()));
@@ -75,15 +74,14 @@ public class PaginacionNumeroAdapter extends RecyclerView.Adapter<PaginacionNume
     }
 
     public class NumeroHolder extends RecyclerView.ViewHolder {
-        TextView numero;
-        public NumeroHolder(View itemView) {
+        final TextView numero;
+        NumeroHolder(View itemView) {
             super(itemView);
             numero=itemView.findViewById(R.id.paginacion);
 
         }
     }
-    public void setSelectedPosition(int selectedPosition) {
-        this.selectedPosition = selectedPosition;
+    public void setSelectedPosition() {
         //when item selected notify the adapter
         notifyDataSetChanged();
     }

@@ -85,7 +85,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="0dp"
                 android:layout_marginBottom="0dp"
-                android:src="@drawable/mascota_puquena_triste" />
+                android:src="@drawable/mascota_puquena_triste"
+                android:contentDescription="TODO" />
 
 
             <ImageView
@@ -96,7 +97,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="317dp"
                 android:layout_marginTop="9dp"
-                android:src="@drawable/estrella" />
+                android:src="@drawable/estrella"
+                android:contentDescription="TODO" />
 
 
             <TextView
@@ -108,7 +110,6 @@
                 android:layout_marginStart="331dp"
                 android:layout_marginTop="10dp"
                 android:paddingTop="22dp"
-                android:paddingRight="20dp"
                 android:text="+0"
                 android:textAlignment="center"
                 android:textColor="#000"

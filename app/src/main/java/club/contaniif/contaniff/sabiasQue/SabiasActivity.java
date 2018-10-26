@@ -25,26 +25,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.adapter.AdapterSabias;
-import club.contaniif.contaniff.adapter.PaginacionNumeroAdapter;
-import club.contaniif.contaniff.entidades.EventoVo;
-import club.contaniif.contaniff.entidades.NumeroVo;
 import club.contaniif.contaniff.entidades.SabiasVo;
 
 public class SabiasActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
-    SabiasVo sabiasVo;
-    ArrayList<SabiasVo> listaSabias;
-    RequestQueue request;
-    JsonObjectRequest jsonObjectRequest;
-    RecyclerView recyclerView;
-    AdapterSabias adapterSabias;
-    Bundle miBundle;
-    int categoria;
-    Dialog dialog;
-    Dialog dialogoCargando;
+    private ArrayList<SabiasVo> listaSabias;
+    private RecyclerView recyclerView;
+    private int categoria;
+    private Dialog dialog;
+    private Dialog dialogoCargando;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +46,8 @@ public class SabiasActivity extends AppCompatActivity implements Response.Listen
         dialogoCargando = new Dialog(this);
         listaSabias = new ArrayList();
         recyclerView = findViewById(R.id.recyclerSabias);
-        miBundle = this.getIntent().getExtras();
-        categoria = Integer.parseInt(miBundle.getString("id"));
+        Bundle miBundle = this.getIntent().getExtras();
+        categoria = Integer.parseInt(Objects.requireNonNull(miBundle).getString("id"));
         dialog = new Dialog(this);
         cargarWebService();
 
@@ -64,16 +57,16 @@ public class SabiasActivity extends AppCompatActivity implements Response.Listen
         dialogoCargando();
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
-        request = Volley.newRequestQueue(getApplication());
+        RequestQueue request = Volley.newRequestQueue(getApplication());
         String url = "https://" + getApplicationContext().getString(R.string.ip) + "sabias.php?categoria=" + categoria;
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
 
     private void dialogoCargando() {
         try {
             dialogoCargando.setContentView(R.layout.popup_cargando);
-            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
         }catch (Exception e){
             Log.i("Error " , e.toString());
@@ -90,9 +83,9 @@ public class SabiasActivity extends AppCompatActivity implements Response.Listen
     public void onResponse(JSONObject response) {
         JSONArray json = response.optJSONArray("sabias");
         try {
-            JSONObject jsonObject = null;
+            JSONObject jsonObject;
             for (int i = 0; i < json.length(); i++) {
-                sabiasVo = new SabiasVo();
+                SabiasVo sabiasVo = new SabiasVo();
                 jsonObject = json.getJSONObject(i);
                 sabiasVo.setTitulo(jsonObject.optString("titulo"));
                 sabiasVo.setId(jsonObject.optInt("id"));
@@ -100,7 +93,7 @@ public class SabiasActivity extends AppCompatActivity implements Response.Listen
                 listaSabias.add(sabiasVo);
             }
             // Set up the ViewPager with the sections adapter
-            adapterSabias = new AdapterSabias(listaSabias);
+            AdapterSabias adapterSabias = new AdapterSabias(listaSabias);
             recyclerView.setAdapter(adapterSabias);
             adapterSabias.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -119,7 +112,7 @@ public class SabiasActivity extends AppCompatActivity implements Response.Listen
 
     private void ventana(View view) { TextView titulo, teoria;
         dialog.setContentView(R.layout.popup_sabias);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         titulo = dialog.findViewById(R.id.tituloSabiaspopup);
         teoria = dialog.findViewById(R.id.teoriaSabias);
         titulo.setText("" + listaSabias.get(recyclerView.getChildAdapterPosition(view)).getTitulo());

@@ -1,14 +1,15 @@
 package club.contaniif.contaniff.miRendimiento;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -34,14 +34,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import club.contaniif.contaniff.R;
-import club.contaniif.contaniff.adapter.CategoriasAdapter;
-import club.contaniif.contaniff.entidades.CategoriasVo;
 import club.contaniif.contaniff.entidades.Datos;
 import club.contaniif.contaniff.interfaces.Puente;
 
@@ -59,20 +57,16 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
-    Dialog dialogoCargando;
-    String credenciales;
-    String cojeComentario;
-    int cambioCanjes;
-    String valorCriptoniif,puntosDisponibles;
-    String fecha;
-    String correo;
-    RequestQueue request;
-    StringRequest stringRequest;
+    private Dialog dialogoCargando;
+    private String credenciales;
+    private String cojeComentario;
+    private int cambioCanjes;
+    String valorCriptoniif;
+    private String puntosDisponibles;
+    private String correo;
+    private RequestQueue request;
+    private StringRequest stringRequest;
 
     public RendimiendoFragment() {
         // Required empty public constructor
@@ -84,16 +78,19 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         cargarDatos();
     }
 
-    View view;
-    Activity activity;
-    LinearLayout puntos, canjes, activos, comentarios;
-    TextView txtPuntos, txtCambiados, txtDisponibles, txtPuntosCanjes, txtAccionDia, txtActivo, txtDescontados;
-    Dialog dialogCanjes;
-    Dialog ventanaComentarios;
-    JsonObjectRequest JsonObjectRequest;
-    Puente puente;
-    String monedasCanjeadas;
-    String nombre;
+    LinearLayout puntos;
+    private TextView txtPuntos;
+    private TextView txtCambiados;
+    private TextView txtDisponibles;
+    private TextView txtPuntosCanjes;
+    private TextView txtAccionDia;
+    private TextView txtActivo;
+    private TextView txtDescontados;
+    private Dialog dialogCanjes;
+    private Dialog ventanaComentarios;
+    private Puente puente;
+    private String monedasCanjeadas;
+    private String nombre;
 
 
     /**
@@ -118,21 +115,22 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // TODO: Rename and change types of parameters
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        dialogoCargando = new Dialog(this.getContext());
+        dialogoCargando = new Dialog(Objects.requireNonNull(this.getContext()));
         cargarCredenciales();
         request = Volley.newRequestQueue(getContext());
         Datos.actualizarPuntos = true;
-        view = inflater.inflate(R.layout.fragment_rendimiendo, container, false);
-        comentarios = view.findViewById(R.id.btnComentarios);
+        View view = inflater.inflate(R.layout.fragment_rendimiendo, container, false);
+        LinearLayout comentarios = view.findViewById(R.id.btnComentarios);
         ventanaComentarios = new Dialog(getContext());
         txtPuntos = view.findViewById(R.id.puntosObtenidos);
         txtCambiados = view.findViewById(R.id.puntosCambiados);
@@ -141,8 +139,8 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         txtAccionDia = view.findViewById(R.id.accion);
         txtActivo = view.findViewById(R.id.activos);
         txtDescontados = view.findViewById(R.id.puntosDescontados);
-        canjes=view.findViewById(R.id.btnCanjes);
-        activos=view.findViewById(R.id.btnActivos);
+        LinearLayout canjes = view.findViewById(R.id.btnCanjes);
+        LinearLayout activos = view.findViewById(R.id.btnActivos);
         dialogCanjes=new Dialog(getContext());
 
         cargarNombre();
@@ -204,25 +202,24 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
             }
         });
 
-        dialogCanjes.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialogCanjes.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogCanjes.show();
     }
 
     private void cargarNombre() {
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("Nombre", Context.MODE_PRIVATE);
+        SharedPreferences preferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences("Nombre", Context.MODE_PRIVATE);
         String nombre = preferences.getString("nombre", "No existe el valor");
-        if (nombre != "No existe el valor") {
+        if (!Objects.equals(nombre, "No existe el valor")) {
             this.nombre = nombre;
         }
     }
     private void realizarCanje(final float numero) {
         String url;
-        url = "https://" + getContext().getString(R.string.ip)+"guardamonedas.php?idusuario="+correo+"&&puntos="+String.valueOf(numero);
+        url = "https://" + Objects.requireNonNull(getContext()).getString(R.string.ip)+"guardamonedas.php?idusuario="+correo+"&&puntos="+String.valueOf(numero);
         stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                String resultado=response;
-                if (resultado.equals("registra")) {
+                if (response.equals("registra")) {
                     Toast.makeText(getContext(), "Realiza Cambios" + response, Toast.LENGTH_LONG).show();
                 } else {
                     puente.reinciarRendimiento();
@@ -273,19 +270,19 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
             }
         });
 
-        ventanaComentarios.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(ventanaComentarios.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         ventanaComentarios.show();
     }
 
     private void obtenerFecha() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
         Date date = new Date();
-        fecha = dateFormat.format(date);
+        String fecha = dateFormat.format(date);
     }
 
 
     private void cargarCredenciales() {
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
+        SharedPreferences preferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         String credenciales = preferences.getString("correo", "No existe el valor");
         this.credenciales = credenciales;
         correo = credenciales;
@@ -295,7 +292,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
 
         String url;
         //url = getContext().getString(R.string.ipComentario)+cojeComentario+"&idusuario="+credenciales;
-        url = getContext().getString(R.string.ipComentario);
+        url = Objects.requireNonNull(getContext()).getString(R.string.ipComentario);
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -316,14 +313,13 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
 
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
 
                 String idusuario = credenciales;
-                String comentario = cojeComentario;
 
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("idusuario", idusuario);
-                parametros.put("comentario", comentario);
+                parametros.put("comentario", cojeComentario);
                 //parametros.put("fecha", fecha);
                 return parametros;
             }
@@ -335,7 +331,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction();
         }
     }
 
@@ -344,8 +340,8 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         super.onAttach(context);
 
         if (context instanceof Activity) {
-            this.activity = (Activity) context;
-            puente = (Puente) this.activity;
+            Activity activity = (Activity) context;
+            puente = (Puente) activity;
         }
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
@@ -364,15 +360,15 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
     private void cargarDatos() {
         dialogoCargando();
         String url;
-        url = "https://" + getContext().getString(R.string.ip) + "puntajes.php?correo=" + correo;
-        JsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
-        request.add(JsonObjectRequest);
+        url = "https://" + Objects.requireNonNull(getContext()).getString(R.string.ip) + "puntajes.php?correo=" + correo;
+        com.android.volley.toolbox.JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        request.add(jsonObjectRequest);
     }
 
     private void dialogoCargando() {
         try {
             dialogoCargando.setContentView(R.layout.popup_cargando);
-            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
         }catch (Exception e){
             Log.i("Error " , e.toString());
@@ -418,6 +414,6 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction();
     }
 }

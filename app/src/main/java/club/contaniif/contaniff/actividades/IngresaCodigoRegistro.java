@@ -25,18 +25,16 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import club.contaniif.contaniff.R;
 public class IngresaCodigoRegistro extends AppCompatActivity {
 
-    EditText campoCodigo;
-    Button btnCodigo;
-    String usuario;
-    String codigoJson;
-    String codigoCampo;
-    Dialog dialogoCargando;
-    StringRequest stringRequest;
-    RequestQueue request;
+    private EditText campoCodigo;
+    private String usuario;
+    private String codigoCampo;
+    private Dialog dialogoCargando;
+    private RequestQueue request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +43,11 @@ public class IngresaCodigoRegistro extends AppCompatActivity {
         dialogoCargando = new Dialog(this);
         request = Volley.newRequestQueue(this);
         Bundle miBundle = this.getIntent().getBundleExtra("bundle");
-        codigoJson = miBundle.getString("codigo");
+        String codigoJson = miBundle.getString("codigo");
         usuario = miBundle.getString("usuario");
 
         campoCodigo = findViewById(R.id.campoCodigoValidacion);
-        btnCodigo = findViewById(R.id.btnRegistrarCodigo);
+        Button btnCodigo = findViewById(R.id.btnRegistrarCodigo);
         btnCodigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +64,7 @@ public class IngresaCodigoRegistro extends AppCompatActivity {
 
     private void dialogoCargando() {
         dialogoCargando.setContentView(R.layout.popup_cargando);
-        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogoCargando.show();
     }
 
@@ -89,7 +87,7 @@ public class IngresaCodigoRegistro extends AppCompatActivity {
         String url;
         java.lang.System.setProperty("https.protocols", "TLSv1");
         url = getApplicationContext().getString(R.string.ipEnviaCodigo);
-        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (response.trim().equalsIgnoreCase("Codigo invalido o vencido")) {
@@ -113,10 +111,10 @@ public class IngresaCodigoRegistro extends AppCompatActivity {
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> parametros = new HashMap<>();
-                parametros.put("codigo",codigoCampo);
-                parametros.put("correo",usuario);
+                parametros.put("codigo", codigoCampo);
+                parametros.put("correo", usuario);
                 Log.i("--------PARAMETROS ", parametros.toString());
                 return parametros;
             }

@@ -74,7 +74,8 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginTop="35dp"
-            android:src="@drawable/mascota_entrenar" />
+            android:src="@drawable/mascota_entrenar"
+            android:contentDescription="TODO" />
 
 
     </RelativeLayout>

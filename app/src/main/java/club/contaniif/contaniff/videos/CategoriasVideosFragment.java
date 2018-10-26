@@ -7,9 +7,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.adapter.CategoriasAdapter;
@@ -49,12 +50,8 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
-    Dialog dialogoCargando;
+    private Dialog dialogoCargando;
 
     public CategoriasVideosFragment() {
         // Required empty public constructor
@@ -82,25 +79,24 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // TODO: Rename and change types of parameters
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
-    RecyclerView recyclerView;
-    ArrayList<CategoriasVo> listasCategorias;
-    JsonObjectRequest jsonObjectRequest;
-    RequestQueue request;
-    Puente puente;
-    Activity activity;
+    private RecyclerView recyclerView;
+    private ArrayList<CategoriasVo> listasCategorias;
+    private RequestQueue request;
+    private Puente puente;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_categorias_videos, container, false);
-        dialogoCargando = new Dialog(this.getContext());
+        dialogoCargando = new Dialog(Objects.requireNonNull(this.getContext()));
         recyclerView = view.findViewById(R.id.recycler_categoria);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         request = Volley.newRequestQueue(getContext());
@@ -111,14 +107,14 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
 
     private void cargarWebservices() {
         dialogoCargando();
-        String url = "https://" + getContext().getString(R.string.ip) + "VideosCategorias.php";
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        String url = "https://" + Objects.requireNonNull(getContext()).getString(R.string.ip) + "VideosCategorias.php";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
 
     private void dialogoCargando() {
         dialogoCargando.setContentView(R.layout.popup_cargando);
-        dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogoCargando.show();
     }
 
@@ -126,7 +122,7 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction();
         }
     }
 
@@ -135,8 +131,8 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
         super.onAttach(context);
 
         if (context instanceof Activity) {
-            this.activity = (Activity) context;
-            puente = (Puente) this.activity;
+            Activity activity = (Activity) context;
+            puente = (Puente) activity;
         }
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
@@ -163,7 +159,7 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
         listasCategorias = new ArrayList<>();
         JSONArray json = response.optJSONArray("categorias");
         try {
-            JSONObject jsonObject = null;
+            JSONObject jsonObject;
             for (int i = 0; i < json.length(); i++) {
                 jsonObject = json.getJSONObject(i);
                 CategoriasVo categoriasVo = new CategoriasVo();
@@ -201,6 +197,6 @@ public class CategoriasVideosFragment extends Fragment implements Response.Liste
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction();
     }
 }

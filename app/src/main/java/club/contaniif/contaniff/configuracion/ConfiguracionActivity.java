@@ -1,6 +1,5 @@
 package club.contaniif.contaniff.configuracion;
 
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,8 +10,6 @@ import club.contaniif.contaniff.interfaces.AllFragments;
 
 public class ConfiguracionActivity extends AppCompatActivity implements AllFragments{
 
-    Fragment miFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,19 +19,19 @@ public class ConfiguracionActivity extends AppCompatActivity implements AllFragm
         switch (miBundle.getInt("pantalla")){
 
             case 1:
-                miFragment = new Grupos();
-                getSupportFragmentManager().beginTransaction().replace(R.id.contenedorConfig,miFragment).commit();
+                Fragment miFragment = new Grupos();
+                getSupportFragmentManager().beginTransaction().replace(R.id.contenedorConfig, miFragment).commit();
                 break;
 
             case 2:
                 miFragment = new MiPerfil();
-                getSupportFragmentManager().beginTransaction().replace(R.id.contenedorConfig,miFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.contenedorConfig, miFragment).commit();
                 break;
         }
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onFragmentInteraction() {
 
     }
 }

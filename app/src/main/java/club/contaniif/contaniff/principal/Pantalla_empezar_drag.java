@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,14 +24,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -39,26 +37,20 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.adapter.AdapterDrag;
 import club.contaniif.contaniff.adapter.PaginacionNumeroAdapter;
-import club.contaniif.contaniff.adapter.PreguntasAdapter;
-import club.contaniif.contaniff.adapter.PreguntasImagenesAdapter;
 import club.contaniif.contaniff.adapter.PreguntasImagenesAdapterDrag;
-import club.contaniif.contaniff.adapter.PreguntasSeleccionMultiple;
 import club.contaniif.contaniff.entidades.Datos;
-import club.contaniif.contaniff.entidades.GestionPreguntas;
 import club.contaniif.contaniff.entidades.NumeroVo;
 import club.contaniif.contaniff.entidades.PreguntasVo;
-import club.contaniif.contaniff.entidades.VolleySingleton;
 import club.contaniif.contaniff.interfaces.Puente;
 
 /**
@@ -75,39 +67,35 @@ public class Pantalla_empezar_drag extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
 
     public Pantalla_empezar_drag() {
         // Required empty public constructor
     }
 
-    View view;
-    Activity activity;
-    Puente puente;
+    private Puente puente;
 
-    int numeroArray = 0;
-    int numero;
-    int correctas = 0;
-    Button btnContinuar2, btnContinuar;
-    AdapterDrag miAdapter;
-    ArrayList<PreguntasVo> respuestaCompleta;
-    ArrayList<String> respuestaCorrecta;
+    private int numeroArray = 0;
+    private int numero;
+    private int correctas = 0;
+    private Button btnContinuar2;
+    private Button btnContinuar;
+    private AdapterDrag miAdapter;
+    private ArrayList<PreguntasVo> respuestaCompleta;
+    private ArrayList<String> respuestaCorrecta;
 
-    PreguntasImagenesAdapterDrag miPreguntasImagenesAdapter;
-    ArrayList<PreguntasVo> list;
-    RecyclerView PreguntasTexto, Imagenes;
-    PreguntasVo miVo;
+    private PreguntasImagenesAdapterDrag miPreguntasImagenesAdapter;
+    private ArrayList<PreguntasVo> list;
+    private RecyclerView PreguntasTexto;
+    private RecyclerView Imagenes;
+    private PreguntasVo miVo;
     HashMap copia;
     JsonObjectRequest jsonObjectRequest;
     //////////////////////////////////////////////////////////////////////////
-    String retroBuena;
-    boolean isCheked = false;
+    private String retroBuena;
+    private boolean isCheked = false;
 
-    public boolean getIsCheked() {
+    private boolean getIsCheked() {
         return isCheked;
     }
 
@@ -119,12 +107,12 @@ public class Pantalla_empezar_drag extends Fragment {
         return tipoPregunta;
     }
 
-    public void setTipoPregunta(int tipoPregunta) {
+    private void setTipoPregunta(int tipoPregunta) {
         this.tipoPregunta = tipoPregunta;
     }
 
-    int tipoPregunta;
-    String urlImagen;
+    private int tipoPregunta;
+    private String urlImagen;
 
     public String getUrlImagen() {
         return urlImagen;
@@ -134,75 +122,69 @@ public class Pantalla_empezar_drag extends Fragment {
         this.urlImagen = urlImagen;
     }
 
-    String retroMala;
-    String resultado;
-    int puntage;
+    private String retroMala;
+    private String resultado;
+    private int puntage;
 
-    public int getPuntage() {
+    private int getPuntage() {
         return puntage;
     }
 
-    public void setPuntage(int puntage) {
+    private void setPuntage(int puntage) {
         this.puntage = puntage;
     }
 
-    public String getRetroBuena() {
+    private String getRetroBuena() {
         return retroBuena;
     }
 
-    public void setRetroBuena(String retroBuena) {
+    private void setRetroBuena(String retroBuena) {
         this.retroBuena = retroBuena;
     }
 
-    public String getRetroMala() {
+    private String getRetroMala() {
         return retroMala;
     }
 
-    public void setRetroMala(String retroMala) {
+    private void setRetroMala(String retroMala) {
         this.retroMala = retroMala;
     }
 
-    public String getResultado() {
+    private String getResultado() {
         return resultado;
     }
 
-    public void setResultado(String resultado) {
+    private void setResultado(String resultado) {
         this.resultado = resultado;
     }
 
 
-    int i = reiniciar;
+    private int i = reiniciar;
     ProgressDialog progreso;
     private static long START_TIME_IN_MILLIS;
     private static final int reiniciar = 0;
-    public static android.os.CountDownTimer CountDownTimer;
+    private static android.os.CountDownTimer CountDownTimer;
     private long mTimeLeftInMillis;
-    ProgressBar mProgressBar;
-    long mInitialTime;
+    private ProgressBar mProgressBar;
+    private long mInitialTime;
 
-    ArrayList<NumeroVo> listanumero;
-    NumeroVo miNumeroVo;
-    //int numero = 3;
-    RecyclerView miRecyclerNumero;
-
-    MediaPlayer respondeBien,terminaBien,terminaMal;
-    TextView pregunta;
-    TextView puntajeRespuestaBuena;
-    TextView puntajeRespuestaMala;
-    String informacion;
-    String informacion2;
-    RequestQueue request;
-    Dialog myDialogBuena;
-    Dialog myDialogMala, MyDialogFinal;
-    String nombre;
-    ArrayList<String> listaColores;
-    ArrayList<String> listaRespuesta;
-    int numeroPregunta;
-    int tiempoCapturado;
-    String credenciales;
-    StringRequest stringRequest;
-    PreguntasVo preguntasVo;
-    Dialog dialogoCargando;
+    private MediaPlayer respondeBien;
+    private MediaPlayer terminaBien;
+    private MediaPlayer terminaMal;
+    private TextView pregunta;
+    private RequestQueue request;
+    private Dialog myDialogBuena;
+    private Dialog myDialogMala;
+    private Dialog MyDialogFinal;
+    private String nombre;
+    private ArrayList<String> listaColores;
+    private ArrayList<String> listaRespuesta;
+    private int numeroPregunta;
+    private int tiempoCapturado;
+    private String credenciales;
+    private PreguntasVo preguntasVo;
+    private Dialog dialogoCargando;
+    private int clickChek = 0;
     ////////////////////////////////////////////////////////////////////////////////
 
     /**
@@ -227,18 +209,19 @@ public class Pantalla_empezar_drag extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // TODO: Rename and change types of parameters
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        view = inflater.inflate(R.layout.fragment_pantalla_empezar_drag, container, false);
-        request = Volley.newRequestQueue(getContext());
+        View view = inflater.inflate(R.layout.fragment_pantalla_empezar_drag, container, false);
+        request = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
         respuestaCorrecta = new ArrayList<>();
         respuestaCompleta = new ArrayList<>();
         list = new ArrayList<>();
@@ -251,7 +234,7 @@ public class Pantalla_empezar_drag extends Fragment {
         terminaBien = MediaPlayer.create(getContext(),R.raw.finalizar_bien);
         terminaMal = MediaPlayer.create(getContext(),R.raw.finalizar_mal);
 
-        mProgressBar = (ProgressBar) view.findViewById(R.id.progressbar);
+        mProgressBar = view.findViewById(R.id.progressbar);
         mProgressBar.setProgress(i);
         pregunta = view.findViewById(R.id.campoPregunta);
         Imagenes = view.findViewById(R.id.primero);
@@ -259,7 +242,8 @@ public class Pantalla_empezar_drag extends Fragment {
         btnContinuar2 = view.findViewById(R.id.btnContinuar2);
         btnContinuar = view.findViewById(R.id.btnContinuar);
         btnContinuar.setVisibility(View.INVISIBLE);
-        miRecyclerNumero = view.findViewById(R.id.recyclerNumeros);
+        //int numero = 3;
+        RecyclerView miRecyclerNumero = view.findViewById(R.id.recyclerNumeros);
         miRecyclerNumero.setLayoutManager(new LinearLayoutManager(getContext()));
         miRecyclerNumero.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
         PreguntasTexto.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -268,26 +252,33 @@ public class Pantalla_empezar_drag extends Fragment {
         btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] bar = list.get(0).getRespuesta().split("&&");
-                for (String foobar : bar) {
-                    respuestaCorrecta.add(foobar);
-                }
-                for (int i = 0; i < respuestaCompleta.size(); i++) {
-                    if (respuestaCorrecta.contains(respuestaCompleta.get(i).getRespuesta())) {
-                        correctas++;
-                    }
-                }
-                if (correctas == 4) {
-                    setResultado("correcto");
+                if (clickChek == 1) {
+                    Toast.makeText(getContext(), nombre+", No debes hacer trampa", Toast.LENGTH_SHORT).show();
+                    revisar(false);
                 } else {
-                    setResultado("incorrecto");
+                    String[] bar = list.get(0).getRespuesta().split("&&");
+                    for (String foobar : bar) {
+                        respuestaCorrecta.add(foobar);
+                    }
+                    for (int i = 0; i < respuestaCompleta.size(); i++) {
+                        if (respuestaCorrecta.contains(respuestaCompleta.get(i).getRespuesta())) {
+                            correctas++;
+                        }
+                    }
+                    if (correctas == 4) {
+                        setResultado("correcto");
+                    } else {
+                        setResultado("incorrecto");
+                    }
+                    comparar();
+                    clickChek = 1;
+                    comparar();
                 }
-                comparar();
             }
         });
 
 
-        if (getIsCheked() == true) {
+        if (getIsCheked()) {
             btnContinuar.setVisibility(View.VISIBLE);
             btnContinuar2.setVisibility(View.INVISIBLE);
         }
@@ -301,17 +292,17 @@ public class Pantalla_empezar_drag extends Fragment {
         if (miBundle != null) {
             todo = miBundle.getBundle("Todo");
             objeto = miBundle.getBundle("BundleObjeto");
-            miVo = (PreguntasVo) objeto.getSerializable("Objeto");
-            listaRespuesta = (ArrayList<String>) miBundle.getStringArrayList("respuestas").clone();
+            miVo = (PreguntasVo) Objects.requireNonNull(objeto).getSerializable("Objeto");
+            listaRespuesta = (ArrayList<String>) Objects.requireNonNull(miBundle.getStringArrayList("respuestas")).clone();
             cargarDatos();
-            numeroPregunta = todo.getInt("numeroPregunta");
+            numeroPregunta = Objects.requireNonNull(todo).getInt("numeroPregunta");
             listaColores = todo.getStringArrayList("color");
         } else {
             numeroPregunta = 0;
         }
-        listanumero = new ArrayList<>();
+        ArrayList<NumeroVo> listanumero = new ArrayList<>();
         for (int i = 1; i < 11; i++) {
-            miNumeroVo = new NumeroVo();
+            NumeroVo miNumeroVo = new NumeroVo();
             miNumeroVo.setNumeroPagina(i);
             listanumero.add(miNumeroVo);
         }
@@ -359,17 +350,16 @@ public class Pantalla_empezar_drag extends Fragment {
         setTipoPregunta(preguntasVo.getTipo());
         setPuntage(preguntasVo.getPuntaje());
         pregunta.setText(preguntasVo.getPregunta());
-        informacion = preguntasVo.getRespuesta();
-        informacion2 = preguntasVo.getOpciones();
+        String informacion = preguntasVo.getRespuesta();
+        String informacion2 = preguntasVo.getOpciones();
         if (numeroPregunta != 0)
 
         {
             resetTimer();
         }
 
-        mInitialTime = DateUtils.DAY_IN_MILLIS * 0 +
-                DateUtils.HOUR_IN_MILLIS * 0 +
-                DateUtils.MINUTE_IN_MILLIS * 0 +
+        mInitialTime = 0L +
+                0L +
                 DateUtils.SECOND_IN_MILLIS * preguntasVo.getTiempoDemora();
         START_TIME_IN_MILLIS = preguntasVo.getTiempoDemora() * 1000;
         mTimeLeftInMillis = START_TIME_IN_MILLIS;
@@ -397,7 +387,7 @@ public class Pantalla_empezar_drag extends Fragment {
             @Override
             public void onClick(View view) {
                 for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).getRuta() == list.get(PreguntasTexto.getChildAdapterPosition(view)).getImg()) {
+                    if (Objects.equals(list.get(i).getRuta(), list.get(PreguntasTexto.getChildAdapterPosition(view)).getImg())) {
                         list.get(i).setMostrar(false);
                         respuestaCompleta.remove(list.get(PreguntasTexto.getChildAdapterPosition(view)));
                         Imagenes.setAdapter(miPreguntasImagenesAdapter);
@@ -422,7 +412,7 @@ public class Pantalla_empezar_drag extends Fragment {
                     Toast.makeText(getApplicationContext(), "EXITED" + list.get(PreguntasTexto.getChildAdapterPosition(view)).getPalabra(), Toast.LENGTH_SHORT).show();
                     break;*/
                     case DragEvent.ACTION_DROP:
-                        if (list.get(numero).isMostrar() == false && list.get(PreguntasTexto.getChildAdapterPosition(v)).getImg() == null ) {
+                        if (list.get(numero).isMostrar() && list.get(PreguntasTexto.getChildAdapterPosition(v)).getImg() == null ) {
                             list.get(PreguntasTexto.getChildAdapterPosition(v)).setImg(list.get(numero).getRuta());
                             btnContinuar.setVisibility(View.VISIBLE);
                             btnContinuar2.setVisibility(View.INVISIBLE);
@@ -449,9 +439,9 @@ public class Pantalla_empezar_drag extends Fragment {
     }
 
     private void cargarNombre() {
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("Nombre", Context.MODE_PRIVATE);
+        SharedPreferences preferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences("Nombre", Context.MODE_PRIVATE);
         String nombre = preferences.getString("nombre", "No existe el valor");
-        if (nombre != "No existe el valor") {
+        if (!Objects.equals(nombre, "No existe el valor")) {
             this.nombre = nombre;
         }
     }
@@ -459,7 +449,7 @@ public class Pantalla_empezar_drag extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction();
         }
     }
 
@@ -467,8 +457,8 @@ public class Pantalla_empezar_drag extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof Activity) {
-            this.activity = (Activity) context;
-            puente = (Puente) this.activity;
+            Activity activity = (Activity) context;
+            puente = (Puente) activity;
         }
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
@@ -483,7 +473,7 @@ public class Pantalla_empezar_drag extends Fragment {
         super.onDetach();
         try {
             CountDownTimer.cancel();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
         mListener = null;
@@ -501,7 +491,7 @@ public class Pantalla_empezar_drag extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction();
     }
 
     private void starTime() {
@@ -544,13 +534,13 @@ public class Pantalla_empezar_drag extends Fragment {
     }
 
 
-    public void showPopup(String retorno) {
+    private void showPopup(String retorno) {
         respondeBien.start();
         final Button retroBuena;
         TextView txtRetroBuena;
 
         myDialogBuena.setContentView(R.layout.popup_rcorrecta);
-        puntajeRespuestaBuena = myDialogBuena.findViewById(R.id.campoPuntajeCorrecto);
+        TextView puntajeRespuestaBuena = myDialogBuena.findViewById(R.id.campoPuntajeCorrecto);
         puntajeRespuestaBuena.setText("+" + String.valueOf(getPuntage()));
         txtRetroBuena = myDialogBuena.findViewById(R.id.campoRetroBuena);
         txtRetroBuena.setText(nombre + " \n " + retorno);
@@ -565,14 +555,14 @@ public class Pantalla_empezar_drag extends Fragment {
             }
         });
 
-        myDialogBuena.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(myDialogBuena.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialogBuena.show();
     }
 
     private void dialogoCargando() {
         try {
             dialogoCargando.setContentView(R.layout.popup_cargando);
-            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
         }catch (Exception e){
             Log.i("Error " , e.toString());
@@ -582,17 +572,16 @@ public class Pantalla_empezar_drag extends Fragment {
 
 
     private void revisar(boolean revisar) {
-        if (revisar == true) {
+        if (revisar) {
             int puntos = puntage;
             if (tiempoCapturado > preguntasVo.getTiempoDemora()) {
-                puntos = (puntage * 75) / 100;
             }
             listaColores.add("#45cc28");
         } else {
             listaColores.add("#ed2024");
         }
         if (numeroPregunta < 10) {
-            puente.reinciar(numeroPregunta, 1, listaColores);
+            puente.reinciar(numeroPregunta, listaColores);
         } else {
             Button finalizar;
             TextView campoFinal;
@@ -624,7 +613,7 @@ public class Pantalla_empezar_drag extends Fragment {
                 }
             });
 
-            MyDialogFinal.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            Objects.requireNonNull(MyDialogFinal.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             MyDialogFinal.show();
         }
         btnContinuar.setVisibility(View.INVISIBLE);
@@ -634,15 +623,11 @@ public class Pantalla_empezar_drag extends Fragment {
 
     private void enviarDatosPuntaje() {
         String url;
-        url = getContext().getString(R.string.ipRegistroPuntaje);
-        stringRequest =new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        url = Objects.requireNonNull(getContext()).getString(R.string.ipRegistroPuntaje);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (response.trim().equalsIgnoreCase("registra")) {
-                   // Toast.makeText(activity, ""+response, Toast.LENGTH_SHORT).show();
-                } else {
-                    //Toast.makeText(activity, ""+response, Toast.LENGTH_SHORT).show();
-                }
+                response.trim();
                 myDialogBuena.dismiss();
                 revisar(true);
                 dialogoCargando.dismiss();
@@ -655,7 +640,7 @@ public class Pantalla_empezar_drag extends Fragment {
 
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
 
                 String idusuario = credenciales;
                 int idpregunta = preguntasVo.getId();
@@ -675,14 +660,14 @@ public class Pantalla_empezar_drag extends Fragment {
     }
 
 
-    public void showPopup2(String retorno) {
-        Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(500);
+    private void showPopup2(String retorno) {
+        Vibrator vibrator = (Vibrator)Objects.requireNonNull(getContext()).getSystemService(Context.VIBRATOR_SERVICE);
+        Objects.requireNonNull(vibrator).vibrate(500);
 
         Button retroMala;
         TextView txtRetroMala;
         myDialogMala.setContentView(R.layout.popup_rincorrecta);
-        puntajeRespuestaMala = myDialogMala.findViewById(R.id.campoPuntajeIncorrecto);
+        TextView puntajeRespuestaMala = myDialogMala.findViewById(R.id.campoPuntajeIncorrecto);
         //puntajeRespuestaMala.setText("+"+String.valueOf(getPuntage()));
         txtRetroMala = myDialogMala.findViewById(R.id.campoRetroMala);
         txtRetroMala.setText(retorno);
@@ -697,16 +682,15 @@ public class Pantalla_empezar_drag extends Fragment {
             }
         });
 
-        myDialogMala.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(myDialogMala.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialogMala.show();
 
 
     }
 
     private void cargarCredenciales() {
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
-        String credenciales = preferences.getString("correo", "No existe el valor");
-        this.credenciales = credenciales;
+        SharedPreferences preferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
+        this.credenciales = preferences.getString("correo", "No existe el valor");
         //Toast.makeText(getContext(),"Credenciales = " + this.credenciales, Toast.LENGTH_SHORT).show();
     }
 

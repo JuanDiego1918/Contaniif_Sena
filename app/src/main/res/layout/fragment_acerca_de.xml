@@ -30,7 +30,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:padding="10dp"
-                    android:src="@drawable/logo_contaniif" />
+                    android:src="@drawable/logo_contaniif"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -55,7 +56,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:padding="10dp"
-                    android:src="@drawable/logo_equipo_desarrollador" />
+                    android:src="@drawable/logo_equipo_desarrollador"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -80,7 +82,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:padding="10dp"
-                    android:src="@drawable/misionyvison" />
+                    android:src="@drawable/misionyvison"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -106,7 +109,8 @@
                     android:layout_height="150dp"
                     android:layout_gravity="center"
                     android:padding="10dp"
-                    android:src="@drawable/logo_sicf_acerca_de" />
+                    android:src="@drawable/logo_sicf_acerca_de"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:layout_width="match_parent"
