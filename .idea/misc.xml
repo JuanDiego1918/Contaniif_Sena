@@ -1,5 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="EntryPointsManager">
+    <entry_points version="2.0">
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.acercaDe.AcercaDeFragment activity" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.actividades.MainActivity adelante" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.registro.Registro anio" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil btnFalso" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.registro.Registro btnFecha" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar clicRespuesta" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar contador" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar_drag copia" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.actividades.ActivosActivity credenciales" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil daate" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil date" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil dato" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.registro.Registro dia" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.Configuracion dialogoCargando" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil editarMunicipio" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.actividades.MainActivity fondoAyuda" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.actividades.MainActivity imagen" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar_drag jsonObjectRequest" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil jsonObjectRequest3" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar listaPre" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.adapter.PreguntasAdapter listener" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.adapter.PreguntasImagenesAdapter listener" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.registro.Registro mes" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil MIS_PERMISOS" />
+      <entry_point TYPE="method" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar_drag$4 boolean onDrag(android.view.View v, android.view.DragEvent event)" />
+      <entry_point TYPE="method" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar$2 void onItemClick(android.view.View view, int position)" />
+      <entry_point TYPE="method" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar$3 void onItemClick(android.view.View view, int position)" />
+      <entry_point TYPE="method" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar$12 void onItemClick(android.view.View view, int position)" />
+      <entry_point TYPE="method" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar$13 void onItemClick(android.view.View view, int position)" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.grupos.Grupos progreso" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil progreso" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar progreso" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.principal.Pantalla_empezar_drag progreso" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.miRendimiento.RendimiendoFragment puntos" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.adapter.PreguntasAdapter.UsuariosHolder relativeLayout" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.actividades.ActivityContenedora request" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil rutaImagen" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.configuracion.MiPerfil rutaImg" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.actividades.MainActivity salir" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.actividades.ActivityContenedora tipo" />
+      <entry_point TYPE="field" FQNAME="club.contaniif.contaniff.miRendimiento.RendimiendoFragment valorCriptoniif" />
+    </entry_points>
+  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
     <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />
