@@ -31,7 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:background="@color/miRendimientoOscuro"
+                    android:background="@color/miRendimientoOscuro1"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="3dp">
@@ -107,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="2"
-                        android:background="@color/EmpezarOscuro"
+                        android:background="@color/EmpezarOscuro1"
                         android:onClick="onClick"
                         android:orientation="vertical">
 
@@ -169,7 +169,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
-                            android:background="@color/VideosOscuro"
+                            android:background="@color/VideosOscuro1"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
@@ -227,7 +227,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="2"
-                        android:background="@color/EventosOscuro"
+                        android:background="@color/EventosOscuro1"
                         android:onClick="onClick"
                         android:orientation="vertical">
 
@@ -283,7 +283,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="2"
-                        android:background="@color/SabiasOscuro"
+                        android:background="@color/SabiasOscuro1"
                         android:onClick="onClick"
                         android:orientation="vertical">
 
@@ -349,7 +349,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="2"
-                        android:background="@color/ConfiguracionOscuro"
+                        android:background="@color/ConfiguracionOscuro1"
                         android:onClick="onClick"
                         android:orientation="vertical">
 
@@ -404,7 +404,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="2"
-                        android:background="@color/AcercaOscuro"
+                        android:background="@color/AcercaOscuro1"
                         android:onClick="onClick"
                         android:orientation="vertical">
 

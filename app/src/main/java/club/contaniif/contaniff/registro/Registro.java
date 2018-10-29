@@ -156,7 +156,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         request = Volley.newRequestQueue(getApplicationContext());
 
         ArrayGenero = new ArrayList<>();
-        ArrayGenero.add("Seleccioar genero");
+        ArrayGenero.add("Seleccionar genero");
         ArrayGenero.add("Masculino");
         ArrayGenero.add("Femenino");
 
