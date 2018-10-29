@@ -1,5 +1,6 @@
 package club.contaniif.contaniff.actividades;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,12 +8,14 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,26 +32,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Objects;
-
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.entidades.Datos;
 import club.contaniif.contaniff.eventos.EventosActivity;
 
 public class MainActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
-    private Dialog dialogoAyuda;
-    private Dialog dialogoCargando;
-    private boolean seleccionado = false;
-    private RequestQueue request;
-    private TextView puntosUsuario;
-    private String correo;
-    Button salir;
+    Dialog dialogoAyuda;
+    Dialog dialogoCargando;
+    boolean seleccionado = false;
+    RequestQueue request;
+    JsonObjectRequest jsonObjectRequest;
+    TextView puntosUsuario;
+    String correo;
+    Button btnSalirAyuda;
     FloatingActionButton adelante;
-    int imagen = 1;
-    ImageView fondoAyuda;
-    private String puntajeUrl;
-    private String imagenUrl;
-    private ImageView medalla;
+    int imagen = 0;
+    ImageView ayuda,fondoAyuda,fondo;
+    String puntajeUrl, imagenUrl;
+    ImageView medalla;
+    ImageButton next,back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         medalla=findViewById(R.id.tipodemedalla);
         cargarCredenciales();
         cargarWebService();
-        ImageView ayuda = findViewById(R.id.btnAyuda);
+        ayuda = findViewById(R.id.btnAyuda);
         ayuda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,14 +78,15 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         String ayuda = preferences.getString("ayuda", "no");
         if (ayuda.equalsIgnoreCase("no")) {
             showDialogo();
-        } //Toast.makeText(getApplicationContext(),"Ya se mostro la ventana de ayuda",Toast.LENGTH_SHORT).show();
-
+        }else {
+            //Toast.makeText(getApplicationContext(),"Ya se mostro la ventana de ayuda",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void dialogoCargando() {
         try {
             dialogoCargando.setContentView(R.layout.popup_cargando);
-            Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
         }catch (Exception e){
             Log.i("Error " , e.toString());
@@ -92,38 +95,63 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     }
 
     private void showDialogo() {
-
         dialogoAyuda.setContentView(R.layout.popup_ayuda);
-/*        fondoAyuda = dialogoAyuda.findViewById(R.id.imgAyuda);
-        adelante = dialogoAyuda.findViewById(R.id.fabAdelante);
-        adelante.setOnClickListener(new View.OnClickListener() {
+        fondo = dialogoAyuda.findViewById(R.id.imagenFondoAyuda);
+        next = dialogoAyuda.findViewById(R.id.btnNextAyuda);
+        back = dialogoAyuda.findViewById(R.id.btnBackAyuda);
+        btnSalirAyuda = dialogoAyuda.findViewById(R.id.btnSalirAyuda);
+        next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imagen++;
-                if (imagen > 3){
+                imagen = imagen+1;
+                if (imagen >= 4){
+                    imagen = 1;
+                }
+                cambiarImagen(imagen);
+
+            }
+
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imagen = imagen-1;
+                if (imagen <= 0){
                     imagen = 3;
                 }
+                cambiarImagen(imagen);
 
-                switch (imagen){
-                    case 1:
-                        fondoAyuda.setImageDrawable(getDrawable(R.drawable.num1));
-                        break;
-                    case 2:
-                        fondoAyuda.setImageDrawable(getDrawable(R.drawable.num2));
-                        break;
-                    case 3:
-                        fondoAyuda.setImageDrawable(getDrawable(R.drawable.num3));
-                        break;
-
-                }
-
-                Toast.makeText(getApplicationContext(),"Valos numaro " + imagen,Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
 
-        Objects.requireNonNull(dialogoAyuda.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        btnSalirAyuda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogoAyuda.hide();
+            }
+        });
+
+        dialogoAyuda.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogoAyuda.show();
         guardarAyuda();
+    }
+
+    private void cambiarImagen(int imagen) {
+        Toast.makeText(MainActivity.this, "Numero : " + imagen, Toast.LENGTH_SHORT).show();
+        switch (imagen){
+            case 1:
+                fondo.setImageDrawable(getDrawable(R.drawable.logo_ayuda));
+                break;
+            case 2:
+                fondo.setImageDrawable(getDrawable(R.drawable.logo_activos));
+                break;
+            case 3:
+                fondo.setImageDrawable(getDrawable(R.drawable.configuracion));
+                break;
+
+        }
     }
 
     private void guardarAyuda() {
@@ -136,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     private void cargarCredenciales() {
         SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         String credenciales = preferences.getString("correo", "No existe el valor");
-        if (!Objects.equals(credenciales, "No existe el valor")) {
+        if (credenciales != "No existe el valor") {
             correo = credenciales;
             cargarAyuda();
         }
@@ -176,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
                 seleccionado = true;
                 break;
         }
-        if (seleccionado) {
+        if (seleccionado == true) {
             miIntent = new Intent(MainActivity.this, ActivityContenedora.class);
             miIntent.putExtra("dato", miBundle);
         }
@@ -187,10 +215,8 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     @Override
     protected void onResume() {
         super.onResume();
-        if (Datos.actualizarPuntos) {
+        if (Datos.actualizarPuntos == true) {
             Datos.actualizarPuntos = false;
-            cargarWebService();
-        }else {
             cargarWebService();
         }
     }
@@ -199,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         dialogoCargando();
         request = Volley.newRequestQueue(getApplication());
         String url = "https://" + getApplicationContext().getString(R.string.ip) + "puntaje.php?idusuario="+correo;
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
 
