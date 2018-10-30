@@ -63,7 +63,6 @@ import club.contaniif.contaniff.interfaces.Puente;
  */
 public class Pantalla_empezar_drag extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -74,7 +73,6 @@ public class Pantalla_empezar_drag extends Fragment {
     }
 
     private Puente puente;
-
     private int numeroArray = 0;
     private int numero;
     private int correctas = 0;
@@ -89,22 +87,12 @@ public class Pantalla_empezar_drag extends Fragment {
     private RecyclerView PreguntasTexto;
     private RecyclerView Imagenes;
     private PreguntasVo miVo;
-    HashMap copia;
-    JsonObjectRequest jsonObjectRequest;
     //////////////////////////////////////////////////////////////////////////
     private String retroBuena;
     private boolean isCheked = false;
 
     private boolean getIsCheked() {
         return isCheked;
-    }
-
-    public void setIsCheked(boolean isCheked) {
-        this.isCheked = isCheked;
-    }
-
-    public int getTipoPregunta() {
-        return tipoPregunta;
     }
 
     private void setTipoPregunta(int tipoPregunta) {
@@ -160,7 +148,6 @@ public class Pantalla_empezar_drag extends Fragment {
 
 
     private int i = reiniciar;
-    ProgressDialog progreso;
     private static long START_TIME_IN_MILLIS;
     private static final int reiniciar = 0;
     private static android.os.CountDownTimer CountDownTimer;
@@ -242,7 +229,6 @@ public class Pantalla_empezar_drag extends Fragment {
         btnContinuar2 = view.findViewById(R.id.btnContinuar2);
         btnContinuar = view.findViewById(R.id.btnContinuar);
         btnContinuar.setVisibility(View.INVISIBLE);
-        //int numero = 3;
         RecyclerView miRecyclerNumero = view.findViewById(R.id.recyclerNumeros);
         miRecyclerNumero.setLayoutManager(new LinearLayoutManager(getContext()));
         miRecyclerNumero.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
@@ -317,8 +303,6 @@ public class Pantalla_empezar_drag extends Fragment {
 
     private void cargarDatos() {
         list = new ArrayList<>();
-
-        JSONObject jsonObject = null;
         final ArrayList<String> lista = new ArrayList<>();
 
         for (int i = 0; i < listaRespuesta.size(); i++) {
@@ -350,10 +334,7 @@ public class Pantalla_empezar_drag extends Fragment {
         setTipoPregunta(preguntasVo.getTipo());
         setPuntage(preguntasVo.getPuntaje());
         pregunta.setText(preguntasVo.getPregunta());
-        String informacion = preguntasVo.getRespuesta();
-        String informacion2 = preguntasVo.getOpciones();
         if (numeroPregunta != 0)
-
         {
             resetTimer();
         }
@@ -402,15 +383,8 @@ public class Pantalla_empezar_drag extends Fragment {
             @Override
             public boolean onDrag(View v, DragEvent event) {
                 int dragEvent = event.getAction();
-                final View view = (View) event.getLocalState();
 
                 switch (dragEvent) {
-                /*case DragEvent.ACTION_DRAG_ENTERED:
-                    Toast.makeText(getApplicationContext(), "ENTERED" + list.get(PreguntasTexto.getChildAdapterPosition(view)).getPalabra(), Toast.LENGTH_SHORT).show();
-                    break;
-                case DragEvent.ACTION_DRAG_EXITED:
-                    Toast.makeText(getApplicationContext(), "EXITED" + list.get(PreguntasTexto.getChildAdapterPosition(view)).getPalabra(), Toast.LENGTH_SHORT).show();
-                    break;*/
                     case DragEvent.ACTION_DROP:
                         if (list.get(numero).isMostrar() && list.get(PreguntasTexto.getChildAdapterPosition(v)).getImg() == null ) {
                             list.get(PreguntasTexto.getChildAdapterPosition(v)).setImg(list.get(numero).getRuta());
@@ -533,7 +507,6 @@ public class Pantalla_empezar_drag extends Fragment {
         numeroPregunta++;
     }
 
-
     private void showPopup(String retorno) {
         respondeBien.start();
         final Button retroBuena;
@@ -573,7 +546,7 @@ public class Pantalla_empezar_drag extends Fragment {
 
     private void revisar(boolean revisar) {
         if (revisar) {
-            int puntos = puntage;
+
             if (tiempoCapturado > preguntasVo.getTiempoDemora()) {
             }
             listaColores.add("#45cc28");
@@ -667,12 +640,9 @@ public class Pantalla_empezar_drag extends Fragment {
         Button retroMala;
         TextView txtRetroMala;
         myDialogMala.setContentView(R.layout.popup_rincorrecta);
-        TextView puntajeRespuestaMala = myDialogMala.findViewById(R.id.campoPuntajeIncorrecto);
-        //puntajeRespuestaMala.setText("+"+String.valueOf(getPuntage()));
         txtRetroMala = myDialogMala.findViewById(R.id.campoRetroMala);
         txtRetroMala.setText(retorno);
         retroMala = myDialogMala.findViewById(R.id.btnRetroMala);
-
 
         retroMala.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -691,7 +661,6 @@ public class Pantalla_empezar_drag extends Fragment {
     private void cargarCredenciales() {
         SharedPreferences preferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         this.credenciales = preferences.getString("correo", "No existe el valor");
-        //Toast.makeText(getContext(),"Credenciales = " + this.credenciales, Toast.LENGTH_SHORT).show();
     }
 
 }

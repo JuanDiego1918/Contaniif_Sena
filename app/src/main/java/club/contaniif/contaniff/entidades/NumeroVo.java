@@ -5,7 +5,6 @@ public class NumeroVo {
 
     private int numeroPagina;
     private String color;
-    private int img;
 
     public NumeroVo() {
     }
@@ -26,11 +25,4 @@ public class NumeroVo {
         this.numeroPagina = numeroPagina;
     }
 
-    public int getImg() {
-        return img;
-    }
-
-    public void setImg(int img) {
-        this.img = img;
-    }
 }
