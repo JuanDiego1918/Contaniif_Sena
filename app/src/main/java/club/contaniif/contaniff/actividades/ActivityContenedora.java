@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -153,12 +154,13 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getApplicationContext(), "Error " + error, Toast.LENGTH_LONG).show();
+        dialogoCargando.dismiss();
+        Toast.makeText(this, "En este momento las preguntas no estan disponibles", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override
     public void onResponse(JSONObject response) {
-
         preguntas = null;
         JSONArray json = response.optJSONArray("pregunta");
         JSONObject jsonObject;
@@ -203,7 +205,6 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
             getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, miFragment).commit();
         } catch (JSONException e) {
             e.printStackTrace();
-
             Toast.makeText(getApplicationContext(), "No se ha podido establecer conexión con el servidor" + " " + response, Toast.LENGTH_LONG).show();
         }
 
@@ -226,11 +227,9 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
     private void cargarWebservices() {
         dialogoCargando();
         String ip = getApplicationContext().getString(R.string.ip);
-        //String url = "http://" + ip + "wsPreguntasTipo1.php";
-        //String url = "https://contaniif.club/movil/wsConsultaPreguntaPrueba1.php?estudiante=victor@gmail.com";
         String url = "https://" + ip + "/wsConsultaPreguntaPrueba1.php?estudiante=" + credenciales;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
-//        request.add(jsonObjectRequest);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+
     }
 }
