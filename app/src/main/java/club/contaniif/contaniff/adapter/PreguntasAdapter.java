@@ -45,14 +45,11 @@ public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.Usua
 
     @Override
     public void onBindViewHolder(@NonNull UsuariosHolder holder, int position) {
-
-        //holder.preguntaa.setText(listaUsuarios.get(position).getPregunta().toString());
         holder.respuesta.setText(listadoLetras[position] + listaUsuarios.get(position).getOpciones());
 
         if (selectedPosition == position) {
             holder.respuesta.setBackgroundColor(Color.parseColor("#C4CDDA"));
         } else {
-            //if selected position is not equal to that mean view is not selected so change the cardview color to white back again
             holder.respuesta.setBackgroundColor(Color.TRANSPARENT);
         }
     }
@@ -75,14 +72,7 @@ public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.Usua
     }
 
     public class UsuariosHolder extends RecyclerView.ViewHolder {
-        //TextView preguntaa;
-        // RadioGroup grupoRadio;
-        // Fragment fragment;
         final TextView respuesta;
-        LinearLayout relativeLayout;
-        //int i = 0;
-        // boolean seleccion = false;
-
         UsuariosHolder(View itemView) {
             super(itemView);
             respuesta = itemView.findViewById(R.id.respuestaaaa);
@@ -92,7 +82,6 @@ public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.Usua
 
     public void setSelectedPosition(int selectedPosition) {
         this.selectedPosition = selectedPosition;
-        //when item selected notify the adapter
         notifyDataSetChanged();
     }
 }

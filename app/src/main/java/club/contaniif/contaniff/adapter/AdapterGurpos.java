@@ -15,8 +15,6 @@ import club.contaniif.contaniff.entidades.GruposVo;
 public class AdapterGurpos extends RecyclerView.Adapter<AdapterGurpos.GruposHolder> /*implements View.OnClickListener*/ {
 
     private final ArrayList<GruposVo>listaGrupos;
-    //View.OnClickListener listener;
-
     public AdapterGurpos(ArrayList<GruposVo> listaGrupos) {
         this.listaGrupos = listaGrupos;
     }
@@ -25,7 +23,6 @@ public class AdapterGurpos extends RecyclerView.Adapter<AdapterGurpos.GruposHold
     @Override
     public GruposHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.modelo_grupos,null,false);
-        //view.setOnClickListener(this);
         return new GruposHolder(view);
     }
 
@@ -38,14 +35,6 @@ public class AdapterGurpos extends RecyclerView.Adapter<AdapterGurpos.GruposHold
     public int getItemCount() {
         return listaGrupos.size();
     }
-/*
-    @Override
-    public void onClick(View v) {
-        *//*if (listener != null){
-            listener.onClick(v);
-        }*//*
-    }*/
-
     public class GruposHolder extends RecyclerView.ViewHolder {
         final TextView campoGrupo;
         GruposHolder(View itemView) {

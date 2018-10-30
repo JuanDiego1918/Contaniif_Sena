@@ -58,8 +58,4 @@ public class CategoriasAdapter extends RecyclerView.Adapter<CategoriasAdapter.Ca
             palabra=itemView.findViewById(R.id.palabra);
         }
     }
-    public void setSelectedPosition() {
-        //when item selected notify the adapter
-        notifyDataSetChanged();
-    }
 }

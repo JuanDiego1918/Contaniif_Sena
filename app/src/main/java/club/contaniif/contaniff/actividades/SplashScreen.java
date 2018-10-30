@@ -64,12 +64,6 @@ public class SplashScreen extends AppCompatActivity {
     private void cargarCredenciales() {
         SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         String credenciales = preferences.getString("correo", "No existe el valor");
-        //Toast.makeText(getApplicationContext(),"credenciales" + credenciales,Toast.LENGTH_SHORT).show();
-//Intent intent =new Intent(SplashScreen.this,Registro.class);
-//startActivity(intent);
-//Toast.makeText(getApplicationContext(),"credenciales" + credenciales,Toast.LENGTH_SHORT).show();
-//Intent intent =new Intent(SplashScreen.this,MainActivity.class);
-//startActivity(intent);
         registrado = credenciales != "No existe el valor";
 
 
