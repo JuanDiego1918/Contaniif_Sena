@@ -30,9 +30,7 @@ public class Configuracion extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private OnFragmentInteractionListener mListener;
-    Dialog dialogoCargando;
     public Configuracion() {
-        // Required empty public constructor
     }
 
     /**
@@ -66,7 +64,6 @@ public class Configuracion extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_configuracion2, container, false);
         LinearLayout btnGrupos = vista.findViewById(R.id.btnGrupos);
         btnGrupos.setOnClickListener(new View.OnClickListener() {
