@@ -62,7 +62,6 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
     private String credenciales;
     private String cojeComentario;
     private int cambioCanjes;
-    String valorCriptoniif;
     private String puntosDisponibles;
     private String correo;
     private RequestQueue request;
@@ -78,7 +77,6 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         cargarDatos();
     }
 
-    LinearLayout puntos;
     private TextView txtPuntos;
     private TextView txtCambiados;
     private TextView txtDisponibles;
@@ -124,7 +122,6 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         dialogoCargando = new Dialog(Objects.requireNonNull(this.getContext()));
         cargarCredenciales();
         request = Volley.newRequestQueue(getContext());
@@ -291,18 +288,14 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
     private void enviarDatosComentarios(final String cojeComentario) {
 
         String url;
-        //url = getContext().getString(R.string.ipComentario)+cojeComentario+"&idusuario="+credenciales;
         url = Objects.requireNonNull(getContext()).getString(R.string.ipComentario);
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //progreso.hide();
                 if (response.trim().equalsIgnoreCase("registra")) {
                     Toast.makeText(getContext(), "Comentario enviado " + response, Toast.LENGTH_LONG).show();
-                    //Toast.makeText(getContext(),"Crede " + credenciales, Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getContext(), "Comentario no registrado " + response, Toast.LENGTH_LONG).show();
-                    //Toast.makeText(getContext(),"Crede " + credenciales, Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -314,13 +307,10 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         }) {
             @Override
             protected Map<String, String> getParams() {
-
                 String idusuario = credenciales;
-
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("idusuario", idusuario);
                 parametros.put("comentario", cojeComentario);
-                //parametros.put("fecha", fecha);
                 return parametros;
             }
         };
@@ -385,7 +375,6 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         JSONArray json = response.optJSONArray("puntos");
         try {
             JSONObject jsonObject = null;
-
             txtPuntos.setText("Puntos Obtenidos: " + json.getJSONObject(0).optString("obtenidos"));
             txtCambiados.setText("Puntos Cambiados: " + json.getJSONObject(1).optString("canjeados"));
             txtActivo.setText("Activos Adquiridos: " + json.getJSONObject(2).optString("activos"));

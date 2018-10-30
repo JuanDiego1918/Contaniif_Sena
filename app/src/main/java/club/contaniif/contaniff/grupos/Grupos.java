@@ -71,7 +71,6 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
     private String esta;
     private String dato2;
     private TextView campoGrupoP;
-    ProgressDialog progreso;
     private String idusuario;
 
     public Grupos() {
@@ -119,7 +118,6 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
         recyclerGrupos = vista.findViewById(R.id.recyclerGrupos);
         cargarWebservices();
         cargarNombre();
-
         return vista;
     }
 
@@ -153,19 +151,6 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
         if (!Objects.equals(nombre, "No existe el valor")) {
             this.nombre = nombre;
         }
-    }
-
-    private void opciones() {
-        final CharSequence[] opciones={"Aceptar","Cancelar"};
-        final AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
-        builder.setTitle("¿ Esta seguro que desea unirse a el grupo " + dato +  " ? ");
-        builder.setItems(opciones, new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        });
-        builder.show();
     }
 
 
@@ -233,8 +218,6 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
                dato = listaGrupos.get(recyclerGrupos.getChildAdapterPosition(view)).getCodigo();
                 dato2 = listaGrupos.get(recyclerGrupos.getChildAdapterPosition(view)).getGrupo();
                 showPopup();
-               //opciones();
-               //Toast.makeText(getContext(),"Codigo " + dato,Toast.LENGTH_SHORT).show();
             }
         }));
 

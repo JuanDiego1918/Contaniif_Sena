@@ -167,7 +167,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     private OnFragmentInteractionListener mListener;
 
     private int i = reiniciar;
-    ProgressDialog progreso;
     private static long START_TIME_IN_MILLIS;
     private static final int reiniciar = 0;
     private static android.os.CountDownTimer CountDownTimer;
@@ -201,7 +200,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     private int correctoSeleccionMultiple = 0;
     private PreguntasVo preguntas;
     private ArrayList<String> listaColores;
-    boolean clicRespuesta = false;
 
     public Pantalla_empezar() {
         // Required empty public constructor
@@ -249,7 +247,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         View vista = inflater.inflate(R.layout.fragment_pantalla_empezar, container, false);
         cargarCredenciales();
         request = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
-        ScrollView miScroll = vista.findViewById(R.id.scroll);
 
         myDialogBuena = new Dialog(getContext());
         myDialogMala = new Dialog(getContext());
@@ -288,7 +285,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         recyclerViewUsuarios = vista.findViewById(R.id.recyclerPreguntasss);
         recyclerViewUsuarios.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewUsuarios.setHasFixedSize(true);
-        //request = Volley.newRequestQueue(getContext());
 
         if (getIsCheked()) {
             btnContinuar.setVisibility(View.VISIBLE);
@@ -327,7 +323,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     }
 
     private void cargarDatos() {
-
         PreguntasVo lisPreguntasVo;
         listaPreguntas = new ArrayList<>();
         listaImagenes = new ArrayList<>();
@@ -340,11 +335,8 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         }
 
         setRetroMala(preguntas.getRetromala());
-
         setRetroBuena(preguntas.getRetobuena());
-
         setTipoPregunta(preguntas.getTipo());
-
         setPuntage(preguntas.getPuntaje());
         pregunta.setText(preguntas.getPregunta());
         informacion = preguntas.getRespuesta();
@@ -372,14 +364,12 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                     btnContinuar2.setVisibility(View.INVISIBLE);
 
                     String enviaPregunta = listaPreguntas.get(recyclerViewUsuarios.getChildAdapterPosition(view)).getOpciones();
-                    String enviaRespuesta = informacion;
 
                     if (enviaPregunta.equalsIgnoreCase(informacion)) {
                         setResultado("correcto");
                     } else {
                         setResultado("incorrecto");
                     }
-
                     adapter2.setSelectedPosition(position);
                 }
             }));
@@ -395,7 +385,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                     btnContinuar2.setVisibility(View.INVISIBLE);
 
                     String enviaPregunta = listaPreguntas.get(recyclerViewUsuarios.getChildAdapterPosition(view)).getOpciones();
-                    String enviaRespuesta = informacion;
 
                     if (enviaPregunta.equalsIgnoreCase(informacion)) {
                         setResultado("correcto");
@@ -412,7 +401,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             for (String foobar : bar) {
                 listaRespuesta.add(String.format(foobar));
             }
-
 
             btnContinuar.setVisibility(View.VISIBLE);
             btnContinuar2.setVisibility(View.INVISIBLE);
@@ -495,18 +483,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         mProgressBar.setProgress((int) (i * 100 / (mInitialTime / 1000)));
     }
 
-    private void cargarWebservices() {
-        dialogoCargando();
-        String ip = Objects.requireNonNull(getContext()).getString(R.string.ip);
-        //String url = "http://" + ip + "wsPreguntasTipo1.php";
-        //String url = "http://" + ip + "/multiples.php";
-        String url = "https://" + ip + "/wsConsultaPreguntaPrueba1.php?estudiante=" + credenciales;
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
-//        request.add(jsonObjectRequest);
-        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
-    }
-
-
     private void showPopup(String retorno) {
         respondeBien.start();
         final Button retroBuena;
@@ -535,7 +511,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
     private void revisar(boolean revisar) {
         if (revisar) {
-            int puntos = puntage;
+
             if (tiempoCapturado > preguntas.getTiempoDemora()) {
             }
             listaColores.add("#45cc28");
@@ -548,7 +524,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             Button finalizar;
             TextView campoFinal;
             MyDialogFinal.setContentView(R.layout.popup_terminar_preguntas);
-            //puntajeRespuestaMala.setText("+"+String.valueOf(getPuntage()));
             campoFinal = MyDialogFinal.findViewById(R.id.textoFinal);
             finalizar = MyDialogFinal.findViewById(R.id.btnFinal);
             int buenas = 0, malas = 0;
@@ -583,9 +558,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         btnContinuar2.setVisibility(View.VISIBLE);
     }
 
-
     ///////////////////////////////VICTOR/////////////////////////////////
-
 
     private void cargarCredenciales() {
         SharedPreferences preferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
@@ -611,7 +584,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 idpregunta = 0;
                 tiempo = 0;
                 puntaje = 0;
-                //progreso.hide();
                 response.trim();
                 myDialogBuena.dismiss();
                 revisar(true);
@@ -631,8 +603,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 idpregunta = preguntas.getId();
                 tiempo = tiempoCapturado;
                 puntaje = getPuntage();
-
-                //Hola Mono
                 parametros = new HashMap<>();
                 parametros.put("idusuario", idusuario);
                 parametros.put("idpregunta", Integer.toString(idpregunta));
@@ -656,8 +626,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         Button retroMala;
         TextView txtRetroMala;
         myDialogMala.setContentView(R.layout.popup_rincorrecta);
-        TextView puntajeRespuestaMala = myDialogMala.findViewById(R.id.campoPuntajeIncorrecto);
-        //puntajeRespuestaMala.setText("+"+String.valueOf(getPuntage()));
         txtRetroMala = myDialogMala.findViewById(R.id.campoRetroMala);
         txtRetroMala.setText(retorno);
         retroMala = myDialogMala.findViewById(R.id.btnRetroMala);
@@ -755,7 +723,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             setPuntage(preguntas.getPuntaje());
             pregunta.setText(preguntas.getPregunta());
             informacion = preguntas.getRespuesta();
-            String informacion2 = preguntas.getOpciones();
 
             if (numeroPregunta != 0) {
                 resetTimer();
@@ -784,7 +751,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                     btnContinuar2.setVisibility(View.INVISIBLE);
 
                     String enviaPregunta = listaPreguntas.get(recyclerViewUsuarios.getChildAdapterPosition(view)).getOpciones();
-                    String enviaRespuesta = informacion;
 
                     if (enviaPregunta.equalsIgnoreCase(informacion)) {
                         setResultado("correcto");
@@ -807,7 +773,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                     btnContinuar2.setVisibility(View.INVISIBLE);
 
                     String enviaPregunta = listaPreguntas.get(recyclerViewUsuarios.getChildAdapterPosition(view)).getOpciones();
-                    String enviaRespuesta = informacion;
 
                     if (enviaPregunta.equalsIgnoreCase(informacion)) {
                         setResultado("correcto");
@@ -861,7 +826,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 }
             });
         } else if (getTipoPregunta() == 4) {
-            //cargarWebservices();
+
         }
 
 

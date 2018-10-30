@@ -82,29 +82,6 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
 
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_ppal, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_recargar) {
-            finish();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
-
     private void cargarWebService() {
         dialogoCargando();
         recyclerViewNumero.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -151,7 +128,6 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
                 listaEventos.add(miEventoVo);
                 listaNumero.add(miNumeroVo);
             }
-            // Set up the ViewPager with the sections adapter.
             mViewPager.setAdapter(mSectionsPagerAdapter);
 
             PaginacionNumeroAdapter miNumeroAdapter = new PaginacionNumeroAdapter(listaNumero, getApplicationContext());
@@ -220,8 +196,6 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
 
             return rootView;
         }
-
-        //hola grupo
 
         private void mostrarImg(String rutaImagen) {
             String ip = Objects.requireNonNull(getContext()).getString(R.string.ipImg);

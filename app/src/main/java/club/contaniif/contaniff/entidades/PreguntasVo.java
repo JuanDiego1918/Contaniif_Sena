@@ -40,17 +40,6 @@ public class PreguntasVo implements Serializable {
     private String opciones;
     private String respuesta;
 
-
-    public String[] getRepuesta() {
-        return repuesta;
-    }
-
-    public void setRepuesta(String[] repuesta) {
-        this.repuesta = repuesta;
-    }
-
-    private String repuesta[];
-
     private String retobuena;
     private String retromala;
 
@@ -68,9 +57,6 @@ public class PreguntasVo implements Serializable {
         this.pregunta = pregunta;
     }
 
-    public int getCategoria() {
-        return categoria;
-    }
 
     public void setCategoria(int categoria) {
         this.categoria = categoria;
@@ -141,22 +127,6 @@ public class PreguntasVo implements Serializable {
 
     public void setCheck(boolean check) {
         isCheck = check;
-    }
-
-    public ArrayList<String> getListaSeleccionada() {
-        return listaSeleccionada;
-    }
-
-    public void setListaSeleccionada(ArrayList<String> listaSeleccionada) {
-        this.listaSeleccionada = listaSeleccionada;
-    }
-
-    public String getArregloPregunta() {
-        return arregloPregunta;
-    }
-
-    public void setArregloPregunta(String arregloPregunta) {
-        this.arregloPregunta = arregloPregunta;
     }
 
     public String getPalabra() {
