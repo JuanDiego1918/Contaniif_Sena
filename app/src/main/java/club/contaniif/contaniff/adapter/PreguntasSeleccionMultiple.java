@@ -19,7 +19,6 @@ public class PreguntasSeleccionMultiple extends RecyclerView.Adapter<PreguntasSe
     private View.OnClickListener listener;
     public PreguntasSeleccionMultiple(ArrayList<PreguntasVo> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
-
     }
 
     @NonNull
@@ -39,8 +38,6 @@ public class PreguntasSeleccionMultiple extends RecyclerView.Adapter<PreguntasSe
 
     @Override
     public void onBindViewHolder(@NonNull final UsuariosHolder holder, int position) {
-
-        //holder.preguntaa.setText(listaUsuarios.get(position).getPregunta().toString());
         holder.respuesta.setText(listaUsuarios.get(position).getOpciones());
         holder.respuesta.setOnCheckedChangeListener(null);
         holder.respuesta.setChecked(listaUsuarios.get(position).isCheck());
@@ -75,13 +72,7 @@ public class PreguntasSeleccionMultiple extends RecyclerView.Adapter<PreguntasSe
     }
 
     public class UsuariosHolder extends RecyclerView.ViewHolder {
-        //TextView preguntaa;
-        // RadioGroup grupoRadio;
-        // Fragment fragment;
         final CheckBox respuesta;
-        //int i = 0;
-        // boolean seleccion = false;
-
         UsuariosHolder(View itemView) {
             super(itemView);
             respuesta = itemView.findViewById(R.id.respuestaaaa);

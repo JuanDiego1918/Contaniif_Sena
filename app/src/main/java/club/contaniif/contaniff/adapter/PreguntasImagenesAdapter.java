@@ -48,7 +48,6 @@ public class PreguntasImagenesAdapter extends RecyclerView.Adapter<PreguntasImag
 
     @Override
     public void onBindViewHolder(@NonNull ImagenesHolder holder, int position) {
-        // holder.imagen.setImageBitmap(listaImagenes.get(position).getImagen())
         if (listaImagenes.get(position).getRutaImagen() != null) {
             cargarImagenWebService(listaImagenes.get(position).getRutaImagen(), holder);
         } else {
@@ -75,7 +74,6 @@ public class PreguntasImagenesAdapter extends RecyclerView.Adapter<PreguntasImag
                 Toast.makeText(context, "Error al cargar la imagen" + error.toString(), Toast.LENGTH_SHORT).show();
             }
         });
-        //request.add(imageRequest);
         VolleySingleton.getIntanciaVolley(context).addToRequestQueue(imageRequest);
     }
 
@@ -107,7 +105,6 @@ public class PreguntasImagenesAdapter extends RecyclerView.Adapter<PreguntasImag
 
     public void setSelectedPosition(int selectedPosition) {
         this.selectedPosition = selectedPosition;
-        //when item selected notify the adapter
         notifyDataSetChanged();
     }
 

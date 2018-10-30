@@ -72,7 +72,6 @@ public class PreguntasImagenesAdapterDrag extends RecyclerView.Adapter<Preguntas
                 Toast.makeText(context, "Error al cargar la imagen" + error.toString(), Toast.LENGTH_SHORT).show();
             }
         });
-        //request.add(imageRequest);
         VolleySingleton.getIntanciaVolley(context).addToRequestQueue(imageRequest);
     }
 

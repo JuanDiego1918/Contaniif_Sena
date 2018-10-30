@@ -302,8 +302,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     private TextView campoFechaNacimiento;
     private ImageView imagenCamara;
     private String fecha;
-    ImageView editarMunicipio;
-    Button btnFalso;
+
     //////-Listas
     private ArrayList<String> ArrayDepartamentos;
     private ArrayList<String> ArrayMunicipios;
@@ -311,13 +310,6 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     //////-Para pedir los datos a la base de datos
     private RequestQueue request;
     private RequestQueue request2;
-    JsonObjectRequest jsonObjectRequest3;
-    /////
-    ProgressDialog progreso;
-    /////
-    String rutaImagen;
-    /////
-    String dato;
 
     public MiPerfil() {
         // Required empty public constructor
@@ -354,7 +346,6 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_configuracion, container, false);
         request = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
         request2 = Volley.newRequestQueue(getContext());
@@ -366,7 +357,6 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         llenarDias();
 
         cargarCredenciales();
-        // myDialogFecha.setContentView(R.layout.popup_seleccionar_fecha);
         ArrayGenero = new ArrayList<>();
         ArrayGenero.add("Seleccioar genero");
         ArrayGenero.add("Masculino");
@@ -408,9 +398,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         ArrayDepartamentos.add("Vaupés");
         ArrayDepartamentos.add("Vichada");
 
-
         Button btnRegistro = vista.findViewById(R.id.btnRegistrar);
-
         listaDepartamentos = vista.findViewById(R.id.spinnerDepartamentoConfig);
         ArrayAdapter<CharSequence> adapterDepartamentos = new ArrayAdapter(getContext(), R.layout.spinner_item, ArrayDepartamentos);
         listaDepartamentos.setAdapter(adapterDepartamentos);
@@ -424,7 +412,6 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                     cargarListaMunicipios();
                     setDepartamentoo(ArrayDepartamentos.get(position));
                     setSeleccionaDepartamento();
-                    //seleccionaDepartamento = true;
                 }
             }
 
@@ -445,7 +432,6 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                     setValidacionGenero(2);
                     setGeneroo(ArrayGenero.get(i));
                     setSeleccionaGenero();
-                    //seleccionaGenero=true;
                 } else {
 
                 }
@@ -494,15 +480,6 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
             }
         });
 
-        /*editarMunicipio = vista.findViewById(R.id.imagenEditarMunicipio);
-        editarMunicipio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                campoMunicipio.setVisibility(View.INVISIBLE);
-                listaMunicipios.setVisibility(View.VISIBLE);
-            }
-        });*/
-
         campoNombre = vista.findViewById(R.id.campoNombreConfig);
         campoApellido = vista.findViewById(R.id.campoApellidoConfig);
         campoCorreo = vista.findViewById(R.id.campoCorreoConfig);
@@ -527,9 +504,6 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                 if (getValidacionDepartamento()==10 || getValidacionFecha()==10 || getValidacionGenero()==10 || getValidacionMunicipio()==10){
                     Toast.makeText(getContext(),"Debe llenar todos los campos",Toast.LENGTH_SHORT).show();
                 }else {
-                    //setSeleccionaImagenusuario(false);
-                    //setSeleccionaDepartamento(false);
-                    //setSeleccionaGenero(false);
                     actualizarUsuarios();
                     guardarNombre(campoNombre.getText().toString());
                 }
@@ -537,7 +511,6 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
             }
         });
-
 
         //////////
         listaGenero.setVisibility(View.INVISIBLE);
@@ -618,8 +591,6 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         this.credenciales = preferences.getString("correo","No existe el valor");
         dialogoCargando();
         cargarDatosPerfil();
-        //Toast.makeText(getContext(),"credenciales:" + getCredenciales(),Toast.LENGTH_SHORT).show();
-
     }
 
     private void cargarDialogoFecha() {
@@ -718,10 +689,6 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
 
     private void cargarDatosPerfil() {
-        // progreso = new ProgressDialog(getApplicationContext());
-        // progreso.setMessage("Consultando...");
-        // progreso.show();
-
         String url = Objects.requireNonNull(getContext()).getString(R.string.ipMiPerfil)+getCredenciales();
         JsonObjectRequest jsonObjectRequest2 = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request2.add(jsonObjectRequest2);
@@ -921,9 +888,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                     ArrayMunicipios.add("Seleccione su municipio");
                     for (int i = 0; i < json.length(); i++) {
                         jsonObject = json.getJSONObject(i);
-                        //departamentos = new DepartamentosVo();
                         ArrayMunicipios.add(jsonObject.getString("municipio"));
-                        //Toast.makeText(getContext(),"lista url" + response,Toast.LENGTH_LONG).show();
                     }
                     ArrayAdapter<CharSequence> adapterMunicipios=new ArrayAdapter(Objects.requireNonNull(this.getContext()),R.layout.spinner_item,ArrayMunicipios);
                     listaMunicipios.setAdapter(adapterMunicipios);
@@ -981,7 +946,6 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
                     setMunicipioo(miUsuario.getMunicipio().toString());
                 }
 
-
                 id = miUsuario.getId().toString();
                 setUrlImagenUsuario(miUsuario.getRutaImagen().toString());
                 mostrarImg();
@@ -995,13 +959,11 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
                 if (seleccionaImagenusuario){
 
-
                 }else {
 
                 }
                 break;
         }
-
 
     }
 
@@ -1040,7 +1002,6 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getContext(), "No se ha podido conectar", Toast.LENGTH_SHORT).show();
-                //pDialog.hide();
             }
         }) {
 
