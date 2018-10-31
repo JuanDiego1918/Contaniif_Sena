@@ -436,6 +436,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
                     Intent intent = new Intent(Registro.this, IngresaCodigoRegistro.class);
                     intent.putExtra("bundle", miBundle);
                     startActivity(intent);
+                    finish();
                 }
             }
         }, new Response.ErrorListener() {
