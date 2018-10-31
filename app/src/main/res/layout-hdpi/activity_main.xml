@@ -98,10 +98,9 @@
 
                     <ImageView
                         android:id="@+id/btnAyuda"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_width="40dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="bottom"
-                        android:layout_weight="5"
                         android:src="@drawable/logo_ayuda"
                         android:contentDescription="TODO" />
                 </LinearLayout>

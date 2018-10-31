@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -32,9 +34,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.entidades.Datos;
 import club.contaniif.contaniff.eventos.EventosActivity;
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageView;
 
 public class MainActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
     Dialog dialogoAyuda;
@@ -47,10 +53,11 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     Button btnSalirAyuda;
     FloatingActionButton adelante;
     int imagen = 0;
-    ImageView ayuda,fondoAyuda,fondo;
+    ImageView ayuda, fondoAyuda;
+    WebView fondo;
     String puntajeUrl, imagenUrl;
     ImageView medalla;
-    ImageButton next,back;
+    ImageButton next, back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         dialogoCargando = new Dialog(this);
 
         puntosUsuario = findViewById(R.id.puntosUsuario);
-        medalla=findViewById(R.id.tipodemedalla);
+        medalla = findViewById(R.id.tipodemedalla);
         cargarCredenciales();
         cargarWebService();
         ayuda = findViewById(R.id.btnAyuda);
@@ -78,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         String ayuda = preferences.getString("ayuda", "no");
         if (ayuda.equalsIgnoreCase("no")) {
             showDialogo();
-        }else {
+        } else {
             //Toast.makeText(getApplicationContext(),"Ya se mostro la ventana de ayuda",Toast.LENGTH_SHORT).show();
         }
     }
@@ -88,8 +95,8 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
             dialogoCargando.setContentView(R.layout.popup_cargando);
             dialogoCargando.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
-        }catch (Exception e){
-            Log.i("Error " , e.toString());
+        } catch (Exception e) {
+            Log.i("Error ", e.toString());
         }
 
     }
@@ -99,12 +106,12 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         fondo = dialogoAyuda.findViewById(R.id.imagenFondoAyuda);
         next = dialogoAyuda.findViewById(R.id.btnNextAyuda);
         back = dialogoAyuda.findViewById(R.id.btnBackAyuda);
-        btnSalirAyuda = dialogoAyuda.findViewById(R.id.btnSalirAyuda);
+        fondo.loadUrl("https://contaniif.club/img/ayuda/grendimiento.gif");
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imagen = imagen+1;
-                if (imagen >= 4){
+                imagen = imagen + 1;
+                if (imagen >= 5) {
                     imagen = 1;
                 }
                 cambiarImagen(imagen);
@@ -116,20 +123,12 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imagen = imagen-1;
-                if (imagen <= 0){
-                    imagen = 3;
+                imagen = imagen - 1;
+                if (imagen <= 0) {
+                    imagen = 4;
                 }
                 cambiarImagen(imagen);
 
-            }
-        });
-
-
-        btnSalirAyuda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogoAyuda.hide();
             }
         });
 
@@ -139,16 +138,18 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     }
 
     private void cambiarImagen(int imagen) {
-        Toast.makeText(MainActivity.this, "Numero : " + imagen, Toast.LENGTH_SHORT).show();
-        switch (imagen){
+        switch (imagen) {
             case 1:
-                fondo.setImageDrawable(getDrawable(R.drawable.logo_ayuda));
+                fondo.loadUrl("https://contaniif.club/img/ayuda/grendimiento.gif");
                 break;
             case 2:
-                fondo.setImageDrawable(getDrawable(R.drawable.logo_activos));
+                fondo.loadUrl("https://contaniif.club/img/ayuda/gf_rendimiento.gif");
                 break;
             case 3:
-                fondo.setImageDrawable(getDrawable(R.drawable.configuracion));
+                fondo.loadUrl("https://contaniif.club/img/ayuda/gif_ayuda.gif");
+                break;
+            case 4:
+                fondo.loadUrl("https://contaniif.club/img/ayuda/gif_empezar.gif");
                 break;
 
         }
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     private void guardarAyuda() {
         SharedPreferences preferences = getSharedPreferences("Ayuda", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("ayuda","visto");
+        editor.putString("ayuda", "visto");
         editor.commit();
     }
 
@@ -224,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     private void cargarWebService() {
         dialogoCargando();
         request = Volley.newRequestQueue(getApplication());
-        String url = "https://" + getApplicationContext().getString(R.string.ip) + "puntaje.php?idusuario="+correo;
+        String url = "https://" + getApplicationContext().getString(R.string.ip) + "puntaje.php?idusuario=" + correo;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
@@ -239,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
         JSONArray json = response.optJSONArray("puntaje");
         try {
-            puntajeUrl =json.getJSONObject(0).optString("puntos");
+            puntajeUrl = json.getJSONObject(0).optString("puntos");
             imagenUrl = response.optJSONArray("medalla").getJSONObject(0).optString("medalla");
             dialogoCargando.dismiss();
         } catch (JSONException e) {
@@ -251,11 +252,11 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
     }
 
-  private void mostrarImg(String imagenUrl) {
-        String ip=getApplicationContext().getString(R.string.imgRendimiento);
+    private void mostrarImg(String imagenUrl) {
+        String ip = getApplicationContext().getString(R.string.imgRendimiento);
 
-        final String urlImagen="https://"+ip+"medallas/"+imagenUrl+".png";
-        ImageRequest imageRequest=new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
+        final String urlImagen = "https://" + ip + "medallas/" + imagenUrl + ".png";
+        ImageRequest imageRequest = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
                 medalla.setImageBitmap(response);
@@ -263,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"Error al cargar la imagen" + urlImagen, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Error al cargar la imagen" + urlImagen, Toast.LENGTH_LONG).show();
             }
         });
         request.add(imageRequest);
