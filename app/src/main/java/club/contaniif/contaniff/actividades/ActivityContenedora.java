@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import club.contaniif.contaniff.ActivosCategoria.CategoriasActiosActivity;
 import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.acercaDe.AcercaDeFragment;
 import club.contaniif.contaniff.configuracion.Configuracion;
@@ -128,7 +129,7 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
     public void activos(String puntos) {
         Bundle miBundle = new Bundle();
         miBundle.putString("puntos", puntos);
-        Intent miIntent = new Intent(getApplicationContext(), ActivosActivity.class);
+        Intent miIntent = new Intent(getApplicationContext(), CategoriasActiosActivity.class);
         miIntent.putExtras(miBundle);
         startActivity(miIntent);
     }
@@ -204,7 +205,6 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
             miFragment.setArguments(miBundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, miFragment).commit();
         } catch (JSONException e) {
-            e.printStackTrace();
             Toast.makeText(getApplicationContext(), "No se ha podido establecer conexión con el servidor" + " " + response, Toast.LENGTH_LONG).show();
         }
 

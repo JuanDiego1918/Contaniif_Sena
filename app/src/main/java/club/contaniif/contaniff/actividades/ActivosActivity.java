@@ -59,6 +59,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
     private StringRequest stringRequest;
     private double valorObjeto;
     private String nombre;
+    private int tipoActivo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         dialogoCargando = new Dialog(this);
         obtenidos = findViewById(R.id.activosObtenidos);
         disponible = findViewById(R.id.activosDisponibles);
-        monedas=findViewById(R.id.cantidadMonedasAc);
+        monedas = findViewById(R.id.cantidadMonedasAc);
         dialog = new Dialog(this);
         listActivos = new ArrayList<>();
         listaDisponible = new ArrayList<>();
@@ -75,8 +76,9 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         cargarNombre();
         Bundle miBundle = getIntent().getExtras();
         if (miBundle != null) {
+            tipoActivo = miBundle.getInt("tipo");
             cantidadMonedas = cambiarVarible(Objects.requireNonNull(miBundle.getString("puntos")));
-            monedas.setText("Monedas: "+miBundle.getString("puntos"));
+            monedas.setText("Monedas: " + miBundle.getString("puntos"));
         }
     }
 
@@ -132,19 +134,24 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
                 }
             }
 
-            adapterActivos = new AdapterActivos(listActivos, getApplicationContext());
-            obtenidos.setAdapter(adapterActivos);
+            switch (tipoActivo) {
+                case 1:
+                    adapterActivos = new AdapterActivos(listActivos, getApplicationContext());
+                    obtenidos.setAdapter(adapterActivos);
+                    break;
+                case 2:
+                    adapterDisponible = new AdapterActivos(listaDisponible, getApplicationContext());
+                    disponible.setAdapter(adapterDisponible);
 
-            adapterDisponible = new AdapterActivos(listaDisponible, getApplicationContext());
-            disponible.setAdapter(adapterDisponible);
+                    adapterDisponible.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            cargarVentana(listaDisponible.get(disponible.getChildAdapterPosition(view)));
 
-            adapterDisponible.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    cargarVentana(listaDisponible.get(disponible.getChildAdapterPosition(view)));
-
-                }
-            });
+                        }
+                    });
+                    break;
+            }
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "No se ha podido establecer conexión con el servidor" +
@@ -155,7 +162,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
 
     private void cargarVentana(ActivosVo activos) {
         final ActivosVo vo = activos;
-        TextView titulo, descrip, valor,descuento;
+        TextView titulo, descrip, valor, descuento;
         Button cancelar;
         dialog.setContentView(R.layout.popup_activos);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -164,10 +171,10 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         titulo = dialog.findViewById(R.id.tituloPopupActivo);
         descrip = dialog.findViewById(R.id.descripActivoPopup);
         valor = dialog.findViewById(R.id.precioActivoPopup);
-        descuento=dialog.findViewById(R.id.precioDescPopup);
+        descuento = dialog.findViewById(R.id.precioDescPopup);
         Imgactivo = dialog.findViewById(R.id.imagenPopupActivo);
 
-        descuento.setText("Descuento diario: "+vo.getDescuento());
+        descuento.setText("Descuento diario: " + vo.getDescuento());
         titulo.setText("" + vo.getNombre());
         descrip.setText("" + vo.getDescripcion());
         valor.setText("" + vo.getValor());
@@ -176,11 +183,11 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         comprar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String quitaPts=cambiarPts(vo.getValor());
-                valorObjeto=cambiarVarible(quitaPts);
-                if (valorObjeto>cantidadMonedas){
-                    Toast.makeText(ActivosActivity.this, nombre+", Saldo Insuficiente", Toast.LENGTH_SHORT).show();
-                }else {
+                String quitaPts = cambiarPts(vo.getValor());
+                valorObjeto = cambiarVarible(quitaPts);
+                if (valorObjeto > cantidadMonedas) {
+                    Toast.makeText(ActivosActivity.this, nombre + ", Saldo Insuficiente", Toast.LENGTH_SHORT).show();
+                } else {
                     comprar.setEnabled(false);
                     realizarComprar(vo);
                     dialog.dismiss();
@@ -214,8 +221,8 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
                 if (response.equals("registra")) {
                     Toast.makeText(getApplicationContext(), "Realiza Cambios" + response, Toast.LENGTH_LONG).show();
                 } else {
-                    cantidadMonedas=cantidadMonedas-valorObjeto;
-                    monedas.setText("Monedas: "+cantidadMonedas);
+                    cantidadMonedas = cantidadMonedas - valorObjeto;
+                    monedas.setText("Monedas: " + cantidadMonedas);
                     cargarWebService();
                 }
             }
@@ -250,7 +257,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
 
     private double cambiarVarible(String puntosDisponibles) {
         String cambio = puntosDisponibles.replaceAll(",", "");
-        Log.v("*******************",cambio);
+        Log.v("*******************", cambio);
         return Double.parseDouble(cambio);
     }
 

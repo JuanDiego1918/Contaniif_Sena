@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:background="@drawable/fondo"
+    tools:context=".ActivosCategoria.CategoriasActiosActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/btnComprarActivos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="#c500cc86"
+                android:onClick="eventoActivo"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="#ff00cc86"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="3dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Comprar Activos"
+                        android:textAlignment="center"
+                        android:textColor="@color/letraBlanca"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="4"
+                        android:contentDescription="TODO"
+                        android:src="@drawable/logo_linea_siguiente" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <me.biubiubiu.justifytext.library.JustifyTextView
+                            android:id="@+id/activos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:text="Lista de activos que se pueden canjear por CriptoNIIF, tenga presente la cantidad de puntos que descuenta diariamente el activo a adquirir."
+                            android:textAlignment="center"
+                            android:textColor="@color/letraBlanca"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnMostrarActivos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="#f9cc61"
+                android:onClick="eventoActivo"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="#fff9c342"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="3dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Activos Adquiridos"
+                        android:textAlignment="center"
+                        android:textColor="@color/letraBlanca"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="4"
+                        android:contentDescription="TODO"
+                        android:src="@drawable/logo_linea_siguiente" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <me.biubiubiu.justifytext.library.JustifyTextView
+                            android:id="@+id/accion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:text="Consulte los activos adquiridos hasta el momento, además observe cuantos puntos al día se le descuentan por los mismos como una de apreciación o administración de estos."
+                            android:textAlignment="center"
+                            android:textColor="@color/letraBlanca"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

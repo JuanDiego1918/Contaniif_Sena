@@ -281,6 +281,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (campoNombre.getText().equals("") || campoApellido.getText().equals("") || !seleccionaGenero || !seleccionaMunicipio || !seleccionaDepartamento || !seleccionaImagen || !seleccionaFecha) {
                     Toast.makeText(getApplicationContext(), "Debe llenar todos los campos", Toast.LENGTH_SHORT).show();
                 } else {
@@ -916,6 +917,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     private void guardarCredenciales(String correo) {
         SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
+        //editor.putString("correo", "juan@gmail.com");
         editor.putString("correo", correo);
         editor.commit();
     }
