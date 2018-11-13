@@ -1,6 +1,7 @@
 package club.contaniif.contaniff.ActivosCategoria;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +35,17 @@ public class CategoriasActiosActivity extends AppCompatActivity {
         if (miBundle != null) {
             cantidadMonedas = Objects.requireNonNull(miBundle.getString("puntos"));
         }
+
+        ActionBar actionBar = getSupportActionBar();
+        Objects.requireNonNull(actionBar).setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        finish();
+        return false;
     }
 
     public void eventoActivo(View view) {

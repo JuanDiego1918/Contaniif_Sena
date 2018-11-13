@@ -200,6 +200,8 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     private int correctoSeleccionMultiple = 0;
     private PreguntasVo preguntas;
     private ArrayList<String> listaColores;
+    private   TextView campoFinal;
+    private String urlMensaje;
 
     public Pantalla_empezar() {
         // Required empty public constructor
@@ -209,8 +211,9 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     private Map<String, String> parametros;
     private int idpregunta;
     private int tiempo;
-    private int puntaje;
+    private int puntaje, puntajeFinal;
     private int clickChek = 0;
+    private String mensajeFinal;
 
     /**
      * Use this factory method to create a new instance of
@@ -272,7 +275,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             @Override
             public void onClick(View view) {
                 if (clickChek == 1) {
-                    Toast.makeText(getContext(), nombre+", No debes hacer trampa", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), nombre + ", No debes hacer trampa", Toast.LENGTH_SHORT).show();
                     revisar(false);
                 } else {
                     clickChek = 1;
@@ -347,13 +350,15 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             resetTimer();
         }
 
-        mInitialTime = 0L +
-                0L +
+        mInitialTime = DateUtils.DAY_IN_MILLIS * 0 +
+                DateUtils.HOUR_IN_MILLIS * 0 +
+                DateUtils.MINUTE_IN_MILLIS * 0 +
                 DateUtils.SECOND_IN_MILLIS * preguntas.getTiempoDemora();
         START_TIME_IN_MILLIS = preguntas.getTiempoDemora() * 1000;
         mTimeLeftInMillis = START_TIME_IN_MILLIS;
 
         starTime();
+
         if (preguntas.getTipo() == 3) {
             adapter2 = new PreguntasImagenesAdapter(listaPreguntas, getContext());
             recyclerViewUsuarios.setAdapter(adapter2);
@@ -445,15 +450,23 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             @Override
             public void onTick(long millisUntilFinished) {
                 mTimeLeftInMillis = millisUntilFinished;
+                Log.v("Log_tag", "Tick of Progress" + i + mInitialTime);
                 updateCountDownText();
             }
 
             @Override
             public void onFinish() {
+                tiempoCapturado=preguntas.getTiempoDemora()+1;
                 i++;
                 mProgressBar.setProgress(100);
             }
         }.start();
+    }
+
+    private void updateCountDownText() {
+        Log.v("Log_tag", "Tick of Progress" + i + mInitialTime);
+        i++;
+        mProgressBar.setProgress((int) ((int) i * 100 / (mInitialTime / 1000)));
     }
 
     private void resetTimer() {
@@ -477,20 +490,14 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
     }
 
-    private void updateCountDownText() {
-        Log.v("Log_tag", "Tick of Progress" + i + mInitialTime);
-        i++;
-        mProgressBar.setProgress((int) (i * 100 / (mInitialTime / 1000)));
-    }
-
     private void showPopup(String retorno) {
         respondeBien.start();
         final Button retroBuena;
         TextView txtRetroBuena;
-
         myDialogBuena.setContentView(R.layout.popup_rcorrecta);
         TextView puntajeRespuestaBuena = myDialogBuena.findViewById(R.id.campoPuntajeCorrecto);
-        puntajeRespuestaBuena.setText("+" + String.valueOf(getPuntage()));
+        puntaje();
+        puntajeRespuestaBuena.setText("+" + puntajeFinal);
         txtRetroBuena = myDialogBuena.findViewById(R.id.campoRetroBuena);
         txtRetroBuena.setText(nombre + " \n " + retorno);
 
@@ -509,11 +516,16 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
     }
 
+    private void puntaje(){
+        if (tiempoCapturado > preguntas.getTiempoDemora()) {
+            puntajeFinal=(getPuntage() * 50) / 100;
+        }else {
+            puntajeFinal=getPuntage();
+        }
+    }
+
     private void revisar(boolean revisar) {
         if (revisar) {
-
-            if (tiempoCapturado > preguntas.getTiempoDemora()) {
-            }
             listaColores.add("#45cc28");
         } else {
             listaColores.add("#ed2024");
@@ -522,7 +534,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             puente.reinciar(numeroPregunta, listaColores);
         } else {
             Button finalizar;
-            TextView campoFinal;
+
             MyDialogFinal.setContentView(R.layout.popup_terminar_preguntas);
             campoFinal = MyDialogFinal.findViewById(R.id.textoFinal);
             finalizar = MyDialogFinal.findViewById(R.id.btnFinal);
@@ -534,13 +546,32 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                     malas++;
                 }
             }
-            if (buenas > malas) {
-                campoFinal.setText("Felicitaciones");
+
+            if (buenas > malas ) {
+                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo="+1;
                 terminaBien.start();
             } else if (malas > buenas) {
-                campoFinal.setText("¡¡Debes Repasar Mas!!");
+                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo="+0;
                 terminaMal.start();
+            }else if(malas==buenas){
+                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo="+1;
+                terminaBien.start();
             }
+
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, urlMensaje, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    campoFinal.setText(response.toString());
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), "No se pudo registrar el puntaje" + error.toString(), Toast.LENGTH_SHORT).show();
+                }
+
+            });
+            request.add(stringRequest);
+
 
             finalizar.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -557,6 +588,8 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         btnContinuar.setVisibility(View.INVISIBLE);
         btnContinuar2.setVisibility(View.VISIBLE);
     }
+
+
 
     ///////////////////////////////VICTOR/////////////////////////////////
 
@@ -598,18 +631,16 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         }) {
             @Override
             protected Map<String, String> getParams() {
-
                 String idusuario = credenciales;
                 idpregunta = preguntas.getId();
                 tiempo = tiempoCapturado;
-                puntaje = getPuntage();
+                puntaje=puntajeFinal;
                 parametros = new HashMap<>();
                 parametros.put("idusuario", idusuario);
                 parametros.put("idpregunta", Integer.toString(idpregunta));
                 parametros.put("tiempo", Integer.toString(tiempo));
                 parametros.put("puntos", Integer.toString(puntaje));
-                System.out.println(parametros.toString());
-                System.out.println("*******Parametros " + parametros.toString());
+
                 Log.i("*******Parametros ", parametros.toString());
                 return parametros;
             }

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -15,7 +16,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -57,11 +60,13 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
     private static ArrayList<EventoVo> listaEventos;
     private static ArrayList<NumeroVo> listaNumero;
     private Dialog dialogoCargando;
+
     private static RecyclerView recyclerViewNumero;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private ImageView error;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,15 +78,23 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = findViewById(R.id.container);
         recyclerViewNumero = findViewById(R.id.numeroPaginacion);
+        error=findViewById(R.id.errorEventos);
 
         cargarWebService();
         ///////////////////////
         ActionBar actionBar = getSupportActionBar();
         Objects.requireNonNull(actionBar).setDisplayHomeAsUpEnabled(true);
+
 ///////////////////////
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        finish();
+        return false;
+    }
     private void cargarWebService() {
         dialogoCargando();
         recyclerViewNumero.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -106,8 +119,13 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getApplication(), "NO se pudo Consultar:" + error.toString(), Toast.LENGTH_LONG).show();
-        Log.i("Error", error.toString());
+        for (int i=0;i<5;i++){
+            Toast.makeText(getApplication(), "En este momento no hay eventos programados, si sabe de alguno y quiere que aparezca en esta sección favor escribir al correo: administrador@contaniif.club ", Toast.LENGTH_LONG).show();
+        }
+
+        mViewPager.setVisibility(View.INVISIBLE);
+        this.error.setVisibility(View.VISIBLE);
+        dialogoCargando.dismiss();
     }
 
     @Override
@@ -134,8 +152,7 @@ public class EventosActivity extends AppCompatActivity implements Response.Liste
             recyclerViewNumero.setAdapter(miNumeroAdapter);
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "No se ha podido establecer conexión con el servidor" +
-                    " " + response, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(), "En este momento no hay eventos programados, si sabe de alguno y quiere que aparezca en esta sección favor escribir al correo: administrador@contaniif.club ", Toast.LENGTH_LONG).show();
         }
 
         dialogoCargando.dismiss();

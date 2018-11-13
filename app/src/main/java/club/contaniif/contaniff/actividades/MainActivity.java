@@ -111,8 +111,9 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
             @Override
             public void onClick(View v) {
                 imagen = imagen + 1;
-                if (imagen >= 5) {
-                    imagen = 1;
+                back.setVisibility(View.VISIBLE);
+                if (imagen >= 4) {
+                    next.setVisibility(View.INVISIBLE);
                 }
                 cambiarImagen(imagen);
 
@@ -124,8 +125,9 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
             @Override
             public void onClick(View v) {
                 imagen = imagen - 1;
-                if (imagen <= 0) {
-                    imagen = 4;
+                next.setVisibility(View.VISIBLE);
+                if (imagen <= 1) {
+                    back.setVisibility(View.INVISIBLE);
                 }
                 cambiarImagen(imagen);
 

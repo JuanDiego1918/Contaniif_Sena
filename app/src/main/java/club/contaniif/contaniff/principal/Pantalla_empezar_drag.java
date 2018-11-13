@@ -172,6 +172,9 @@ public class Pantalla_empezar_drag extends Fragment {
     private PreguntasVo preguntasVo;
     private Dialog dialogoCargando;
     private int clickChek = 0;
+    private int puntajeFinal;
+    private String urlMensaje;
+    private TextView campoFinal;
     ////////////////////////////////////////////////////////////////////////////////
 
     /**
@@ -217,9 +220,9 @@ public class Pantalla_empezar_drag extends Fragment {
         myDialogMala = new Dialog(getContext());
         MyDialogFinal = new Dialog(getContext());
 
-        respondeBien = MediaPlayer.create(getContext(),R.raw.responde_bien);
-        terminaBien = MediaPlayer.create(getContext(),R.raw.finalizar_bien);
-        terminaMal = MediaPlayer.create(getContext(),R.raw.finalizar_mal);
+        respondeBien = MediaPlayer.create(getContext(), R.raw.responde_bien);
+        terminaBien = MediaPlayer.create(getContext(), R.raw.finalizar_bien);
+        terminaMal = MediaPlayer.create(getContext(), R.raw.finalizar_mal);
 
         mProgressBar = view.findViewById(R.id.progressbar);
         mProgressBar.setProgress(i);
@@ -239,7 +242,7 @@ public class Pantalla_empezar_drag extends Fragment {
             @Override
             public void onClick(View v) {
                 if (clickChek == 1) {
-                    Toast.makeText(getContext(), nombre+", No debes hacer trampa", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), nombre + ", No debes hacer trampa", Toast.LENGTH_SHORT).show();
                     revisar(false);
                 } else {
                     String[] bar = list.get(0).getRespuesta().split("&&");
@@ -334,8 +337,7 @@ public class Pantalla_empezar_drag extends Fragment {
         setTipoPregunta(preguntasVo.getTipo());
         setPuntage(preguntasVo.getPuntaje());
         pregunta.setText(preguntasVo.getPregunta());
-        if (numeroPregunta != 0)
-        {
+        if (numeroPregunta != 0) {
             resetTimer();
         }
 
@@ -386,7 +388,7 @@ public class Pantalla_empezar_drag extends Fragment {
 
                 switch (dragEvent) {
                     case DragEvent.ACTION_DROP:
-                        if (list.get(numero).isMostrar() && list.get(PreguntasTexto.getChildAdapterPosition(v)).getImg() == null ) {
+                        if (list.get(numero).isMostrar() && list.get(PreguntasTexto.getChildAdapterPosition(v)).getImg() == null) {
                             list.get(PreguntasTexto.getChildAdapterPosition(v)).setImg(list.get(numero).getRuta());
                             btnContinuar.setVisibility(View.VISIBLE);
                             btnContinuar2.setVisibility(View.INVISIBLE);
@@ -514,7 +516,8 @@ public class Pantalla_empezar_drag extends Fragment {
 
         myDialogBuena.setContentView(R.layout.popup_rcorrecta);
         TextView puntajeRespuestaBuena = myDialogBuena.findViewById(R.id.campoPuntajeCorrecto);
-        puntajeRespuestaBuena.setText("+" + String.valueOf(getPuntage()));
+        puntaje();
+        puntajeRespuestaBuena.setText("+" + puntajeFinal);
         txtRetroBuena = myDialogBuena.findViewById(R.id.campoRetroBuena);
         txtRetroBuena.setText(nombre + " \n " + retorno);
 
@@ -537,18 +540,22 @@ public class Pantalla_empezar_drag extends Fragment {
             dialogoCargando.setContentView(R.layout.popup_cargando);
             Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
-        }catch (Exception e){
-            Log.i("Error " , e.toString());
+        } catch (Exception e) {
+            Log.i("Error ", e.toString());
         }
 
     }
 
+    private void puntaje() {
+        if (tiempoCapturado > preguntasVo.getTiempoDemora()) {
+            puntajeFinal = (getPuntage() * 50) / 100;
+        } else {
+            puntajeFinal = getPuntage();
+        }
+    }
 
     private void revisar(boolean revisar) {
         if (revisar) {
-
-            if (tiempoCapturado > preguntasVo.getTiempoDemora()) {
-            }
             listaColores.add("#45cc28");
         } else {
             listaColores.add("#ed2024");
@@ -557,7 +564,7 @@ public class Pantalla_empezar_drag extends Fragment {
             puente.reinciar(numeroPregunta, listaColores);
         } else {
             Button finalizar;
-            TextView campoFinal;
+
             MyDialogFinal.setContentView(R.layout.popup_terminar_preguntas);
             campoFinal = MyDialogFinal.findViewById(R.id.textoFinal);
             finalizar = MyDialogFinal.findViewById(R.id.btnFinal);
@@ -570,12 +577,27 @@ public class Pantalla_empezar_drag extends Fragment {
                 }
             }
             if (buenas > malas) {
-                campoFinal.setText("Felicitaciones");
+                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo=" + 1;
                 terminaBien.start();
             } else if (malas > buenas) {
-                campoFinal.setText("¡¡Debes Repasar Mas!!");
+                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo=" + 0;
                 terminaMal.start();
             }
+
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, urlMensaje, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    campoFinal.setText(response.toString());
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), "No se pudo registrar el puntaje" + error.toString(), Toast.LENGTH_SHORT).show();
+                }
+
+            });
+            request.add(stringRequest);
+
 
             finalizar.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -618,12 +640,11 @@ public class Pantalla_empezar_drag extends Fragment {
                 String idusuario = credenciales;
                 int idpregunta = preguntasVo.getId();
                 int tiempo = tiempoCapturado;
-                int puntaje = getPuntage();
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("idusuario", idusuario);
                 parametros.put("idpregunta", Integer.toString(idpregunta));
                 parametros.put("tiempo", Integer.toString(tiempo));
-                parametros.put("puntos", Integer.toString(puntaje));
+                parametros.put("puntos", Integer.toString(puntajeFinal));
                 Log.i("*******Parametros ", parametros.toString());
                 return parametros;
             }
@@ -634,7 +655,7 @@ public class Pantalla_empezar_drag extends Fragment {
 
 
     private void showPopup2(String retorno) {
-        Vibrator vibrator = (Vibrator)Objects.requireNonNull(getContext()).getSystemService(Context.VIBRATOR_SERVICE);
+        Vibrator vibrator = (Vibrator) Objects.requireNonNull(getContext()).getSystemService(Context.VIBRATOR_SERVICE);
         Objects.requireNonNull(vibrator).vibrate(500);
 
         Button retroMala;

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -80,6 +81,17 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
             cantidadMonedas = cambiarVarible(Objects.requireNonNull(miBundle.getString("puntos")));
             monedas.setText("Monedas: " + miBundle.getString("puntos"));
         }
+
+        ActionBar actionBar = getSupportActionBar();
+        Objects.requireNonNull(actionBar).setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        finish();
+        return false;
     }
 
     private void cargarWebService() {

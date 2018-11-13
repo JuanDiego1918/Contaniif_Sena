@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -33,7 +35,7 @@ import club.contaniif.contaniff.R;
 import club.contaniif.contaniff.adapter.YoutubeVideoAdapter;
 import club.contaniif.contaniff.entidades.VideoVo;
 
-public class VideosActivity extends AppCompatActivity implements Response.Listener<JSONObject>,Response.ErrorListener{
+public class VideosActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     private static final String TAG = VideosActivity.class.getSimpleName();
     private RecyclerView recyclerView;
@@ -46,17 +48,28 @@ public class VideosActivity extends AppCompatActivity implements Response.Listen
     //youtube player to play video when new video selected
     private YouTubePlayer youTubePlayer;
     private Bundle miBundle;
+    private ImageView error;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_videos);
         dialogoCargando = new Dialog(this);
-        miBundle=this.getIntent().getExtras();
+        miBundle = this.getIntent().getExtras();
         request = Volley.newRequestQueue(getApplicationContext());
+        recyclerView = findViewById(R.id.recycler_view);
+        error = findViewById(R.id.errorVideos);
         cargarWebService();
         ActionBar actionBar = getSupportActionBar();
         Objects.requireNonNull(actionBar).setDisplayHomeAsUpEnabled(true);
 ///////////////////////
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        finish();
+        return false;
     }
 
     /**
@@ -99,7 +112,7 @@ public class VideosActivity extends AppCompatActivity implements Response.Listen
      * setup the recycler view here
      */
     private void setUpRecyclerView() {
-        recyclerView = findViewById(R.id.recycler_view);
+
         recyclerView.setHasFixedSize(true);
 
         //Horizontal direction recycler view
@@ -125,10 +138,10 @@ public class VideosActivity extends AppCompatActivity implements Response.Listen
 
                     //load selected video
                     youTubePlayer.cueVideo(youtubeVideoArrayList.get(position).getEnlace());
-                    Bundle miBundle=new Bundle();
-                    miBundle.putString("link",youtubeVideoArrayList.get(position).getEnlace());
+                    Bundle miBundle = new Bundle();
+                    miBundle.putString("link", youtubeVideoArrayList.get(position).getEnlace());
 
-                    Intent miIntent=new Intent(getApplicationContext(), Videos.class);
+                    Intent miIntent = new Intent(getApplicationContext(), Videos.class);
                     miIntent.putExtras(miBundle);
                     startActivity(miIntent);
                     //getSupportFragmentManager().beginTransaction().replace(R.id.contenedor,miFragment).commit();
@@ -145,7 +158,7 @@ public class VideosActivity extends AppCompatActivity implements Response.Listen
     private void cargarWebService() {
         dialogoCargando();
         youtubeVideoArrayList = new ArrayList<>();
-        String url="https://"+getApplicationContext().getString(R.string.ip)+"videos.php?categoria="+miBundle.getString("id");
+        String url = "https://" + getApplicationContext().getString(R.string.ip) + "videos.php?categoria=" + miBundle.getString("id");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
@@ -155,26 +168,28 @@ public class VideosActivity extends AppCompatActivity implements Response.Listen
             dialogoCargando.setContentView(R.layout.popup_cargando);
             Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
-        }catch (Exception e){
-            Log.i("Error " , e.toString());
+        } catch (Exception e) {
+            Log.i("Error ", e.toString());
         }
 
     }
 
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getApplicationContext(),"NO se pudo Consultar:"+error.toString(), Toast.LENGTH_LONG).show();
-        Log.i("Error",error.toString());
+        Toast.makeText(getApplication(), "Estamos realizando ajustes, por favor verifique mas tarde", Toast.LENGTH_LONG).show();
+        recyclerView.setVisibility(View.INVISIBLE);
+        this.error.setVisibility(View.VISIBLE);
+        dialogoCargando.dismiss();
     }
 
     @Override
     public void onResponse(JSONObject response) {
-        youtubeVideoArrayList=new ArrayList<>();
-        JSONArray json=response.optJSONArray("videos");
+        youtubeVideoArrayList = new ArrayList<>();
+        JSONArray json = response.optJSONArray("videos");
         try {
             JSONObject jsonObject;
-            for (int i=0;i<json.length();i++){
-                VideoVo videoVo=new VideoVo();
-                jsonObject=json.getJSONObject(i);
+            for (int i = 0; i < json.length(); i++) {
+                VideoVo videoVo = new VideoVo();
+                jsonObject = json.getJSONObject(i);
                 videoVo.setTitulo(jsonObject.optString("titulo"));
                 videoVo.setDescripcion(jsonObject.optString("descripcion"));
                 videoVo.setEnlace(jsonObject.getString("video"));
@@ -186,7 +201,7 @@ public class VideosActivity extends AppCompatActivity implements Response.Listen
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "No se ha podido establecer conexión con el servidor" +
-                    " "+response, Toast.LENGTH_LONG).show();
+                    " " + response, Toast.LENGTH_LONG).show();
         }
 
         dialogoCargando.dismiss();

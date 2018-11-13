@@ -349,7 +349,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         View vista = inflater.inflate(R.layout.fragment_configuracion, container, false);
         request = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
         request2 = Volley.newRequestQueue(getContext());
-        dialogoCargando = new Dialog(this.getContext());
+        dialogoCargando = new Dialog(getContext());
         dialogoFecha = new Dialog(this.getContext());
         obtenerFecha();
         llenarAnios();
@@ -569,14 +569,9 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
 
 
     private void dialogoCargando() {
-        try {
             dialogoCargando.setContentView(R.layout.popup_cargando);
             Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
-        }catch (Exception e){
-            Log.i("Error " , e.toString());
-        }
-
     }
 
     private void guardarNombre(String nombre) {
@@ -833,7 +828,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
             @Override
             public void onResponse(Bitmap response) {
                 imagenCamara.setImageBitmap(response);
-                dialogoCargando.hide();
+                dialogoCargando.dismiss();
             }
         }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
             @Override
@@ -981,7 +976,7 @@ public class MiPerfil extends Fragment implements Response.Listener<JSONObject>,
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                dialogoCargando.hide();
+                dialogoCargando.dismiss();
                 if (response.trim().equalsIgnoreCase("actualiza")) {
                     listaGenero.setVisibility(View.INVISIBLE);
                     listaMunicipios.setVisibility(View.INVISIBLE);

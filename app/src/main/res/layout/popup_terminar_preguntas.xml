@@ -48,7 +48,6 @@
                 android:paddingTop="2dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="3dp"
-                android:text=" ¡¡ FELICITACIONES !!"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 

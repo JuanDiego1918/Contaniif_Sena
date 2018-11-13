@@ -3,12 +3,14 @@ package club.contaniif.contaniff.sabiasQue;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +40,7 @@ public class SabiasActivity extends AppCompatActivity implements Response.Listen
     private int categoria;
     private Dialog dialog;
     private Dialog dialogoCargando;
+    private ImageView error;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +49,22 @@ public class SabiasActivity extends AppCompatActivity implements Response.Listen
         dialogoCargando = new Dialog(this);
         listaSabias = new ArrayList();
         recyclerView = findViewById(R.id.recyclerSabias);
+        error = findViewById(R.id.errorSabiasQue);
         Bundle miBundle = this.getIntent().getExtras();
         categoria = Integer.parseInt(Objects.requireNonNull(miBundle).getString("id"));
         dialog = new Dialog(this);
         cargarWebService();
 
+        ActionBar actionBar = getSupportActionBar();
+        Objects.requireNonNull(actionBar).setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        finish();
+        return false;
     }
 
     private void cargarWebService() {
@@ -68,15 +82,18 @@ public class SabiasActivity extends AppCompatActivity implements Response.Listen
             dialogoCargando.setContentView(R.layout.popup_cargando);
             Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
-        }catch (Exception e){
-            Log.i("Error " , e.toString());
+        } catch (Exception e) {
+            Log.i("Error ", e.toString());
         }
 
     }
+
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getApplication(), "NO se pudo Consultar:" + error.toString(), Toast.LENGTH_LONG).show();
-        Log.i("Error", error.toString());
+        Toast.makeText(getApplication(), "Estamos realizando ajustes, por favor verifique mas tarde", Toast.LENGTH_LONG).show();
+        recyclerView.setVisibility(View.INVISIBLE);
+        this.error.setVisibility(View.VISIBLE);
+        dialogoCargando.dismiss();
     }
 
     @Override
@@ -102,15 +119,16 @@ public class SabiasActivity extends AppCompatActivity implements Response.Listen
                 }
             });
         } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "No se ha podido establecer conexión con el servidor" +
-                    " " + response, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(), "Estamos realizando ajustes, por favor verifique mas tarde", Toast.LENGTH_LONG).show();
+            recyclerView.setVisibility(View.INVISIBLE);
+            error.setVisibility(View.VISIBLE);
         }
         dialogoCargando.dismiss();
 
     }
 
-    private void ventana(View view) { TextView titulo, teoria;
+    private void ventana(View view) {
+        TextView titulo, teoria;
         dialog.setContentView(R.layout.popup_sabias);
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         titulo = dialog.findViewById(R.id.tituloSabiaspopup);
