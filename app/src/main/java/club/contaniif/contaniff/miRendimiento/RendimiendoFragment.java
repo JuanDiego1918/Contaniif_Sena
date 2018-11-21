@@ -138,7 +138,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         txtDescontados = view.findViewById(R.id.puntosDescontados);
         LinearLayout canjes = view.findViewById(R.id.btnCanjes);
         LinearLayout activos = view.findViewById(R.id.btnActivos);
-        dialogCanjes=new Dialog(getContext());
+        dialogCanjes = new Dialog(getContext());
 
         cargarNombre();
         cargarDatos();
@@ -160,9 +160,9 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         activos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (cambiarVarible(monedasCanjeadas)!=0){
+                if (cambiarVarible(monedasCanjeadas) != 0) {
                     puente.activos(monedasCanjeadas);
-                }else {
+                } else {
                     Toast.makeText(getContext(), "No tienes monedas disponibles para reaalizar compras", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -188,14 +188,30 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                float numeroValor=cambiarVarible(puntosDisponibles);
-                cambioCanjes = Integer.parseInt((campoCanjes.getText().toString()));
-                if (cambioCanjes<=numeroValor){
-                    realizarCanje(cambioCanjes);
-                    dialogCanjes.dismiss();
-                }else {
-                    Toast.makeText(getContext(),nombre+", Puntos insuficientes para realizar en canje",Toast.LENGTH_SHORT).show();
+                float numeroValor = cambiarVarible(puntosDisponibles);
+                if (!campoCanjes.getText().toString().equals("")) {
+                    try {
+                        cambioCanjes = Integer.parseInt((campoCanjes.getText().toString()));
+
+                        if (cambioCanjes < 1) {
+                            Toast.makeText(getContext(), nombre + " Ingrese un valor mayor a 0", Toast.LENGTH_SHORT).show();
+                        } else {
+                            if (cambioCanjes <= numeroValor) {
+                                realizarCanje(cambioCanjes);
+                                dialogCanjes.dismiss();
+                            } else {
+                                Toast.makeText(getContext(), nombre + ", Puntos insuficientes para realizar en canje", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } catch (Exception e) {
+                        campoCanjes.setText(null);
+                        Toast.makeText(getContext(), nombre + " Verifique el numero por favor", Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(getContext(), nombre + " Por favor ingrese un valor", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 
@@ -210,9 +226,10 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
             this.nombre = nombre;
         }
     }
+
     private void realizarCanje(final float numero) {
         String url;
-        url = "https://" + Objects.requireNonNull(getContext()).getString(R.string.ip)+"guardamonedas.php?idusuario="+correo+"&&puntos="+String.valueOf(numero);
+        url = "https://" + Objects.requireNonNull(getContext()).getString(R.string.ip) + "guardamonedas.php?idusuario=" + correo + "&&puntos=" + String.valueOf(numero);
         stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -235,7 +252,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
 
 
     private int cambiarVarible(String puntosDisponibles) {
-        String cambio=puntosDisponibles.replaceAll(",","");
+        String cambio = puntosDisponibles.replaceAll(",", "");
 
         return Integer.parseInt(cambio);
     }
@@ -361,11 +378,12 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
             dialogoCargando.setContentView(R.layout.popup_cargando);
             Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
-        }catch (Exception e){
-            Log.i("Error " , e.toString());
+        } catch (Exception e) {
+            Log.i("Error ", e.toString());
         }
 
     }
+
     @Override
     public void onErrorResponse(VolleyError error) {
 
@@ -381,10 +399,10 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
             txtActivo.setText("Activos Adquiridos: " + json.getJSONObject(2).optString("activos"));
             txtDescontados.setText("Puntos Descontados: " + json.getJSONObject(3).optString("descontados"));
             txtDisponibles.setText("Puntos Disponibles: " + json.getJSONObject(4).optString("quedan"));
-            puntosDisponibles=json.getJSONObject(4).optString("quedan");
-            txtAccionDia.setText("Accion del día: " + json.getJSONObject(5).optString("accion"));
-            monedasCanjeadas=response.optJSONArray("Criptoniif").getJSONObject(0).optString("monedas");
-            txtPuntosCanjes.setText("Monedas Canjeadas: " + monedasCanjeadas);
+            puntosDisponibles = json.getJSONObject(4).optString("quedan");
+            txtAccionDia.setText("Acción del día: " + json.getJSONObject(5).optString("accion"));
+            monedasCanjeadas = response.optJSONArray("Criptoniif").getJSONObject(0).optString("monedas");
+            txtPuntosCanjes.setText("Monedas Disponibles: " + monedasCanjeadas);
         } catch (JSONException e) {
             Toast.makeText(getContext(), "" + e.toString(), Toast.LENGTH_SHORT).show();
         }

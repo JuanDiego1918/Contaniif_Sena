@@ -301,6 +301,7 @@ public class Pantalla_empezar_drag extends Fragment {
         }
         PaginacionNumeroAdapter miNumeroAdapter = new PaginacionNumeroAdapter(listanumero, getContext());
         miRecyclerNumero.setAdapter(miNumeroAdapter);
+        Datos.actualizarPuntos = true;
         return view;
     }
 
@@ -603,7 +604,7 @@ public class Pantalla_empezar_drag extends Fragment {
                 @Override
                 public void onClick(View v) {
                     MyDialogFinal.dismiss();
-                    Datos.actualizarPuntos = true;
+
                     puente.finaliza();
                 }
             });

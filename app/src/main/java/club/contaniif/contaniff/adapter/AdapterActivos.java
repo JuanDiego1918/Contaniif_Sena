@@ -57,7 +57,7 @@ public class AdapterActivos extends RecyclerView.Adapter<AdapterActivos.ActivosH
             holder.descrip.setText(listaActivos.get(position).getDescripcion());
             holder.descrip.setVisibility(View.VISIBLE);
             holder.desc.setVisibility(View.VISIBLE);
-            holder.desc.setText(listaActivos.get(position).getDescuento());
+            holder.desc.setText("Descuento diario: " + listaActivos.get(position).getDescuento());
             holder.siguienteActivo.setVisibility(View.INVISIBLE);
         } else {
             holder.contenido.setBackgroundColor(Color.parseColor("#ff00cc86"));
@@ -118,7 +118,7 @@ public class AdapterActivos extends RecyclerView.Adapter<AdapterActivos.ActivosH
             contenido = itemView.findViewById(R.id.contenido);
             descrip = itemView.findViewById(R.id.descripActivo);
             desc = itemView.findViewById(R.id.descActivo);
-            siguienteActivo=itemView.findViewById(R.id.siguienteActivo);
+            siguienteActivo = itemView.findViewById(R.id.siguienteActivo);
         }
     }
 }

@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_margin="5dp"
-                android:background="@color/miRendimientoClaro"
+                android:background="@drawable/mi_rendimiento"
                 android:onClick="onClick"
                 android:orientation="vertical">
 
@@ -51,12 +51,12 @@
                         android:layout_height="40dp"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="4"
-                        android:src="@drawable/logo_linea_siguiente"
-                        android:contentDescription="TODO" />
+                        android:contentDescription="TODO"
+                        android:src="@drawable/logo_linea_siguiente" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:background="@drawable/mi_rendimiento"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -74,35 +74,46 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_weight="2"
                         android:gravity="center"
-                        android:layout_weight="2">
+                        android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/puntosUsuario"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
-                            android:textStyle="bold"
                             android:textColor="@color/letraBlanca"
-                            android:textSize="45sp" />
+                            android:textSize="45sp"
+                            android:textStyle="bold" />
+
                         <TextView
-                            android:layout_marginStart="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
                             android:text="Pts"
                             android:textColor="@color/letraBlanca"
                             android:textSize="35sp" />
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/btnAyuda"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
                         android:layout_gravity="bottom"
                         android:layout_weight="4"
-                        android:id="@+id/btnAyuda"
-                        android:src="@drawable/logo_ayuda"
-                        android:contentDescription="TODO" />
+                        android:contentDescription="TODO"
+                        android:src="@drawable/logo_ayuda" />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/version"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
 
@@ -150,9 +161,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
                                 android:layout_weight="1"
                                 android:text="Empezar"
-                                android:layout_gravity="center_vertical"
                                 android:textColor="@color/letraBlanca"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
@@ -162,8 +173,8 @@
                                 android:layout_height="25dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente"
-                                android:contentDescription="TODO" />
+                                android:contentDescription="TODO"
+                                android:src="@drawable/logo_linea_siguiente" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -204,20 +215,36 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
                                 android:layout_weight="1"
                                 android:text="Videos   "
-                                android:layout_gravity="center_vertical"
                                 android:textColor="@color/letraBlanca"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
-                            <ImageView
+                            <RelativeLayout
                                 android:layout_width="120dp"
                                 android:layout_height="25dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente"
-                                android:contentDescription="TODO" />
+                                android:layout_gravity="bottom"
+                                android:layout_weight="4">
+
+                                <ImageView
+                                    android:id="@+id/notificacionVideo"
+                                    android:layout_width="120dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="bottom"
+                                    android:layout_weight="4"
+                                    android:contentDescription="TODO"
+                                    android:src="@drawable/logo_linea_siguiente" />
+
+                                <TextView
+                                    android:id="@+id/txtnotificacionVideo"
+                                    android:layout_width="120dp"
+                                    android:layout_height="20dp"
+                                    android:textAlignment="center"
+                                    android:textColor="#fff"
+                                    android:textSize="16sp" />
+                            </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -269,22 +296,38 @@
                             android:padding="10dp">
 
                             <TextView
-                                android:layout_gravity="center_vertical"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
                                 android:layout_weight="1"
                                 android:text="Eventos         "
                                 android:textColor="@color/letraBlanca"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
-                            <ImageView
+                            <RelativeLayout
                                 android:layout_width="120dp"
                                 android:layout_height="25dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente"
-                                android:contentDescription="TODO" />
+                                android:layout_gravity="bottom"
+                                android:layout_weight="4">
+
+                                <ImageView
+                                    android:id="@+id/notificacionEventos"
+                                    android:layout_width="120dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="bottom"
+                                    android:layout_weight="4"
+                                    android:contentDescription="TODO"
+                                    android:src="@drawable/logo_linea_siguiente" />
+
+                                <TextView
+                                    android:id="@+id/txtnotificacionEventos"
+                                    android:layout_width="120dp"
+                                    android:layout_height="20dp"
+                                    android:textAlignment="center"
+                                    android:textColor="#fff"
+                                    android:textSize="16sp" />
+                            </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -328,20 +371,36 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
                                 android:layout_weight="1"
                                 android:text="¿Sabias que?"
-                                android:layout_gravity="center_vertical"
                                 android:textColor="@color/letraBlanca"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
-                            <ImageView
+                            <RelativeLayout
                                 android:layout_width="120dp"
                                 android:layout_height="25dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente"
-                                android:contentDescription="TODO" />
+                                android:layout_gravity="bottom"
+                                android:layout_weight="4">
+
+                                <ImageView
+                                    android:id="@+id/notificacionSabias"
+                                    android:layout_width="120dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="bottom"
+                                    android:layout_weight="4"
+                                    android:contentDescription="TODO"
+                                    android:src="@drawable/logo_linea_siguiente" />
+
+                                <TextView
+                                    android:id="@+id/txtnotificacionSabias"
+                                    android:layout_width="120dp"
+                                    android:layout_height="20dp"
+                                    android:textAlignment="center"
+                                    android:textColor="#fff"
+                                    android:textSize="16sp" />
+                            </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </TableRow>
@@ -394,9 +453,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
                                 android:layout_weight="1"
                                 android:text="Configuración           "
-                                android:layout_gravity="center_vertical"
                                 android:textColor="@color/letraBlanca"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
@@ -406,8 +465,8 @@
                                 android:layout_height="25dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente"
-                                android:contentDescription="TODO" />
+                                android:contentDescription="TODO"
+                                android:src="@drawable/logo_linea_siguiente" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -451,9 +510,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
                                 android:layout_weight="1"
                                 android:text="Acerca de                 "
-                                android:layout_gravity="center_vertical"
                                 android:textColor="@color/letraBlanca"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
@@ -464,8 +523,8 @@
                                 android:layout_height="25dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_weight="4"
-                                android:src="@drawable/logo_linea_siguiente"
-                                android:contentDescription="TODO" />
+                                android:contentDescription="TODO"
+                                android:src="@drawable/logo_linea_siguiente" />
                         </LinearLayout>
                     </LinearLayout>
                 </TableRow>

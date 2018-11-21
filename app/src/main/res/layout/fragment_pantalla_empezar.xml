@@ -34,7 +34,6 @@
             android:max="100"
             android:progress="0"
             android:progressDrawable="@drawable/colores" />
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="30dp"
@@ -42,6 +41,7 @@
             android:layout_weight="48"
             android:background="@drawable/logo_sena"
             android:contentDescription="TODO" />
+
     </LinearLayout>
 
     <LinearLayout

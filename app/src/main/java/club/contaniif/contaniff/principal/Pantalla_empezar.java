@@ -200,7 +200,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
     private int correctoSeleccionMultiple = 0;
     private PreguntasVo preguntas;
     private ArrayList<String> listaColores;
-    private   TextView campoFinal;
+    private TextView campoFinal;
     private String urlMensaje;
 
     public Pantalla_empezar() {
@@ -322,6 +322,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         PaginacionNumeroAdapter miNumeroAdapter = new PaginacionNumeroAdapter(listanumero, getContext());
         miRecyclerNumero.setAdapter(miNumeroAdapter);
         cargarDatos();
+        Datos.actualizarPuntos = true;
         return vista;
     }
 
@@ -456,7 +457,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
             @Override
             public void onFinish() {
-                tiempoCapturado=preguntas.getTiempoDemora()+1;
+                tiempoCapturado = preguntas.getTiempoDemora() + 1;
                 i++;
                 mProgressBar.setProgress(100);
             }
@@ -516,11 +517,11 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
 
     }
 
-    private void puntaje(){
+    private void puntaje() {
         if (tiempoCapturado > preguntas.getTiempoDemora()) {
-            puntajeFinal=(getPuntage() * 50) / 100;
-        }else {
-            puntajeFinal=getPuntage();
+            puntajeFinal = (getPuntage() * 50) / 100;
+        } else {
+            puntajeFinal = getPuntage();
         }
     }
 
@@ -547,14 +548,14 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 }
             }
 
-            if (buenas > malas ) {
-                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo="+1;
+            if (buenas > malas) {
+                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo=" + 1;
                 terminaBien.start();
             } else if (malas > buenas) {
-                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo="+0;
+                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo=" + 0;
                 terminaMal.start();
-            }else if(malas==buenas){
-                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo="+1;
+            } else if (malas == buenas) {
+                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo=" + 1;
                 terminaBien.start();
             }
 
@@ -577,7 +578,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 @Override
                 public void onClick(View v) {
                     MyDialogFinal.dismiss();
-                    Datos.actualizarPuntos = true;
                     puente.finaliza();
                 }
             });
@@ -588,7 +588,6 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
         btnContinuar.setVisibility(View.INVISIBLE);
         btnContinuar2.setVisibility(View.VISIBLE);
     }
-
 
 
     ///////////////////////////////VICTOR/////////////////////////////////
@@ -634,7 +633,7 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
                 String idusuario = credenciales;
                 idpregunta = preguntas.getId();
                 tiempo = tiempoCapturado;
-                puntaje=puntajeFinal;
+                puntaje = puntajeFinal;
                 parametros = new HashMap<>();
                 parametros.put("idusuario", idusuario);
                 parametros.put("idpregunta", Integer.toString(idpregunta));

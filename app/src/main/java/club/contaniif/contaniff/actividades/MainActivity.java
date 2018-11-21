@@ -58,6 +58,12 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     String puntajeUrl, imagenUrl;
     ImageView medalla;
     ImageButton next, back;
+    TextView notificacionevento, notificacionSabias, notificacionVideos, notificaionVersion;
+    ImageView imagenNotificacionEvento, imagenNotificacionSabias, imagenNotificacionVideo;
+    Drawable siguiente, notificacion;
+
+    String version;
+    int videos, eventos, sabias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +77,18 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         cargarCredenciales();
         cargarWebService();
         ayuda = findViewById(R.id.btnAyuda);
+        notificacionevento = findViewById(R.id.txtnotificacionEventos);
+        notificacionSabias = findViewById(R.id.txtnotificacionSabias);
+        notificacionVideos = findViewById(R.id.txtnotificacionVideo);
+        imagenNotificacionEvento = findViewById(R.id.notificacionEventos);
+        imagenNotificacionSabias = findViewById(R.id.notificacionSabias);
+        imagenNotificacionVideo = findViewById(R.id.notificacionVideo);
+        notificaionVersion = findViewById(R.id.version);
+        siguiente = getResources().getDrawable(R.drawable.logo_linea_siguiente);
+        notificacion = getResources().getDrawable(R.drawable.notificacion);
+
+
+        imagenNotificacionEvento.setImageDrawable(siguiente);
         ayuda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,11 +257,17 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
     @Override
     public void onResponse(JSONObject response) {
-
         JSONArray json = response.optJSONArray("puntaje");
         try {
             puntajeUrl = json.getJSONObject(0).optString("puntos");
-            imagenUrl = response.optJSONArray("medalla").getJSONObject(0).optString("medalla");
+            imagenUrl = response.optJSONArray("eventos").getJSONObject(0).optString("medalla");
+            version = response.optJSONArray("eventos").getJSONObject(0).optString("version");
+            sabias = response.optJSONArray("eventos").getJSONObject(0).optInt("sabias");
+            eventos = response.optJSONArray("eventos").getJSONObject(0).optInt("eventos");
+            videos = response.optJSONArray("eventos").getJSONObject(0).optInt("videos");
+
+            notificaciones();
+
             dialogoCargando.dismiss();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -252,6 +276,42 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         puntosUsuario.setText(puntajeUrl);
 
 
+    }
+
+    private void notificaciones() {
+        if (videos != 0) {
+            imagenNotificacionVideo.setImageDrawable(notificacion);
+            notificacionVideos.setVisibility(View.VISIBLE);
+            notificacionVideos.setText("" + videos);
+        } else if (videos == 0) {
+            imagenNotificacionVideo.setImageDrawable(siguiente);
+            notificacionVideos.setVisibility(View.INVISIBLE);
+        }
+
+        if (eventos != 0) {
+            imagenNotificacionEvento.setImageDrawable(notificacion);
+            notificacionevento.setVisibility(View.VISIBLE);
+            notificacionevento.setText("" + eventos);
+        } else if (eventos == 0) {
+            imagenNotificacionEvento.setImageDrawable(siguiente);
+            notificacionevento.setVisibility(View.INVISIBLE);
+        }
+
+        if (sabias != 0) {
+            imagenNotificacionSabias.setImageDrawable(notificacion);
+            notificacionSabias.setVisibility(View.VISIBLE);
+            notificacionSabias.setText("" + sabias);
+        } else if (sabias == 0) {
+            imagenNotificacionSabias.setImageDrawable(siguiente);
+            notificacionSabias.setVisibility(View.INVISIBLE);
+        }
+
+        if (!version.equalsIgnoreCase("0")) {
+            notificaionVersion.setVisibility(View.VISIBLE);
+            notificaionVersion.setText(version);
+        }else {
+            notificaionVersion.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void mostrarImg(String imagenUrl) {
