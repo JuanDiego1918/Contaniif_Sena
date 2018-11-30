@@ -19,7 +19,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ingrese el correo electrónico con el que se registro al sistema ContaNIIF."
+            android:textAlignment="center"
+            android:text="Ingrese el correo electrónico con el que se registro al sistema ContaNIIF."
             android:textColor="#000"
             android:textSize="18dp" />
 

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:gravity="center"
-        android:background="@color/ConfiguracionClaro">
+        android:background="@color/ConfiguracionOscuro1">
 
         <me.biubiubiu.justifytext.library.JustifyTextView
             android:layout_width="match_parent"

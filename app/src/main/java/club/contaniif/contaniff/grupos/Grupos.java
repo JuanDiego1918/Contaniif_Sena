@@ -73,7 +73,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
     private TextView campoGrupoP;
     private String idusuario;
 
-    private String sinGrupo = "\nEn ContaNIIF los instructores o profesores pueden crear grupos de estudio, en este momento pertenece al grupo: _______, toque sobre un grupo para unirse a él.\n";
+    private String sinGrupo;
 
     public Grupos() {
         // Required empty public constructor
@@ -208,7 +208,8 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
             }
 
             if (esta.equals("Ninguno")) {
-                campoGrupoP.setText(sinGrupo);
+
+                campoGrupoP.setText(conGrupo);
             } else {
                 campoGrupoP.setText(conGrupo);
             }
