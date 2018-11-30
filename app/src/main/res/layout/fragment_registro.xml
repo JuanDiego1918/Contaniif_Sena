@@ -77,7 +77,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:ems="10"
-                android:hint="Correo electronico"
+                android:hint="Correo electrónico"
                 android:inputType="textEmailAddress" />
 
 
@@ -89,7 +89,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/colorPrimary"
                 android:inputType="date"
-                android:text="FECHA DE NACIMIENTO OPRIME AQUI"
+                android:text="toque aquí para registrar su fecha de nacimiento"
                 android:textAlignment="center"
                 android:textColor="#000"
                 android:textSize="16dp" />

@@ -8,7 +8,7 @@
 
 
     <LinearLayout
-        android:layout_margin="170dp"
+        android:layout_margin="100dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/borde_boton_redondo"
@@ -36,13 +36,20 @@
             android:textColor="@color/black"
             android:textStyle="bold" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Los puntos se cambian por CriptoNIIF."
+            android:textSize="23dp"
+            android:textColor="#000"/>
+
         <EditText
-            android:textSize="30dp"
+            android:textSize="25dp"
             android:id="@+id/campoCanjes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:hint="Escriba el monto a cambiar" />
+            android:hint="cantidad de puntos a cambiar." />
 
         <Button
             android:id="@+id/enviar"

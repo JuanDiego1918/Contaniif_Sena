@@ -101,6 +101,7 @@ public class IngresaCodigoRegistro extends AppCompatActivity {
                     dialogoCargando.hide();
                     Intent intent = new Intent(IngresaCodigoRegistro.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         }, new Response.ErrorListener() {

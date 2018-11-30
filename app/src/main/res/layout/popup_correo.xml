@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="40dp"
+    android:layout_marginRight="40dp"
     android:background="@android:color/transparent"
     android:gravity="center"
     android:orientation="vertical">
@@ -14,11 +16,18 @@
         android:orientation="vertical"
         android:padding="10dp">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ingrese el correo electrónico con el que se registro al sistema ContaNIIF."
+            android:textColor="#000"
+            android:textSize="18dp" />
+
         <EditText
             android:id="@+id/campoCorreoValida"
-            android:layout_width="200dp"
-            android:layout_height="94dp"
-            android:hint="Ingrese su correo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ingrese el correo"
             android:inputType="textEmailAddress"
             android:maxLength="500"
             android:textAlignment="center" />

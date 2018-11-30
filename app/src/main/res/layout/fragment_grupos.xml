@@ -13,25 +13,18 @@
         android:layout_width="match_parent"
         android:id="@+id/layoutGrupo"
         android:layout_height="wrap_content"
-        android:layout_weight="2">
+        android:layout_weight="2"
+        android:gravity="center"
+        android:background="@color/ConfiguracionClaro">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="18dp"
-            android:textColor="#fff"
-            android:text="Perteneces a: "
-            android:background="@color/ConfiguracionClaro"/>
-
-        <TextView
+        <me.biubiubiu.justifytext.library.JustifyTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/campoGrupoP"
             android:layout_weight="1"
             android:textSize="18dp"
-            android:textColor="#fff"
-            android:background="@color/ConfiguracionClaro"/>
+            android:layout_marginLeft="8dp"
+            android:textColor="#fff" />
     </LinearLayout>
 
 

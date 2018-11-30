@@ -163,7 +163,8 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
                 if (cambiarVarible(monedasCanjeadas) != 0) {
                     puente.activos(monedasCanjeadas);
                 } else {
-                    Toast.makeText(getContext(), "No tienes monedas disponibles para reaalizar compras", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), " En este momento no tiene monedas\n" +
+                            "disponibles para realizar compra de activos.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -277,10 +278,13 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
             @Override
             public void onClick(View v) {
                 cojeComentario = (campoComentario.getText().toString());
-                enviarDatosComentarios(cojeComentario);
-                obtenerFecha();
-                ventanaComentarios.dismiss();
-
+                if (campoComentario.getText().toString().equals(null)) {
+                    enviarDatosComentarios(cojeComentario);
+                    obtenerFecha();
+                    ventanaComentarios.dismiss();
+                } else {
+                    Toast.makeText(getContext(), "Escriba su comentario", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -14,53 +14,70 @@
         android:orientation="vertical"
         android:padding="10dp">
 
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imagenIzqquierda"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:src="@drawable/comentarios"
-            android:contentDescription="TODO" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tituloComentario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="COMENTARIO"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/imagenIzqquierda"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:contentDescription="TODO"
+                    android:src="@drawable/comentarios" />
 
-        <EditText
-            android:id="@+id/campoComentario"
-            android:layout_width="200dp"
-            android:layout_height="150dp"
-            android:maxLength="500"
-            android:hint="Escriba su comentario" />
+                <TextView
+                    android:id="@+id/tituloComentario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="COMENTARIO"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/enviar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:background="@drawable/borde_redondo_boton"
-            android:text="Enviar"
-            android:textColor="@color/white" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="En este espacio podrá enviar comentarios y situaciones que tenga con la plataforma, estos mensajes llegaran al administrador del sistema."
+                    android:textColor="#000"
+                    android:textSize="15dp" />
 
-        <Button
-            android:id="@+id/btnCancelarComentario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:background="@drawable/borde_redondo_boton"
-            android:text="Cancelar"
-            android:textColor="@color/white" />
+                <EditText
+                    android:id="@+id/campoComentario"
+                    android:layout_width="200dp"
+                    android:layout_height="150dp"
+                    android:hint="Escriba su comentario"
+                    android:maxLength="500" />
 
+                <Button
+                    android:id="@+id/enviar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/borde_redondo_boton"
+                    android:text="Enviar"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btnCancelarComentario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/borde_redondo_boton"
+                    android:text="Cancelar"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
+
 
 </RelativeLayout>

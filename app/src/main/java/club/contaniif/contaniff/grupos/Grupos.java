@@ -54,7 +54,7 @@ import club.contaniif.contaniff.entidades.VolleySingleton;
  * create an instance of this fragment.
  */
 @SuppressWarnings("EqualsBetweenInconvertibleTypes")
-public class Grupos extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class Grupos extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -62,7 +62,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
 
     private OnFragmentInteractionListener mListener;
     private RecyclerView recyclerGrupos;
-    private ArrayList<GruposVo>listaGrupos;
+    private ArrayList<GruposVo> listaGrupos;
     private Dialog dialogoCargando;
     private Dialog dialogGrupo;
     private String nombre;
@@ -72,6 +72,8 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
     private String dato2;
     private TextView campoGrupoP;
     private String idusuario;
+
+    private String sinGrupo = "\nEn ContaNIIF los instructores o profesores pueden crear grupos de estudio, en este momento pertenece al grupo: _______, toque sobre un grupo para unirse a él.\n";
 
     public Grupos() {
         // Required empty public constructor
@@ -128,7 +130,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
 
     private void cargarWebservices() {
         dialogoCargando();
-        String url = this.getString(R.string.ipGrupos)+idusuario;
+        String url = this.getString(R.string.ipGrupos) + idusuario;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
@@ -139,8 +141,8 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
             dialogoCargando.setContentView(R.layout.popup_cargando);
             Objects.requireNonNull(dialogoCargando.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogoCargando.show();
-        }catch (Exception e){
-            Log.i("Error " , e.toString());
+        } catch (Exception e) {
+            Log.i("Error ", e.toString());
         }
 
     }
@@ -189,6 +191,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
         JSONObject jsonObject;
         listaGrupos = new ArrayList<>();
         GruposVo gruposVo;
+        String conGrupo = sinGrupo;
 
         try {
 
@@ -201,9 +204,14 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
 
                 listaGrupos.add(gruposVo);
                 esta = gruposVo.getEsta();
+                conGrupo="\nEn ContaNIIF los instructores o profesores pueden crear grupos de estudio, en este momento pertenece al grupo: "+gruposVo.getEsta() + ", toque sobre un grupo para unirse a él. \n";
             }
 
-            campoGrupoP.setText(esta);
+            if (esta.equals("Ninguno")) {
+                campoGrupoP.setText(sinGrupo);
+            } else {
+                campoGrupoP.setText(conGrupo);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
 
@@ -215,7 +223,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
         recyclerGrupos.addOnItemTouchListener(new RecyclerViewOnClickListener(getContext(), new RecyclerViewOnClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-               dato = listaGrupos.get(recyclerGrupos.getChildAdapterPosition(view)).getCodigo();
+                dato = listaGrupos.get(recyclerGrupos.getChildAdapterPosition(view)).getCodigo();
                 dato2 = listaGrupos.get(recyclerGrupos.getChildAdapterPosition(view)).getGrupo();
                 showPopup();
             }
@@ -226,14 +234,14 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
 
     private void showPopup() {
 
-        Button aceptar,cancelar;
-        TextView campoNombre,campoGrupo;
+        Button aceptar, cancelar;
+        TextView campoNombre, campoGrupo;
         try {
             dialogGrupo.setContentView(R.layout.popup_grupos);
             Objects.requireNonNull(dialogGrupo.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogGrupo.show();
-        }catch (Exception e){
-           Log.i("Error ",e.toString());
+        } catch (Exception e) {
+            Log.i("Error ", e.toString());
         }
 
         campoNombre = dialogGrupo.findViewById(R.id.campoNombreGrupo);
@@ -256,7 +264,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
             @Override
             public void onClick(View v) {
                 dialogGrupo.hide();
-                Toast.makeText(getContext(), "No ha elegido ningun grupo " , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "No ha elegido ningun grupo ", Toast.LENGTH_SHORT).show();
             }
         });
 

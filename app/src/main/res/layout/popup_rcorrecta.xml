@@ -107,10 +107,10 @@
                 android:layout_marginTop="33dp">
 
                 <TextView
-                    android:paddingTop="16dp"
+                    android:paddingTop="19dp"
                     android:textAlignment="center"
                     android:textStyle="bold"
-                    android:textSize="23sp"
+                    android:textSize="20dp"
                     android:id="@+id/campoPuntajeCorrecto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

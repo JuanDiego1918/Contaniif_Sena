@@ -2,30 +2,39 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="60dp"
+    android:layout_marginRight="60dp"
     android:background="@android:color/transparent"
     android:gravity="center"
     android:orientation="vertical">
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/borde_boton_redondo"
         android:orientation="vertical"
         android:padding="20dp">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingrese el correo electrónico con el que se registro al sistema ContaNIIF."
+            android:textColor="#000"
+            android:textSize="23dp" />
+
         <EditText
-            android:textSize="20sp"
             android:id="@+id/campoCorreoValida"
-            android:layout_width="300dp"
-            android:layout_height="104dp"
-            android:hint="Ingrese su correo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ingrese el correo"
             android:inputType="textEmailAddress"
             android:maxLength="500"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="20dp" />
+
 
         <Button
-            android:textSize="28sp"
             android:id="@+id/btnEnviarCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,10 +42,10 @@
             android:layout_margin="5dp"
             android:background="@drawable/borde_redondo_boton"
             android:text="Aceptar"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="28sp" />
 
         <Button
-            android:textSize="28sp"
             android:id="@+id/btnCancelarCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,7 +53,8 @@
             android:layout_margin="5dp"
             android:background="@drawable/borde_redondo_boton"
             android:text="Cancelar"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="28sp" />
 
     </LinearLayout>
 

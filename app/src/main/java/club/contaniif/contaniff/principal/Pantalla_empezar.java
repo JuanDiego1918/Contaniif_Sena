@@ -549,13 +549,13 @@ public class Pantalla_empezar extends Fragment implements Response.Listener<JSON
             }
 
             if (buenas > malas) {
-                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo=" + 1;
+                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo=" + buenas+"&idusuario="+credenciales;
                 terminaBien.start();
             } else if (malas > buenas) {
-                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo=" + 0;
+                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo=" + buenas+"&idusuario="+credenciales;
                 terminaMal.start();
             } else if (malas == buenas) {
-                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo=" + 1;
+                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo=" + buenas+"&idusuario="+credenciales;
                 terminaBien.start();
             }
 
