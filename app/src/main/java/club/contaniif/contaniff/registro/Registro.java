@@ -360,7 +360,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
         webView = dialogoTerminos.findViewById(R.id.webTerminos);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("https://www.contaniif.club/terminos.html");
+        webView.loadUrl("http://www.contaniif.club/terminos.html");
 
         Objects.requireNonNull(dialogoTerminos.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogoTerminos.show();
@@ -413,7 +413,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
 
         dialogoCargando();
         String url;
-        java.lang.System.setProperty("https.protocols", "TLSv1");
+        //java.lang.System.setProperty("http.protocols", "TLSv1");
         url = getApplicationContext().getString(R.string.ipValidaCorreo);
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -834,7 +834,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     private void registrarUsuarios() {
         dialogoCargando();
         String url;
-        java.lang.System.setProperty("https.protocols", "TLSv1");
+        java.lang.System.setProperty("http.protocols", "TLSv1");
         url = getApplicationContext().getString(R.string.ipRegistro1);
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override

@@ -98,7 +98,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
         dialogoCargando();
         cargarCredenciales();
         request = Volley.newRequestQueue(getApplication());
-        String url = "https://" + getApplicationContext().getString(R.string.ip) + "activos.php?idusuario=" + correo;
+        String url = "http://" + getApplicationContext().getString(R.string.ip) + "activos.php?idusuario=" + correo;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
@@ -226,7 +226,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
 
     private void realizarComprar(ActivosVo vo) {
         String url;
-        url = "https://" + getApplicationContext().getString(R.string.ip) + "guardaactivos.php?idusuario=" + correo + "&&activo=" + vo.getId();
+        url = "http://" + getApplicationContext().getString(R.string.ip) + "guardaactivos.php?idusuario=" + correo + "&&activo=" + vo.getId();
         stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -252,7 +252,7 @@ public class ActivosActivity extends AppCompatActivity implements Response.Liste
     private void cargarImgGeneral(String rutaImagen) {
         String ip = getApplicationContext().getString(R.string.imgRendimiento);
 
-        final String urlImagen = "https://" + ip + "activos/" + rutaImagen + ".png";
+        final String urlImagen = "http://" + ip + "activos/" + rutaImagen + ".png";
         ImageRequest imageRequest = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {

@@ -237,7 +237,7 @@ public class ActivityContenedora extends AppCompatActivity implements AllFragmen
     private void cargarWebservices() {
         dialogoCargando();
         String ip = getApplicationContext().getString(R.string.ip);
-        String url = "https://" + ip + "/wsConsultaPreguntaPrueba1.php?estudiante=" + credenciales;
+        String url = "http://" + ip + "/wsConsultaPreguntaPrueba1.php?estudiante=" + credenciales;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
 

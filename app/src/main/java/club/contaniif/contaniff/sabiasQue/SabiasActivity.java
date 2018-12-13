@@ -72,7 +72,7 @@ public class SabiasActivity extends AppCompatActivity implements Response.Listen
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
         RequestQueue request = Volley.newRequestQueue(getApplication());
-        String url = "https://" + getApplicationContext().getString(R.string.ip) + "sabias.php?categoria=" + categoria;
+        String url = "http://" + getApplicationContext().getString(R.string.ip) + "sabias.php?categoria=" + categoria;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }

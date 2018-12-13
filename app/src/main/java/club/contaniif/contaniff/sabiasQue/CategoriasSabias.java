@@ -107,7 +107,7 @@ public class CategoriasSabias extends Fragment implements Response.Listener<JSON
 
     private void cargarWebservices() {
         dialogoCargando();
-        String url = "https://" + Objects.requireNonNull(getContext()).getString(R.string.ip) + "VideosCategorias.php";
+        String url = "http://" + Objects.requireNonNull(getContext()).getString(R.string.ip) + "VideosCategorias.php";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }

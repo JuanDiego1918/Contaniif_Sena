@@ -85,7 +85,7 @@ public class IngresaCodigoRegistro extends AppCompatActivity {
     private void enviaCodigo() {
         dialogoCargando();
         String url;
-        java.lang.System.setProperty("https.protocols", "TLSv1");
+        java.lang.System.setProperty("http.protocols", "TLSv1");
         url = getApplicationContext().getString(R.string.ipEnviaCodigo);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override

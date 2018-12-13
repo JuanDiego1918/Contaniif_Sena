@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         fondo = dialogoAyuda.findViewById(R.id.imagenFondoAyuda);
         next = dialogoAyuda.findViewById(R.id.btnNextAyuda);
         back = dialogoAyuda.findViewById(R.id.btnBackAyuda);
-        fondo.loadUrl("https://contaniif.club/img/ayuda/grendimiento.gif");
+        fondo.loadUrl("http://contaniif.club/img/ayuda/grendimiento.gif");
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,16 +160,16 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     private void cambiarImagen(int imagen) {
         switch (imagen) {
             case 1:
-                fondo.loadUrl("https://contaniif.club/img/ayuda/grendimiento.gif");
+                fondo.loadUrl("http://contaniif.club/img/ayuda/grendimiento.gif");
                 break;
             case 2:
-                fondo.loadUrl("https://contaniif.club/img/ayuda/gf_rendimiento.gif");
+                fondo.loadUrl("http://contaniif.club/img/ayuda/gf_rendimiento.gif");
                 break;
             case 3:
-                fondo.loadUrl("https://contaniif.club/img/ayuda/gif_ayuda.gif");
+                fondo.loadUrl("http://contaniif.club/img/ayuda/gif_ayuda.gif");
                 break;
             case 4:
-                fondo.loadUrl("https://contaniif.club/img/ayuda/gif_empezar.gif");
+                fondo.loadUrl("http://contaniif.club/img/ayuda/gif_empezar.gif");
                 break;
 
         }
@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     private void cargarWebService() {
         dialogoCargando();
         request = Volley.newRequestQueue(getApplication());
-        String url = "https://" + getApplicationContext().getString(R.string.ip) + "puntaje.php?idusuario=" + correo;
+        String url = "http://" + getApplicationContext().getString(R.string.ip) + "puntaje.php?idusuario=" + correo;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
@@ -274,7 +274,6 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         }
         mostrarImg(imagenUrl);
         puntosUsuario.setText(puntajeUrl);
-
 
     }
 
@@ -317,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     private void mostrarImg(String imagenUrl) {
         String ip = getApplicationContext().getString(R.string.imgRendimiento);
 
-        final String urlImagen = "https://" + ip + "medallas/" + imagenUrl + ".png";
+        final String urlImagen = "http://" + ip + "medallas/" + imagenUrl + ".png";
         ImageRequest imageRequest = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {

@@ -579,13 +579,13 @@ public class Pantalla_empezar_drag extends Fragment {
             }
 
             if (buenas > malas) {
-                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo=" + buenas+"&idusuario="+credenciales;
+                urlMensaje = "http://contaniif.club/movil/retroalimentacion.php?codigo=" + buenas+"&idusuario="+credenciales;
                 terminaBien.start();
             } else if (malas > buenas) {
-                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo=" + buenas+"&idusuario="+credenciales;
+                urlMensaje = "http://contaniif.club/movil/retroalimentacion.php?codigo=" + buenas+"&idusuario="+credenciales;
                 terminaMal.start();
             } else if (malas == buenas) {
-                urlMensaje = "https://contaniif.club/movil/retroalimentacion.php?codigo=" + buenas+"&idusuario="+credenciales;
+                urlMensaje = "http://contaniif.club/movil/retroalimentacion.php?codigo=" + buenas+"&idusuario="+credenciales;
                 terminaBien.start();
             }
 

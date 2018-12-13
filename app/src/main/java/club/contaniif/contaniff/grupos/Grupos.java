@@ -274,7 +274,7 @@ public class Grupos extends Fragment implements Response.Listener<JSONObject>, R
     private void registrarGrupo() {
         dialogoCargando();
         String url;
-        java.lang.System.setProperty("https.protocols", "TLSv1");
+        //java.lang.System.setProperty("http.protocols", "TLSv1");
         url = Objects.requireNonNull(getContext()).getString(R.string.ipRegistraGrupo);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override

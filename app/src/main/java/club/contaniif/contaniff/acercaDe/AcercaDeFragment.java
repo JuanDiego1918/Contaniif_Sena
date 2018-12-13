@@ -38,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * create an instance of this fragment.
  */
 
-public class AcercaDeFragment extends Fragment {
+public class  AcercaDeFragment extends Fragment {
     //Hola
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -202,7 +202,7 @@ public class AcercaDeFragment extends Fragment {
         final String urlImagen;
         switch (i) {
             case 1:
-                urlImagen = "https://" + ip + "3.jpg";
+                urlImagen = "http://" + ip + "3.jpg";
                 ImageRequest imageRequest = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap response) {
@@ -217,7 +217,7 @@ public class AcercaDeFragment extends Fragment {
                 request.add(imageRequest);
                 break;
             case 2:
-                urlImagen = "https://" + ip + "1.jpg";
+                urlImagen = "http://" + ip + "1.jpg";
                 ImageRequest imageRequest2 = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap response) {
@@ -232,7 +232,7 @@ public class AcercaDeFragment extends Fragment {
                 request.add(imageRequest2);
                 break;
             case 3:
-                urlImagen = "https://" + ip + "2.jpg";
+                urlImagen = "http://" + ip + "2.jpg";
                 ImageRequest imageRequest3 = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap response) {
@@ -289,7 +289,7 @@ public class AcercaDeFragment extends Fragment {
     private void cargarImg(int i) {
         String ip = getContext().getString(R.string.imgFotos);
 
-        final String urlImagen = "https://" + ip + i + ".jpg";
+        final String urlImagen = "http://" + ip + i + ".jpg";
         ImageRequest imageRequest = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {

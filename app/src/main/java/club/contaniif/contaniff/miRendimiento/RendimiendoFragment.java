@@ -230,7 +230,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
 
     private void realizarCanje(final float numero) {
         String url;
-        url = "https://" + Objects.requireNonNull(getContext()).getString(R.string.ip) + "guardamonedas.php?idusuario=" + correo + "&&puntos=" + String.valueOf(numero);
+        url = "http://" + Objects.requireNonNull(getContext()).getString(R.string.ip) + "guardamonedas.php?idusuario=" + correo + "&&puntos=" + String.valueOf(numero);
         stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -371,7 +371,7 @@ public class RendimiendoFragment extends Fragment implements Response.ErrorListe
     private void cargarDatos() {
         dialogoCargando();
         String url;
-        url = "https://" + Objects.requireNonNull(getContext()).getString(R.string.ip) + "puntajes.php?correo=" + correo;
+        url = "http://" + Objects.requireNonNull(getContext()).getString(R.string.ip) + "puntajes.php?correo=" + correo;
         com.android.volley.toolbox.JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
