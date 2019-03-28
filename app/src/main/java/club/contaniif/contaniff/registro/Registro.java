@@ -102,7 +102,7 @@ public class Registro extends AppCompatActivity implements Response.Listener<JSO
     private static final int COD_SELECCIONA = 10;
     private static final int COD_FOTO = 20;
 
-    // Patrón para validar el email
+    //Patrón para validar el email
     private final Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 
     private String dato;
